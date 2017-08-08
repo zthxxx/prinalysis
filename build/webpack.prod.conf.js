@@ -66,7 +66,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency',
-      favicon: 'favicon.ico'
+      favicon: 'static/favicon.ico'
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
