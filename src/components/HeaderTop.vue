@@ -5,7 +5,7 @@
         <a href="/">
           <img src="../assets/logo.png" alt="logo" class="nav-logo">
         </a>
-        <el-menu :default-active="navIndex" class="nav-list" mode="horizontal" @select="navSelect">
+        <el-menu :default-active="navIndex" class="nav-list" mode="horizontal" router>
           <el-menu-item index="home" class="nav-item">主页</el-menu-item>
           <el-menu-item index="print" class="nav-item">打印</el-menu-item>
           <el-menu-item index="library" class="nav-item">校园文库</el-menu-item>
@@ -24,15 +24,13 @@
     name: 'header-top',
     data () {
       return {
-        navIndex: 'home',
       }
     },
-    methods: {
-      navSelect(key, keyPath) {
-        console.warn(key, keyPath);
+    computed: {
+      navIndex: function(){
+        return this.$route.path.replace('/', '');
       }
-    },
-    components: {}
+    }
   }
 </script>
 
@@ -81,11 +79,11 @@
     font-size: 16px
     text-align: center
     background-color: color-theme
-    transition: border-color .3s, background-color .3s, color .3s;
+    transition: border-color .3s,background-color .3s,color .3s;
     &:hover, &.is-active:hover
-      background-color: rgba(0, 0, 0, .05)
+      background-color: rgba(0,0,0,.05)
     &.is-active
-      background-color: rgba(0, 0, 0, .1)
+      background-color: rgba(0,0,0,.1)
       border-bottom: 5px solid #0d6
 
   .nav-button
