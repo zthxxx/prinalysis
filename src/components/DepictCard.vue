@@ -44,8 +44,8 @@
       margin: 60px auto
 
   depict-base(direct)
-    other-direct = direct == 'left' ? right : left
     height: 420px
+    other-direct = direct == 'left' ? right : left
     background-color: direct == 'left' ? transparent : descrip-back
     &>div
       max-width: 1400px

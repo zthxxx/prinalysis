@@ -1,12 +1,7 @@
 <template>
   <div id="app">
     <headerTop></headerTop>
-    <el-row type="flex" justify="center">
-      <el-col :span="24">
-        <router-view></router-view>
-      </el-col>
-    </el-row>
-
+    <router-view></router-view>
   </div>
 </template>
 
