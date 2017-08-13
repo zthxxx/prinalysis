@@ -3,7 +3,7 @@
     <div class="container">
       <div class="left">
         <a href="/">
-          <img src="../assets/logo.png" alt="logo" class="nav-logo">
+          <img src="../assets/img/logo.png" alt="logo" class="nav-logo">
         </a>
         <el-menu :default-active="navIndex" class="nav-list" mode="horizontal" router>
           <el-menu-item index="home" class="nav-item">主页</el-menu-item>
