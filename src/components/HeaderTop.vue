@@ -23,11 +23,10 @@
   export default {
     name: 'header-top',
     data () {
-      return {
-      }
+      return {}
     },
     computed: {
-      navIndex: function(){
+      navIndex: function () {
         return this.$route.path.replace('/', '');
       }
     }
@@ -47,9 +46,9 @@
     left: 0
     padding: 0 20px
     z-index: 100
-    color: #fff;
+    color: #fff
     box-sizing: border-box
-    background-color: color-theme
+    background-color: dark-blue
 
   .container
     width: 1140px
@@ -67,7 +66,7 @@
     height: 100%
     float: right
     padding-left: 20px
-    background-color: color-theme
+    background-color: dark-blue
 
   .nav-item
     margin: 0 10px
@@ -78,13 +77,24 @@
     color: #fff
     font-size: 16px
     text-align: center
-    background-color: color-theme
-    transition: border-color .3s,background-color .3s,color .3s;
+    background-color: dark-blue
+    transition: border-color .3s, background-color .3s, color .3s
+    &:hover
+      border-bottom: dark-blue
     &:hover, &.is-active:hover
-      background-color: rgba(0,0,0,.05)
+      background-color: rgba(0, 0, 0, .05)
     &.is-active
-      background-color: rgba(0,0,0,.1)
-      border-bottom: 5px solid #0d6
+      background-color: rgba(0, 0, 0, .1)
+      border-bottom: 4px solid theme-green
+    .count
+      font-size: 14px
+      display: inline-block
+      margin: 0 2px
+      padding: 0 6px
+      height: 20px
+      line-height: 20px
+      background: theme-green
+      border-radius: 10px
 
   .nav-button
     border: none

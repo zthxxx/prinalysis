@@ -1,9 +1,25 @@
 // Colors
+global-background-color = #f2f2f2
 color-theme = #20a0ff
-light-blue = #58b7ff
-dark-blue = #1d8ce0
-color-banner-back = #fbf7f4
+theme-green = #0d6
+theme-green-dark = #096
+light-blue = #57c5f7 // 2db7f5
+dark-blue = #0e90d2
 deep-black = #333
 deep-text-gray = #222
+color-banner-back = #fbf7f4
+theme-text-color = #0e90d2
 shallow-text-gray = #666
 descrip-back = #f9f9f9
+
+
+// Scrollbar
+scrollbar(barWidth = 8px)
+  &::-webkit-scrollbar
+    width: barWidth
+    background-color: rgba(#000, .05)
+    &-thumb
+      border-radius: barWidth
+      background-color: rgba(#000, .15)
+      &:active
+        background-color: rgba(#000, .3)

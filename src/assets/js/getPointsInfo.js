@@ -52,58 +52,58 @@ let pointsInfo = [{
     'activity': []
   }
 }, {
-  "pointId": "0008",
-  "status": "SUMMER_HOLIDAY",
-  "pointType": ["DISPATCHING"],
-  "delivery_scope": "清水镇广场",
-  "delivery_time": "全天接单，当晚配送",
-  "phoneNumber": "12345678910",
-  "printPointName": "清水镇广场店",
-  "address": "清水镇广场南面",
-  "message": "优惠券打印更加实惠哦~",
-  "imageUrl": require('@/assets/img/print/printPoint.jpg'),
-  "takeTime": [0, 0, 24, 0],
-  "basicPrintItem": {
-    "monoSingle": 10,
-    "monoDuplex": 15,
-    "colorfulSingle": 80,
-    "colorfulDuplex": 160,
-    "monoSingleThick": -1,
-    "monoDuplexThick": -1,
-    "colorfulSingleThick": -1,
-    "colorfulDuplexThick": -1
+  'pointId': '0008',
+  'status': 'SUMMER_HOLIDAY',
+  'pointType': ['DISPATCHING'],
+  'delivery_scope': '清水镇广场',
+  'delivery_time': '全天接单，当晚配送',
+  'phoneNumber': '12345678910',
+  'printPointName': '清水镇广场店',
+  'address': '清水镇广场南面',
+  'message': '优惠券打印更加实惠哦~',
+  'imageUrl': require('@/assets/img/print/printPoint.jpg'),
+  'takeTime': [0, 0, 24, 0],
+  'basicPrintItem': {
+    'monoSingle': 10,
+    'monoDuplex': 15,
+    'colorfulSingle': 80,
+    'colorfulDuplex': 160,
+    'monoSingleThick': -1,
+    'monoDuplexThick': -1,
+    'colorfulSingleThick': -1,
+    'colorfulDuplexThick': -1
   },
-  "printInfo": {
-    "prePrintStart": 500,
-    "distributionStart": 500,
-    "maxPageCount": 100000,
-    "distributionCharge_free": 50,
-    "distributionCharge": 200,
-    "desc": "18:00前下单，当天晚上配送。支持配送清水镇广场。"
+  'printInfo': {
+    'prePrintStart': 500,
+    'distributionStart': 500,
+    'maxPageCount': 100000,
+    'distributionCharge_free': 50,
+    'distributionCharge': 200,
+    'desc': '18:00前下单，当天晚上配送。支持配送清水镇广场。'
   },
-  "preInfo": {
-    "maxPageCount": 500,
-    "prePrintStart": 500,
-    "desc": ""
+  'preInfo': {
+    'maxPageCount': 500,
+    'prePrintStart': 500,
+    'desc': ''
   },
-  "atmInfo": {
-    "maxPageCount": 10000,
-    "desc": ""
+  'atmInfo': {
+    'maxPageCount': 10000,
+    'desc': ''
   },
-  "dispatch": {
-    "maxPageCount": 10000,
-    "distributionStart": 300, // 配送3元起
-    "distributionCharge_free": 50,
-    "distributionCharge": 50,
-    "desc": "18:00前下单，当天晚上配送。支持配送清水镇广场。"
+  'dispatch': {
+    'maxPageCount': 10000,
+    'distributionStart': 300, // 配送3元起
+    'distributionCharge_free': 50,
+    'distributionCharge': 50,
+    'desc': '18:00前下单，当天晚上配送。支持配送清水镇广场。'
   },
-  "minCharge": 0,
-  "reduction": {
-    "withCoupon": false, // 不可使用优惠券
-    "newUser": 100,   // 新用户立减1元
-    "full": [[2000, 300], [5000, 800]], // 满20减3 满50减8
-    "redPacket": true, // 红包
-    "activity": ["2016_01期末", "2016开学", "2016放假"]
+  'minCharge': 0,
+  'reduction': {
+    'withCoupon': false, // 不可使用优惠券
+    'newUser': 100,   // 新用户立减1元
+    'full': [[2000, 300], [5000, 800]], // 满20减3 满50减8
+    'redPacket': true, // 红包
+    'activity': ['2016_01期末', '2016开学', '2016放假']
   }
 }];
 

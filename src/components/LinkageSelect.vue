@@ -71,6 +71,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scope>
+  @import '../style/_variables'
   .area-select
     width: auto
     box-sizing: border-box
@@ -82,14 +83,19 @@
   .el-select
     width: 160px
     margin: 0 20px
+    &:hover
+      .el-input__inner
+        border-color: light-blue
+
   .el-input
     font-size: 12px
 
   .el-input__inner
     height: 26px
     text-align: center
+    border-radius: 6px
     &:focus
       outline: 0
-      box-shadow: 0 0 0 2px rgba(#2db7f5,.2)
+      box-shadow: 0 0 0 2px rgba(light-blue, 0.2)
 
 </style>

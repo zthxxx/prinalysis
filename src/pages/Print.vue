@@ -8,7 +8,9 @@
             v-model="address" :deep="3" :linkageDatas="addressData">
           </linkage-select>
         </div>
-        <shop-point-card v-model="selectedPoint"></shop-point-card>
+        <shop-point-card v-model="selectedPoint"
+                         :pointsInfo="pointsInfo"
+        ></shop-point-card>
       </box-card>
     </article>
   </transition>
@@ -19,17 +21,36 @@
   import linkageSelect from '@/components/LinkageSelect'
   import addressData from '@/assets/js/address-data'
   import shopPointCard from '@/components/ShopPointCard'
-//  import pointInfo from '@/assets/js/getPointsInfo'
+  import getPointsInfo from '@/assets/js/getPointsInfo'
   export default {
     name: 'print',
     data () {
       return {
         address: ['北京市'],
         addressData: addressData,
-        selectedPoint: null
+        selectedPoint: null,
+        pointsInfo: []
       }
     },
-    methods: {},
+    created(){
+      this.initData();
+    },
+    methods: {
+      initData () {
+        const pointsInfo = getPointsInfo;
+        const holidays = {
+          'RUNNING': '正在运营',
+          'SUMMER_HOLIDAY': '暑假休息',
+          'WINTER_HOLIDAY': '寒假休息',
+          'CLOSE_DOWN': '关门停业'
+        };
+        for (let point of pointsInfo) {
+          point.running = point.status == 'RUNNING';
+          point.rest_message = holidays[point.status];
+        }
+        this.pointsInfo = pointsInfo;
+      }
+    },
     components: {boxCard, linkageSelect, shopPointCard}
   }
 </script>

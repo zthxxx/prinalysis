@@ -1,3 +1,4 @@
+@import './_variables'
 body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4, h5, h6, i, b, textarea, button, input, select, figure, figcaption
   padding: 0
   margin: 0
@@ -16,12 +17,5 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     outline: none
 
 body
-  background-color: #f2f2f2
-  &::-webkit-scrollbar
-    width: 8px
-    background-color: rgba(0, 0, 0, .05)
-    &-thumb
-      border-radius: 8px
-      background-color: rgba(0, 0, 0, .15)
-      &:active
-        background-color: rgba(0, 0, 0, .3)
+  background-color: global-background-color
+  scrollbar()

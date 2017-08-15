@@ -3,7 +3,7 @@
     <div v-for="point in pointsInfo"
          :class="{'print-point-item zoom-in': true, 'no-running': !point.running, 'selected': selectedID == point.pointId}"
          v-if="!selectedID || selectedID == point.pointId"
-         @click="setlectPoint(point)">
+         @click="point.running && setlectPoint(point)">
       <div class="box">
         <div class="info">
           <div class="top-div">
@@ -32,10 +32,22 @@
             </div>
           </div>
         </div>
+        <div class="price" v-if="selectedID == point.pointId">
+          <div class="price-title">
+            <i class="el-icon-fa-list-ul"></i>价格表
+          </div>
+          <div class="price-list">
+            <div v-for="item in getPriceList(point.basicPrintItem)"
+                 :class="{'price-item': true, 'invalid': !item.price}">
+              <div class="price-name">{{item.type}}</div>
+              <div class="money">{{item.price || '不支持'}}</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="announce" v-if="point.running">{{point.message}}</div>
       <div class="no-running-tip" v-else>
-        <div class="title">假期休息</div>
+        <div class="title">{{point.rest_message}}</div>
         <div class="msg">{{point.message}}</div>
       </div>
     </div>
@@ -52,8 +64,9 @@
       pointsInfo: {
         type: Array,
         default: () => [{
-          'pointId': '002', // api transform
+          'pointId': '001', // api transform
           'running': true, // api transform
+          'rest_message': '假期休息',
           'pointType': ['ATM'],
           'delivery_scope': '配送范围',
           'delivery_time': '配送时间',
@@ -95,6 +108,24 @@
       setlectPoint (point) {
         this.selectedID = point.pointId;
         this.$emit('input', this.selectedID);
+      },
+      getPriceList (printItem) {
+        let formatCNY = new Intl.NumberFormat('zh-CN', {
+          style: 'currency',
+          currency: 'CNY'
+        });
+        let unitPrice = (value) => value > 0 ? `${formatCNY.format(value / 100)} / 张` : null;
+        let tariff = [
+          {'type': 'A4黑白单面 普通纸', 'price': unitPrice(printItem.monoSingle)},
+          {'type': 'A4黑白双面 普通纸', 'price': unitPrice(printItem.monoDuplex)},
+          {'type': 'A4彩色单面 普通纸', 'price': unitPrice(printItem.colorfulSingle)},
+          {'type': 'A4彩色双面 普通纸', 'price': unitPrice(printItem.colorfulDuplex)},
+          {'type': 'A4黑白单面 加厚纸', 'price': unitPrice(printItem.monoSingleThick)},
+          {'type': 'A4黑白双面 加厚纸', 'price': unitPrice(printItem.monoDuplexThick)},
+          {'type': 'A4彩色单面 加厚纸', 'price': unitPrice(printItem.colorfulSingleThick)},
+          {'type': 'A4彩色双面 加厚纸', 'price': unitPrice(printItem.colorfulDuplexThick)}
+        ];
+        return tariff;
       }
     },
     components: {}
@@ -102,6 +133,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  @import "../style/_variables"
+  @import "../style/_animate"
   .print-point-list
     width: 880px
     margin: 4px auto
@@ -136,7 +169,7 @@
       color: #f63
     &.selected
       width: 840px
-      border-left: 4px solid #096
+      border-left: 4px solid theme-green-dark
       cursor: auto
       &:hover
         box-shadow: none
@@ -172,7 +205,7 @@
       width: 240px
       border-left: 1px dashed #ddd
       .price-title
-        color: #0e90d2
+        color: theme-text-color
         font-size: 16px
         margin: 10px 0 0 14px
         i
@@ -184,6 +217,7 @@
         width: 90%
         height: 100px
         overflow-y: auto
+        scrollbar 6px
         &::-webkit-scrollbar
           width: 6px
         .price-item
@@ -204,7 +238,7 @@
       width: 200px
       border-left: 1px dashed #ddd
       .discount-title
-        color: #0e90d2
+        color: theme-text-color
         font-size: 16px
         margin: 10px 0 8px 14px
         i
@@ -237,10 +271,10 @@
     border: none
     .point-name
       font-size: 18px
-      color: #0e90d2
+      color: theme-text-color
       margin-top: 6px
     .addr
-      color: #096
+      color: theme-green-dark
       margin-top: 2px
       font-size: 14px
       i
@@ -251,7 +285,7 @@
       color: #ccc
     .favor
       margin-top: 6px
-      color: #096
+      color: theme-green-dark
 
   .full-bg
     display: inline-block
@@ -259,7 +293,7 @@
     height: 17px
     border-radius: 4px
     margin-right: 4px
-    background-color: #096
+    background-color: theme-green-dark
     color: #fff
     line-height: 19px
     text-align: center
