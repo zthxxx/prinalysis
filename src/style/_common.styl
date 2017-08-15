@@ -8,17 +8,20 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif
   -webkit-tap-highlight-color: transparent
   -webkit-font-smoothing: antialiased
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
   &:focus
     outline: none
 
 body
   background-color: #f2f2f2
-
-::-webkit-scrollbar
-  width: 8px
-  background-color: rgba(0, 0, 0, .05)
-  &-thumb
-    border-radius: 8px
-    background-color: rgba(0, 0, 0, .15)
-    &:active
-      background-color: rgba(0, 0, 0, .3)
+  &::-webkit-scrollbar
+    width: 8px
+    background-color: rgba(0, 0, 0, .05)
+    &-thumb
+      border-radius: 8px
+      background-color: rgba(0, 0, 0, .15)
+      &:active
+        background-color: rgba(0, 0, 0, .3)

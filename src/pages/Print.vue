@@ -8,9 +8,7 @@
             v-model="address" :deep="3" :linkageDatas="addressData">
           </linkage-select>
         </div>
-        <div v-for="o in 4" :key="o" class="text item">
-          {{'列表内容 ' + o }}
-        </div>
+        <shop-point-card v-model="selectedPoint"></shop-point-card>
       </box-card>
     </article>
   </transition>
@@ -20,19 +18,23 @@
   import boxCard from '@/components/BoxCard'
   import linkageSelect from '@/components/LinkageSelect'
   import addressData from '@/assets/js/address-data'
+  import shopPointCard from '@/components/ShopPointCard'
+//  import pointInfo from '@/assets/js/getPointsInfo'
   export default {
     name: 'print',
     data () {
       return {
         address: ['北京市'],
-        addressData: addressData
+        addressData: addressData,
+        selectedPoint: null
       }
     },
     methods: {},
-    components: {boxCard, linkageSelect}
+    components: {boxCard, linkageSelect, shopPointCard}
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../style/print"
+
 </style>

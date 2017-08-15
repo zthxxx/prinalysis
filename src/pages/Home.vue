@@ -50,7 +50,7 @@
       return {
         description: [
           {
-            img: require('@/assets/home/des-1.png'),
+            img: require('@/assets/img/home/des-1.png'),
             title: '快印预先打印，无需等待立即取件',
             depicts: [
               'xxxxxxxxxXXXXXXXXxxxxxxxxxxxx',
@@ -59,7 +59,7 @@
             ]
           },
           {
-            img: require('@/assets/home/des-1.png'),
+            img: require('@/assets/img/home/des-1.png'),
             title: '快印预先打印，无需等待立即取件',
             depicts: [
               'xxxxxxxxxXXXXXXXXxxxxxxxxxxxx',
@@ -68,7 +68,7 @@
             ]
           },
           {
-            img: require('@/assets/home/des-1.png'),
+            img: require('@/assets/img/home/des-1.png'),
             title: '快印预先打印，无需等待立即取件',
             depicts: [
               'xxxxxxxxxXXXXXXXXxxxxxxxxxxxx',
