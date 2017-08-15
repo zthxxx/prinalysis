@@ -70,7 +70,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scope>
+<style lang="stylus" rel="stylesheet/stylus">
   @import '../style/_variables'
   .area-select
     width: auto

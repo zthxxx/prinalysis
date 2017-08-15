@@ -12,6 +12,11 @@
                          :pointsInfo="pointsInfo"
         ></shop-point-card>
       </box-card>
+      <box-card title="文件列表">
+        <upload-box>
+
+        </upload-box>
+      </box-card>
     </article>
   </transition>
 </template>
@@ -19,8 +24,9 @@
 <script>
   import boxCard from '@/components/BoxCard'
   import linkageSelect from '@/components/LinkageSelect'
-  import addressData from '@/assets/js/address-data'
   import shopPointCard from '@/components/ShopPointCard'
+  import uploadBox from '@/components/UploadBox'
+  import addressData from '@/assets/js/address-data'
   import getPointsInfo from '@/assets/js/getPointsInfo'
   export default {
     name: 'print',
@@ -51,7 +57,12 @@
         this.pointsInfo = pointsInfo;
       }
     },
-    components: {boxCard, linkageSelect, shopPointCard}
+    components: {
+      boxCard,
+      linkageSelect,
+      shopPointCard,
+      uploadBox
+    }
   }
 </script>
 
