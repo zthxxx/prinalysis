@@ -1,54 +1,67 @@
 <template>
-  <div class="print-point-list">
-    <div v-for="point in pointsInfo"
-         :class="{'print-point-item zoom-in': true, 'no-running': !point.running, 'selected': selectedID == point.pointId}"
-         v-if="!selectedID || selectedID == point.pointId"
-         @click="point.running && setlectPoint(point)">
-      <div class="box">
-        <div class="info">
-          <div class="top-div">
-            <div class="pic-div">
-              <img :src="point.imageUrl">
+  <div>
+    <div class="point-detial-title" v-if="selectedID">
+      <el-button type="text" class="back" icon="fa-chevron-left"
+                 @click="setlectPoint(null)">选择其他打印点
+      </el-button>
+      <span class="tip"> 已选择该打印点: </span>
+    </div>
+    <div class="print-point-list">
+      <div v-for="point in pointsInfo"
+           :class="{
+            'print-point-item': true,
+            'no-running': !point.running,
+            'zoom-in' : !selectedID,
+            'selected': selectedID == point.pointId
+           }"
+           v-if="!selectedID || selectedID == point.pointId"
+           @click="point.running && setlectPoint(point.pointId)">
+        <div class="box">
+          <div class="info">
+            <div class="top-div">
+              <div class="pic-div">
+                <img :src="point.imageUrl">
+              </div>
+              <div class="detial-div">
+                <div class="point-name">{{point.printPointName}}</div>
+                <div class="addr">
+                  <i class="el-icon-fa-map-marker"></i>{{point.address}}
+                </div>
+                <div class="print-type ">打印类型：{{isColorful(point.basicPrintItem).join(' ')}}</div>
+                <div class="take-time">
+                  <template v-if="point.delivery_scope">
+                    配送时间：<span>{{point.delivery_time}}</span>
+                  </template>
+                  <template v-else>
+                    自助取件时间：<span>{{getFormatTakeTime(point.takeTime)}}</span>
+                  </template>
+                </div>
+                <div class="ultra-service">配送范围：
+                  <span v-if="point.delivery_scope">{{point.delivery_scope}}</span>
+                  <span v-else class="gray">（本打印点仅提供自提服务）</span>
+                </div>
+                <div>联系电话：{{point.phoneNumber}}</div>
+              </div>
             </div>
-            <div class="detial-div">
-              <div class="point-name">{{point.printPointName}}</div>
-              <div class="addr">
-                <i class="el-icon-fa-map-marker"></i>{{point.address}}
+          </div>
+          <div class="price" v-if="selectedID == point.pointId">
+            <div class="price-title">
+              <i class="el-icon-fa-list-ul"></i>价格表
+            </div>
+            <div class="price-list">
+              <div v-for="item in getPriceList(point.basicPrintItem)"
+                   :class="{'price-item': true, 'invalid': !item.price}">
+                <div class="price-name">{{item.type}}</div>
+                <div class="money">{{item.price || '不支持'}}</div>
               </div>
-              <div class="print-type ">打印类型：{{isColorful(point.basicPrintItem).join(' ')}}</div>
-              <div class="take-time">
-                <template v-if="point.delivery_scope">
-                  配送时间：<span>{{point.delivery_time}}</span>
-                </template>
-                <template v-else>
-                  自助取件时间：<span>{{getFormatTakeTime(point.takeTime)}}</span>
-                </template>
-              </div>
-              <div class="ultra-service">配送范围：
-                <span v-if="point.delivery_scope">{{point.delivery_scope}}</span>
-                <span v-else class="gray">（本打印点仅提供自提服务）</span>
-              </div>
-              <div>联系电话：{{point.phoneNumber}}</div>
             </div>
           </div>
         </div>
-        <div class="price" v-if="selectedID == point.pointId">
-          <div class="price-title">
-            <i class="el-icon-fa-list-ul"></i>价格表
-          </div>
-          <div class="price-list">
-            <div v-for="item in getPriceList(point.basicPrintItem)"
-                 :class="{'price-item': true, 'invalid': !item.price}">
-              <div class="price-name">{{item.type}}</div>
-              <div class="money">{{item.price || '不支持'}}</div>
-            </div>
-          </div>
+        <div class="announce" v-if="point.running">{{point.message}}</div>
+        <div class="no-running-tip" v-else>
+          <div class="title">{{point.rest_message}}</div>
+          <div class="msg">{{point.message}}</div>
         </div>
-      </div>
-      <div class="announce" v-if="point.running">{{point.message}}</div>
-      <div class="no-running-tip" v-else>
-        <div class="title">{{point.rest_message}}</div>
-        <div class="msg">{{point.message}}</div>
       </div>
     </div>
   </div>
@@ -105,8 +118,8 @@
         let momnets = takeTime.map((item) => momentFormat.format(item));
         return `${momnets.slice(0, 2).join(':')}-${momnets.slice(2, 4).join(':')}`;
       },
-      setlectPoint (point) {
-        this.selectedID = point.pointId;
+      setlectPoint (pointId) {
+        this.selectedID = pointId;
         this.$emit('input', this.selectedID);
       },
       getPriceList (printItem) {
@@ -157,8 +170,6 @@
     cursor: pointer
     overflow: hidden
     white-space: nowrap
-    -webkit-transition-property: all
-    transition: all .3s ease-out
     &:hover
       box-shadow: 0 0 6px 2px #eee
     .announce
@@ -171,6 +182,7 @@
       width: 840px
       border-left: 4px solid theme-green-dark
       cursor: auto
+      transition: all .3s ease-out
       &:hover
         box-shadow: none
     &.no-running
@@ -287,14 +299,27 @@
       margin-top: 6px
       color: theme-green-dark
 
-  .full-bg
-    display: inline-block
-    width: 17px
-    height: 17px
-    border-radius: 4px
-    margin-right: 4px
-    background-color: theme-green-dark
-    color: #fff
-    line-height: 19px
-    text-align: center
+  .point-detial-title
+    width: 840px
+    margin: 0 auto
+    .back
+      color: shallow-text-gray
+      font-size: 12px
+      vertical-align: middle
+      background: transparent
+      border: none
+      border-radius: 4px
+      padding: 4px 10px
+      cursor: pointer
+      transition: all .2s ease-out
+      &:hover
+        background: #eee
+    .tip
+      vertical-align: middle
+      border-left: 1px solid #ddd
+      padding-left: 10px
+      margin-left: 10px
+      color: #096
+      font-size: 16px
+
 </style>

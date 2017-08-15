@@ -45,5 +45,5 @@
     color: dark-blue
 
   .card-body
-    padding: 24px
+    padding: 20px
 </style>

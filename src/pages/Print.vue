@@ -2,7 +2,7 @@
   <transition name="float-fade">
     <article id="printpage">
       <box-card title="打印点">
-        <div class="selector-group">
+        <div class="selector-group" v-if="!selectedPoint">
           <span class="tip">请选择目标打印点: </span>
           <linkage-select
             v-model="address" :deep="3" :linkageDatas="addressData">
