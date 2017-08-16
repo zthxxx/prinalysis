@@ -107,4 +107,4 @@ let pointsInfo = [{
   }
 }];
 
-export default pointsInfo
+export default () => pointsInfo

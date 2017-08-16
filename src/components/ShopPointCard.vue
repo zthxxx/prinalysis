@@ -27,7 +27,7 @@
                 <div class="addr">
                   <i class="el-icon-fa-map-marker"></i>{{point.address}}
                 </div>
-                <div class="print-type ">打印类型：{{isColorful(point.basicPrintItem).join(' ')}}</div>
+                <div class="print-type ">打印类型：{{isColorful(point.colorType).join(' ')}}</div>
                 <div class="take-time">
                   <template v-if="point.delivery_scope">
                     配送时间：<span>{{point.delivery_time}}</span>
@@ -77,21 +77,25 @@
       pointsInfo: {
         type: Array,
         default: () => [{
-          'pointId': '001', // api transform
-          'running': true, // api transform
-          'rest_message': '假期休息',
-          'pointType': ['ATM'],
-          'delivery_scope': '配送范围',
-          'delivery_time': '配送时间',
-          'phoneNumber': '12345678910',
-          'printPointName': '店名',
-          'address': '详细地址',
-          'message': '提示信息',
-          'imageUrl': require('@/assets/img/print/ATM.jpg'),
-          'takeTime': [0, 0, 24, 0],
-          'basicPrintItem': {
-            'monoSingle': 10,
-            'colorfulSingle': 80
+          pointId: '001', // api transform
+          running: true, // api transform
+          rest_message: '假期休息',
+          pointType: ['ATM'],
+          delivery_scope: '配送范围',
+          delivery_time: '配送时间',
+          phoneNumber: '12345678910',
+          printPointName: '店名',
+          address: '详细地址',
+          message: '提示信息',
+          imageUrl: require('@/assets/img/print/ATM.jpg'),
+          takeTime: [0, 0, 24, 0],
+          basicPrintItem: {
+            monoSingle: 10,
+            colorfulSingle: 80
+          },
+          colorType: {
+            mono: true,
+            colorful: true
           }
         }]
       }
@@ -104,10 +108,8 @@
     methods: {
       isColorful (printItem) {
         let type = [];
-        if (printItem.monoSingle !== -1)
-          type.push('黑白打印');
-        if (printItem.colorfulSingle !== -1)
-          type.push('彩色打印');
+        if (printItem.mono) type.push('黑白打印');
+        if (printItem.colorful) type.push('彩色打印');
         return type;
       },
       getFormatTakeTime (takeTime) {

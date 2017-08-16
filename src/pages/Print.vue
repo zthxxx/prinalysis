@@ -2,18 +2,18 @@
   <transition name="float-fade">
     <article id="printpage">
       <box-card title="打印点">
-        <div class="selector-group" v-if="!selectedPoint">
+        <div class="selector-group" v-if="!selectedPointID">
           <span class="tip">请选择目标打印点: </span>
           <linkage-select
             v-model="address" :deep="3" :linkageDatas="addressData">
           </linkage-select>
         </div>
-        <shop-point-card v-model="selectedPoint"
+        <shop-point-card v-model="selectedPointID"
                          :pointsInfo="pointsInfo"
         ></shop-point-card>
       </box-card>
       <box-card title="文件列表" :noPadding="true">
-        <upload-box>
+        <upload-box :focusPoint="focusPoint">
 
         </upload-box>
       </box-card>
@@ -37,7 +37,7 @@
       return {
         address: ['北京市'],
         addressData: addressData,
-        selectedPoint: null,
+        selectedPointID: null,
         pointsInfo: []
       }
     },
@@ -46,7 +46,7 @@
     },
     methods: {
       initData () {
-        const pointsInfo = getPointsInfo;
+        const pointsInfo = getPointsInfo();
         const holidays = {
           'RUNNING': '正在运营',
           'SUMMER_HOLIDAY': '暑假休息',
@@ -56,8 +56,23 @@
         for (let point of pointsInfo) {
           point.running = point.status == 'RUNNING';
           point.rest_message = holidays[point.status];
+          point.colorType = {
+            mono: point.basicPrintItem.monoSingle > 0,
+            colorful: point.basicPrintItem.colorfulSingle > 0
+          };
         }
         this.pointsInfo = pointsInfo;
+      }
+    },
+    computed: {
+      focusPoint: function () {
+        for (let point of this.pointsInfo) {
+          if (point.hasOwnProperty('pointId')
+            && point.pointId == this.selectedPointID) {
+            return point;
+          }
+        }
+        return null;
       }
     },
     components: {
