@@ -1,6 +1,6 @@
 <template>
   <div class="area-select">
-    <el-select
+    <el-select class="selecter"
       :placeholder="placeholders[index] ? placeholders[index] : '请选择'"
       v-for="(item, index) in deep" v-model="currents[index]" :key="index">
       <el-option v-for="val of layerData[index]"
@@ -70,7 +70,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '../style/_variables'
   .area-select
     width: auto
@@ -80,22 +80,8 @@
     vertical-align: middle
     color: #666
 
-  .el-select
+  .selecter
     width: 160px
     margin: 0 20px
-    &:hover
-      .el-input__inner
-        border-color: light-blue
-
-  .el-input
-    font-size: 12px
-
-  .el-input__inner
-    height: 26px
-    text-align: center
-    border-radius: 6px
-    &:focus
-      outline: 0
-      box-shadow: 0 0 0 2px rgba(light-blue, 0.2)
 
 </style>

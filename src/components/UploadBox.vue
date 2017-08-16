@@ -1,6 +1,7 @@
 <template>
   <div class="upload-box-out">
     <upload-drag-box @file="transmitFile">
+      <print-file-list></print-file-list>
       <div class="tip">
         请从本地上传文件 或
         <router-link :to="{name: 'library'}">
@@ -21,7 +22,8 @@
 </template>
 
 <script>
-  import uploadDragBox from './UploadDragBox.vue'
+  import uploadDragBox from './UploadDragBox'
+  import printFileList from './PrintFileList'
   export default {
     name: 'upload-box',
     data () {
@@ -32,7 +34,7 @@
         this.$refs.uploader.$refs['upload-inner'].uploadFiles(files);
       }
     },
-    components: {uploadDragBox}
+    components: {uploadDragBox, printFileList}
   }
 </script>
 
@@ -64,8 +66,4 @@
       margin-top: 20px
       color: rgba(#fff, 0.65)
 
-  .el-upload__tip
-    color: #666
-    font-size: 13px
-    margin: 0
 </style>

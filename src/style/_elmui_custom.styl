@@ -1,0 +1,52 @@
+@import './_variables'
+selector-area-height = 26px
+selector-font-size = 13px
+selector-dropdown-font-size = 12px
+
+.el-input
+  font-size: selector-font-size
+  .el-input__inner,
+  &.is-without-controls .el-input__inner
+    height: selector-area-height
+    text-align: center
+    border-radius: 6px
+    padding: 10px
+
+.el-select
+  width: auto
+  margin: 0
+  text-align: center
+  font-size: selector-font-size
+  &:hover
+    .el-input__inner
+      border-color: light-blue
+  .el-input__inner
+    height: selector-area-height
+    text-align: center
+    border-radius: 6px
+    padding-right: 24px
+    &:focus
+      outline: 0
+      box-shadow: 0 0 0 2px rgba(light-blue, 0.2)
+
+.el-select-dropdown__list
+  padding: 0
+
+.el-select-dropdown__item
+  font-size: selector-dropdown-font-size
+  height: auto
+  padding: 7px 15px
+
+.el-upload__tip
+  color: #666
+  font-size: selector-font-size
+  margin: 0
+
+.el-input-number
+  .el-input-number__decrease, .el-input-number__increase
+    width: 20px
+    line-height: selector-area-height
+    border: none
+  .el-input-number__decrease
+    left: 0
+    right: auto

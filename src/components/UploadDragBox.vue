@@ -1,8 +1,8 @@
 <template>
   <div
-    class="el-upload-dragger"
+    class="upload-dragger"
     :class="{
-      'is-dragover': dragover
+      'dragover': dragover
     }"
     @drop.prevent.stop="onDrop"
     @dragover.prevent="onDragover"
@@ -41,16 +41,17 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../style/_variables"
   @import "../style/_animate"
-  .el-upload-dragger
+  .upload-dragger
     width: 100%
     height: auto
     padding: 20px 0
-    border: none
+    box-sizing: border-box
     cursor: default
     background-color: transparent
     text-align: center
     display: inline-block
-    &.is-dragover
+    position: relative
+    &.dragover
       position: relative
       &::before
         top: 0
@@ -67,5 +68,6 @@
         text-align: center
         box-sizing: border-box
         border: 2px dashed color-theme
+        border-radius: 6px
         animation: fadeIn .3s ease-out
 </style>

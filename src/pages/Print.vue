@@ -73,10 +73,9 @@
   @import "../style/_animate"
   @import "../style/print"
   .account-tips
-    width: 100%;
-    padding: 50px 0;
-    text-align: center;
-    font-size: 14px;
-    color: #999;
-    font-size: 16px;
+    width: 100%
+    padding: 50px 0
+    text-align: center
+    color: #999
+    font-size: 16px
 </style>
