@@ -3,7 +3,7 @@
     <div class="card-header" v-if="title">
       <div class="card-title">{{title}}</div>
     </div>
-    <div class="card-body">
+    <div :class="{'card-body': !noPadding}">
       <slot></slot>
     </div>
   </div>
@@ -19,6 +19,10 @@
       title: {
         type: String,
         required: false
+      },
+      noPadding: {
+        type: Boolean,
+        default: false
       }
     }
   }

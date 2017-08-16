@@ -12,10 +12,13 @@
                          :pointsInfo="pointsInfo"
         ></shop-point-card>
       </box-card>
-      <box-card title="文件列表">
+      <box-card title="文件列表" :noPadding="true">
         <upload-box>
 
         </upload-box>
+      </box-card>
+      <box-card title="结算">
+        <div class="account-tips">请添加文件</div>
       </box-card>
     </article>
   </transition>
@@ -67,6 +70,13 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  @import "../style/_animate"
   @import "../style/print"
-
+  .account-tips
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    font-size: 16px;
 </style>

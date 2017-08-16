@@ -20,7 +20,12 @@ const routes = [
     path: '/print',
     component: print,
     name: 'print',
+  },
+  {
+    path: '/library',
+    name: 'library',
   }
+
 ];
 
 export default new Router({
