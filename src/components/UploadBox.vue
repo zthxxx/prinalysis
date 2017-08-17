@@ -94,7 +94,7 @@
           layout: 1,
           copies: 1,
           color: 'mono',
-          duplex: 0,
+          duplex: 1,
           startPage: 1,
           endPage: rawFile.pageInfo.pageCount
         };
