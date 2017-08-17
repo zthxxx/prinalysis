@@ -31,6 +31,17 @@
   -webkit-transform: translateY(0)
   transform: translateY(0)
 
+.left-fade-enter, .left-fade-leave-to
+  opacity: .1
+  transform: translateX(20px)
+
+.left-fade-enter-active, .left-fade-leave-active
+  transition: all .3s ease-out
+
+.left-fade-enter-to
+  opacity: 1
+  transform: translateX(0)
+
 @keyframes flicker
   0%
     opacity: 1

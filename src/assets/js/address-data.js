@@ -13,4 +13,4 @@ let addressData = {
   }
 };
 
-export default addressData
+export default () => addressData

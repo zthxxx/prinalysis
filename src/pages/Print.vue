@@ -36,7 +36,7 @@
     data () {
       return {
         address: ['北京市'],
-        addressData: addressData,
+        addressData: addressData(),
         selectedPointID: null,
         pointsInfo: []
       }

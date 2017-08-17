@@ -11,7 +11,6 @@ let getFileMD5 = function (file) {
     let fileReader = new FileReader();
 
     fileReader.onload = function (e) {
-      // console.warn('read chunk nr', currentChunk + 1, 'of', chunks);
       spark.append(e.target.result);
       currentChunk++;
       if (currentChunk < chunks) {
