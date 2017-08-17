@@ -7,6 +7,7 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
+    es6: true,
     node: true,
     browser: true
   },
@@ -35,7 +36,7 @@ module.exports = {
     'indent': ['error', 2],
     'linebreak-style': ['error', 'unix'],
     'quotes': ['error', 'single'],
-    'no-console': ["error", { allow: ["warn", "error"] }]
+    'no-console': ["error", { allow: ["info", "warn", "error"] }]
   },
   'globals': {
     'require': true,

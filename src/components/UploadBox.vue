@@ -27,6 +27,7 @@
   import uploadDragBox from './UploadDragBox'
   import printFileList from './PrintFileList'
   import getPage from '@/assets/js/getPage'
+  import getFileMD5 from '@/assets/js/getFileMD5'
   export default {
     name: 'upload-box',
     props: {
@@ -42,9 +43,10 @@
       transmitFile (files) {
         this.$refs.uploader.$refs['upload-inner'].uploadFiles(files);
       },
-      onBeforeUpload (file) {
-        console.warn(file.name);
-        return true;
+      async onBeforeUpload (file) {
+        let md5Value = await getFileMD5(file);
+        console.info(md5Value);
+        throw 'stop-upload';
       }
     },
     computed: {
