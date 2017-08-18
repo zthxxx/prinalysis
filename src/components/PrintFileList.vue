@@ -1,5 +1,5 @@
 <template>
-  <div class="queue-simple">
+  <div class="PrintFileList">
       <print-file-item v-for="(file, index) in fileList"
         :index="index"
         :file="file"
@@ -43,5 +43,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  
+
 </style>

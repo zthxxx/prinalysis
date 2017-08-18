@@ -17,8 +17,11 @@
 
         </upload-box>
       </box-card>
-      <box-card title="结算">
-        <div class="account-tips">请添加文件</div>
+      <box-card title="结算" :noPadding="true">
+        <!--<div class="account-tips">请添加文件</div>-->
+        <settle-bill>
+
+        </settle-bill>
       </box-card>
     </article>
   </transition>
@@ -29,6 +32,7 @@
   import linkageSelect from '@/components/LinkageSelect'
   import shopPointCard from '@/components/ShopPointCard'
   import uploadBox from '@/components/UploadBox'
+  import settleBill from '@/components/SettleBill'
   import addressData from '@/assets/js/address-data'
   import getPointsInfo from '@/assets/js/getPointsInfo'
   export default {
@@ -79,7 +83,8 @@
       boxCard,
       linkageSelect,
       shopPointCard,
-      uploadBox
+      uploadBox,
+      settleBill
     }
   }
 </script>
