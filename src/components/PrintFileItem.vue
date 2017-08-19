@@ -11,7 +11,7 @@
           <div class="fileInf">
             <div class="Name">{{file.name}}</div>
             <div class="kejian-tip"></div>
-            <div class="Sourse"><span>来源：<span>{{file.origin}}</span></span></div>
+            <div class="Sourse"><span>来源：<span>{{file.raw.origin}}</span></span></div>
           </div>
           <div class="fadeIn">
             <div class="delete">
@@ -119,9 +119,9 @@
           name: 'xxx.docx',
           raw: {
             extension: 'docx',
-            pageInfo: {pageCount: 3, direction: true}
+            pageInfo: {pageCount: 3, direction: true},
+            origin: '本地上传'
           },
-          origin: '本地上传'
         })
       },
       setting: {
@@ -166,7 +166,7 @@
       total () {
         let setting = this.preSetting;
         return Math.ceil(
-        (setting.endPage - setting.startPage + 1) 
+        (setting.endPage - setting.startPage + 1)
         * setting.copies / setting.duplex
         );
       }

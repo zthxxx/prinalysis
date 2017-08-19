@@ -102,7 +102,7 @@
     },
     data () {
       return {
-        selectedID: null
+        selectedID: this.value
       }
     },
     methods: {

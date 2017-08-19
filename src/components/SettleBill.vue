@@ -55,14 +55,7 @@
   export default {
     name: 'settle-bill',
     data () {
-      return {
-        tableData: [{
-          date: 'A4黑白单面 普通纸',
-          name: '	0.10/张',
-          address: '6',
-          bill: '0.60'
-        }]
-      }
+      return {}
     },
     methods: {},
     components: {}
@@ -160,4 +153,5 @@
       height: 46px
       color: #fff
       margin-top: 7px
+      font-size: 16px
 </style>

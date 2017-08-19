@@ -22,7 +22,8 @@
                  :on-remove="onRemoveFile"
                  :on-error="onErrorUpload">
         <div class="uploadBtn">
-          <span class="upload_title">添加文件</span>
+          <span class="upload_title" v-if="!fileList.length">添加文件</span>
+          <span class="upload_title" v-else>继续添加文件</span>
           <br>
           <span class="upload_text">点击按钮或者把文件拖放到这里</span>
         </div>
@@ -102,6 +103,7 @@
       async onBeforeUpload (rawFile) {
         this.fileFormatCheck(rawFile);
         rawFile.md5 = await getFileMD5(rawFile);
+        rawFile.origin = '本地上传';
         console.info(rawFile.md5);
         this.fileExistCheck(rawFile);
       },
@@ -109,7 +111,6 @@
         console.warn('success', file);
         console.warn('success', fileList);
         file.raw.pageInfo = getPage(file.raw.md5, file.name);
-        file.origin = '本地上传';
         this.fileList = fileList;
       },
       onErrorUpload (err) {
