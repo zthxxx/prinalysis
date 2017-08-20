@@ -34,6 +34,7 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import uploadDragBox from './UploadDragBox'
   import printFileList from './PrintFileList'
   import getFileMD5 from '@/assets/js/getFileMD5'
@@ -48,9 +49,7 @@
       }
     },
     data () {
-      return {
-        fileList: []
-      }
+      return {}
     },
     methods: {
       transmitFiles (files) {
@@ -111,7 +110,7 @@
         console.warn('success', file);
         console.warn('success', fileList);
         file.raw.pageInfo = getPage(file.raw.md5, file.name);
-        this.fileList = fileList;
+        this.$store.commit('updateFileList', fileList);
       },
       onErrorUpload (err) {
         console.error('err-upload', err);
@@ -123,10 +122,10 @@
       onRemoveFile (file, fileList) {
         console.warn('remove', file);
         console.warn('remove', fileList);
-        this.fileList = fileList;
+        this.$store.commit('updateFileList', fileList);
       }
     },
-    computed: {},
+    computed: {...mapState(['fileList'])},
     components: {uploadDragBox, printFileList}
   }
 </script>

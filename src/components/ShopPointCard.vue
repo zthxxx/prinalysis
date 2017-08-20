@@ -102,7 +102,7 @@
     },
     data () {
       return {
-        selectedID: this.value
+        selectedID: this.value && this.value.pointId ? this.value.pointId : null
       }
     },
     methods: {
@@ -120,9 +120,18 @@
         let momnets = takeTime.map((item) => momentFormat.format(item));
         return `${momnets.slice(0, 2).join(':')}-${momnets.slice(2, 4).join(':')}`;
       },
+      focusPoint () {
+        for (let point of this.pointsInfo) {
+          if (point.hasOwnProperty('pointId')
+            && point.pointId == this.selectedID) {
+            return point;
+          }
+        }
+        return null;
+      },
       setlectPoint (pointId) {
         this.selectedID = pointId;
-        this.$emit('input', this.selectedID);
+        this.$emit('input', this.focusPoint());
       },
       getPriceList (printItem) {
         let formatCNY = new Intl.NumberFormat('zh-CN', {

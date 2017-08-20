@@ -2,13 +2,13 @@
   <transition name="float-fade">
     <article id="printpage">
       <box-card title="打印点">
-        <div class="selector-group" v-if="!selectedPointID">
+        <div class="selector-group" v-if="!focusPoint">
           <span class="tip">请选择目标打印点: </span>
           <linkage-select
-            v-model="address" :deep="3" :linkageDatas="addressData">
+            v-model="focusPointAddress" :deep="3" :linkageDatas="addressData">
           </linkage-select>
         </div>
-        <shop-point-card v-model="selectedPointID"
+        <shop-point-card v-model="focusPoint"
                          :pointsInfo="pointsInfo"
         ></shop-point-card>
       </box-card>
@@ -39,9 +39,8 @@
     name: 'print',
     data () {
       return {
-        address: ['北京市'],
         addressData: addressData(),
-        selectedPointID: null,
+        testPoint: this.$store.state.focusPoint,
         pointsInfo: []
       }
     },
@@ -69,14 +68,21 @@
       }
     },
     computed: {
-      focusPoint: function () {
-        for (let point of this.pointsInfo) {
-          if (point.hasOwnProperty('pointId')
-            && point.pointId == this.selectedPointID) {
-            return point;
-          }
+      focusPointAddress: {
+        get () {
+          return this.$store.state.focusPointAddress;
+        },
+        set (address) {
+          this.$store.commit('updatePointAddress', address);
         }
-        return null;
+      },
+      focusPoint: {
+        get () {
+          return this.$store.state.focusPoint;
+        },
+        set (point) {
+          this.$store.commit('updateFocusPoint', point);
+        }
       }
     },
     components: {
