@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 const state = {
-  focusPointAddress: ['北京市'],
+  focusPointAddress: [],
   focusPoint: null,
   fileList: []
 };

@@ -51,6 +51,7 @@
     data () {
       return {}
     },
+    computed: {...mapState(['fileList'])},
     methods: {
       transmitFiles (files) {
         this.$refs.uploader.$refs['upload-inner'].uploadFiles(files);
@@ -67,7 +68,6 @@
             message: `当前仅支持 ${supports.join('，')} 等格式。`
           });
           throw 'stop-upload';
-          // return false;
         }
         if (rawFile.name.match(/^~\$/)) {
           this.$notify.error({
@@ -75,7 +75,6 @@
             message: `文件 ${rawFile.name} 为"影子文件"，无法添加到打印列表。请添加相同目录下不以 "~$" 开头的同名文件，它才是本尊！`
           });
           throw 'stop-upload';
-          // return false;
         }
       },
       fileExistCheck (rawFile) {
@@ -86,7 +85,6 @@
           rawFile.printSetting = this.defaultPrint(rawFile);
           this.$refs.uploader.handleStart(rawFile);
           throw 'stop-upload';
-          // return false;
         }
       },
       defaultPrint (rawFile) {
@@ -125,7 +123,6 @@
         this.$store.commit('updateFileList', fileList);
       }
     },
-    computed: {...mapState(['fileList'])},
     components: {uploadDragBox, printFileList}
   }
 </script>

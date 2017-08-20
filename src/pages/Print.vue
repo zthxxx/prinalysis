@@ -4,30 +4,27 @@
       <box-card title="打印点">
         <div class="selector-group" v-if="!focusPoint">
           <span class="tip">请选择目标打印点: </span>
-          <linkage-select
-            v-model="focusPointAddress" :deep="3" :linkageDatas="addressData">
+          <linkage-select v-model="focusPointAddress"
+                          :deep="3" :linkageDatas="addressData">
           </linkage-select>
         </div>
-        <shop-point-card v-model="focusPoint"
-                         :pointsInfo="pointsInfo"
-        ></shop-point-card>
+        <shop-point-card v-model="focusPoint" :pointsInfo="pointsInfo">
+        </shop-point-card>
       </box-card>
       <box-card title="文件列表" :noPadding="true">
-        <upload-box :focusPoint="focusPoint">
-
-        </upload-box>
+        <upload-box :focusPoint="focusPoint"></upload-box>
       </box-card>
       <box-card title="结算" :noPadding="true">
-        <!--<div class="account-tips">请添加文件</div>-->
-        <settle-bill>
-
-        </settle-bill>
+        <div class="account-tips" v-if="!focusPoint">请在上面的打印点板块选择打印点</div>
+        <div class="account-tips" v-else-if="!fileList.length">请添加文件</div>
+        <settle-bill v-else :pointAddress="focusPointAddress" :point="focusPoint" :fileList="fileList"></settle-bill>
       </box-card>
     </article>
   </transition>
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import boxCard from '@/components/BoxCard'
   import linkageSelect from '@/components/LinkageSelect'
   import shopPointCard from '@/components/ShopPointCard'
@@ -40,7 +37,6 @@
     data () {
       return {
         addressData: addressData(),
-        testPoint: this.$store.state.focusPoint,
         pointsInfo: []
       }
     },
@@ -68,6 +64,7 @@
       }
     },
     computed: {
+      ...mapState(['fileList']),
       focusPointAddress: {
         get () {
           return this.$store.state.focusPointAddress;

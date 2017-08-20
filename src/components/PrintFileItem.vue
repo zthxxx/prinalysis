@@ -24,7 +24,7 @@
                 </div>
                 <div class="right-btn">
                   <el-button class="del-btn" icon="delete2"
-                             @click="handleRemove">&nbsp;移除文件
+                             @click="handleRemove(file)">&nbsp;移除文件
                   </el-button>
                 </div>
               </div>

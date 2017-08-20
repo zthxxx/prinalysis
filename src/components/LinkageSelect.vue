@@ -30,6 +30,10 @@
       linkageDatas: {
         required: true,
         type: [Array, Object]
+      },
+      defaultSelected: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -49,16 +53,21 @@
           if (current && current in layer) {
             layer = layer[current];
           } else {
-            let lastCount = this.deep - index;
-            this.currents.splice(index, lastCount, ...new Array(lastCount));
-            layers.push(...new Array(lastCount - 1));
-            return layers;
+            if (this.defaultSelected) {
+              this.currents.splice(index, 1, layers[index][0]);
+              layer = layer[this.currents[index]];
+            } else {
+              let lastCount = this.deep - index;
+              this.currents.splice(index, lastCount, ...new Array(lastCount));
+              layers.push(...new Array(lastCount - 1));
+              return layers;
+            }
           }
         }
         // last layer
         layers.push(layer); // last deep layer must be a array
         if (layer.indexOf(this.currents[this.deep - 1]) == -1) {
-          this.currents[this.deep - 1] = '';
+          this.currents[this.deep - 1] = this.defaultSelected ? layer[0] : '';
         } else {
           // confirm selected until match all layer at last
           this.$emit('input', this.currents);
