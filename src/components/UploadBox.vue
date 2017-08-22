@@ -38,7 +38,7 @@
   import uploadDragBox from './UploadDragBox'
   import printFileList from './PrintFileList'
   import getFileMD5 from '@/assets/js/getFileMD5'
-  import checkMD5 from '@/assets/js/checkMd5'
+  import checkMD5 from '@/utils/checkMd5'
   import getPage from '@/assets/js/getPage'
   export default {
     name: 'upload-box',
