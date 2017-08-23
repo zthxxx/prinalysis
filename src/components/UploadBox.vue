@@ -37,9 +37,8 @@
   import {mapState} from 'vuex'
   import uploadDragBox from './UploadDragBox'
   import printFileList from './PrintFileList'
-  import getFileMD5 from '@/assets/js/getFileMD5'
-  import checkMD5 from '@/utils/checkMd5'
-  import getPage from '@/assets/js/getPage'
+  import getFileMD5 from '@/utils/getFileMD5'
+  import {getPage} from '@/api'
   export default {
     name: 'upload-box',
     props: {
@@ -77,8 +76,8 @@
           throw 'stop-upload';
         }
       },
-      fileExistCheck (rawFile) {
-        let check = checkMD5(rawFile.md5, rawFile.name);
+      async fileExistCheck (rawFile) {
+        let check = await getPage(rawFile);
         if (check.result == 'EXISTED') {
           console.warn('exist', rawFile.name, rawFile.md5);
           rawFile.pageInfo = {pageCount: check.pageCount, direction: check.direction};
@@ -104,10 +103,10 @@
         console.info(rawFile.md5);
         this.fileExistCheck(rawFile);
       },
-      onSuccessUpload (response, file, fileList) {
+      async onSuccessUpload (response, file, fileList) {
         console.warn('success', file);
         console.warn('success', fileList);
-        file.raw.pageInfo = getPage(file.raw.md5, file.name);
+        file.raw.pageInfo = await getPage({md5: file.raw.md5, name: file.name});
         this.$store.commit('updateFileList', fileList);
       },
       onErrorUpload (err) {

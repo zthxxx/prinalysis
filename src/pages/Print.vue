@@ -4,11 +4,11 @@
       <box-card title="打印点">
         <div class="selector-group" v-if="!focusPoint">
           <span class="tip">请选择目标打印点: </span>
-          <linkage-select v-model="focusPointAddress"
-                          :deep="3" :linkageDatas="addressData">
+          <linkage-select v-model="focusAddress"
+                          :deep="3" :linkageDatas="addresses">
           </linkage-select>
         </div>
-        <shop-point-card v-model="focusPoint" :pointsInfo="pointsInfo">
+        <shop-point-card v-model="focusPoint" :points="points">
         </shop-point-card>
       </box-card>
       <box-card title="文件列表" :noPadding="true">
@@ -17,7 +17,7 @@
       <box-card title="结算" :noPadding="true">
         <div class="account-tips" v-if="!focusPoint">请在上面的打印点板块选择打印点</div>
         <div class="account-tips" v-else-if="!fileList.length">请添加文件</div>
-        <settle-bill v-else :pointAddress="focusPointAddress" :point="focusPoint" :fileList="fileList"></settle-bill>
+        <settle-bill v-else :point="focusPoint" :fileList="fileList"></settle-bill>
       </box-card>
     </article>
   </transition>
@@ -30,29 +30,33 @@
   import shopPointCard from '@/components/ShopPointCard'
   import uploadBox from '@/components/UploadBox'
   import settleBill from '@/components/SettleBill'
-  import addressData from '@/assets/js/address-data'
-  import getPointsInfo from '@/assets/js/getPointsInfo'
+  import {getAddresses, getPoints} from '@/api'
   export default {
     name: 'print',
     data () {
       return {
-        addressData: addressData(),
-        pointsInfo: []
+        addresses: {},
+        points: []
       }
     },
-    created(){
-      this.initData();
+    async created () {
+      await this.initData();
     },
     methods: {
-      initData () {
-        const pointsInfo = getPointsInfo();
+      async initData () {
+        let response = await getAddresses();
+        this.addresses = response.Info;
+      },
+      async setPoints (focusAddress) {
+        let response = await getPoints(focusAddress);
+        const points = response.Info;
         const holidays = {
           'RUNNING': '正在运营',
           'SUMMER_HOLIDAY': '暑假休息',
           'WINTER_HOLIDAY': '寒假休息',
           'CLOSE_DOWN': '关门停业'
         };
-        for (let point of pointsInfo) {
+        for (let point of points) {
           point.running = point.status == 'RUNNING';
           point.rest_message = holidays[point.status];
           point.colorType = {
@@ -60,17 +64,18 @@
             colorful: point.basicPrintItem.colorfulSingle > 0
           };
         }
-        this.pointsInfo = pointsInfo;
+        this.points = points;
       }
     },
     computed: {
       ...mapState(['fileList']),
-      focusPointAddress: {
+      focusAddress: {
         get () {
-          return this.$store.state.focusPointAddress;
+          return this.$store.state.focusAddress;
         },
         set (address) {
-          this.$store.commit('updatePointAddress', address);
+          this.$store.commit('updateFocusAddress', address);
+          this.setPoints(address);
         }
       },
       focusPoint: {

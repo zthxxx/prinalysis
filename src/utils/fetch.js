@@ -63,7 +63,7 @@ const callService = (url, options = {}) => {
     .then(checkStatus)
     .then(parseJSON)
     .catch(error => {
-      console.log(error)
+      console.error(error)
       throw error
     })
 }

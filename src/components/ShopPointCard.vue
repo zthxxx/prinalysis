@@ -7,20 +7,20 @@
       <span class="tip"> 已选择该打印点: </span>
     </div>
     <div class="print-point-list">
-      <div v-for="point in pointsInfo"
+      <div v-for="point in points"
            :class="{
             'print-point-item': true,
             'no-running': !point.running,
             'zoom-in' : !selectedID,
-            'selected': selectedID == point.pointId
+            'selected': selectedID == point.pointID
            }"
-           v-if="!selectedID || selectedID == point.pointId"
-           @click="point.running && setlectPoint(point.pointId)">
+           v-if="!selectedID || selectedID == point.pointID"
+           @click="point.running && setlectPoint(point.pointID)">
         <div class="box">
           <div class="info">
             <div class="top-div">
               <div class="pic-div">
-                <img :src="point.imageUrl">
+                <img :src="point.image || imgDefault">
               </div>
               <div class="detial-div">
                 <div class="point-name">{{point.printPointName}}</div>
@@ -44,7 +44,7 @@
               </div>
             </div>
           </div>
-          <div class="price" v-if="selectedID == point.pointId">
+          <div class="price" v-if="selectedID == point.pointID">
             <div class="price-title">
               <i class="el-icon-fa-list-ul"></i>价格表
             </div>
@@ -74,12 +74,12 @@
       value: {
         required: true
       },
-      pointsInfo: {
+      points: {
         type: Array,
         default: () => [{
-          pointId: '001', // api transform
+          pointID: '001',
           running: true, // api transform
-          rest_message: '假期休息',
+          rest_message: '假期休息', // api transform
           pointType: ['ATM'],
           delivery_scope: '配送范围',
           delivery_time: '配送时间',
@@ -87,7 +87,7 @@
           printPointName: '店名',
           address: '详细地址',
           message: '提示信息',
-          imageUrl: require('@/assets/img/print/ATM.jpg'),
+          image: require('@/assets/img/print/ATM.jpg'),
           takeTime: [0, 0, 24, 0],
           basicPrintItem: {
             monoSingle: 10,
@@ -102,7 +102,8 @@
     },
     data () {
       return {
-        selectedID: this.value && this.value.pointId ? this.value.pointId : null
+        imgDefault: require('@/assets/img/print/ATM.jpg'),
+        selectedID: this.value && this.value.pointID ? this.value.pointID : null
       }
     },
     methods: {
@@ -121,16 +122,16 @@
         return `${momnets.slice(0, 2).join(':')}-${momnets.slice(2, 4).join(':')}`;
       },
       focusPoint () {
-        for (let point of this.pointsInfo) {
-          if (point.hasOwnProperty('pointId')
-            && point.pointId == this.selectedID) {
+        for (let point of this.points) {
+          if (point.hasOwnProperty('pointID')
+            && point.pointID == this.selectedID) {
             return point;
           }
         }
         return null;
       },
-      setlectPoint (pointId) {
-        this.selectedID = pointId;
+      setlectPoint (pointID) {
+        this.selectedID = pointID;
         this.$emit('input', this.focusPoint());
       },
       getPriceList (printItem) {

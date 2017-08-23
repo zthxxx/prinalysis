@@ -1,8 +1,17 @@
-import Mock from 'mockjs';
-const BaseUrl = 'http://mock.domain/api';
+const Mock = require('mockjs');
+const mocks = require('./mocks');
+const BaseHost = '/mock';
 
-export default Mock.mock(BaseUrl, {
-  'name': '@name',
-  'age|1-100': 100,
-  'color': '@color'
-});
+function fake (url, data) {
+  return {
+    api: `${BaseHost}${url}`,
+    response (req, res) {
+      res.json(Mock.mock(data))
+    }
+  };
+}
+
+module.exports = Object.keys(mocks).map((url) => fake(url, mocks[url]));
+
+
+

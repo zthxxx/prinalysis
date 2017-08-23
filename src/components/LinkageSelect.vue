@@ -29,7 +29,8 @@
       },
       linkageDatas: {
         required: true,
-        type: [Array, Object]
+        type: [Array, Object],
+        default: {}
       },
       defaultSelected: {
         type: Boolean,
@@ -41,10 +42,22 @@
         currents: this.value
       }
     },
+    methods: {
+      isEmptyObject (obj) {
+        for (let key in obj)
+          return false;
+        return true;
+      }
+    },
     computed: {
       layerData: function () {
         let layers = [];
         let layer = this.linkageDatas;
+        if (this.isEmptyObject(layer)) {
+          this.currents = new Array(this.deep);
+          layers =  [...Array(this.deep).keys()].map(()=>([]));
+          return layers;
+        }
         for (let index = 0; index < this.deep - 1; index++) {
           // first layer aways exist
           layers.push(Object.keys(layer));
@@ -68,10 +81,10 @@
         layers.push(layer); // last deep layer must be a array
         if (layer.indexOf(this.currents[this.deep - 1]) == -1) {
           this.currents[this.deep - 1] = this.defaultSelected ? layer[0] : '';
-        } else {
-          // confirm selected until match all layer at last
-          this.$emit('input', this.currents);
         }
+        // confirm selected until match all layer at last
+        this.$emit('input', this.currents);
+
         return layers;
       }
     },

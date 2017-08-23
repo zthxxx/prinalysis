@@ -4,13 +4,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 const state = {
-  focusPointAddress: [],
+  focusAddress: [],
   focusPoint: null,
   fileList: []
 };
 
 const mutations = {
-  updatePointAddress (state, value) {
+  updateFocusAddress (state, value) {
     state.focusPointAddress = value;
   },
   updateFocusPoint (state, value) {
