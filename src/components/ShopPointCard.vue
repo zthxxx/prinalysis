@@ -40,7 +40,7 @@
                   配送范围：<span v-if="point.delivery_scope">{{point.delivery_scope}}</span>
                   <span v-else class="gray">（本打印点仅提供自提服务）</span>
                 </div>
-                <div>联系电话：{{point.phoneNumber}}</div>
+                <div>联系电话：{{point.phone}}</div>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@
           pointType: ['ATM'],
           delivery_scope: '配送范围',
           delivery_time: '配送时间',
-          phoneNumber: '12345678910',
+          phone: '12345678910',
           printPointName: '店名',
           address: '详细地址',
           message: '提示信息',

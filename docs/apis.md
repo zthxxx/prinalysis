@@ -4,9 +4,26 @@
 
 [TOC]
 
+### 0. 统一错误请求返回
+
+描述：在API请求失败或**错误**时返回内容
+
+> `result` 统一为 `ERROR`，`message` 内容为**显示给用户看**的提示信息。
+
+Response:
+
+```js
+{
+  "result": "ERROR",
+  "message": "xxxx"
+}
+```
+
+
+
 ### 1. 获取校园地址
 
-GET:  /API/address  
+GET:  /API/point/address  
 
 描述：用于获得打印点所在的可选位置
 
@@ -44,7 +61,7 @@ Response:
 
 ### 2. 获取打印点信息
 
-GET:  /API/getPointsInfo
+GET:  /API/point/points
 
 Parameters: 
 
@@ -61,7 +78,7 @@ getPointsInfo?city=xxx&school=xxx&campus=xxx
 
 Response:
 
-> 查询失败时返回空
+> 查询为空时返回 EMPTY， `Info` 应为空数组
 
 ```js
 {"result":"EMPTY","Info":[]}
@@ -80,16 +97,16 @@ POINT Object 字段说明
 
 |     Field      |      Type       |                Descprite                 |           Example           |
 | :------------: | :-------------: | :--------------------------------------: | :-------------------------: |
-|    pointId     | String<Number>  |           每个打印点的唯一编号，数值或数值的字符串           |           "0001"            |
+|    pointID     | String<Number>  |           每个打印点的唯一编号，数值或数值的字符串           |           "0001"            |
 |     status     |     String      |    表示打印点当前状态，运行还是休息或维护，"RUNNING" 为运行     | "RUNNING", "SUMMER_HOLIDAY" |
 |   pointType    |  Array<String>  | 标识打印点的类型，ATM机器，或者门店，或者都有, "ATM"为机器，"DISPATCHING"为门店 |   ["ATM", "DISPATCHING"]    |
 | delivery_scope |     String      |            显示的配送范围，为空表示不支持配送             |        "", "软件园C、E区"        |
 | delivery_time  |     String      |                 显示的配送时间                  |       "每天中午十二点到下午六点"        |
-|  phoneNumber   | String<Number>  |                该点负责人联系手机号                |        "189xxxx1234"        |
-| printPointName |     String      |                 显示的打印点名字                 |           "示例打印点"           |
+|     phone      | String<Number>  |                该点负责人联系手机号                |        "189xxxx1234"        |
+|   pointName    |     String      |                 显示的打印点名字                 |           "示例打印点"           |
 |    address     |     String      |                  显示详细地址                  |          "综合楼进门左转"          |
 |    message     |     String      |               关于优惠、活动的宣传语                |         "欢迎使用云打印~"          |
-|    imageUrl    |     String      |        打印点的展示图 URL，不特殊指定就是ATM.jpg        |       "/img/ATM.jpg"        |
+|     image      |     String      |        打印点的展示图 URL，不特殊指定就是ATM.jpg        |       "/img/ATM.jpg"        |
 |    takeTime    |  Array<Number>  |      自主取件时间范围，24h，[起始时,起始分,终止时,终止分]      |      [10, 30, 18, 30]       |
 | basicPrintItem |     Object      |          可打印的项目类型价格，`-1` 表示不支持           |                             |
 |                |     Number      |            monoSingle: 黑白单面价格            |             10              |
@@ -125,7 +142,7 @@ POINT Object 字段说明
   "printPointName": "示例打印点",
   "address": "综合楼进门左转",
   "message": "欢迎使用云打印~",
-  "imageUrl": "/assets/img/print/ATM.jpg",
+  "image": "/assets/img/print/ATM.jpg",
   "takeTime": [10, 30, 18, 30],
   "basicPrintItem": {
     "monoSingle": 10,
@@ -154,9 +171,9 @@ POINT Object 字段说明
 }
 ```
 
-### 3.检验文件MD5
+### 3. 获得文档页面信息
 
-GET:  /API/checkMd5
+GET:  /API//file/page
 
 Parameters: 
 
@@ -165,7 +182,7 @@ md5: 文件的MD5值，全大写
 name: 文件名
 ```
 
-描述：通过 md5 检查文件是否已在云端，避免重复上传。
+描述：通过 md5 检查云端是否存在此文档，避免重复上传，并获取文档。
 
 Response:
 
@@ -175,7 +192,7 @@ Response:
 {
   "result": "EXISTED",
   "pageCount": 6,    // 文件总页数
-  "direction": true  // 排版方向是否为竖版
+  "direction": true  // 排版方向是否为竖版, true 表示竖版
 }
 ```
 
@@ -187,7 +204,7 @@ Response:
 
 ### 4. 获得文件上传地址
 
-GET:  /API/getUploadUrl
+GET:  /API/file/url
 
 Parameters: 
 
@@ -202,50 +219,64 @@ Response:
 
 ```js
 {
-  "accessid": "" // 准许ID
-  "dir": "/file/xxx" // 目录地址
-  "expire": // 开放到期时间戳
-  "host": // 目标主机地址 (阿里云 OSS)
-  "policy": // 阿里云 OSS policy
-  "signature": // 阿里云 OSS policy signature
+  "result": "OK",
+  "accessid": "", // 准许ID
+  "dir": "files/xxx/", // 目录地址
+  "expire": '',// 开放到期时间戳
+  "host": 'http://xxxx',// 目标主机地址 (阿里云 OSS)
+  "policy": '',// 阿里云 OSS policy
+  "signature": '',// 阿里云 OSS policy signature
 }
 ```
 
-### 5.获取文件页数
+### 5. 上传文件
 
-GET:  /API/getPage
+POST:  /API/file/upload
 
-Parameters: 
+post require payload: 
+
+```http
+------WebKitFormBoundaryNbNE3mklwm2Gf9lu
+Content-Disposition: form-data; name="key"
+
+v4/files/14458411B09773F1575DA786972C8338.docx
+------WebKitFormBoundaryNbNE3mklwm2Gf9lu
+Content-Disposition: form-data; name="policy"
+
+eyJleHBpcmF0aW9uIjoiMjAxNy0wOC0yN1QwMTo1NjoyNVoiLCJjb25kaXRpb25zIjpbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsMCwxMDQ4NTc2MDAwXSxbInN0YXJ0cy13aXRoIiwiJGtleSIsInY0XC9maWxlc1wvIl1dfQ==
+------WebKitFormBoundaryNbNE3mklwm2Gf9lu
+Content-Disposition: form-data; name="Signature"
+
+MFh4u3NdaDY7/ATNZl8j/mPLEs0=
+------WebKitFormBoundaryNbNE3mklwm2Gf9lu
+Content-Disposition: form-data; name="OSSAccessKeyId"
+
+rANDsMNu0pY6yMPz
+------WebKitFormBoundaryNbNE3mklwm2Gf9lu
+Content-Disposition: form-data; name="success_action_status"
+
+200
+------WebKitFormBoundaryNbNE3mklwm2Gf9lu
+Content-Disposition: form-data; name="file"; filename="index.docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+```
+
+post entity body: 
 
 ```js
-md5: 文件的MD5值
-name: 文件名
+文件二进制
 ```
 
 描述：获取文件页数信息
 
 Response:
 
-> 若查询文件存在，则返回文件页数
+> 无
 
-```js
-{
-  "result": "EXISTED",
-  "pageCount": 6,    // 文件总页数
-  "direction": true,  // 排版方向是否为竖版
-  "ext": "docx"     // 文件扩展格式 
-}
-```
-
-> 若查询文件不存在，只需返回不存在状态
-
-```js
-{"result": "NO_EXIST"}
-```
 
 ### 6. 获取打印预览图片
 
-GET:  /API/preview
+GET:  /API/file/pic/preview
 
 Parameters: 
 
@@ -264,14 +295,8 @@ Response:
 ```js
 {
   "result": "OK",
-  "img_url": "/xxxxx.jpg",    // 图片链接
+  "img": "/xxxxx.jpg",    // 图片链接
 }
-```
-
-> 获取失败则返回错误状态
-
-```js
-{"result": "ERROR"}
 ```
 
 ### 7. 登录请求
@@ -280,7 +305,7 @@ Response:
 
 ### 8. 确认打印信息
 
-POST:  /API/checkOut
+POST:  /API/order/verify
 
 描述： 将用户选择的打印信息发到后端再次校验，并生成订单
 
@@ -293,9 +318,6 @@ post entity body
     "money": Number, // 总共花费金额，后端需再校验
     "pointId": String<Number>, // 打印点的唯一编号
     "couponId": String<Number> || Null, // 优惠券ID, null 为没有使用优惠券
-    "city": String,   // 打印点所在城市
-    "school": String, // 打印点所在学校
-    "campus": String, // 打印点所在校区
     "files": [{ // Array<Object> 需打印的文件列表
       "fileId": String, // 文件 MD5 值
       "fileName": String, // 文件名
@@ -326,9 +348,6 @@ post entity body
     "money": 25,
     "pointId": "0026",
     "couponId": 0,
-    "city": "成都",
-    "school": "布鲁尼亚大学",
-    "campus": "清水校区",
     "files": [{
       "fileId": "A52B4686E173B0612B71148F7F9E099A",
       "fileName": "申报指南.docx",
@@ -376,11 +395,7 @@ Response:
 }
 ```
 
-> 校验失败返回错误状态
 
-```js
-{"result": "ERROR"}
-```
 
 ### 9.获取订单详情
 
@@ -395,12 +410,6 @@ orderId: 订单号
 描述：获取订单详情信息，用于查询订单各种状态
 
 Response:
-
-> 获取订单失败时，返回错误状态
-
-```js
-{"result": "ERROR"}
-```
 
 > 获取订单成功则返回订单详情
 
@@ -440,9 +449,6 @@ Response:
     },
     "firstFileName": String, // 文件列表中第一个文件的名字
     "fileCount": Number, // 文件数量
-    "city": String,   // 同checkOut相同字段
-    "school": String, // 同checkOut相同字段
-    "campus": String, // 同checkOut相同字段
     "files": [{ // Array<Object> 文件列表
       "fileId": String, // 同checkOut相同字段
       "fileName": String, // 同checkOut相同字段
@@ -500,9 +506,6 @@ Response:
     },
     "firstFileName": "申报指南.docx",
     "fileCount": 1,
-    "city": "成都",
-    "school": "布鲁尼亚大学大学",
-    "campus": "清水校区",
     "files": [{
       "fileId": "3B052B46B7111286E48F7648F76E099A",
       "fileName": "申报指南.docx",
@@ -529,7 +532,7 @@ Response:
 
 ### 10. 获取支付通道
 
-GET:  /API/getPayment
+GET:  /API/pay/payment
 
 Parameters: 
 
@@ -542,64 +545,46 @@ payType: 支付方式，微信为 "WXPAY"
 
 Response:
 
-> 获取支付方式失败时，返回错误状态
-
-```js
-{"result": "ERROR"}
-```
-
 > 获取成功时返回二维码地址
 
 ```js
 {
   "result": "OK",
-  "code_url": String // 二维码地址参数
+  "QRCode": String // 二维码地址参数
 }
 ```
 
 ### 11. 获取二维码图片
 
-GET:  /API/getQRCode
+GET:  /API/pay/QRCode
 
 Parameters: 
 
 ```js
 size: 二维码大小，数字，单位px
-str: 二维码地址，即上一项获取的二维码地址参数
+uri: 二维码地址，即上一项获取的二维码地址参数
 ```
 
 描述：获取指定大小的二维码图片
 
 Response:
 
-> 获取二维码失败时，返回错误状态
-
-```js
-{"result": "ERROR"}
-```
-
 > 成功时直接返回图片
 
 ### 12. 查询交易状态 
 
-GET:  /API/askTradeStatus
+GET:  /API/pay/trade
 
 Parameters: 
 
 ```js
-orderId: 订单号
+orderID: 订单号
 payType: 支付方式
 ```
 
 描述：用于前端轮询查询该笔订单是否已支付完成
 
 Response:
-
-> 订单不存在或订单出错时，返回错误状态
-
-```js
-{"result": "ERROR"}
-```
 
 > 成功查询时，返回订单交易状态
 
