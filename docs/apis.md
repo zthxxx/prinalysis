@@ -34,7 +34,7 @@ Response:
 ```js
 {
   "result": "OK",
-  "Info": {
+  "info": {
     // 一层
     Object: {
       // 二层: 三层
@@ -46,7 +46,7 @@ Response:
 // example
 {
   "result": "OK",
-  "Info": {
+  "info": {
     "一级地址 城市1": {
       "二级地址 学校1": ["三级地址 校区1", "三级地址 校区2"],
       "二级地址 学校2": ["三级地址 校区1"]
@@ -81,7 +81,7 @@ Response:
 > 查询为空时返回 EMPTY， `Info` 应为空数组
 
 ```js
-{"result":"EMPTY","Info":[]}
+{"result":"EMPTY","info":[]}
 ```
 
 > 查询成功时，返回包含打印点信息的集合
@@ -89,7 +89,7 @@ Response:
 ```js
 {
   "result": "OK",
-  "Info": Array<POINT Object>
+  "info": Array<POINT Object>
 }
 ```
 
@@ -133,13 +133,13 @@ POINT Object 字段说明
 ```js
 // POINT Object example
 {
-  "pointId": "0001",
+  "pointID": "0001",
   "status": "SUMMER_HOLIDAY",
   "pointType": ["ATM"],
   "delivery_scope": "",
   "delivery_time": "每天中午十二点到两点，每天晚上8点到10点",
-  "phoneNumber": "189xxxx1234",
-  "printPointName": "示例打印点",
+  "phone": "189xxxx1234",
+  "pointName": "示例打印点",
   "address": "综合楼进门左转",
   "message": "欢迎使用云打印~",
   "image": "/assets/img/print/ATM.jpg",
@@ -220,18 +220,22 @@ Response:
 ```js
 {
   "result": "OK",
-  "accessid": "", // 准许ID
-  "dir": "files/xxx/", // 目录地址
-  "expire": '',// 开放到期时间戳
-  "host": 'http://xxxx',// 目标主机地址 (阿里云 OSS)
-  "policy": '',// 阿里云 OSS policy
-  "signature": '',// 阿里云 OSS policy signature
+  "info": {
+    "accessid": "", // 准许ID
+    "dir": "files/xxx/", // 目录地址
+    "expire": '',// 开放到期时间戳
+    "host": 'http://xxxx',// 目标主机地址 (阿里云 OSS)
+    "policy": '',// 阿里云 OSS policy
+    "signature": '',// 阿里云 OSS policy signature
+  }
 }
 ```
 
 ### 5. 上传文件
 
 POST:  /API/file/upload
+
+描述：上传文件
 
 post require payload: 
 
@@ -267,8 +271,6 @@ post entity body:
 文件二进制
 ```
 
-描述：获取文件页数信息
-
 Response:
 
 > 无
@@ -295,7 +297,9 @@ Response:
 ```js
 {
   "result": "OK",
-  "img": "/xxxxx.jpg",    // 图片链接
+  "info": {
+    "img": "/xxxxx.jpg"    // 图片链接
+  }
 }
 ```
 
@@ -313,7 +317,8 @@ post entity body
 
 ```js
 {
-  "Info": {
+  "result": "OK",
+  "info": {
     "orderType": String, // 所选打印点类型
     "money": Number, // 总共花费金额，后端需再校验
     "pointId": String<Number>, // 打印点的唯一编号
@@ -343,7 +348,8 @@ post entity body
 
 // example
 {
-  "Info": {
+  "result": "OK",
+  "info": {
     "orderType": "ATM",
     "money": 25,
     "pointId": "0026",
@@ -379,7 +385,7 @@ Response:
 ```js
 {
   "result": "OK",
-  "Info": {
+  "info": {
     "orderId": String, // 订单号
     "desc": String // 描述信息
   }
@@ -388,7 +394,7 @@ Response:
 // example
 {
   "result": "OK",
-  "Info": {
+  "info": {
     "orderId": "201608123416576751519112",
     "desc": "《申报指南.docx》等共1个文件"
   }
@@ -416,7 +422,7 @@ Response:
 ```js
 {
   "result": "OK",
-  "Info": {
+  "info": {
     "orderId": String, // 订单号
     "orderType": String, // 所选打印点类型, 同第8点checkOut中相同字段，以下均简写
     "orderSecret": String<Number>, // 订单 secret
@@ -473,7 +479,7 @@ Response:
 // example
 {
   "result": "OK",
-  "Info": {
+  "info": {
     "orderId": "201708172723119316581112",
     "orderType": "ATM",
     "orderSecret": "120717116541",
@@ -550,7 +556,9 @@ Response:
 ```js
 {
   "result": "OK",
-  "QRCode": String // 二维码地址参数
+  "info": {
+    "QRCode": String // 二维码地址参数
+  }
 }
 ```
 

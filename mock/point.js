@@ -1,7 +1,7 @@
 module.exports = {
   '/point/address': {
     result: 'OK',
-    'Info|1-3': {
+    'info|1-3': {
       '北京市': {
         '市辖区|5-10': ['@county'],
         '县|1-10': ['@county']
@@ -18,13 +18,13 @@ module.exports = {
   },
   '/point/points': {
     result: 'OK',
-    'Info|2-8': [{
+    'info|2-8': [{
       'pointID|+1': 1,
       'status|1': ['RUNNING', 'SUMMER_HOLIDAY'],
       'pointType|1': ['ATM', 'DISPATCHING'],
       'delivery_scope|1': ['', '@name()广场附近'],
       'delivery_time': '每天中午十二点到两点，每天晚上8点到10点',
-      'phoneNumber': /18\d{9}/,
+      'phone': /1[358]\d{9}/,
       'pointName|1': ['华阳区大楼', '@county()大楼', '@county()广场'],
       'address|1': ['@name()一楼进大门左转', '软件园@region()方向直走'],
       'message|1': ['欢迎使用快印打印~', '新点开张！欢迎使用~'],

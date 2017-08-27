@@ -14,6 +14,7 @@
             'zoom-in' : !selectedID,
             'selected': selectedID == point.pointID
            }"
+           :key="`${point.pointName}${point.pointID}`"
            v-if="!selectedID || selectedID == point.pointID"
            @click="point.running && setlectPoint(point.pointID)">
         <div class="box">
@@ -23,7 +24,7 @@
                 <img :src="point.image || imgDefault">
               </div>
               <div class="detial-div">
-                <div class="point-name">{{point.printPointName}}</div>
+                <div class="point-name">{{point.pointName}}</div>
                 <div class="addr">
                   <i class="el-icon-fa-map-marker"></i>{{point.address}}
                 </div>
@@ -84,7 +85,7 @@
           delivery_scope: '配送范围',
           delivery_time: '配送时间',
           phone: '12345678910',
-          printPointName: '店名',
+          pointName: '店名',
           address: '详细地址',
           message: '提示信息',
           image: require('@/assets/img/print/ATM.jpg'),

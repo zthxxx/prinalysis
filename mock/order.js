@@ -1,14 +1,14 @@
 module.exports = {
   '/order/verify': {
     'result': 'OK',
-    'Info': {
+    'info': {
       'orderId': '@guid',
       'desc': '《@name.docx》等共2个文件'
     }
   },
   '/order/detail': {
     'result': 'OK',
-    'Info': {
+    'info': {
       'orderId': '201708172723119316581112',
       'orderType': 'ATM',
       'orderSecret': '120717116541',

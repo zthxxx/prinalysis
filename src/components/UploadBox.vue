@@ -13,14 +13,16 @@
           </router-link>
         </div>
       </transition>
-      <el-upload action="https://jsonplaceholder.typicode.com/posts/"
-                 class="upload" ref="uploader" multiple
+      <el-upload class="upload" ref="uploader" multiple
+                 :action="action"
+                 :data="payload"
                  :show-file-list="false"
                  :file-list="fileList"
                  :before-upload="onBeforeUpload"
                  :on-success="onSuccessUpload"
                  :on-remove="onRemoveFile"
                  :on-error="onErrorUpload">
+        <!--:http-request="uploadOverload"-->
         <div class="uploadBtn">
           <span class="upload_title" v-if="!fileList.length">添加文件</span>
           <span class="upload_title" v-else>继续添加文件</span>
@@ -38,7 +40,7 @@
   import uploadDragBox from './UploadDragBox'
   import printFileList from './PrintFileList'
   import getFileMD5 from '@/utils/getFileMD5'
-  import {getPage} from '@/api'
+  import {getPage, getFileURL, uploadFile} from '@/api'
   export default {
     name: 'upload-box',
     props: {
@@ -48,7 +50,10 @@
       }
     },
     data () {
-      return {}
+      return {
+        action: '',
+        payload: {}
+      }
     },
     computed: {...mapState(['fileList'])},
     methods: {
@@ -58,33 +63,8 @@
       transmitRemove (file) {
         this.$refs.uploader.handleRemove(file);
       },
-      fileFormatCheck (rawFile) {
-        let supports = ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 'jpg', 'png'];
-        rawFile.extension = rawFile.name.split('.').pop().toLowerCase();
-        if (supports.findIndex((format) => format == rawFile.extension) < 0) {
-          this.$notify.error({
-            title: `暂不支持此文件格式: ${rawFile.extension}`,
-            message: `当前仅支持 ${supports.join('，')} 等格式。`
-          });
-          throw 'stop-upload';
-        }
-        if (rawFile.name.match(/^~\$/)) {
-          this.$notify.error({
-            title: '该文件为 "影子文件"，无法打印',
-            message: `文件 ${rawFile.name} 为"影子文件"，无法添加到打印列表。请添加相同目录下不以 "~$" 开头的同名文件，它才是本尊！`
-          });
-          throw 'stop-upload';
-        }
-      },
-      async fileExistCheck (rawFile) {
-        let check = await getPage(rawFile);
-        if (check.result == 'EXISTED') {
-          console.warn('exist', rawFile.name, rawFile.md5);
-          rawFile.pageInfo = {pageCount: check.pageCount, direction: check.direction};
-          rawFile.printSetting = this.defaultPrint(rawFile);
-          this.$refs.uploader.handleStart(rawFile);
-          throw 'stop-upload';
-        }
+      async uploadOverload (option) {
+        await uploadFile(option.file, option);
       },
       defaultPrint (rawFile) {
         return {
@@ -96,12 +76,47 @@
           endPage: rawFile.pageInfo.pageCount
         };
       },
+      async getUploadURL ({md5, name}) {
+        let oss = await getFileURL({md5, name});
+        this.action = `${oss.host}${oss.dir}`;
+        let {accessid, expire, policy, signature} = oss;
+        this.payload = {accessid, expire, policy, signature};
+      },
+      fileFormatCheck (rawFile) {
+        let supports = ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 'jpg', 'png'];
+        rawFile.extension = rawFile.name.split('.').pop().toLowerCase();
+        if (supports.findIndex((format) => format == rawFile.extension) < 0) {
+          this.$notify.error({
+            title: `暂不支持此文件格式: ${rawFile.extension}`,
+            message: `当前仅支持 ${supports.join('，')} 等格式。`
+          });
+          throw new Error('stop-upload Format not support');
+        }
+        if (rawFile.name.match(/^~\$/)) {
+          this.$notify.error({
+            title: '该文件为 "影子文件"，无法打印',
+            message: `文件 ${rawFile.name} 为"影子文件"，无法添加到打印列表。请添加相同目录下不以 "~$" 开头的同名文件，它才是本尊！`
+          });
+          throw new Error('stop-upload Office Temp');
+        }
+      },
+      async fileExistCheck (rawFile) {
+        let check = await getPage(rawFile);
+        if (check.result == 'EXISTED') {
+          console.warn('exist', rawFile.name, rawFile.md5);
+          rawFile.pageInfo = {pageCount: check.pageCount, direction: check.direction};
+          rawFile.printSetting = this.defaultPrint(rawFile);
+          this.$refs.uploader.handleStart(rawFile);
+          throw new Error('stop-upload File existed');
+        }
+      },
       async onBeforeUpload (rawFile) {
         this.fileFormatCheck(rawFile);
         rawFile.md5 = await getFileMD5(rawFile);
         rawFile.origin = '本地上传';
         console.info(rawFile.md5);
-        this.fileExistCheck(rawFile);
+        await this.fileExistCheck(rawFile);
+        await this.getUploadURL(rawFile);
       },
       async onSuccessUpload (response, file, fileList) {
         console.warn('success', file);

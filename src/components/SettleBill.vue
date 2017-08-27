@@ -55,10 +55,6 @@
   export default {
     name: 'settle-bill',
     props: {
-      pointAddress: {
-        type: Array,
-        required: true
-      },
       point: {
         required: true,
         default: null
@@ -105,9 +101,6 @@
             money: this.finalMoney.amount,
             pointId: this.point.pointId,
             couponId: 0,
-            city: this.pointAddress[0],
-            school: this.pointAddress[1],
-            campus: this.pointAddress[2],
             files: this.fileList.map(({raw: file}) => ({
               fileId: file.md5,
               fileName: file.name,

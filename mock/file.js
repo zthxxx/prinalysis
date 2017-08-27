@@ -6,16 +6,22 @@ module.exports = {
   },
   '/file/url': {
     'result': 'OK',
-    'accessid': '@id',
-    'dir': 'posts/',
-    'expire': '',
-    'host': 'https://jsonplaceholder.typicode.com/',
-    'policy': '',
-    'signature': '@guid'
+    'info': {
+      'accessid': '@id',
+      'dir': '/file/upload',
+      // 'dir': '/posts',
+      'expire': '',
+      'host': '/api',
+      // 'host': 'http://jsonplaceholder.typicode.com',
+      'policy': '',
+      'signature': '@guid'
+    }
   },
   '/file/upload': '',
   '/file/pic/preview': {
     'result': 'OK',
-    'img': 'http://xxx'
+    'info': {
+      'img': 'http://xxx'
+    }
   }
 };

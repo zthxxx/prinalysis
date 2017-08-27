@@ -10,4 +10,9 @@ export const POINTS = `${BaseUrl}/point/points`;
 
 export const PAGE = `${BaseUrl}/file/page`;
 
+export const FILEURL = `${BaseUrl}/file/url`;
+
+export const UPLOAD = `${BaseUrl}/file/upload`;
+
+export const PREVIEW = `${BaseUrl}/file/pic/preview`;
 

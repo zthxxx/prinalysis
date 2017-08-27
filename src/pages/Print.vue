@@ -39,17 +39,15 @@
         points: []
       }
     },
-    async created () {
-      await this.initData();
+    created () {
+      this.initData();
     },
     methods: {
       async initData () {
-        let response = await getAddresses();
-        this.addresses = response.Info;
+        this.addresses = await getAddresses();
       },
       async setPoints (focusAddress) {
-        let response = await getPoints(focusAddress);
-        const points = response.Info;
+        const points = await getPoints(focusAddress);
         const holidays = {
           'RUNNING': '正在运营',
           'SUMMER_HOLIDAY': '暑假休息',
