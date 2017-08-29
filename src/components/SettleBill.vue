@@ -52,6 +52,7 @@
 </template>
 
 <script>
+  import {formatCNY} from '@/utils/tools'
   export default {
     name: 'settle-bill',
     props: {
@@ -82,9 +83,7 @@
           monoDuplexThick: 'A4黑白双面 加厚纸',
           colorfulSingleThick: 'A4彩色单面 加厚纸',
           colorfulDuplexThick: 'A4黑白双面 加厚纸',
-        },
-        formatCNY: (cents) => new Intl.NumberFormat('zh-CN',
-          {style: 'currency', currency: 'CNY'}).format(cents / 100)
+        }
       }
     },
     methods: {
@@ -135,9 +134,9 @@
           let dualCount = 0;
           let area = setting.endPage - setting.startPage + 1;
           let pages = Math.ceil(area / setting.layout);
-          if (setting.duplex == 1) {
+          if (setting.side == 1) {
             singleCount = pages * setting.copies;
-          } else if (setting.duplex == 2) {
+          } else if (setting.side == 2) {
             singleCount = pages % 2 * setting.copies;
             dualCount = Math.floor(pages / 2) * setting.copies;
           }
@@ -149,13 +148,13 @@
       bills () {
         let bills = [];
         let printItem = this.point.basicPrintItem;
-        let unitPrice = (value) => value > 0 ? `${this.formatCNY(value)}/张` : null;
+        let unitPrice = (value) => value > 0 ? `${formatCNY(value)}/张` : null;
         for (let item of Object.keys(this.itemCount)) {
           bills.push({
             itemName: this.itemNameMap[item],
             unitPrice: unitPrice(printItem[item]),
             count: this.itemCount[item],
-            money: this.formatCNY(printItem[item] * this.itemCount[item]),
+            money: formatCNY(printItem[item] * this.itemCount[item]),
             cost: printItem[item] * this.itemCount[item]
           })
         }
@@ -174,8 +173,8 @@
         // TODO: handle selected coupon
         actualCost = actualCost < this.point.minCharge ? this.point.minCharge : actualCost;
         return {
-          originMoney: this.formatCNY(originCost),
-          actualMoney: this.formatCNY(actualCost),
+          originMoney: formatCNY(originCost),
+          actualMoney: formatCNY(actualCost),
           amount: actualCost
         };
       }

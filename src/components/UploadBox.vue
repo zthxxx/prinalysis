@@ -52,7 +52,8 @@
     data () {
       return {
         action: '',
-        payload: {}
+        payload: {},
+        supportFormat: ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 'jpg', 'png']
       }
     },
     computed: {...mapState(['fileList'])},
@@ -71,7 +72,7 @@
           layout: 1,
           copies: 1,
           color: 'mono',
-          duplex: 1,
+          side: 1,
           startPage: 1,
           endPage: rawFile.pageInfo.pageCount
         };
@@ -83,9 +84,10 @@
         this.payload = {accessid, expire, policy, signature};
       },
       fileFormatCheck (rawFile) {
-        let supports = ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 'jpg', 'png'];
+        let supports = this.supportFormat;
         rawFile.extension = rawFile.name.split('.').pop().toLowerCase();
-        if (supports.findIndex((format) => format == rawFile.extension) < 0) {
+        if (!rawFile.name.match(/\./) ||
+            supports.findIndex((format) => format == rawFile.extension) < 0) {
           this.$notify.error({
             title: `暂不支持此文件格式: ${rawFile.extension}`,
             message: `当前仅支持 ${supports.join('，')} 等格式。`
@@ -122,6 +124,7 @@
         console.warn('success', file);
         console.warn('success', fileList);
         file.raw.pageInfo = await getPage({md5: file.raw.md5, name: file.name});
+        file.raw.printSetting = this.defaultPrint(file.raw);
         this.$store.commit('updateFileList', fileList);
       },
       onErrorUpload (err) {

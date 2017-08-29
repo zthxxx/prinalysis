@@ -1,6 +1,6 @@
 # 云打印前端 API 需求说明
 
-注：以下 `/API/` 为地址前缀，应由真实地址替换。金额数值处理均以人民币`分`为单位，显示金额均以`元`为单位。
+注：以下 `/API/` 为地址前缀，应由真实地址替换。金额数值处理（即API中表示金额的数值）均以人民币`分`为单位，前端显示金额（无关API）均以`元`为单位。
 
 [TOC]
 
@@ -108,11 +108,7 @@ POINT Object 字段说明
 |    message     |     String      |               关于优惠、活动的宣传语                |         "欢迎使用云打印~"          |
 |     image      |     String      |        打印点的展示图 URL，不特殊指定就是ATM.jpg        |       "/img/ATM.jpg"        |
 |    takeTime    |  Array<Number>  |      自主取件时间范围，24h，[起始时,起始分,终止时,终止分]      |      [10, 30, 18, 30]       |
-| basicPrintItem |     Object      |          可打印的项目类型价格，`-1` 表示不支持           |                             |
-|                |     Number      |            monoSingle: 黑白单面价格            |             10              |
-|                |     Number      |            monoDuplex: 黑白双面价格            |             10              |
-|                |     Number      |          colorfulSingle: 彩色单面价格          |             -1              |
-|                |     Number      |          colorfulDuplex: 彩色双面价格          |             -1              |
+|     price      | <price Object>  |             打印类型支持与价格（详述见下）              |                             |
 |    atmInfo     |     Object      |                 打印点的机子信息                 |                             |
 |                |     Number      |           maxPageCount: 最大打印页数           |             500             |
 |                |     String      |               desc: 详细描述信息               |             ""              |
@@ -131,6 +127,61 @@ POINT Object 字段说明
 
 
 ```js
+/** price Object 详细项
+* 表示所支持的每种打印类型对应单价
+* 每种打印类型由四种属性组成：页面大小，页面厚度，颜色模式，单双面
+* price Object 中四种属性按上述顺序依次嵌套，如
+* {
+*   页面大小: {
+*     页面厚度: {
+*       颜色模式: {
+*         单双面: 价格
+*       }
+*     }
+*   }
+* }
+* 每一项均为可选，如缺少某一大小或某一厚度，则表示不支持此类型
+* 页面大小有 "A4" "A3" "B3" "B5" 等
+* 页面厚度有 "70g" "80g" "120g" 等
+* 颜色模式 "mono" 表示黑白打印，"colorful" 表示彩色打印
+* 单双面选项 "oneside" 表示单面打印，"duplex" 表示双面打印
+*/
+// price Object example
+"price": {
+  "A4": {
+    "70g": {
+      "mono": {
+        "oneside": 10,
+        "duplex": 15
+      },
+      "colorful": {
+        "oneside": 20,
+        "duplex": 30
+      }
+    },
+    "80g": {
+      "mono": {
+        "oneside": 15,
+        "duplex": 20
+      },
+      "colorful": {
+        "oneside": 25,
+        "duplex": 35
+      }
+    }
+  },
+  "A3": {
+    "70g": {
+      "mono": {
+        "oneside": 50,
+        "duplex": 90
+      }
+    }
+  }
+}
+```
+
+```js
 // POINT Object example
 {
   "pointID": "0001",
@@ -144,11 +195,15 @@ POINT Object 字段说明
   "message": "欢迎使用云打印~",
   "image": "/assets/img/print/ATM.jpg",
   "takeTime": [10, 30, 18, 30],
-  "basicPrintItem": {
-    "monoSingle": 10,
-    "monoDuplex": 15,
-    "colorfulSingle": -1,
-    "colorfulDuplex": -1
+  "price": {
+    "A4": {
+      "70g": {
+        "mono": {
+          "oneside": 10,
+          "duplex": 15
+        }
+      }
+    }
   },
   "atmInfo": {
     "maxPageCount": 200,

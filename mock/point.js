@@ -30,15 +30,37 @@ module.exports = {
       'message|1': ['欢迎使用快印打印~', '新点开张！欢迎使用~'],
       'image': '',
       'takeTime': ['@natural(0, 23)', '@natural(0, 59)', 24, 0],
-      'basicPrintItem': {
-        'monoSingle': '@natural(10, 50)',
-        'monoDuplex': '@natural(10, 50)',
-        'colorfulSingle|1': [-1, '@natural(20, 50)'],
-        'colorfulDuplex|1': [-1, '@natural(20, 50)'],
-        'monoSingleThick': -1,
-        'monoDuplexThick': -1,
-        'colorfulSingleThick': -1,
-        'colorfulDuplexThick': -1
+      'price': {
+        'A4|1-2': {
+          '70g|1-2': {
+            'mono': {
+              'oneside': '@natural(10, 50)',
+              'duplex': '@natural(10, 50)'
+            },
+            'colorful': {
+              'oneside|1': [-1, '@natural(20, 50)'],
+              'duplex|1': [-1, '@natural(20, 50)']
+            }
+          },
+          '80g|1-2': {
+            'mono': {
+              'oneside': '@natural(10, 50)',
+              'duplex': '@natural(10, 50)'
+            },
+            'colorful': {
+              'oneside|1': [-1, '@natural(20, 50)'],
+              'duplex|1': [-1, '@natural(20, 50)']
+            }
+          }
+        },
+        'A3': {
+          '70g': {
+            'mono': {
+              'oneside': '@natural(10, 50)',
+              'duplex': '@natural(10, 50)'
+            }
+          }
+        },
       },
       'printInfo': {
         'maxPageCount': 200,

@@ -50,7 +50,7 @@
               <i class="el-icon-fa-list-ul"></i>价格表
             </div>
             <div class="price-list">
-              <div v-for="item in getPriceList(point.basicPrintItem)"
+              <div v-for="item in getPriceList(point.price)"
                    :class="{'price-item': true, 'invalid': !item.price}">
                 <div class="price-name">{{item.type}}</div>
                 <div class="money">{{item.price || '不支持'}}</div>
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+  import {formatCNY} from '@/utils/tools'
   export default {
     name: 'shop-point-card',
     props: {
@@ -79,8 +80,8 @@
         type: Array,
         default: () => [{
           pointID: '001',
-          running: true, // api transform
-          rest_message: '假期休息', // api transform
+          running: true,
+          rest_message: '假期休息',
           pointType: ['ATM'],
           delivery_scope: '配送范围',
           delivery_time: '配送时间',
@@ -90,9 +91,15 @@
           message: '提示信息',
           image: require('@/assets/img/print/ATM.jpg'),
           takeTime: [0, 0, 24, 0],
-          basicPrintItem: {
-            monoSingle: 10,
-            colorfulSingle: 80
+          price: {
+            A4: {
+              '70g': {
+                mono: {
+                  oneside: 10,
+                  duplex: 15
+                },
+              }
+            }
           },
           colorType: {
             mono: true,
@@ -136,11 +143,7 @@
         this.$emit('input', this.focusPoint());
       },
       getPriceList (printItem) {
-        let formatCNY = new Intl.NumberFormat('zh-CN', {
-          style: 'currency',
-          currency: 'CNY'
-        });
-        let unitPrice = (value) => value > 0 ? `${formatCNY.format(value / 100)} / 张` : null;
+        let unitPrice = (value) => value > 0 ? `${formatCNY(value)} / 张` : null;
         let tariff = [
           {'type': 'A4黑白单面 普通纸', 'price': unitPrice(printItem.monoSingle)},
           {'type': 'A4黑白双面 普通纸', 'price': unitPrice(printItem.monoDuplex)},

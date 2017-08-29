@@ -58,9 +58,16 @@
           point.running = point.status == 'RUNNING';
           point.rest_message = holidays[point.status];
           point.colorType = {
-            mono: point.basicPrintItem.monoSingle > 0,
-            colorful: point.basicPrintItem.colorfulSingle > 0
+            mono: false,
+            colorful: false
           };
+          for (let size in point.price) {
+            for (let caliper in point.price[size]) {
+              let colorType = point.price[size][caliper];
+              if ('mono' in colorType) point.colorType.mono = true;
+              if ('colorful' in colorType) point.colorType.colorful = true;
+            }
+          }
         }
         this.points = points;
       }

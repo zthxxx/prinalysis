@@ -43,7 +43,7 @@
                 <li>
                   <div>单双面</div>
                   <div class="choiceSelect">
-                    <el-select v-model="preSetting.duplex" style="width: 85px;">
+                    <el-select v-model="preSetting.side" style="width: 85px;">
                       <el-option label="单面" :value="1"></el-option>
                       <el-option label="双面" :value="2"></el-option>
                     </el-select>
@@ -129,10 +129,12 @@
         default: () => ({
           layout: 1,
           copies: 1,
+          size: 'A4',
+          caliper: '70g',
           color: 'mono',
           duplex: 1,
           startPage: 1,
-          endPage: 1
+          endPage: 1,
         })
       },
       handleRemove: {
