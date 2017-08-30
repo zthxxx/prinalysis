@@ -111,7 +111,13 @@
     data () {
       return {
         imgDefault: require('@/assets/img/print/ATM.jpg'),
-        selectedID: this.value && this.value.pointID ? this.value.pointID : null
+        selectedID: this.value && this.value.pointID ? this.value.pointID : null,
+        typeMap: {
+          mono: '黑白',
+          colorful: '彩色',
+          oneside: '单面',
+          duplex: '双面'
+        }
       }
     },
     methods: {
@@ -142,18 +148,25 @@
         this.selectedID = pointID;
         this.$emit('input', this.focusPoint());
       },
-      getPriceList (printItem) {
+      getPriceList (price) {
         let unitPrice = (value) => value > 0 ? `${formatCNY(value)} / 张` : null;
-        let tariff = [
-          {'type': 'A4黑白单面 普通纸', 'price': unitPrice(printItem.monoSingle)},
-          {'type': 'A4黑白双面 普通纸', 'price': unitPrice(printItem.monoDuplex)},
-          {'type': 'A4彩色单面 普通纸', 'price': unitPrice(printItem.colorfulSingle)},
-          {'type': 'A4彩色双面 普通纸', 'price': unitPrice(printItem.colorfulDuplex)},
-          {'type': 'A4黑白单面 加厚纸', 'price': unitPrice(printItem.monoSingleThick)},
-          {'type': 'A4黑白双面 加厚纸', 'price': unitPrice(printItem.monoDuplexThick)},
-          {'type': 'A4彩色单面 加厚纸', 'price': unitPrice(printItem.colorfulSingleThick)},
-          {'type': 'A4彩色双面 加厚纸', 'price': unitPrice(printItem.colorfulDuplexThick)}
-        ];
+        let typeMap = this.typeMap;
+        let tariff = [];
+        for (let size in price) {
+          for (let caliper in price[size]) {
+            let prefix = `${size} ${caliper}纸`;
+            let colorType = price[size][caliper];
+            for (let color in colorType) {
+              for (let side in colorType[color]) {
+                let unit = colorType[color][side];
+                tariff.push({
+                  type: `${prefix}${typeMap[color]}${typeMap[side]}`,
+                  price: unitPrice(unit)
+                });
+              }
+            }
+          }
+        }
         return tariff;
       }
     },

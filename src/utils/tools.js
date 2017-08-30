@@ -1,7 +1,7 @@
 /*
 把人名币分值格式化到元
  */
-export let formatCNY = (cents) => new Intl.NumberFormat(
+export const formatCNY = (cents) => new Intl.NumberFormat(
   'zh-CN',
   {
     style: 'currency',

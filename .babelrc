@@ -4,7 +4,10 @@
     ["env", { "modules": false }],
     "stage-2"
   ],
-  "plugins": ["transform-runtime"],
+  "plugins": [
+    "transform-optional-chaining",
+    "transform-runtime"
+  ],
   "comments": false,
   "env": {
     "test": {

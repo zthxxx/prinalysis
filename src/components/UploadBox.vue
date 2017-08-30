@@ -71,6 +71,8 @@
         return {
           layout: 1,
           copies: 1,
+          size: 'A4',
+          caliper: '70g',
           color: 'mono',
           side: 1,
           startPage: 1,

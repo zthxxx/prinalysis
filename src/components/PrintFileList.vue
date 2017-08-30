@@ -5,7 +5,7 @@
         :file="file"
         v-model="file.raw.printSetting"
         :key="`${file.name}_${index}`"
-        :point="point"
+        :price="point.price"
         :handleRemove="handleRemove"
         :handlePreview="handlePreview">
       </print-file-item>

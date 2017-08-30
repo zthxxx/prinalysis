@@ -383,8 +383,10 @@ post entity body
       "fileName": String, // 文件名
       "layout": Number, // 多合一方式，数值表示一张纸内合并打印原本的几页文档
       "copies": Number, // 打印份数
+      "size": String,   // 页面大小，如 "A4" "A3" 之类
+      "caliper": String,// 纸张厚度，如 "70g" "80g" 等
       "color": String,  // 打印颜色模式， "mono"为黑白打印，"colorful"为彩色打印
-      "duplex": Number, // 单双面设置，值为1是单面打印， 2为双面打印
+      "side": Number, // 单双面设置，值为1是单面打印， 2为双面打印
       "startPage": Number, // 打印文档起始页 
       "endPage": Number    // 打印文档终止页
     }],
@@ -414,8 +416,10 @@ post entity body
       "fileName": "申报指南.docx",
       "layout": 2,
       "copies": 1,
+      "size": "A4",
+      "caliper": "70g",
       "color": "mono",
-      "duplex": 1, 
+      "side": 1, 
       "startPage": 0,
       "endPage": 0
     }],

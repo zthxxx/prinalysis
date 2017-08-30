@@ -34,35 +34,36 @@
                 <li>
                   <div>色彩</div>
                   <div class="choiceSelect">
-                    <el-select v-model="preSetting.color" style="width: 85px;">
-                      <el-option label="黑白" value="mono" :disabled="!(point && point.colorType.mono)"></el-option>
-                      <el-option label="彩色" value="colorful" :disabled="!(point && point.colorType.colorful)"></el-option>
+                    <el-select v-model="setting.color" style="width: 85px;">
+                      <el-option label="黑白" value="mono" :disabled="!('mono' in colorable)"></el-option>
+                      <el-option label="彩色" value="colorful" :disabled="!('colorful' in colorable)"></el-option>
                     </el-select>
                   </div>
                 </li>
                 <li>
                   <div>单双面</div>
                   <div class="choiceSelect">
-                    <el-select v-model="preSetting.side" style="width: 85px;">
-                      <el-option label="单面" :value="1"></el-option>
-                      <el-option label="双面" :value="2"></el-option>
+                    <el-select v-model="setting.side" style="width: 85px;">
+                      <el-option label="单面" :value="1" :disabled="!('oneside' in sideable)"></el-option>
+                      <el-option label="双面" :value="2" :disabled="!('duplex' in sideable)"></el-option>
                     </el-select>
                   </div>
                 </li>
                 <li>
                   <div>多合一</div>
                   <div class="choiceSelect">
-                    <el-select v-model="preSetting.layout" style="width: 80px;">
+                    <el-select v-model="setting.layout" style="width: 80px;">
                       <el-option label="1合1" :value="1"></el-option>
                       <el-option label="2合1" :value="2"></el-option>
                       <el-option label="4合1" :value="4"></el-option>
+                      <el-option label="6合1" :value="6"></el-option>
                     </el-select>
                   </div>
                 </li>
                 <li>
                   <div>份数</div>
                   <div class="choiceSelect">
-                    <el-input-number class="choiceNum" v-model="preSetting.copies" :min="1" :max="1000"></el-input-number>
+                    <el-input-number class="choiceNum" v-model="setting.copies" :min="1" :max="1000"></el-input-number>
                   </div>
                 </li>
               </ul>
@@ -72,22 +73,28 @@
                 <span class="area-tip">打印范围 </span>
                 <span class="lingkage-are">
                 <el-input-number class="print-area-input" :controls="false"
-                                 v-model="preSetting.startPage"
+                                 v-model="setting.startPage"
                                  :min="1"
-                                 :max="preSetting.endPage">
+                                 :max="setting.endPage">
                 </el-input-number>
                 <span>-</span>
                 <el-input-number class="print-area-input" :controls="false"
-                                 v-model="preSetting.endPage"
-                                 :min="preSetting.startPage"
+                                 v-model="setting.endPage"
+                                 :min="setting.startPage"
                                  :max="file.raw.pageInfo.pageCount">
                 </el-input-number>
               </span>
               </div>
               <div class="print-area">
                 <span style="margin-right: 2px;">纸张</span>
-                <el-select value="A4 70g 白纸" style="width: 160px;">
-                  <el-option label="A4 70g 白纸" value="A4 70g 白纸"></el-option>
+                <el-select v-model="sizeside" style="width: 160px;">
+                  <template v-for="(calipers, size) in price">
+                    <el-option v-for="(colors, caliper) in calipers"
+                               :label="`${size} ${caliper} 白纸`"
+                               :value="JSON.stringify({size, caliper})"
+                               :key="`${size} ${caliper} 白纸`">
+                    </el-option>
+                  </template>
                 </el-select>
               </div>
             </div>
@@ -101,10 +108,10 @@
   export default {
     name: 'print-file-item',
     model: {
-      prop: 'setting'
+      prop: 'preSetting'
     },
     props: {
-      point: {
+      price: {
         required: true,
         default: null
       },
@@ -124,7 +131,7 @@
           },
         })
       },
-      setting: {
+      preSetting: {
         type: Object,
         default: () => ({
           layout: 1,
@@ -132,7 +139,7 @@
           size: 'A4',
           caliper: '70g',
           color: 'mono',
-          duplex: 1,
+          side: 2,
           startPage: 1,
           endPage: 1,
         })
@@ -148,7 +155,7 @@
     },
     data () {
       return {
-        preSetting: this.setting,
+        setting: this.preSet(this.preSetting),
         fileIcon: {
           doc: require('@/assets/img/print/icon-word.png'),
           docx: require('@/assets/img/print/icon-word.png'),
@@ -160,18 +167,63 @@
       }
     },
     watch: {
-      preSetting (newSetting) {
+      setting (newSetting) {
         this.$emit('input', newSetting);
       }
     },
-    computed: {
-      total () {
-        let setting = this.preSetting;
-        return Math.ceil(
-        (setting.endPage - setting.startPage + 1)
-        * setting.copies / setting.duplex
-        );
+    methods: {
+      preSet (setting) {
+        if (!this.price) return setting;
+        let size = 'A4' in this.price ? 'A4' : Object.keys(this.price).shift();
+        let caliper = Object.keys(this.price[size]).shift();
+        let colors = this.price[size][caliper];
+        let color = 'mono' in colors ? 'mono' : 'colorful';
+        let side = 'oneside' in colors[color] ? 1 : 2;
+        return {
+          ...setting,
+          size,
+          caliper,
+          color,
+          side
+        }
       }
+    },
+    computed: {
+      colorable () {
+        return this.price
+          && this.price [this.setting.size]
+          && this.price [this.setting.size][this.setting.caliper]
+          || {};
+      },
+      sideable () {
+        return this.colorable
+          && this.colorable[this.setting.color]
+          || {};
+      },
+      sizeside: {
+        get () {
+          return JSON.stringify({
+            size: this.setting.size,
+            caliper: this.setting.caliper
+          });
+        },
+        set (value) {
+          let setting = this.setting;
+          Object.assign(setting, JSON.parse(value));
+          let colors = this.price[setting.size][setting.caliper];
+          setting.color = setting.color in colors ? setting.color : Object.keys(colors).shift();
+          let sides = colors[setting.color];
+          let sideMap = ['oneside', 'duplex'];
+          setting.side = sideMap[setting.side-1] in sides ? setting.side : 3 - setting.side;
+        }
+      },
+      total () {
+        let setting = this.setting;
+        return Math.ceil(
+          (setting.endPage - setting.startPage + 1)
+          * setting.copies / setting.side
+        );
+      },
     }
   }
 </script>

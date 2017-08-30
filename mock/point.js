@@ -33,29 +33,29 @@ module.exports = {
       'price': {
         'A4|1-2': {
           '70g|1-2': {
-            'mono': {
+            'mono|1-2': {
               'oneside': '@natural(10, 50)',
               'duplex': '@natural(10, 50)'
             },
-            'colorful': {
-              'oneside|1': [-1, '@natural(20, 50)'],
-              'duplex|1': [-1, '@natural(20, 50)']
+            'colorful|1-2': {
+              'oneside': '@natural(20, 50)',
+              'duplex': '@natural(20, 50)'
             }
           },
           '80g|1-2': {
-            'mono': {
+            'mono|1-2': {
               'oneside': '@natural(10, 50)',
               'duplex': '@natural(10, 50)'
             },
-            'colorful': {
-              'oneside|1': [-1, '@natural(20, 50)'],
-              'duplex|1': [-1, '@natural(20, 50)']
+            'colorful|1-2': {
+              'oneside': '@natural(20, 50)',
+              'duplex': '@natural(20, 50)'
             }
           }
         },
         'A3': {
           '70g': {
-            'mono': {
+            'mono|1-2': {
               'oneside': '@natural(10, 50)',
               'duplex': '@natural(10, 50)'
             }
