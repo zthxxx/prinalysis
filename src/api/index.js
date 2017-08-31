@@ -40,6 +40,14 @@ export const getFileURL = ({md5, name}) => _get(API.FILEURL, {md5, name});
 export const uploadFile = (file) => post(API.UPLOAD, file);
 
 /**
- * 上传文件
+ * 文档预览
  */
-export const filePreview = ({md5, layout, page}) => get(API.PREVIEW, {md5, layout, page});
+export const filePreview = ({md5, layout, page}) => _get(API.PREVIEW, {md5, layout, page});
+
+/**
+ * 确认打印信息
+ */
+export const verifyOrder = ({pointID, files, money, couponID, reduction, dispatching}) =>
+  _get(API.VERIFY, {pointID, files, money, couponID, reduction, dispatching});
+
+

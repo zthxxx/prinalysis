@@ -14,11 +14,11 @@
               <td>数量</td>
               <td>小计</td>
             </tr>
-            <tr v-for="item in bills" v-if="item.unitPrice && item.count">
-              <td>{{item.itemName}}</td>
-              <td>{{item.unitPrice}}</td>
+            <tr v-for="item in bills" v-if="item.unit && item.count">
+              <td>{{item.name}}</td>
+              <td>{{item.unit}}</td>
               <td>{{item.count}}</td>
-              <td>{{item.money}}</td>
+              <td>{{formatCNY(item.cost)}}</td>
             </tr>
             </tbody>
           </table>
@@ -34,17 +34,17 @@
           <div class="title">
             选择取件方式
           </div>
-          <el-radio-group v-model="dispatching.take">
-            <el-radio class="radio" label="pick">到打印点自取</el-radio>
+          <el-radio-group v-model="dispatch">
+            <el-radio class="radio" :label="false">到打印点自取</el-radio>
             <br>
-            <el-radio class="radio" label="dispatch" :disabled="!point.delivery_scope">送件上门（本打印点暂时不支持）</el-radio>
+            <el-radio class="radio" :label="true" :disabled="!point.delivery_scope">送件上门（本打印点暂时不支持）</el-radio>
           </el-radio-group>
           <div class="dispatch-info"></div>
         </div>
         <div class="account-info">
           <div class="original-money">原价：<span>{{finalMoney.originMoney}}</span></div>
           <div class="final-money">应付：<span>{{finalMoney.actualMoney}}</span></div>
-          <el-button class="to-submit">确认下单</el-button>
+          <el-button class="to-submit" @click="verifyOrder()">确认下单</el-button>
         </div>
       </div>
     </div>
@@ -52,7 +52,9 @@
 </template>
 
 <script>
+  import _ from 'lodash'
   import {formatCNY} from '@/utils/tools'
+  import {verifyOrder} from '@/api'
   export default {
     name: 'settle-bill',
     props: {
@@ -67,96 +69,109 @@
     },
     data () {
       return {
+        dispatch: false,
         dispatching: {
-          take: 'pick',
           username: '',
           userPhone: '',
           address: '',
           leftMessage: ''
         },
-        itemNameMap: {
-          monoSingle: 'A4黑白单面 普通纸',
-          monoDuplex: 'A4黑白双面 普通纸',
-          colorfulSingle: 'A4彩色单面 普通纸',
-          colorfulDuplex: 'A4彩色双面 普通纸',
-          monoSingleThick: 'A4黑白单面 加厚纸',
-          monoDuplexThick: 'A4黑白双面 加厚纸',
-          colorfulSingleThick: 'A4彩色单面 加厚纸',
-          colorfulDuplexThick: 'A4黑白双面 加厚纸',
-        }
+        typeMap: {
+          mono: '黑白',
+          colorful: '彩色',
+          '1': '单面',
+          '2': '双面'
+        },
+        formatCNY: formatCNY
       }
     },
     methods: {
       getReducedMoney () {
-        return {money:0, hasReduced: false};
+        return {money: 0, hasReduced: false};
       },
       getSelectCoupon () {
         return {couponId: null, couponName: null};
       },
-      checkoutInfo () {
-        let check = {
-          Info: {
-            orderType: this.point.pointType[0],
-            money: this.finalMoney.amount,
-            pointId: this.point.pointId,
-            couponId: 0,
-            files: this.fileList.map(({raw: file}) => ({
-              fileId: file.md5,
-              fileName: file.name,
-              ...file.printSetting
-            })),
-            reduction: {
-              newUser: false,
-              full: []
-            },
-            dispatchingInfo: {
-              username: '',
-              userPhone: '',
-              address: '',
-              leftMessage: ''
-            }
+      getOrder () {
+        let order = {
+          pointID: this.point.pointID,
+          files: this.fileList.map(({raw: file}) => ({
+            fileID: file.md5,
+            fileName: file.name,
+            ...file.printSetting
+          })),
+          money: this.finalMoney.amount,
+          couponId: 0,
+          reduction: {
+            newUser: false,
+            full: []
+          },
+          dispatchingInfo: this.dispatch ? this.dispatching : {
+            username: '',
+            userPhone: '',
+            address: '',
+            leftMessage: ''
           }
         };
-        return check;
+        return order;
+      },
+      async verifyOrder () {
+        let order = this.getOrder();
+        console.warn(order);
+        let {orderID} = await verifyOrder(order);
+        console.warn(orderID);
       }
     },
     computed: {
-      itemCount () {
-        let itemCount = {
-          monoSingle: 0,
-          monoDuplex: 0,
-          colorfulSingle: 0,
-          colorfulDuplex: 0,
-        };
+      items () {
+        const typeMap = this.typeMap;
+        const price = this.point.price;
+        let items = {};
+        let units = {};
         for (let file of this.fileList) {
+          let oneside = 0;
+          let duplex = 0;
           let setting = file.raw.printSetting;
-          let singleCount = 0;
-          let dualCount = 0;
           let area = setting.endPage - setting.startPage + 1;
           let pages = Math.ceil(area / setting.layout);
           if (setting.side == 1) {
-            singleCount = pages * setting.copies;
+            oneside += pages;
           } else if (setting.side == 2) {
-            singleCount = pages % 2 * setting.copies;
-            dualCount = Math.floor(pages / 2) * setting.copies;
+            oneside += pages % 2;
+            duplex += Math.floor(pages / 2);
           }
-          itemCount[`${setting.color}Single`] += singleCount;
-          itemCount[`${setting.color}Duplex`] += dualCount;
+          oneside *= setting.copies;
+          duplex *= setting.copies;
+          let {size, caliper, color} = setting;
+          let prefix = `${size} ${caliper}纸${typeMap[color]}`;
+          let oddType = `${prefix}${typeMap['1']}`;
+          let evenType = `${prefix}${typeMap['2']}`;
+          if ('oneside' in price[size][caliper][color]) {
+            items[oddType] = _.get(items, oddType, 0) + oneside;
+          } else {
+            items[evenType] = _.get(items, evenType, 0) + oneside;
+          }
+          items[evenType] = _.get(items, evenType, 0) + duplex;
+          units[oddType] = _.get(price, [size, caliper, color, 'oneside'], 0);
+          units[evenType] = _.get(price, [size, caliper, color, 'duplex'], 0);
         }
-        return itemCount;
+        return {items, units};
       },
       bills () {
+        let {items, units} = this.items;
         let bills = [];
-        let printItem = this.point.basicPrintItem;
-        let unitPrice = (value) => value > 0 ? `${formatCNY(value)}/张` : null;
-        for (let item of Object.keys(this.itemCount)) {
-          bills.push({
-            itemName: this.itemNameMap[item],
-            unitPrice: unitPrice(printItem[item]),
-            count: this.itemCount[item],
-            money: formatCNY(printItem[item] * this.itemCount[item]),
-            cost: printItem[item] * this.itemCount[item]
-          })
+        let unitPrice = value => value > 0 ? `${formatCNY(value)}/张` : null;
+        for (let item in items) {
+          if (items[item] > 0) {
+            let count = items[item];
+            let unit = units[item];
+            bills.push({
+              name: item,
+              unit: unitPrice(unit),
+              count: count,
+              cost: count * unit
+            })
+          }
         }
         return bills;
       },

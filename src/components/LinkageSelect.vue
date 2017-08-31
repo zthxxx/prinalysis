@@ -4,7 +4,7 @@
       :placeholder="placeholders[index] ? placeholders[index] : '请选择'"
       v-for="(item, index) in deep" v-model="currents[index]" :key="index">
       <el-option v-for="val of layerData[index]"
-                 :key="val" :label="val" :value="val">
+                 :key="index + val" :label="val" :value="val">
       </el-option>
     </el-select>
   </div>

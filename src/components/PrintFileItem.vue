@@ -1,77 +1,77 @@
 <template>
-    <transition name="left-fade">
-      <div class="PrintFileItem">
-        <div class="Print_file">
-          <div class="valid-index">{{`#${index + 1}`}}</div>
-          <div class="logoHolder">
-            <div class="logoPos"><img :src="fileIcon[file.raw.extension]">
-              <div>{{`${file.raw.pageInfo.pageCount}页`}}</div>
-            </div>
+  <transition name="left-fade">
+    <div class="PrintFileItem">
+      <div class="Print_file">
+        <div class="valid-index">{{`#${index + 1}`}}</div>
+        <div class="logoHolder">
+          <div class="logoPos"><img :src="fileIcon[file.raw.extension]">
+            <div>{{`${file.raw.pageInfo.pageCount}页`}}</div>
           </div>
-          <div class="fileInf">
-            <div class="Name">{{file.name}}</div>
-            <div class="kejian-tip"></div>
-            <div class="Sourse"><span>来源：<span>{{file.raw.origin}}</span></span></div>
-          </div>
-          <div class="fadeIn">
-            <div class="delete">
-              <div class="Com_del">
-                <div class="tip">共需打印 {{total}} 张纸</div>
-                <div class="right-btn">
-                  <el-button class="del-btn" icon="fa-file-text-o"
-                             @click="handlePreview(file)">&nbsp;打印预览
-                  </el-button>
-                </div>
-                <div class="right-btn">
-                  <el-button class="del-btn" icon="delete2"
-                             @click="handleRemove(file)">&nbsp;移除文件
-                  </el-button>
-                </div>
+        </div>
+        <div class="fileInf">
+          <div class="Name">{{file.name}}</div>
+          <div class="kejian-tip"></div>
+          <div class="Sourse"><span>来源：<span>{{file.raw.origin}}</span></span></div>
+        </div>
+        <div class="fadeIn">
+          <div class="delete">
+            <div class="Com_del">
+              <div class="tip">共需打印 {{total}} 张纸</div>
+              <div class="right-btn">
+                <el-button class="del-btn" icon="fa-file-text-o"
+                           @click="handlePreview(file)">&nbsp;打印预览
+                </el-button>
+              </div>
+              <div class="right-btn">
+                <el-button class="del-btn" icon="delete2"
+                           @click="handleRemove(file)">&nbsp;移除文件
+                </el-button>
               </div>
             </div>
-            <div class="Print_file_printChoice">
-              <ul>
-                <li>
-                  <div>色彩</div>
-                  <div class="choiceSelect">
-                    <el-select v-model="setting.color" style="width: 85px;">
-                      <el-option label="黑白" value="mono" :disabled="!('mono' in colorable)"></el-option>
-                      <el-option label="彩色" value="colorful" :disabled="!('colorful' in colorable)"></el-option>
-                    </el-select>
-                  </div>
-                </li>
-                <li>
-                  <div>单双面</div>
-                  <div class="choiceSelect">
-                    <el-select v-model="setting.side" style="width: 85px;">
-                      <el-option label="单面" :value="1" :disabled="!('oneside' in sideable)"></el-option>
-                      <el-option label="双面" :value="2" :disabled="!('duplex' in sideable)"></el-option>
-                    </el-select>
-                  </div>
-                </li>
-                <li>
-                  <div>多合一</div>
-                  <div class="choiceSelect">
-                    <el-select v-model="setting.layout" style="width: 80px;">
-                      <el-option label="1合1" :value="1"></el-option>
-                      <el-option label="2合1" :value="2"></el-option>
-                      <el-option label="4合1" :value="4"></el-option>
-                      <el-option label="6合1" :value="6"></el-option>
-                    </el-select>
-                  </div>
-                </li>
-                <li>
-                  <div>份数</div>
-                  <div class="choiceSelect">
-                    <el-input-number class="choiceNum" v-model="setting.copies" :min="1" :max="1000"></el-input-number>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div id="heightSetContent" class="setting">
-              <div class="print-area">
-                <span class="area-tip">打印范围 </span>
-                <span class="lingkage-are">
+          </div>
+          <div class="Print_file_printChoice">
+            <ul>
+              <li>
+                <div>色彩</div>
+                <div class="choiceSelect">
+                  <el-select v-model="setting.color" style="width: 85px;">
+                    <el-option label="黑白" value="mono" :disabled="!('mono' in colorable)"></el-option>
+                    <el-option label="彩色" value="colorful" :disabled="!('colorful' in colorable)"></el-option>
+                  </el-select>
+                </div>
+              </li>
+              <li>
+                <div>单双面</div>
+                <div class="choiceSelect">
+                  <el-select v-model="setting.side" style="width: 85px;">
+                    <el-option label="单面" :value="1" :disabled="!('oneside' in sideable)"></el-option>
+                    <el-option label="双面" :value="2" :disabled="!('duplex' in sideable)"></el-option>
+                  </el-select>
+                </div>
+              </li>
+              <li>
+                <div>多合一</div>
+                <div class="choiceSelect">
+                  <el-select v-model="setting.layout" style="width: 80px;">
+                    <el-option label="1合1" :value="1"></el-option>
+                    <el-option label="2合1" :value="2"></el-option>
+                    <el-option label="4合1" :value="4"></el-option>
+                    <el-option label="6合1" :value="6"></el-option>
+                  </el-select>
+                </div>
+              </li>
+              <li>
+                <div>份数</div>
+                <div class="choiceSelect">
+                  <el-input-number class="choiceNum" v-model="setting.copies" :min="1" :max="1000"></el-input-number>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="heightSetContent" class="setting">
+            <div class="print-area">
+              <span class="area-tip">打印范围 </span>
+              <span class="lingkage-are">
                 <el-input-number class="print-area-input" :controls="false"
                                  v-model="setting.startPage"
                                  :min="1"
@@ -84,27 +84,32 @@
                                  :max="file.raw.pageInfo.pageCount">
                 </el-input-number>
               </span>
-              </div>
-              <div class="print-area">
-                <span style="margin-right: 2px;">纸张</span>
-                <el-select v-model="sizeside" style="width: 160px;">
-                  <template v-for="(calipers, size) in price">
-                    <el-option v-for="(colors, caliper) in calipers"
-                               :label="`${size} ${caliper} 白纸`"
-                               :value="JSON.stringify({size, caliper})"
-                               :key="`${size} ${caliper} 白纸`">
-                    </el-option>
-                  </template>
-                </el-select>
-              </div>
+            </div>
+            <div class="print-area">
+              <span style="margin-right: 2px;">纸张</span>
+              <el-select v-model="sizeside" style="width: 160px;">
+                <template v-for="(calipers, size) in price">
+                  <el-option v-for="(colors, caliper) in calipers"
+                             :label="`${size} ${caliper} 白纸`"
+                             :value="JSON.stringify({size, caliper})"
+                             :key="`${size} ${caliper}`">
+                  </el-option>
+                </template>
+                <el-option v-if="!price"
+                           :label="`${setting.size} ${setting.caliper} 白纸`"
+                           :value="sizeside">
+                </el-option>
+              </el-select>
             </div>
           </div>
         </div>
       </div>
-    </transition>
+    </div>
+  </transition>
 </template>
 
 <script>
+  import _ from 'lodash'
   export default {
     name: 'print-file-item',
     model: {
@@ -125,6 +130,7 @@
         default: () => ({
           name: 'xxx.docx',
           raw: {
+            md5: 'xxx',
             extension: 'docx',
             pageInfo: {pageCount: 3, direction: true},
             origin: '本地上传'
@@ -155,7 +161,7 @@
     },
     data () {
       return {
-        setting: this.preSet(this.preSetting),
+        setting: null,
         fileIcon: {
           doc: require('@/assets/img/print/icon-word.png'),
           docx: require('@/assets/img/print/icon-word.png'),
@@ -166,19 +172,46 @@
         }
       }
     },
+    created () {
+      this.setting = this.preSet(this.preSetting);
+    },
     watch: {
-      setting (newSetting) {
-        this.$emit('input', newSetting);
+      setting: {
+        handler (newSetting)  {
+          this.$store.commit('updateFileSetting', {
+            uid: this.file.uid,
+            setting: newSetting
+          });
+        },
+        deep: true
+      },
+      price: {
+        handler (newPrice) {
+          if (newPrice) {
+            this.setting = this.preSet(this.setting);
+          }
+        },
+        deep: true
       }
     },
     methods: {
       preSet (setting) {
         if (!this.price) return setting;
-        let size = 'A4' in this.price ? 'A4' : Object.keys(this.price).shift();
-        let caliper = Object.keys(this.price[size]).shift();
+        let {size, caliper, color, side} = setting;
+        if (!(size in this.price)) {
+          size = 'A4' in this.price ? 'A4' : Object.keys(this.price).shift();
+        }
+        if (!(caliper in this.price[size])) {
+          caliper = Object.keys(this.price[size]).shift();
+        }
         let colors = this.price[size][caliper];
-        let color = 'mono' in colors ? 'mono' : 'colorful';
-        let side = 'oneside' in colors[color] ? 1 : 2;
+        if (!(color in colors)) {
+          color = Object.keys(colors).shift();
+        }
+        let sideMap = ['oneside', 'duplex'];
+        if (!(sideMap[setting.side - 1] in colors[color])) {
+          side = sideMap.length + 1 - side;
+        }
         return {
           ...setting,
           size,
@@ -190,15 +223,12 @@
     },
     computed: {
       colorable () {
-        return this.price
-          && this.price [this.setting.size]
-          && this.price [this.setting.size][this.setting.caliper]
-          || {};
+        let setting = this.setting;
+        return _.get(this.price, [setting.size, setting.caliper], {});
       },
       sideable () {
-        return this.colorable
-          && this.colorable[this.setting.color]
-          || {};
+        let setting = this.setting;
+        return _.get(this.price, [setting.size, setting.caliper, setting.color], {});
       },
       sizeside: {
         get () {
@@ -208,13 +238,8 @@
           });
         },
         set (value) {
-          let setting = this.setting;
-          Object.assign(setting, JSON.parse(value));
-          let colors = this.price[setting.size][setting.caliper];
-          setting.color = setting.color in colors ? setting.color : Object.keys(colors).shift();
-          let sides = colors[setting.color];
-          let sideMap = ['oneside', 'duplex'];
-          setting.side = sideMap[setting.side-1] in sides ? setting.side : 3 - setting.side;
+          Object.assign(this.setting, JSON.parse(value));
+          this.setting = this.preSet(this.setting);
         }
       },
       total () {

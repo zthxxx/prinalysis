@@ -16,3 +16,5 @@ export const UPLOAD = `${BaseUrl}/file/upload`;
 
 export const PREVIEW = `${BaseUrl}/file/pic/preview`;
 
+export const VERIFY = `${BaseUrl}/order/verify`;
+

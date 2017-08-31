@@ -18,6 +18,16 @@ const mutations = {
   },
   updateFileList (state, value) {
     state.fileList = value;
+  },
+  updateFileSetting (state, {uid, setting}) {
+    let files = state.fileList;
+    for (let [index, file] of files.entries()) {
+      if (file.uid == uid) {
+        file.raw.printSetting = setting;
+        Vue.set(state.fileList, index, file);
+        break;
+      }
+    }
   }
 };
 

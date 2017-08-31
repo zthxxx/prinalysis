@@ -372,67 +372,59 @@ post entity body
 
 ```js
 {
-  "result": "OK",
-  "info": {
-    "orderType": String, // 所选打印点类型
-    "money": Number, // 总共花费金额，后端需再校验
-    "pointId": String<Number>, // 打印点的唯一编号
-    "couponId": String<Number> || Null, // 优惠券ID, null 为没有使用优惠券
-    "files": [{ // Array<Object> 需打印的文件列表
-      "fileId": String, // 文件 MD5 值
-      "fileName": String, // 文件名
-      "layout": Number, // 多合一方式，数值表示一张纸内合并打印原本的几页文档
-      "copies": Number, // 打印份数
-      "size": String,   // 页面大小，如 "A4" "A3" 之类
-      "caliper": String,// 纸张厚度，如 "70g" "80g" 等
-      "color": String,  // 打印颜色模式， "mono"为黑白打印，"colorful"为彩色打印
-      "side": Number, // 单双面设置，值为1是单面打印， 2为双面打印
-      "startPage": Number, // 打印文档起始页 
-      "endPage": Number    // 打印文档终止页
-    }],
-    "reduction": { // Object 折扣活动
-      "newUser": Boolean || Number, // 新用户立减金额，false为新用户不减
-      "full": Array<Array(2)> // 满减活动，每一项为[满多少, 减多少]
-    },
-    "dispatchingInfo": { // Object 配送信息 全为空表示不配送
-      "username": String, // 配送用户名
-      "userPhone": String,// 用户手机号
-      "address": String,  // 配送地址
-      "leftMessage": String // 用户留言
-    }
+  "pointID": String<Number>, // 打印点的唯一编号
+  "files": [{ // Array<Object> 需打印的文件列表
+    "fileID": String, // 文件 MD5 值
+    "fileName": String, // 文件名
+    "layout": Number, // 多合一方式，数值表示一张纸内合并打印原本的几页文档
+    "copies": Number, // 打印份数
+    "size": String,   // 页面大小，如 "A4" "A3" 之类
+    "caliper": String,// 纸张厚度，如 "70g" "80g" 等
+    "color": String,  // 打印颜色模式， "mono"为黑白打印，"colorful"为彩色打印
+    "side": Number, // 单双面设置，值为1是单面打印， 2为双面打印
+    "startPage": Number, // 打印文档起始页 
+    "endPage": Number    // 打印文档终止页
+  }],
+  "money": Number, // 总共花费金额，后端需再校验
+  "couponID": String<Number> || Null, // 优惠券ID, null 为没有使用优惠券
+  "reduction": { // Object 折扣活动
+    "newUser": Boolean || Number, // 新用户立减金额，false为新用户不减
+    "full": Array<Array(2)> // 满减活动，每一项为[满多少, 减多少]
+  },
+  "dispatching": { // Object 配送信息 全为空表示不配送
+    "username": String, // 配送用户名
+    "userPhone": String,// 用户手机号
+    "address": String,  // 配送地址
+    "leftMessage": String // 用户留言
   }
 }
 
 // example
 {
-  "result": "OK",
-  "info": {
-    "orderType": "ATM",
-    "money": 25,
-    "pointId": "0026",
-    "couponId": 0,
-    "files": [{
-      "fileId": "A52B4686E173B0612B71148F7F9E099A",
-      "fileName": "申报指南.docx",
-      "layout": 2,
-      "copies": 1,
-      "size": "A4",
-      "caliper": "70g",
-      "color": "mono",
-      "side": 1, 
-      "startPage": 0,
-      "endPage": 0
-    }],
-    "reduction": {
-      "newUser": false,
-      "full": []
-    },
-    "dispatchingInfo": {
-      "username": "",
-      "userPhone": "",
-      "address": "",
-      "leftMessage": ""
-    }
+  "pointID": "0026",
+  "files": [{
+    "fileID": "A52B4686E173B0612B71148F7F9E099A",
+    "fileName": "申报指南.docx",
+    "layout": 2,
+    "copies": 1,
+    "size": "A4",
+    "caliper": "70g",
+    "color": "mono",
+    "side": 1, 
+    "startPage": 0,
+    "endPage": 0
+  }],
+  "money": 25,
+  "couponID": 0,
+  "reduction": {
+    "newUser": false,
+    "full": []
+  },
+  "dispatching": {
+    "username": "",
+    "userPhone": "",
+    "address": "",
+    "leftMessage": ""
   }
 }
 ```
@@ -445,7 +437,7 @@ Response:
 {
   "result": "OK",
   "info": {
-    "orderId": String, // 订单号
+    "orderID": String, // 订单号
     "desc": String // 描述信息
   }
 }
@@ -454,7 +446,7 @@ Response:
 {
   "result": "OK",
   "info": {
-    "orderId": "201608123416576751519112",
+    "orderID": "201608123416576751519112",
     "desc": "《申报指南.docx》等共1个文件"
   }
 }
@@ -515,7 +507,7 @@ Response:
     "firstFileName": String, // 文件列表中第一个文件的名字
     "fileCount": Number, // 文件数量
     "files": [{ // Array<Object> 文件列表
-      "fileId": String, // 同checkOut相同字段
+      "fileID": String, // 同checkOut相同字段
       "fileName": String, // 同checkOut相同字段
       "direction": Boolean, // true 表示文档竖直排版，false为横板
       "layout": Number, // 同checkOut相同字段
@@ -572,7 +564,7 @@ Response:
     "firstFileName": "申报指南.docx",
     "fileCount": 1,
     "files": [{
-      "fileId": "3B052B46B7111286E48F7648F76E099A",
+      "fileID": "3B052B46B7111286E48F7648F76E099A",
       "fileName": "申报指南.docx",
       "direction": true,
       "pageCount_source": 1,

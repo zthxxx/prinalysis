@@ -2,14 +2,14 @@ module.exports = {
   '/order/verify': {
     'result': 'OK',
     'info': {
-      'orderId': '@guid',
+      'orderID': '@guid',
       'desc': '《@name.docx》等共2个文件'
     }
   },
   '/order/detail': {
     'result': 'OK',
     'info': {
-      'orderId': '201708172723119316581112',
+      'orderID': '201708172723119316581112',
       'orderType': 'ATM',
       'orderSecret': '120717116541',
       'orderCode': '61320401',
@@ -21,13 +21,13 @@ module.exports = {
       'orderDate': '1502983017322',
       'payMethod': '',
       'payDate': '',
-      'userId': '9bc65f5a98bd0e36ef4bdf81',
+      'userID': '9bc65f5a98bd0e36ef4bdf81',
       'username': '测试人',
       'phone': '189xxxx1234',
-      'PrePointId': '0001',
+      'PrePointID': '0001',
       'printPointName': '综合楼大厅',
       'printDate': '',
-      'actualPointId': '',
+      'actualPointID': '',
       'actualPrintPointName': '',
       'printItemCount': {
         'monoSingle': 1,
@@ -42,7 +42,7 @@ module.exports = {
       'firstFileName': '申报指南.docx',
       'fileCount': 1,
       'files': [{
-        'fileId': '3B052B46B7111286E48F7648F76E099A',
+        'fileID': '3B052B46B7111286E48F7648F76E099A',
         'fileName': '申报指南.docx',
         'direction': true,
         'pageCount_source': 1,
