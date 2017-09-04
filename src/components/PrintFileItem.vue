@@ -1,21 +1,21 @@
 <template>
   <transition name="left-fade">
-    <div class="PrintFileItem">
-      <div class="Print_file">
+    <div class="print-file-item">
+      <div class="print-file">
         <div class="valid-index">{{`#${index + 1}`}}</div>
-        <div class="logoHolder">
-          <div class="logoPos"><img :src="fileIcon[file.raw.extension]">
+        <div class="logo-holder">
+          <div class="logo"><img :src="fileIcon[file.raw.extension]">
             <div>{{`${file.raw.pageInfo.pageCount}页`}}</div>
           </div>
         </div>
-        <div class="fileInf">
-          <div class="Name">{{file.name}}</div>
-          <div class="kejian-tip"></div>
-          <div class="Sourse"><span>来源：<span>{{file.raw.origin}}</span></span></div>
+        <div class="file-info">
+          <div class="name">{{file.name}}</div>
+          <div class="lesson-tip"></div>
+          <div class="source"><span>来源：<span>{{file.raw.origin}}</span></span></div>
         </div>
-        <div class="fadeIn">
+        <div class="fade-in">
           <div class="delete">
-            <div class="Com_del">
+            <div class="control">
               <div class="tip">共需打印 {{total}} 张纸</div>
               <div class="right-btn">
                 <el-button class="del-btn" icon="fa-file-text-o"
@@ -29,12 +29,12 @@
               </div>
             </div>
           </div>
-          <div class="Print_file_printChoice">
+          <div class="print-choice">
             <ul>
               <li>
                 <div>色彩</div>
-                <div class="choiceSelect">
-                  <el-select v-model="setting.color" style="width: 85px;">
+                <div class="selectors">
+                  <el-select class="colors" v-model="setting.color">
                     <el-option label="黑白" value="mono" :disabled="!('mono' in colorable)"></el-option>
                     <el-option label="彩色" value="colorful" :disabled="!('colorful' in colorable)"></el-option>
                   </el-select>
@@ -42,8 +42,8 @@
               </li>
               <li>
                 <div>单双面</div>
-                <div class="choiceSelect">
-                  <el-select v-model="setting.side" style="width: 85px;">
+                <div class="selectors">
+                  <el-select class="sides" v-model="setting.side">
                     <el-option label="单面" :value="1" :disabled="!('oneside' in sideable)"></el-option>
                     <el-option label="双面" :value="2" :disabled="!('duplex' in sideable)"></el-option>
                   </el-select>
@@ -51,8 +51,8 @@
               </li>
               <li>
                 <div>多合一</div>
-                <div class="choiceSelect">
-                  <el-select v-model="setting.layout" style="width: 80px;">
+                <div class="selectors">
+                  <el-select class="layouts" v-model="setting.layout">
                     <el-option label="1合1" :value="1"></el-option>
                     <el-option label="2合1" :value="2"></el-option>
                     <el-option label="4合1" :value="4"></el-option>
@@ -62,8 +62,8 @@
               </li>
               <li>
                 <div>份数</div>
-                <div class="choiceSelect">
-                  <el-input-number class="choiceNum" v-model="setting.copies" :min="1" :max="1000"></el-input-number>
+                <div class="selectors">
+                  <el-input-number class="copies" v-model="setting.copies" :min="1" :max="1000"></el-input-number>
                 </div>
               </li>
             </ul>
@@ -86,8 +86,8 @@
               </span>
             </div>
             <div class="print-area">
-              <span style="margin-right: 2px;">纸张</span>
-              <el-select v-model="sizeside" style="width: 160px;">
+              <span>纸张</span>
+              <el-select class="sizeside" v-model="sizeside">
                 <template v-for="(calipers, size) in price">
                   <el-option v-for="(colors, caliper) in calipers"
                              :label="`${size} ${caliper} 白纸`"
@@ -134,7 +134,7 @@
             extension: 'docx',
             pageInfo: {pageCount: 3, direction: true},
             origin: '本地上传'
-          },
+          }
         })
       },
       preSetting: {
@@ -147,7 +147,7 @@
           color: 'mono',
           side: 2,
           startPage: 1,
-          endPage: 1,
+          endPage: 1
         })
       },
       handleRemove: {
@@ -248,14 +248,14 @@
           (setting.endPage - setting.startPage + 1)
           * setting.copies / setting.side
         );
-      },
+      }
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../style/_animate"
-  .Print_file
+  .print-file
     position: relative
     width: 1000px
     margin: 0 auto 16px
@@ -270,14 +270,14 @@
       font-size: 12px
       color: #bbb
       padding-left: 4px
-    .logoHolder
+    .logo-holder
       position: absolute
       display: inline-block
       width: 100px
       height: 100%
       border-right: 1px dashed #ddd
       text-align: center
-      .logoPos
+      .logo
         position: relative
         top: 50%
         margin-top: -40px
@@ -286,7 +286,7 @@
         div
           color: #666
           font-size: 14px
-    .fileInf
+    .file-info
       position: absolute
       height: 80px
       top: 50%
@@ -294,7 +294,7 @@
       left: 120px
       line-height: 2em
       display: inline-block
-      .Name
+      .name
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
@@ -305,7 +305,7 @@
         margin-top: 1px
         color: #ff4500
         top: 30%
-      .Sourse
+      .source
         width: 280px
         margin-top: 18px
         overflow: hidden
@@ -324,7 +324,7 @@
     font-size: 14px
     color: #333
     text-align: center
-    .Com_del
+    .control
       position: relative
       width: 120px
       height: 100px
@@ -344,7 +344,7 @@
         border: none
         padding: 0
 
-  .Print_file_printChoice
+  .print-choice
     position: relative
     height: 88px
     width: 420px
@@ -362,11 +362,13 @@
       float: left
       text-align: center
       margin: 0 10px
-    .choiceSelect
+    .selectors
       position: relative
       height: 28px
       margin-top: 10px
-    .choiceNum
+    .colors, .sides
+      width: 85px
+    .layouts, .copies
       width: 80px
 
   .setting
@@ -385,6 +387,10 @@
         margin: 0 5px 0 10px
       .lingkage-are span
         margin: 0 4px
+      .sizeside
+        width: 160px
+      & > span
+        margin-right: 2px
     .print-area-input
       width: 43px
 

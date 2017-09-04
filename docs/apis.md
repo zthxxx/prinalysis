@@ -276,12 +276,7 @@ Response:
 {
   "result": "OK",
   "info": {
-    "accessid": "", // 准许ID
-    "dir": "files/xxx/", // 目录地址
-    "expire": '',// 开放到期时间戳
-    "host": 'http://xxxx',// 目标主机地址 (阿里云 OSS)
-    "policy": '',// 阿里云 OSS policy
-    "signature": '',// 阿里云 OSS policy signature
+    "url": String
   }
 }
 ```

@@ -23,11 +23,11 @@
                  :on-remove="onRemoveFile"
                  :on-error="onErrorUpload">
         <!--:http-request="uploadOverload"-->
-        <div class="uploadBtn">
-          <span class="upload_title" v-if="!fileList.length">添加文件</span>
-          <span class="upload_title" v-else>继续添加文件</span>
+        <div class="upload-btn">
+          <span class="upload-title" v-if="!fileList.length">添加文件</span>
+          <span class="upload-title" v-else>继续添加文件</span>
           <br>
-          <span class="upload_text">点击按钮或者把文件拖放到这里</span>
+          <span class="upload-text">点击按钮或者把文件拖放到这里</span>
         </div>
         <div class="el-upload__tip" slot="tip">已支持的格式：doc, docx, pdf, ppt, pptx, jpg, png</div>
       </el-upload>
@@ -158,7 +158,7 @@
     &:hover
       color: darken(theme-green, 15%)
 
-  .uploadBtn
+  .upload-btn
     width: 232px
     height: 61px
     padding: 5px
@@ -168,9 +168,9 @@
     border-radius: 5px
     transition: all .2s ease-out
     font-size: 20px
-    .upload_title
+    .upload-title
       font-size: 18px
-    .upload_text
+    .upload-text
       font-size: 12px
       margin-top: 20px
       color: rgba(#fff, 0.65)

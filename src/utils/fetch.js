@@ -31,8 +31,8 @@ function mutate (url, { headers, body, query, ...options }) {
     url += query
   }
 
-  options.credentials = 'omit' // omit,same-origin,include
-  options.mode = 'same-origin' // "same-origin", "cors", "no-cors", "navigate", or "websocket"
+  options.credentials = 'include' // omit,same-origin,include
+  options.mode = 'cors' // "same-origin", "cors", "no-cors", "navigate", or "websocket"
 
   return [url, options]
 }

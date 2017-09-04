@@ -69,5 +69,5 @@
         box-sizing: border-box
         border: 2px dashed color-theme
         border-radius: 6px
-        animation: fadeIn .3s ease-out
+        animation: fade-in .3s ease-out
 </style>

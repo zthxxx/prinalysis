@@ -1,12 +1,12 @@
 <template>
-  <div class="Account">
-    <div class="printProject">
+  <div class="account">
+    <div class="print-project">
       <div class="left-part">
         <div class="printPlace">
           <span class="title">打印点：</span><span class="place_name">示例打印点</span>
         </div>
         <div class="project">
-          <table class="projectAccount">
+          <table class="project-account">
             <tbody>
             <tr>
               <td>计费项目</td>
@@ -25,7 +25,7 @@
         </div>
         <div class="coupon">
           使用优惠券：
-          <el-select value="" style="width: 240px;" placeholder="暂无可使用的优惠券">
+          <el-select class='coupon-select' value="" placeholder="暂无可使用的优惠券">
           </el-select>
         </div>
       </div>
@@ -199,14 +199,14 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '../style/_variables'
-  .Account
+  .account
     width: 100%
     height: auto
     color: shallow-text-gray
     padding-bottom: 20px
     font-size: 16px
 
-  .printProject
+  .print-project
     width: 960px
     margin: 0 auto 6px
     padding-top: 10px
@@ -215,10 +215,10 @@
       width: 53%
       padding-bottom: 6px
       padding-right: 3%
-      .printPlace
+      .print-place
         left: 0
         margin-top: 12px
-        .place_name
+        .place-name
           font-size: 16px
           font-weight: 600
           color: theme-green-dark
@@ -232,6 +232,8 @@
         outline: none
         border: none
         background: none
+        .coupon-select
+          width: 240px
     .right-part
       width: 48%
       min-height: 290px
@@ -250,7 +252,7 @@
         font-size: 15px
         padding: 4px 0
 
-  .projectAccount
+  .project-account
     margin-top: 12px
     width: 100%
     tr
