@@ -7,14 +7,7 @@ module.exports = {
   '/file/url': {
     'result': 'OK',
     'info': {
-      'accessid': '@id',
-      'dir': '/file/upload',
-      // 'dir': '/posts',
-      'expire': '',
-      'host': '/api',
-      // 'host': 'http://jsonplaceholder.typicode.com',
-      'policy': '',
-      'signature': '@guid'
+      'url': '',
     }
   },
   '/file/upload': '',

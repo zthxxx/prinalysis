@@ -233,7 +233,7 @@ GET:  /API//file/page
 Parameters: 
 
 ```js
-md5: 文件的MD5值，全大写
+md5: 文件的MD5值（HEX编码全大写，以下皆是）
 name: 文件名
 ```
 
@@ -333,9 +333,12 @@ GET:  /API/file/pic/preview
 Parameters: 
 
 ```js
-md5: 文件的MD5值
-layout: 多合一方式，数值表示一张纸内打印文档多少页合在一起
-page: 需要查看打印预览的第多少页
+md5: String 文件的MD5值
+page: Number 需要查看打印预览的第多少页
+size: String 打印页面大小 'A4', 'A3' 等选项
+color: String "mono"为黑白打印，"colorful" 为彩色打印
+row: Number 多合一打印下每行几份
+col: Number 多合一打印下每列几份
 ```
 
 描述：获取一个文件的打印预览图片显示
@@ -371,7 +374,8 @@ post entity body
   "files": [{ // Array<Object> 需打印的文件列表
     "fileID": String, // 文件 MD5 值
     "fileName": String, // 文件名
-    "layout": Number, // 多合一方式，数值表示一张纸内合并打印原本的几页文档
+    "row": Number, // 多合一打印下每行几份
+    "col": Number, // 多合一打印下每列几份
     "copies": Number, // 打印份数
     "size": String,   // 页面大小，如 "A4" "A3" 之类
     "caliper": String,// 纸张厚度，如 "70g" "80g" 等

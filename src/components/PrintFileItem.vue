@@ -52,7 +52,7 @@
               <li>
                 <div>多合一</div>
                 <div class="selectors">
-                  <el-select class="layouts" v-model="setting.layout">
+                  <el-select class="layouts" v-model="layout">
                     <el-option label="1合1" :value="1"></el-option>
                     <el-option label="2合1" :value="2"></el-option>
                     <el-option label="4合1" :value="4"></el-option>
@@ -140,12 +140,13 @@
       preSetting: {
         type: Object,
         default: () => ({
-          layout: 1,
           copies: 1,
           size: 'A4',
           caliper: '70g',
           color: 'mono',
-          side: 2,
+          side: 1,
+          row: 1,
+          col: 1,
           startPage: 1,
           endPage: 1
         })
@@ -162,6 +163,12 @@
     data () {
       return {
         setting: null,
+        layouts: {
+          1: {row: 1, col: 1},
+          2: {row: 1, col: 2},
+          4: {row: 2, col: 2},
+          6: {row: 2, col: 3},
+        },
         fileIcon: {
           doc: require('@/assets/img/print/icon-word.png'),
           docx: require('@/assets/img/print/icon-word.png'),
@@ -240,6 +247,15 @@
         set (value) {
           Object.assign(this.setting, JSON.parse(value));
           this.setting = this.preSet(this.setting);
+        }
+      },
+      layout: {
+        get () {
+          let setting = this.setting;
+          return setting.row * setting.col;
+        },
+        set (value) {
+          Object.assign(this.setting, this.layouts[value]);
         }
       },
       total () {
