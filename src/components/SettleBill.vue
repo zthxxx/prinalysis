@@ -92,13 +92,48 @@
       getSelectCoupon () {
         return {couponId: null, couponName: null};
       },
+      getItems () {
+        const typeMap = this.typeMap;
+        const price = this.point.price;
+        let items = {};
+        let units = {};
+        for (let file of this.fileList) {
+          let oneside = 0;
+          let duplex = 0;
+          let setting = file.print;
+          let area = setting.endPage - setting.startPage + 1;
+          let layout = setting.row * setting.col;
+          let pages = Math.ceil(area / layout);
+          if (setting.side == 1) {
+            oneside += pages;
+          } else if (setting.side == 2) {
+            oneside += pages % 2;
+            duplex += Math.floor(pages / 2);
+          }
+          oneside *= setting.copies;
+          duplex *= setting.copies;
+          let {size, caliper, color} = setting;
+          let prefix = `${size} ${caliper}纸${typeMap[color]}`;
+          let oddType = `${prefix}${typeMap['1']}`;
+          let evenType = `${prefix}${typeMap['2']}`;
+          if ('oneside' in price[size][caliper][color]) {
+            items[oddType] = _.get(items, oddType, 0) + oneside;
+          } else {
+            items[evenType] = _.get(items, evenType, 0) + oneside;
+          }
+          items[evenType] = _.get(items, evenType, 0) + duplex;
+          units[oddType] = _.get(price, [size, caliper, color, 'oneside'], 0);
+          units[evenType] = _.get(price, [size, caliper, color, 'duplex'], 0);
+        }
+        return {items, units};
+      },
       getOrder () {
         let order = {
           pointID: this.point.pointID,
-          files: this.fileList.map(({raw: file}) => ({
-            fileID: file.md5,
+          files: this.fileList.map((file) => ({
+            fileID: file.raw.md5,
             fileName: file.name,
-            ...file.printSetting
+            ...file.print
           })),
           money: this.finalMoney.amount,
           couponId: 0,
@@ -123,42 +158,8 @@
       }
     },
     computed: {
-      items () {
-        const typeMap = this.typeMap;
-        const price = this.point.price;
-        let items = {};
-        let units = {};
-        for (let file of this.fileList) {
-          let oneside = 0;
-          let duplex = 0;
-          let setting = file.raw.printSetting;
-          let area = setting.endPage - setting.startPage + 1;
-          let pages = Math.ceil(area / setting.layout);
-          if (setting.side == 1) {
-            oneside += pages;
-          } else if (setting.side == 2) {
-            oneside += pages % 2;
-            duplex += Math.floor(pages / 2);
-          }
-          oneside *= setting.copies;
-          duplex *= setting.copies;
-          let {size, caliper, color} = setting;
-          let prefix = `${size} ${caliper}纸${typeMap[color]}`;
-          let oddType = `${prefix}${typeMap['1']}`;
-          let evenType = `${prefix}${typeMap['2']}`;
-          if ('oneside' in price[size][caliper][color]) {
-            items[oddType] = _.get(items, oddType, 0) + oneside;
-          } else {
-            items[evenType] = _.get(items, evenType, 0) + oneside;
-          }
-          items[evenType] = _.get(items, evenType, 0) + duplex;
-          units[oddType] = _.get(price, [size, caliper, color, 'oneside'], 0);
-          units[evenType] = _.get(price, [size, caliper, color, 'duplex'], 0);
-        }
-        return {items, units};
-      },
       bills () {
-        let {items, units} = this.items;
+        let {items, units} = this.getItems();
         let bills = [];
         let unitPrice = value => value > 0 ? `${formatCNY(value)}/张` : null;
         for (let item in items) {

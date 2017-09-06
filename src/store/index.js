@@ -16,14 +16,20 @@ const mutations = {
   updateFocusPoint (state, value) {
     state.focusPoint = value;
   },
-  updateFileList (state, value) {
-    state.fileList = value;
+  updateFileList (state, fileList) {
+    for (let file of fileList) {
+      if (!('print' in file) && 'print' in file.raw) {
+        file.print = file.raw.print;
+        delete file.raw.print;
+      }
+    }
+    state.fileList = fileList;
   },
   updateFileSetting (state, {uid, setting}) {
     let files = state.fileList;
     for (let [index, file] of files.entries()) {
       if (file.uid == uid) {
-        file.raw.printSetting = setting;
+        file.print = setting;
         Vue.set(state.fileList, index, file);
         break;
       }

@@ -81,10 +81,8 @@
         };
       },
       async getUploadURL ({md5, name}) {
-        let oss = await getFileURL({md5, name});
-        this.action = `${oss.host}${oss.dir}`;
-        let {accessid, expire, policy, signature} = oss;
-        this.payload = {accessid, expire, policy, signature};
+        let {url} = await getFileURL({md5, name});
+        this.action = url;
       },
       fileFormatCheck (rawFile) {
         let supports = this.supportFormat;
@@ -110,7 +108,7 @@
         if (check.result == 'EXISTED') {
           console.warn('exist', rawFile.name, rawFile.md5);
           rawFile.pageInfo = {pageCount: check.pageCount, direction: check.direction};
-          rawFile.printSetting = this.defaultPrint(rawFile);
+          rawFile.print = this.defaultPrint(rawFile);
           this.$refs.uploader.handleStart(rawFile);
           throw new Error('stop-upload File existed');
         }
@@ -127,7 +125,7 @@
         console.warn('success', file);
         console.warn('success', fileList);
         file.raw.pageInfo = await getPage({md5: file.raw.md5, name: file.name});
-        file.raw.printSetting = this.defaultPrint(file.raw);
+        file.print = this.defaultPrint(file.raw);
         this.$store.commit('updateFileList', fileList);
       },
       onErrorUpload (err) {

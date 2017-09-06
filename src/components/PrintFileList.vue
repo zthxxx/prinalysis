@@ -2,10 +2,10 @@
   <div>
     <div class="PrintFileList">
         <print-file-item v-for="(file, index) in fileList"
+          :key="`${file.name}_${index}`"
           :index="index"
           :file="file"
-          v-model="file.raw.printSetting"
-          :key="`${file.name}_${index}`"
+          :preSetting="file.print"
           :price="point && point.price"
           :handleRemove="handleRemove"
           :handlePreview="handlePreview">
@@ -29,7 +29,7 @@
           <div class="file-setting">
             <print-file-item class="print-file-item"
                              :file="previewFile"
-                             v-model="previewFile.raw.printSetting"
+                             :preSetting="previewFile.print"
                              :price="point && point.price">
               <div slot="control">
                 <div class="page-panel">第<span class="count">1</span>面</div>

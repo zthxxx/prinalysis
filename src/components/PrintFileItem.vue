@@ -114,9 +114,6 @@
   import _ from 'lodash'
   export default {
     name: 'print-file-item',
-    model: {
-      prop: 'preSetting'
-    },
     props: {
       price: {
         required: true,
