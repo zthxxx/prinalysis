@@ -50,7 +50,7 @@
     top: 0
     left: 0
     padding: 0 20px
-    z-index: 100
+    z-index: 1
     color: #fff
     box-sizing: border-box
     background-color: dark-blue

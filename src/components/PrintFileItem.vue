@@ -2,7 +2,7 @@
   <transition name="left-fade">
     <div class="print-file-item">
       <div class="print-file">
-        <div class="valid-index">{{`#${index + 1}`}}</div>
+        <div class="valid-index" v-if="index">{{`#${index + 1}`}}</div>
         <div class="logo-holder">
           <div class="logo"><img :src="fileIcon[file.raw.extension]">
             <div>{{`${file.raw.pageInfo.pageCount}页`}}</div>
@@ -16,17 +16,19 @@
         <div class="fade-in">
           <div class="delete">
             <div class="control">
-              <div class="tip">共需打印 {{total}} 张纸</div>
-              <div class="right-btn">
-                <el-button class="del-btn" icon="fa-file-text-o"
-                           @click="handlePreview(file)">&nbsp;打印预览
-                </el-button>
-              </div>
-              <div class="right-btn">
-                <el-button class="del-btn" icon="delete2"
-                           @click="handleRemove(file)">&nbsp;移除文件
-                </el-button>
-              </div>
+              <slot name="control">
+                <div class="tip">共需打印 {{total}} 张纸</div>
+                <div class="right-btn">
+                  <el-button class="del-btn" icon="fa-file-text-o"
+                             @click="handlePreview(file)">&nbsp;打印预览
+                  </el-button>
+                </div>
+                <div class="right-btn">
+                  <el-button class="del-btn" icon="delete2"
+                             @click="handleRemove(file)">&nbsp;移除文件
+                  </el-button>
+                </div>
+              </slot>
             </div>
           </div>
           <div class="print-choice">
@@ -122,8 +124,7 @@
       },
       index: {
         type: Number,
-        required: true,
-        default: 1
+        default: null
       },
       file: {
         type: Object,
@@ -152,12 +153,10 @@
         })
       },
       handleRemove: {
-        type: Function,
-        required: true
+        type: Function
       },
       handlePreview: {
-        type: Function,
-        required: true
+        type: Function
       }
     },
     data () {
@@ -348,7 +347,7 @@
       margin: -45px auto
       font-size: 13px
       text-align: center
-      z-index: 100
+      z-index: 1
       & > div
         padding: 8px 0 0
       .tip
