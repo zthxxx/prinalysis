@@ -165,6 +165,10 @@
           4: {row: 2, col: 2},
           6: {row: 2, col: 3},
         },
+        sideMap: {
+          oneside: 1,
+          duplex: 2
+        },
         fileIcon: {
           doc: require('@/assets/img/print/icon-word.png'),
           docx: require('@/assets/img/print/icon-word.png'),
@@ -176,7 +180,11 @@
       }
     },
     created () {
-      this.setting = this.preSet(this.preSetting);
+      this.setting = this.checkset(this.preSetting);
+      this.$store.commit('updateFileSetting', {
+        uid: this.file.uid,
+        setting: this.setting
+      });
     },
     watch: {
       setting: {
@@ -191,36 +199,32 @@
       price: {
         handler (newPrice) {
           if (newPrice) {
-            this.setting = this.preSet(this.setting);
+            this.setting = this.checkset(this.setting);
           }
         },
         deep: true
       }
     },
     methods: {
-      preSet (setting) {
+      checkset (setting) {
         if (!this.price) return setting;
-        let {size, caliper, color, side} = setting;
-        if (!(size in this.price)) {
-          size = 'A4' in this.price ? 'A4' : Object.keys(this.price).shift();
+        let checks = ['size', 'caliper', 'color', 'side'];
+        let reset = {};
+        let choices = this.price;
+        for (let key of checks) {
+          let item = setting[key];
+          if(!_.has(choices, item)) {
+            item = _.keys(choices).sort().shift();
+            reset[key] = item;
+          }
+          choices = choices[item];
         }
-        if (!(caliper in this.price[size])) {
-          caliper = Object.keys(this.price[size]).shift();
-        }
-        let colors = this.price[size][caliper];
-        if (!(color in colors)) {
-          color = Object.keys(colors).shift();
-        }
-        let sideMap = ['oneside', 'duplex'];
-        if (!(sideMap[setting.side - 1] in colors[color])) {
-          side = sideMap.length + 1 - side;
+        if (_.has(reset, 'side')) {
+          reset.side = this.sideMap[reset.side];
         }
         return {
           ...setting,
-          size,
-          caliper,
-          color,
-          side
+          ...reset
         }
       }
     },
@@ -231,7 +235,11 @@
       },
       sideable () {
         let setting = this.setting;
-        return _.get(this.price, [setting.size, setting.caliper, setting.color], {});
+        let sideable = _.get(this.price, [setting.size, setting.caliper, setting.color], {});
+        if (!_.has(sideable, _.invert(this.sideMap)[setting.side])) {
+          setting.side = this.sideMap[_.keys(sideable).shift()];
+        }
+        return sideable;
       },
       sizeside: {
         get () {
@@ -241,8 +249,10 @@
           });
         },
         set (value) {
-          Object.assign(this.setting, JSON.parse(value));
-          this.setting = this.preSet(this.setting);
+          this.setting = this.checkset({
+            ...this.setting,
+            ...JSON.parse(value)
+          });
         }
       },
       layout: {
