@@ -11,7 +11,7 @@
         <shop-point-card v-model="focusPoint" :points="points">
         </shop-point-card>
       </box-card>
-      <box-card title="文件列表" :noPadding="true">
+      <box-card :title="`文件列表 (${fileList.length})`" :noPadding="true">
         <upload-box :focusPoint="focusPoint"></upload-box>
       </box-card>
       <box-card title="结算" :noPadding="true">

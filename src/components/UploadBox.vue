@@ -167,6 +167,7 @@
     border-radius: 5px
     transition: all .2s ease-out
     font-size: 20px
+    line-height: 1.2
     .upload-title
       font-size: 18px
     .upload-text
