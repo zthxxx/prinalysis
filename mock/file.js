@@ -14,7 +14,7 @@ module.exports = {
   '/file/pic/preview': {
     'result': 'OK',
     'info': {
-      'img': 'http://xxx'
+      'img': '@image(910x1287, @hex, Mock Image Preview)'
     }
   }
 };

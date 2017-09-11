@@ -97,7 +97,7 @@
                 mono: {
                   oneside: 10,
                   duplex: 15
-                },
+                }
               }
             }
           },

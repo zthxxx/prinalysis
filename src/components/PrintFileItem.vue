@@ -237,7 +237,7 @@
         let setting = this.setting;
         let sideable = _.get(this.price, [setting.size, setting.caliper, setting.color], {});
         if (!_.has(sideable, _.invert(this.sideMap)[setting.side])) {
-          setting.side = this.sideMap[_.keys(sideable).shift()];
+          setting.side = _.get(this.sideMap, _.keys(sideable).shift(), 1);
         }
         return sideable;
       },
@@ -267,9 +267,8 @@
       total () {
         let setting = this.setting;
         return Math.ceil(
-          (setting.endPage - setting.startPage + 1)
-          * setting.copies / setting.side
-        );
+          (setting.endPage - setting.startPage + 1)  / setting.side
+        ) * setting.copies;
       }
     }
   }

@@ -39,7 +39,7 @@
         points: []
       }
     },
-    created () {
+    mounted () {
       this.initData();
     },
     methods: {
