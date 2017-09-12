@@ -19,7 +19,7 @@ const mutations = {
   updateFileList (state, fileList) {
     for (let file of fileList) {
       if (!('print' in file) && 'print' in file.raw) {
-        file.print = file.raw.print;
+        Vue.set(file, 'print', file.raw.print);
         delete file.raw.print;
       }
     }
@@ -29,7 +29,7 @@ const mutations = {
     let files = state.fileList;
     for (let [index, file] of files.entries()) {
       if (file.uid == uid) {
-        file.print = setting;
+        Vue.set(file, 'print', setting);
         Vue.set(state.fileList, index, file);
         break;
       }

@@ -41,6 +41,7 @@
   import printFileList from './PrintFileList'
   import getFileMD5 from '@/utils/getFileMD5'
   import {getPage, getFileURL, uploadFile} from '@/api'
+  import {checkset} from '@/utils/tools'
   export default {
     name: 'upload-box',
     props: {
@@ -68,7 +69,7 @@
         await uploadFile(option.file, option);
       },
       defaultPrint (rawFile) {
-        return {
+        let defaults = {
           copies: 1,
           size: 'A4',
           caliper: '70g',
@@ -79,6 +80,7 @@
           startPage: 1,
           endPage: rawFile.pageInfo.pageCount
         };
+        return checkset(this.focusPoint.price, defaults);
       },
       async getUploadURL ({md5, name}) {
         let {url} = await getFileURL({md5, name});
@@ -88,7 +90,7 @@
         let supports = this.supportFormat;
         rawFile.extension = rawFile.name.split('.').pop().toLowerCase();
         if (!rawFile.name.match(/\./) ||
-            supports.findIndex((format) => format == rawFile.extension) < 0) {
+          supports.findIndex((format) => format == rawFile.extension) < 0) {
           this.$notify.error({
             title: `暂不支持此文件格式: ${rawFile.extension}`,
             message: `当前仅支持 ${supports.join('，')} 等格式。`

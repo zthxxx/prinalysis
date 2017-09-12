@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
-export default function statusIntercept (method) {
-  return async (...args) => {
+export default function statusIntercept(method) {
+  return async(...args) => {
     let response = await method(...args);
-    if (response.result != 'OK') {
+    if (response.result.toUpperCase() != 'OK') {
       let message = response.message || 'Unknown Error';
       Vue.$notify.error({message});
       throw new Error(message);

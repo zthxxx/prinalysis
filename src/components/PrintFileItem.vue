@@ -10,7 +10,6 @@
         </div>
         <div class="file-info">
           <div class="name">{{file.name}}</div>
-          <div class="lesson-tip"></div>
           <div class="source"><span>来源：<span>{{file.raw.origin}}</span></span></div>
         </div>
         <div class="fade-in">
@@ -112,6 +111,7 @@
 
 <script>
   import _ from 'lodash'
+  import {sideMap, checkset} from '@/utils/tools'
   export default {
     name: 'print-file-item',
     props: {
@@ -158,17 +158,14 @@
     },
     data () {
       return {
-        setting: null,
+        setting: {...this.preSetting},
         layouts: {
           1: {row: 1, col: 1},
           2: {row: 1, col: 2},
           4: {row: 2, col: 2},
           6: {row: 2, col: 3},
         },
-        sideMap: {
-          oneside: 1,
-          duplex: 2
-        },
+        sideMap: sideMap,
         fileIcon: {
           doc: require('@/assets/img/print/icon-word.png'),
           docx: require('@/assets/img/print/icon-word.png'),
@@ -179,55 +176,34 @@
         }
       }
     },
-    created () {
-      this.setting = this.checkset(this.preSetting);
-      this.$store.commit('updateFileSetting', {
-        uid: this.file.uid,
-        setting: this.setting
-      });
-    },
     watch: {
       setting: {
         handler (newSetting)  {
-          this.$store.commit('updateFileSetting', {
-            uid: this.file.uid,
-            setting: newSetting
-          });
+          for (let key of _.keys(this.preSetting)) {
+            if (_.get(newSetting, key) !== this.preSetting[key]) {
+              this.$store.commit('updateFileSetting', {
+                uid: this.file.uid,
+                setting: newSetting
+              });
+              break;
+            }
+          }
         },
         deep: true
       },
       price: {
         handler (newPrice) {
           if (newPrice) {
-            this.setting = this.checkset(this.setting);
+            this.setting = checkset(newPrice, this.setting);
           }
         },
         deep: true
+      },
+      preSetting (newSetting) {
+        this.setting = {...newSetting};
       }
     },
-    methods: {
-      checkset (setting) {
-        if (!this.price) return setting;
-        let checks = ['size', 'caliper', 'color', 'side'];
-        let reset = {};
-        let choices = this.price;
-        for (let key of checks) {
-          let item = setting[key];
-          if(!_.has(choices, item)) {
-            item = _.keys(choices).sort().shift();
-            reset[key] = item;
-          }
-          choices = choices[item];
-        }
-        if (_.has(reset, 'side')) {
-          reset.side = this.sideMap[reset.side];
-        }
-        return {
-          ...setting,
-          ...reset
-        }
-      }
-    },
+    methods: {},
     computed: {
       colorable () {
         let setting = this.setting;
@@ -249,7 +225,7 @@
           });
         },
         set (value) {
-          this.setting = this.checkset({
+          this.setting = checkset(this.price, {
             ...this.setting,
             ...JSON.parse(value)
           });
@@ -267,8 +243,8 @@
       total () {
         let setting = this.setting;
         return Math.ceil(
-          (setting.endPage - setting.startPage + 1)  / setting.side
-        ) * setting.copies;
+            (setting.endPage - setting.startPage + 1) / setting.side / this.layout
+          ) * setting.copies;
       }
     }
   }
@@ -276,10 +252,12 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../style/_animate"
-  .print-file
-    position: relative
+  .print-file-item
     width: 1000px
     margin: 0 auto 16px
+
+  .print-file
+    position: relative
     border: 1px solid #ddd
     border-radius: 4px
     font-size: 16px
@@ -320,12 +298,6 @@
         text-overflow: ellipsis
         white-space: nowrap
         max-width: 340px
-      .lesson-tip
-        position: absolute
-        font-size: 12px
-        margin-top: 1px
-        color: #ff4500
-        top: 30%
       .source
         width: 280px
         margin-top: 18px

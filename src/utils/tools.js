@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /*
  把人名币分值格式化到元
  */
@@ -7,6 +9,33 @@ export const formatCNY = (cents) => new Intl.NumberFormat(
     style: 'currency',
     currency: 'CNY'
   }).format(cents / 100);
+
+export const sideMap = {
+  oneside: 1,
+  duplex: 2
+};
+
+export const checkset = (price, setting) => {
+  if (!price) return setting;
+  let checks = ['size', 'caliper', 'color', 'side'];
+  let reset = {};
+  let choices = price;
+  for (let key of checks) {
+    let item = setting[key];
+    if (!_.has(choices, item)) {
+      item = _.keys(choices).sort().shift();
+      reset[key] = item;
+    }
+    choices = choices[item];
+  }
+  if (_.has(reset, 'side')) {
+    reset.side = sideMap[reset.side];
+  }
+  return {
+    ...setting,
+    ...reset
+  }
+};
 
 export const debounce = (func, wait) => {
   let timeout = null;

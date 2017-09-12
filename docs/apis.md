@@ -1,6 +1,8 @@
 # 云打印前端 API 需求说明
 
-注：以下 `/API/` 为地址前缀，应由真实地址替换。金额数值处理（即API中表示金额的数值）均以人民币`分`为单位，前端显示金额（无关API）均以`元`为单位。
+【注】以下 `/API/` 为地址前缀，应由真实地址替换。金额数值处理（即API中表示金额的数值）均以人民币`分`为单位，前端显示金额（无关API）均以`元`为单位。
+
+本 API 说明文档风格参考 [GitHub API](https://developer.github.com/v3/apps/) 。
 
 [TOC]
 
@@ -14,12 +16,13 @@ Response:
 
 ```js
 {
-  "result": "ERROR",
+  "result": "ERROR", // ERROR 大写
   "message": "xxxx"
 }
 ```
 
-
+【注】基本响应固定格式为：  如果 `result` 是 `ERROR`，那么就有个 `message` 错误消息用于直接给用户看错误提示，如果 `result` 为 `OK`，那么就有个 `info` 字段内包含前端请求需要获取的各项属性信息；
+如果 `result` 不为以上两者的，比如 `EXISTED`，那么响应内的属性格式也不属于以上基本格式，根据请求而定。
 
 ### 1. 获取校园地址
 
@@ -33,7 +36,7 @@ Response:
 
 ```js
 {
-  "result": "OK",
+  "result": "OK", // OK 大写
   "info": {
     // 一层
     Object: {
@@ -228,7 +231,7 @@ POINT Object 字段说明
 
 ### 3. 获得文档页面信息
 
-GET:  /API//file/page
+GET:  /API/file/page
 
 Parameters: 
 
@@ -276,7 +279,7 @@ Response:
 {
   "result": "OK",
   "info": {
-    "url": String
+    "url": String // url 需要加上协议，如 https://xxxx/xxx
   }
 }
 ```
@@ -291,27 +294,7 @@ post require payload:
 
 ```http
 ------WebKitFormBoundaryNbNE3mklwm2Gf9lu
-Content-Disposition: form-data; name="key"
-
-v4/files/14458411B09773F1575DA786972C8338.docx
-------WebKitFormBoundaryNbNE3mklwm2Gf9lu
-Content-Disposition: form-data; name="policy"
-
-eyJleHBpcmF0aW9uIjoiMjAxNy0wOC0yN1QwMTo1NjoyNVoiLCJjb25kaXRpb25zIjpbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsMCwxMDQ4NTc2MDAwXSxbInN0YXJ0cy13aXRoIiwiJGtleSIsInY0XC9maWxlc1wvIl1dfQ==
-------WebKitFormBoundaryNbNE3mklwm2Gf9lu
-Content-Disposition: form-data; name="Signature"
-
-MFh4u3NdaDY7/ATNZl8j/mPLEs0=
-------WebKitFormBoundaryNbNE3mklwm2Gf9lu
-Content-Disposition: form-data; name="OSSAccessKeyId"
-
-rANDsMNu0pY6yMPz
-------WebKitFormBoundaryNbNE3mklwm2Gf9lu
-Content-Disposition: form-data; name="success_action_status"
-
-200
-------WebKitFormBoundaryNbNE3mklwm2Gf9lu
-Content-Disposition: form-data; name="file"; filename="index.docx"
+Content-Disposition: form-data; name="file"; filename="XXX.docx"
 Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
 ```
 
@@ -324,6 +307,8 @@ post entity body:
 Response:
 
 > 无
+
+【注】受目前所用框架限制，此处无法获取 Response，包括 `"result": "ERROR"` 的错误也无法获取，因此若上传出错，请返会对应情况的  `4xx` 和 `5xx` HTTP 状态码。
 
 
 ### 6. 获取打印预览图片

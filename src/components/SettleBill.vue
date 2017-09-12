@@ -93,14 +93,18 @@
         return {couponId: null, couponName: null};
       },
       getItems () {
-        const typeMap = this.typeMap;
-        const price = this.point.price;
         let items = {};
         let units = {};
+        const typeMap = this.typeMap;
+        const price = this.point.price;
         for (let file of this.fileList) {
           let oneside = 0;
           let duplex = 0;
           let setting = file.print;
+          let {size, caliper, color} = setting;
+          if (!_.get(price, [size, caliper, color])) {
+            return {items: {}, units: {}};
+          }
           let area = setting.endPage - setting.startPage + 1;
           let layout = setting.row * setting.col;
           let pages = Math.ceil(area / layout);
@@ -112,7 +116,6 @@
           }
           oneside *= setting.copies;
           duplex *= setting.copies;
-          let {size, caliper, color} = setting;
           let prefix = `${size} ${caliper}纸${typeMap[color]}`;
           let oddType = `${prefix}${typeMap['1']}`;
           let evenType = `${prefix}${typeMap['2']}`;

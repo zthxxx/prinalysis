@@ -5,10 +5,10 @@
         <div class="page" ref="pagebox" @scroll="onscroll">
           <div class="page-list" ref="pages">
             <div v-for="img in pagepics">
-              <img :src="img" :class="{gray: file.print.color == 'mono'}" @load="loadimg">
+              <img :src="img" :class="{gray: isMono}" @load="loadimg">
             </div>
             <div class="last-tip">
-              <template v-if="loadEnd">已到达最后一面，每份需打印 {{total}} 面</template>
+              <template v-if="loadEnd && !loading">已到达最后一面，每份需打印{{copies * total}}面</template>
               <div class="loading" v-else>
                 <div class="spinning">
                   <span class="spin-dot"></span>
@@ -26,19 +26,18 @@
           </div>
           <div class="file-setting">
             <print-file-item class="print-file-item"
-                             ref="fileItem"
                              :file="file"
                              :preSetting="file.print"
                              :price="price">
               <div slot="control">
                 <div class="page-panel">第<span class="count">{{currentPage}}</span>面</div>
-                <div class="tip">每份{{total}}张纸</div>
-                <div class="tip">1份共{{total}}张纸</div>
+                <div class="tip">每份{{papers}}张纸</div>
+                <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
               </div>
             </print-file-item>
           </div>
           <div class="pagination">
-            <div class="panel">{{currentPage}} / 6</div>
+            <div class="panel">{{currentPage}} / {{total}}</div>
           </div>
         </div>
       </div>
@@ -86,8 +85,8 @@
           size, color,
           row, col
         });
-        this.pagepics.push(img);
         this.loading = true;
+        this.pagepics.push(img);
       },
       calcCurrent (scroll, totalHeight, pagesCount) {
         pagesCount = this.loading ? pagesCount - 1 : pagesCount;
@@ -101,7 +100,7 @@
         let pagesHeight = this.$refs.pages.clientHeight;
         let pagesCount = this.pagepics.length;
         let buttomLimit = pagesHeight - clientHeight;
-        let current =  this.calcCurrent(scrollTop, pagesHeight, pagesCount);
+        let current = this.calcCurrent(scrollTop, pagesHeight, pagesCount);
         if (this.currentPage != current) this.currentPage = current;
         if (scrollTop >= buttomLimit && !this.loadEnd) {
           let next = pagesCount + 1;
@@ -114,12 +113,23 @@
       }
     },
     computed: {
+      isMono () {
+        return this.file.print.color == 'mono';
+      },
       total () {
-        let print = this.file.print;
-        return print.endPage - print.startPage + 1;
+        let {endPage, startPage, row, col} = this.file.print;
+        let layouts = row * col;
+        return Math.ceil((endPage - startPage + 1) / layouts);
       },
       loadEnd () {
         return this.pagepics.length >= this.total;
+      },
+      papers () {
+        let {side} = this.file.print;
+        return Math.ceil(this.total / side);
+      },
+      copies () {
+        return this.file.print.copies;
       }
     },
     components: {printFileItem}
@@ -251,6 +261,6 @@
             border-radius: 4px
             font-size: 12px
             color: #fff
-            background-color: rgba(#000,.4)
+            background-color: rgba(#000, .4)
 
 </style>
