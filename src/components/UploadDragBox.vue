@@ -62,7 +62,7 @@
         position: absolute
         background: rgba(theme-green-light, .6)
         content: "释放即可添加文件"
-        z-index: 1000
+        z-index: 2
         color: #096
         font-size: 24px
         text-align: center

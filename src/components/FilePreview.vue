@@ -77,15 +77,14 @@
         this.$emit('close', false);
       },
       async getpic (page) {
-        if (this.loading && this.loadEnd) return;
-        let {size, color, row, col} = this.file.print;
+        if (this.loading || this.loadEnd) return;
+        this.loading = true;
+        let {size, row, col} = this.file.print;
         let {img} = await filePreview({
           md5: this.file.raw.md5,
-          page,
-          size, color,
+          page, size,
           row, col
         });
-        this.loading = true;
         this.pagepics.push(img);
       },
       calcCurrent (scroll, totalHeight, pagesCount) {
@@ -110,6 +109,16 @@
       },
       loadimg () {
         this.loading = false;
+      }
+    },
+    watch: {
+      file: {
+        handler ()  {
+          console.warn('Update preview setting');
+          this.pagepics = [];
+          this.getpic(1);
+        },
+        deep: true
       }
     },
     computed: {
@@ -149,7 +158,7 @@
     justify-content: center
     align-items: center
     background-color: rgba(shallow-text-gray, .6)
-    z-index: 2
+    z-index: 4
     .center
       width: 90%
       height: 100%

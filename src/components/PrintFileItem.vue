@@ -171,6 +171,9 @@
           docx: require('@/assets/img/print/icon-word.png'),
           ppt: require('@/assets/img/print/icon-ppt.png'),
           pptx: require('@/assets/img/print/icon-ppt.png'),
+          xls: require('@/assets/img/print/icon-xls.png'),
+          xlsx: require('@/assets/img/print/icon-xls.png'),
+          pdf: require('@/assets/img/print/icon-pdf.png'),
           jpg: require('@/assets/img/print/icon-img.jpg'),
           png: require('@/assets/img/print/icon-img.jpg')
         }
