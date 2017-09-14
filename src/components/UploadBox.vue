@@ -22,14 +22,13 @@
                  :on-success="onSuccessUpload"
                  :on-remove="onRemoveFile"
                  :on-error="onErrorUpload">
-        <!--:http-request="uploadOverload"-->
         <div class="upload-btn">
           <span class="upload-title" v-if="!fileList.length">添加文件</span>
           <span class="upload-title" v-else>继续添加文件</span>
           <br>
           <span class="upload-text">点击按钮或者把文件拖放到这里</span>
         </div>
-        <div class="el-upload__tip" slot="tip">已支持的格式：doc, docx, pdf, ppt, pptx, jpg, png</div>
+        <div class="el-upload__tip" slot="tip">已支持的格式：{{supportFormat.join(',')}}</div>
       </el-upload>
     </upload-drag-box>
   </div>
@@ -55,7 +54,7 @@
       return {
         action: '',
         payload: {},
-        supportFormat: ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 'jpg', 'png']
+        supportFormat: ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf']
       }
     },
     computed: {...mapState(['fileList'])},

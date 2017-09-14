@@ -43,17 +43,15 @@
       }
     },
     methods: {
-      isEmptyObject (obj) {
-        for (let key in obj)
-          return false;
-        return true;
+      isEmpty (obj) {
+        return !Object.keys(obj).length;
       }
     },
     computed: {
       layerData: function () {
         let layers = [];
         let layer = this.linkageDatas;
-        if (this.isEmptyObject(layer)) {
+        if (this.isEmpty(layer)) {
           this.currents = new Array(this.deep);
           layers =  [...Array(this.deep).keys()].map(()=>([]));
           return layers;

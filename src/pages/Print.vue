@@ -43,8 +43,32 @@
       this.initData();
     },
     methods: {
+      converLinkage (data) {
+        let stack = [];
+        let stackLayer = [];
+        let layer = {};
+        stack.push(data);
+        stackLayer.push(layer);
+        while (stack.length) {
+          let front = stack.pop();
+          let frontLayer = stackLayer.pop();
+          for (let item of front) {
+            for (let key in item) {
+              let value = item[key];
+              frontLayer[key] = value;
+              if (value[0] instanceof Object) {
+                stack.push(value);
+                frontLayer[key] = {};
+                stackLayer.push(frontLayer[key]);
+              }
+            }
+          }
+        }
+        return layer;
+      },
       async initData () {
-        this.addresses = await getAddresses();
+        let addrData = await getAddresses();
+        this.addresses = this.converLinkage(addrData);
       },
       async setPoints (focusAddress) {
         const points = await getPoints(focusAddress);
@@ -105,10 +129,4 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../style/_animate"
   @import "../style/print"
-  .account-tips
-    width: 100%
-    padding: 50px 0
-    text-align: center
-    color: #999
-    font-size: 16px
 </style>
