@@ -1,4 +1,4 @@
-const BaseUrl = '/api';
+const BaseUrl = process.env.API_BASE;
 
 export const LOGIN = `${BaseUrl}/admin/login`;
 

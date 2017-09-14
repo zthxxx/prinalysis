@@ -2,8 +2,8 @@
   <div class="account">
     <div class="print-project">
       <div class="left-part">
-        <div class="printPlace">
-          <span class="title">打印点：</span><span class="place_name">示例打印点</span>
+        <div class="print-place">
+          <span class="title">打印点：</span><span class="place-name">示例打印点</span>
         </div>
         <div class="project">
           <table class="project-account">
@@ -37,7 +37,7 @@
           <el-radio-group v-model="dispatch">
             <el-radio class="radio" :label="false">到打印点自取</el-radio>
             <br>
-            <el-radio class="radio" :label="true" :disabled="!point.delivery_scope">送件上门（本打印点暂时不支持）</el-radio>
+            <el-radio class="radio" :label="true" :disabled="!point.delivery_scope">送件上门{{point.delivery_scope ? '' : '（本打印点暂时不支持）' }}</el-radio>
           </el-radio-group>
           <div class="dispatch-info"></div>
         </div>

@@ -36,6 +36,7 @@
 </template>
 
 <script>
+  import _ from 'lodash'
   import {mapState} from 'vuex'
   import uploadDragBox from './UploadDragBox'
   import printFileList from './PrintFileList'
@@ -80,7 +81,7 @@
           startPage: 1,
           endPage: rawFile.pageInfo.pageCount
         };
-        return checkset(this.focusPoint.price, defaults);
+        return checkset(_.get(this.focusPoint, 'price'), defaults);
       },
       async getUploadURL ({md5, name}) {
         let {url} = await getFileURL({md5, name});

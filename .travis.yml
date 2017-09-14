@@ -1,0 +1,35 @@
+language: 
+  - node_js
+  - python
+
+node_js:
+  - "6"
+
+python:
+  - "3.5"
+
+dist: trusty
+sudo: required
+
+branches:
+  only:
+  - master 
+
+before_install:
+  - echo need "GIT_USER_NAME" "GIT_USER_EMAIL" "GIT_REPO_TOKEN" "API_BASE" variable in env.
+  - git config --global user.name "${GIT_USER_NAME}"
+  - git config --global user.email "${GIT_USER_EMAIL}"
+  
+install:
+  - sudo pip install ghp-import --timeout 600
+  - npm install
+
+script:
+  - npm run build
+
+  
+after_success:
+  - npm run publish
+
+notifications: # 设置通知项
+  email: true
