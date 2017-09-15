@@ -19,7 +19,7 @@
   @import '../style/_variables'
   @import '../style/_animate'
   .spinning
-    opacity: 1;
+    opacity: 1
     position: static
     visibility: visible
     .spin-dot

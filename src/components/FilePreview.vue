@@ -176,6 +176,9 @@
             max-width: 98%
             min-width: 50%
             min-height: 80%
+          .gray
+            filter: grayscale(100%)
+            filter: gray
           .last-tip
             height: 80px
             font-size: 14px

@@ -7,14 +7,20 @@
           <div class="process-bar" :style="{width: `${file.percentage}%`}"></div>
           <div class="loading-info">
             <div class="uploading">
-              <div>正在上传</div>
-              <div class="percentage">
-                <span class="loading">
-                  <spinDot></spinDot>
-                </span>
-                {{file.percentage.toFixed(1)}}%
-              </div>
-              <div class="speed">剩余 {{file.remain || '...'}} 秒 / {{file.speed || 0}} kb/s</div>
+              <template v-if="file.percentage != 100">
+                <div>正在上传</div>
+                <div class="percentage">
+                  <span class="loading">
+                    <spinDot></spinDot>
+                  </span>
+                  {{file.percentage.toFixed(1)}}%
+                </div>
+                <div class="speed">剩余 {{file.remain || '...'}} 秒 / {{file.speed || 0}} kb/s</div>
+              </template>
+              <template v-else>
+                <div>上传完毕</div>
+                <div class="analysing">正在分析...</div>
+              </template>
             </div>
           </div>
         </div>
@@ -283,7 +289,7 @@
     font-size: 16px
     background-color: #fff
     text-align: left
-    color: #666
+    color: shallow-text-gray
     .valid-index
       position: absolute
       font-size: 12px
@@ -303,7 +309,7 @@
         img
           width: 55px
         div
-          color: #666
+          color: shallow-text-gray
           font-size: 14px
     .file-info
       position: absolute
@@ -331,35 +337,38 @@
     height: 138px
     .processor
       .process-bar
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: rgba(theme-green, 0.25);
+        position: absolute
+        width: 100%
+        height: 100%
+        background: rgba(theme-green, 0.25)
         transition: all .2s ease-out
       .loading-info
-        position: absolute;
-        margin: -35px 20px 0 auto;
-        height: 70px;
-        top: 50%;
-        right: 120px;
-        line-height: 1.8em;
-        text-align: center;
-        font-size: 16px;
+        position: absolute
+        margin: -35px 20px 0 auto
+        height: 70px
+        top: 50%
+        right: 120px
+        line-height: 1.8em
+        text-align: center
+        font-size: 16px
         .uploading
-          position: relative;
-          height: 100%;
-          line-height: 1.28;
-          color: #069;
-          .percentage
+          display: flex
+          justify-content: center
+          flex-direction: column
+          position: relative
+          height: 100%
+          line-height: 1.28
+          color: theme-text-color
+          .percentage, .analysing
             font-size: 28px
             .loading
-              position: absolute;
-              left: -24px;
-              top: 18px;
-              text-align: center;
-              margin-right: 14px;
+              position: absolute
+              left: -24px
+              top: 18px
+              text-align: center
+              margin-right: 14px
           .speed
-            color: #999;
+            color: #999
             font-size: 14px
 
 
