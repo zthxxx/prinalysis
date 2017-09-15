@@ -7,7 +7,7 @@ module.exports = {
   '/file/url': {
     'result': 'OK',
     'info': {
-      'url': '/api/file/upload',
+      'url': '/mock/file/upload',
     }
   },
   '/file/upload': '',

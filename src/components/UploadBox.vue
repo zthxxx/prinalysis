@@ -18,7 +18,9 @@
                  :data="payload"
                  :show-file-list="false"
                  :file-list="fileList"
+                 :on-change="onChange"
                  :before-upload="onBeforeUpload"
+                 :on-progress="onProgress"
                  :on-success="onSuccessUpload"
                  :on-remove="onRemoveFile"
                  :on-error="onErrorUpload">
@@ -40,7 +42,7 @@
   import uploadDragBox from './UploadDragBox'
   import printFileList from './PrintFileList'
   import getFileMD5 from '@/utils/getFileMD5'
-  import {getPage, getFileURL, uploadFile} from '@/api'
+  import {getPage, getFileURL} from '@/api'
   import {checkset} from '@/utils/tools'
   export default {
     name: 'upload-box',
@@ -48,6 +50,10 @@
       focusPoint: {
         required: true,
         default: null
+      },
+      sizeKbLimit: {
+        type: Number,
+        default: 20 * 1024
       }
     },
     data () {
@@ -64,9 +70,6 @@
       },
       transmitRemove (file) {
         this.$refs.uploader.handleRemove(file);
-      },
-      async uploadOverload (option) {
-        await uploadFile(option.file, option);
       },
       defaultPrint (rawFile) {
         let defaults = {
@@ -85,6 +88,16 @@
       async getUploadURL ({md5, name}) {
         let {url} = await getFileURL({md5, name});
         this.action = url;
+      },
+      fileSizeLimit (rawFile, sizeKb) {
+        let size = rawFile.size;
+        if (size / 1024 > sizeKb) {
+          this.$notify.error({
+            title: '请不要上传太大的文件',
+            message: `该文件 ${rawFile.name} 大小超过 ${sizeKb/1024}MB 限制，无法上传`
+          });
+          throw new Error('stop-upload Size too large');
+        }
       },
       fileFormatCheck (rawFile) {
         let supports = this.supportFormat;
@@ -116,6 +129,7 @@
         }
       },
       async onBeforeUpload (rawFile) {
+        this.fileSizeLimit(rawFile, this.sizeKbLimit);
         this.fileFormatCheck(rawFile);
         rawFile.md5 = await getFileMD5(rawFile);
         rawFile.origin = '本地上传';
@@ -126,9 +140,25 @@
       async onSuccessUpload (response, file, fileList) {
         console.warn('success', file);
         console.warn('success', fileList);
-        file.raw.pageInfo = await getPage({md5: file.raw.md5, name: file.name});
-        file.print = this.defaultPrint(file.raw);
-        this.$store.commit('updateFileList', fileList);
+        this.$set(file.raw, 'pageInfo', await getPage({md5: file.raw.md5, name: file.name}));
+        this.$set(file, 'print', this.defaultPrint(file.raw));
+      },
+      onChange (file, fileList) {
+        console.info('change', file);
+        console.warn('change', fileList);
+        if (!_.has(file.raw, 'pageInfo')) {
+          this.$store.commit('updateFileList', fileList);
+        }
+      },
+      onProgress (event, file) {
+        let {loaded, total, timeStamp} = event;
+        let last = _.get(file, 'loaded', {loaded, total, timeStamp});
+        let speed = timeStamp > last.timeStamp ?
+          ((loaded - last.loaded) / 1024) /  ((timeStamp - last.timeStamp) / 1000) : 0;
+        let remain = ((total - loaded) / 1024) / speed;
+        this.$set(file, 'loaded', {loaded, timeStamp});
+        this.$set(file, 'speed', speed.toFixed(2));
+        this.$set(file, 'remain', remain.toFixed(0));
       },
       onErrorUpload (err) {
         console.error('err-upload', err);

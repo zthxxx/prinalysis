@@ -3,7 +3,7 @@
     <div class="PrintFileList">
         <print-file-item v-for="(file, index) in fileList"
           :key="`${file.name}_${index}`"
-          :index="index"
+          :index="index + 1"
           :file="file"
           :preSetting="file.print"
           :price="point && point.price"

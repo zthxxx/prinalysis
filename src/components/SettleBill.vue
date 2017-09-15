@@ -98,6 +98,8 @@
         const typeMap = this.typeMap;
         const price = this.point.price;
         for (let file of this.fileList) {
+          if (!file.print) continue;
+          if (file.status !== 'success') continue;
           let oneside = 0;
           let duplex = 0;
           let setting = file.print;

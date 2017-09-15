@@ -1,18 +1,34 @@
 <template>
   <transition name="left-fade">
     <div class="print-file-item">
-      <div class="print-file">
-        <div class="valid-index" v-if="index">{{`#${index + 1}`}}</div>
+      <div class="print-file" :class="{'file-upload': !upsuccess}">
+        <div class="valid-index" v-if="index">{{`#${index}`}}</div>
+        <div class="processor" v-if="!upsuccess">
+          <div class="process-bar" :style="{width: `${file.percentage}%`}"></div>
+          <div class="loading-info">
+            <div class="uploading">
+              <div>正在上传</div>
+              <div class="percentage">
+                <span class="loading">
+                  <spinDot></spinDot>
+                </span>
+                {{file.percentage.toFixed(1)}}%
+              </div>
+              <div class="speed">剩余 {{file.remain || '...'}} 秒 / {{file.speed || 0}} kb/s</div>
+            </div>
+          </div>
+        </div>
         <div class="logo-holder">
           <div class="logo"><img :src="fileIcon[file.raw.extension]">
-            <div>{{`${file.raw.pageInfo.pageCount}页`}}</div>
+            <div v-if="upsuccess">{{`${file.raw.pageInfo.pageCount}页`}}</div>
+            <div v-else>{{Math.ceil(file.size / 1024)}}kb</div>
           </div>
         </div>
         <div class="file-info">
           <div class="name">{{file.name}}</div>
           <div class="source"><span>来源：<span>{{file.raw.origin}}</span></span></div>
         </div>
-        <div class="fade-in">
+        <div class="fade-in" v-if="upsuccess">
           <div class="delete">
             <div class="control">
               <slot name="control">
@@ -56,8 +72,10 @@
                   <el-select class="layouts" v-model="layout">
                     <el-option label="1合1" :value="1"></el-option>
                     <el-option label="2合1" :value="2"></el-option>
-                    <el-option label="4合1" :value="4"></el-option>
-                    <el-option label="6合1" :value="6"></el-option>
+                    <template v-if="!file.raw.pageInfo.direction">
+                      <el-option label="4合1" :value="4"></el-option>
+                      <el-option label="6合1" :value="6"></el-option>
+                    </template>
                   </el-select>
                 </div>
               </li>
@@ -111,6 +129,7 @@
 
 <script>
   import _ from 'lodash'
+  import spinDot from './SpinDot'
   import {sideMap, checkset} from '@/utils/tools'
   export default {
     name: 'print-file-item',
@@ -125,15 +144,7 @@
       },
       file: {
         type: Object,
-        default: () => ({
-          name: 'xxx.docx',
-          raw: {
-            md5: 'xxx',
-            extension: 'docx',
-            pageInfo: {pageCount: 3, direction: true},
-            origin: '本地上传'
-          }
-        })
+        required: true
       },
       preSetting: {
         type: Object,
@@ -208,6 +219,10 @@
     },
     methods: {},
     computed: {
+      upsuccess () {
+        let file = this.file;
+        return _.get(file, 'status') == 'success' && _.get(file, ['raw', 'pageInfo', 'pageCount']);
+      },
       colorable () {
         let setting = this.setting;
         return _.get(this.price, [setting.size, setting.caliper], {});
@@ -249,11 +264,13 @@
             (setting.endPage - setting.startPage + 1) / setting.side / this.layout
           ) * setting.copies;
       }
-    }
+    },
+    components: {spinDot}
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  @import "../style/_variables"
   @import "../style/_animate"
   .print-file-item
     width: 1000px
@@ -309,6 +326,42 @@
         white-space: nowrap
         font-size: 14px
         color: #999
+
+  .file-upload
+    height: 138px
+    .processor
+      .process-bar
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(theme-green, 0.25);
+        transition: all .2s ease-out
+      .loading-info
+        position: absolute;
+        margin: -35px 20px 0 auto;
+        height: 70px;
+        top: 50%;
+        right: 120px;
+        line-height: 1.8em;
+        text-align: center;
+        font-size: 16px;
+        .uploading
+          position: relative;
+          height: 100%;
+          line-height: 1.28;
+          color: #069;
+          .percentage
+            font-size: 28px
+            .loading
+              position: absolute;
+              left: -24px;
+              top: 18px;
+              text-align: center;
+              margin-right: 14px;
+          .speed
+            color: #999;
+            font-size: 14px
+
 
   .delete
     position: absolute

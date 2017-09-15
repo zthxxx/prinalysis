@@ -10,9 +10,7 @@
             <div class="last-tip">
               <template v-if="loadEnd && !loading">已到达最后一面，每份需打印{{copies * total}}面</template>
               <div class="loading" v-else>
-                <div class="spinning">
-                  <span class="spin-dot"></span>
-                </div>
+                <spinDot></spinDot>
                 <div class="text">拼命加载中...</div>
               </div>
             </div>
@@ -47,6 +45,7 @@
 
 <script>
   import printFileItem from './PrintFileItem'
+  import spinDot from './SpinDot'
   import {filePreview} from '@/api'
   import {throttle} from '@/utils/tools'
   export default {
@@ -141,13 +140,12 @@
         return this.file.print.copies;
       }
     },
-    components: {printFileItem}
+    components: {printFileItem, spinDot}
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '../style/_variables'
-  @import '../style/_animate'
   .preview
     position: fixed
     display: flex
@@ -189,31 +187,6 @@
         margin-top: 30px
         margin-bottom: 30px
         text-align: center
-        .spinning
-          opacity: 1;
-          position: static
-          visibility: visible
-          .spin-dot
-            position: relative
-            display: inline-block
-            vertical-align: middle
-            text-align: center
-            width: 36px
-            height: 36px
-            &:after, &:before
-              content: ""
-              display: block
-              position: absolute
-              top: 0
-              left: 0
-              bottom: 0
-              right: 0
-              border-radius: 50%
-              background-color: #2db7f5
-              opacity: .6
-              animation: spin-bounce 2.4s infinite ease-in-out
-            &:after
-              animation-delay: -1.2s
         .text
           margin-top: 10px
           font-size: 16px
