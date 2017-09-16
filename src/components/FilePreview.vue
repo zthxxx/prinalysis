@@ -108,6 +108,12 @@
       },
       loadimg () {
         this.loading = false;
+        let clientHeight = this.$refs.pagebox.clientHeight;
+        let scrollHeight = this.$refs.pagebox.scrollHeight;
+        if (scrollHeight <= clientHeight) {
+          let pagesCount = this.pagepics.length;
+          this.getpic(pagesCount + 1);
+        }
       }
     },
     watch: {

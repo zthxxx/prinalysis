@@ -81,6 +81,8 @@
                     <template v-if="!file.raw.pageInfo.direction">
                       <el-option label="4合1" :value="4"></el-option>
                       <el-option label="6合1" :value="6"></el-option>
+                      <el-option label="8合1" :value="8"></el-option>
+                      <el-option label="9合1" :value="9"></el-option>
                     </template>
                   </el-select>
                 </div>
@@ -178,9 +180,11 @@
         setting: {...this.preSetting},
         layouts: {
           1: {row: 1, col: 1},
-          2: {row: 1, col: 2},
+          2: {row: 2, col: 1},
           4: {row: 2, col: 2},
-          6: {row: 2, col: 3},
+          6: {row: 3, col: 2},
+          8: {row: 4, col: 2},
+          9: {row: 3, col: 3},
         },
         sideMap: sideMap,
         fileIcon: {
@@ -261,7 +265,11 @@
           return setting.row * setting.col;
         },
         set (value) {
-          Object.assign(this.setting, this.layouts[value]);
+          let {row, col} = this.layouts[value];
+          if (this.file.raw.pageInfo.direction) {
+            [row, col] = [col, row];
+          }
+          Object.assign(this.setting, {row, col});
         }
       },
       total () {
