@@ -4,8 +4,9 @@
       <box-card title="打印点">
         <div class="selector-group" v-if="!focusPoint">
           <span class="tip">请选择目标打印点: </span>
-          <linkage-select v-model="focusAddress"
-                          :deep="3" :linkageDatas="addresses">
+          <linkage-select :linkageDatas="addresses"
+                          v-model="focusAddress"
+                          @track="setPoints">
           </linkage-select>
         </div>
         <shop-point-card v-model="focusPoint" :points="points">
@@ -43,35 +44,12 @@
       this.initData();
     },
     methods: {
-      converLinkage (data) {
-        let stack = [];
-        let stackLayer = [];
-        let layer = {};
-        stack.push(data);
-        stackLayer.push(layer);
-        while (stack.length) {
-          let front = stack.pop();
-          let frontLayer = stackLayer.pop();
-          for (let item of front) {
-            for (let key in item) {
-              let value = item[key];
-              frontLayer[key] = value;
-              if (value[0] instanceof Object) {
-                stack.push(value);
-                frontLayer[key] = {};
-                stackLayer.push(frontLayer[key]);
-              }
-            }
-          }
-        }
-        return layer;
-      },
       async initData () {
-        let addrData = await getAddresses();
-        this.addresses = this.converLinkage(addrData);
+        this.addresses = await getAddresses();
       },
-      async setPoints (focusAddress) {
-        const points = await getPoints(focusAddress);
+      async setPoints (focusID) {
+        console.info('id', focusID);
+        const points = await getPoints(focusID);
         const holidays = {
           'RUNNING': '正在运营',
           'SUMMER_HOLIDAY': '暑假休息',
@@ -104,7 +82,6 @@
         },
         set (address) {
           this.$store.commit('updateFocusAddress', address);
-          this.setPoints(address);
         }
       },
       focusPoint: {

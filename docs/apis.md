@@ -32,32 +32,44 @@ GET:  /API/point/address
 
 Response:
 
-> 正确响应时，`Info` 中包含三层地址，前两层为 Object，每个 Key 为一个地址名，对应 value 为下一层地址，最后一层没有下层地址，因此为 Array，每个 item 为一个地址名。
+> 正确响应时，`Info` 中包含三层相互嵌套的地址，每层同级地址组成一个数组，同一层中的地址表示为键值对，键为地址名，值为子层地址组；最终层键值对没有子级地址，其值应为表示次具体地址的 ID。
 
 ```js
 {
   "result": "OK", // OK 大写
-  "info": [
-    // 一层
-    {Key: [{
-      // 二层: 三层
-      Key: Array<String>
-    ]}
-  ]
+  "info": [{
+    key: [{
+      key: [{
+        key: id
+      }]
+    }]
+  }]
 }
 
 // example
 {
   "result": "OK",
   "info": [
-    {"一级地址 城市1": [
-      {"二级地址 学校1": ["三级地址 校区1", "三级地址 校区2"]},
-      {"二级地址 学校2": ["三级地址 校区1"]}
-    ]},
-    {"一级地址 城市2": [
-      {"二级地址 学校1": ["三级地址 校区1"]},
-      {"二级地址 学校2": ["三级地址 校区1", "三级地址 校区2"]}
-    ]}
+    {
+      "一级地址 城市1": [
+        {
+          "二级地址 学校1": [{"三级地址 校区1": "ID"}, {"三级地址 校区2": "ID"}]
+        },
+        {
+          "二级地址 学校2": [{"三级地址 校区1": "ID"}]
+        }
+      ]
+    },
+    {
+      "一级地址 城市2": [
+        {
+          "二级地址 学校1": [{"三级地址 校区1": "ID"}]
+        },
+        {
+          "二级地址 学校2": [{"三级地址 校区1": "ID"}, {"三级地址 校区2": "ID"}]
+        }
+      ]
+    }
   ]
 }
 ```
@@ -69,12 +81,10 @@ GET:  /API/point/points
 Parameters: 
 
 ```js
-city: String   // 城市
-school: String // 学校
-campus: String // 校区
+ID: String   // 表示具体地点的 ID
 
 // example
-getPointsInfo?city=xxx&school=xxx&campus=xxx
+/API/point/points?ID=xxx
 ```
 
 描述： 用于查询指定地址下所有打印点所支持的打印类型价格等的信息，指定地址为三个参数确定
@@ -130,16 +140,17 @@ POINT Object 字段说明
 
 
 ```js
-/** price Object 详细项
+/** price Array<Object> 详细项
 * 表示所支持的每种打印类型对应单价
 * 每种打印类型由四种属性组成：页面大小，页面厚度，颜色模式，单双面
-* price Object 中四种属性按上述顺序依次嵌套，如
+* price Array 中的 Object 按纸张固有属性(大小厚度)分类，每个 Object 描述的纸张属性不应重复
+* Object 中再用 "money" 键表示打印模式对应单价，打印模式为颜色和面数嵌套的描述方式。
 * {
-*   页面大小: {
-*     页面厚度: {
-*       颜色模式: {
-*         单双面: 价格
-*       }
+*   "size": 页面大小,
+*   "caliper": 纸张厚度(纸张厚度用克表示)
+*   "money": {
+*     颜色模式: {
+*       单双面: 价格
 *     }
 *   }
 * }
@@ -149,10 +160,12 @@ POINT Object 字段说明
 * 颜色模式 "mono" 表示黑白打印，"colorful" 表示彩色打印
 * 单双面选项 "oneside" 表示单面打印，"duplex" 表示双面打印
 */
-// price Object example
-"price": {
-  "A4": {
-    "70g": {
+// price Array<Object> example
+"price": [
+  {
+    "size": "A4",
+    "caliper": "70g",
+    "money": {
       "mono": {
         "oneside": 10,
         "duplex": 15
@@ -161,27 +174,30 @@ POINT Object 字段说明
         "oneside": 20,
         "duplex": 30
       }
-    },
-    "80g": {
+    }
+  },
+  {
+    "size": "A4",
+    "caliper": "80g",
+    "money": {
       "mono": {
-        "oneside": 15,
-        "duplex": 20
-      },
-      "colorful": {
-        "oneside": 25,
-        "duplex": 35
+        "oneside": 20,
+        "duplex": 25
       }
     }
   },
-  "A3": {
-    "70g": {
-      "mono": {
-        "oneside": 50,
-        "duplex": 90
+  {
+    "size": "A3",
+    "caliper": "70g",
+    "money": {
+      "colorful": {
+        "oneside": 30,
+        "duplex": 40
       }
     }
   }
-}
+]
+
 ```
 
 ```js
@@ -198,16 +214,20 @@ POINT Object 字段说明
   "message": "欢迎使用云打印~",
   "image": "/assets/img/print/ATM.jpg",
   "takeTime": [10, 30, 18, 30],
-  "price": {
-    "A4": {
-      "70g": {
-        "mono": {
-          "oneside": 10,
-          "duplex": 15
-        }
+  "price": [{
+    "size": "A4",
+    "caliper": "70g",
+    "money": {
+      "mono": {
+        "oneside": 10,
+        "duplex": 15
+      },
+      "colorful": {
+        "oneside": 20,
+        "duplex": 30
       }
     }
-  },
+  }],
   "atmInfo": {
     "maxPageCount": 200,
     "desc": ""

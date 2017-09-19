@@ -1,10 +1,10 @@
 <template>
   <div class="area-select">
     <el-select class="selecter"
-      :placeholder="placeholders[index] ? placeholders[index] : '请选择'"
-      v-for="(item, index) in deep" v-model="currents[index]" :key="index">
-      <el-option v-for="val of layerData[index]"
-                 :key="index + val" :label="val" :value="val">
+               v-for="(layer, index) in layerData" v-model="currents[index]" :key="index"
+               :placeholder="placeholders[index] ? placeholders[index] : '请选择'">
+      <el-option v-for="item of layer"
+                 :key="index + item" :label="item" :value="item">
       </el-option>
     </el-select>
   </div>
@@ -15,22 +15,17 @@
     name: 'linkage-select',
     props: {
       value: {
-        required: true,
-        type: Array
+        type: Array,
+        default: () => []
       },
       placeholders: {
         type: Array,
         default: () => []
       },
-      deep: {
-        type: Number,
-        default: 3,
-        validator: (val) => val > 0 && Number.isInteger(val)
-      },
       linkageDatas: {
         required: true,
         type: [Array, Object],
-        default: {}
+        default: () => ({})
       },
       defaultSelected: {
         type: Boolean,
@@ -39,7 +34,7 @@
     },
     data () {
       return {
-        currents: this.value
+        currents: [...this.value]
       }
     },
     methods: {
@@ -51,38 +46,39 @@
       layerData: function () {
         let layers = [];
         let layer = this.linkageDatas;
+        let currents = this.currents;
         if (this.isEmpty(layer)) {
-          this.currents = new Array(this.deep);
-          layers =  [...Array(this.deep).keys()].map(()=>([]));
+          layers =  [[]];
           return layers;
         }
-        for (let index = 0; index < this.deep - 1; index++) {
-          // first layer aways exist
-          layers.push(Object.keys(layer));
-          // after but last
-          let current = this.currents[index];
-          if (current && current in layer) {
-            layer = layer[current];
-          } else {
-            if (this.defaultSelected) {
-              this.currents.splice(index, 1, layers[index][0]);
-              layer = layer[this.currents[index]];
-            } else {
-              let lastCount = this.deep - index;
-              this.currents.splice(index, lastCount, ...new Array(lastCount));
-              layers.push(...new Array(lastCount - 1));
+        let index = 0;
+        while (layer instanceof Array) {
+          let current = currents[index];
+          let nextLayer = layer;
+          layers.push(layer.map((item) => {
+            if (current in item) nextLayer = item[current];
+            return Object.keys(item)[0];
+          }));
+          if (nextLayer === layer) {
+            let key = Object.keys(layer[0])[0];
+            currents.splice(index, currents.length);
+            layer = layer[0][key];
+            if (!this.defaultSelected) {
+              while (layer instanceof Array) {
+                layers.push([]);
+                currents.push('');
+                layer = Object.values(layer[0])[0];
+              }
               return layers;
             }
+            currents.push(key);
+          } else {
+            layer = nextLayer;
           }
+          index ++;
         }
-        // last layer
-        layers.push(layer); // last deep layer must be a array
-        if (layer.indexOf(this.currents[this.deep - 1]) == -1) {
-          this.currents[this.deep - 1] = this.defaultSelected ? layer[0] : '';
-        }
-        // confirm selected until match all layer at last
-        this.$emit('input', this.currents);
-
+        this.$emit('input', currents);
+        this.$emit('track', layer);
         return layers;
       }
     },

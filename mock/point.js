@@ -1,19 +1,31 @@
+import {Random} from 'mockjs'
+
+let county = () => ({
+  [Random.county()]: Random.id()
+});
+
 module.exports = {
   '/point/address': {
     result: 'OK',
     info: [
-      {'北京市': [
-        {'市辖区|5-10': ['@county']},
-        {'县|1-10': ['@county']}
-      ]},
-      {'上海市': [
-        {'市辖区|5-10': ['@county']},
-        {'县|1-10': ['@county']}
-      ]},
-      {'江苏省': [
-        {'南京市|5-10': ['@county']},
-        {'苏州市|5-10': ['@county']},
-      ]}
+      {
+        '北京市': [
+          {'市辖区|5-10': [county]},
+          {'县|1-10': [county]}
+        ]
+      },
+      {
+        '上海市': [
+          {'市辖区|5-10': [county]},
+          {'县|1-10': [county]}
+        ]
+      },
+      {
+        '江苏省': [
+          {'南京市|5-10': [county]},
+          {'苏州市|5-10': [county]},
+        ]
+      }
     ]
   },
   '/point/points': {
@@ -30,38 +42,20 @@ module.exports = {
       'message|1': ['欢迎使用快印打印~', '新点开张！欢迎使用~'],
       'image': '',
       'takeTime': ['@natural(0, 23)', '@natural(0, 59)', 24, 0],
-      'price': {
-        'A4|1-2': {
-          '70g|1-2': {
-            'mono|1-2': {
-              'oneside': '@natural(10, 50)',
-              'duplex': '@natural(10, 50)'
-            },
-            'colorful|1-2': {
-              'oneside': '@natural(20, 50)',
-              'duplex': '@natural(20, 50)'
-            }
+      'price|1-3': [{
+        'size|1': ['A3', 'A4', 'A5'],
+        'caliper|+1': ['70g', '80g', '100g'],
+        'money|1-2': {
+          'mono|1-2': {
+            'oneside': '@natural(10, 50)',
+            'duplex': '@natural(20, 50)'
           },
-          '80g|1-2': {
-            'mono|1-2': {
-              'oneside': '@natural(10, 50)',
-              'duplex': '@natural(10, 50)'
-            },
-            'colorful|1-2': {
-              'oneside': '@natural(20, 50)',
-              'duplex': '@natural(20, 50)'
-            }
+          'colorful|1-2': {
+            'oneside': '@natural(30, 60)',
+            'duplex': '@natural(40, 80)'
           }
-        },
-        'A3': {
-          '70g': {
-            'mono|1-2': {
-              'oneside': '@natural(10, 50)',
-              'duplex': '@natural(10, 50)'
-            }
-          }
-        },
-      },
+        }
+      }],
       'printInfo': {
         'maxPageCount': 200,
         'prePrintStart': 500,

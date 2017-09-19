@@ -22,7 +22,7 @@ export const getAddresses = () => _get(API.ADDRESS);
 /**
  * 获取地址对应打印点信息
  */
-export const getPoints = ([city, school, campus]) => _get(API.POINTS, {city, school, campus});
+export const getPoints = ID => _get(API.POINTS, {ID});
 
 /**
  * 检验通过MD5检验文档是否存在, 避免重复上传，并获取文档页数
@@ -37,7 +37,7 @@ export const getFileURL = ({md5, name}) => _get(API.FILEURL, {md5, name});
 /**
  * 上传文件
  */
-export const uploadFile = (file) => post(API.UPLOAD, file);
+export const uploadFile = file => post(API.UPLOAD, file);
 
 /**
  * 文档预览

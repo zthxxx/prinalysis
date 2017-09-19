@@ -11,7 +11,7 @@ const state = {
 
 const mutations = {
   updateFocusAddress (state, value) {
-    state.focusPointAddress = value;
+    state.focusAddress = value;
   },
   updateFocusPoint (state, value) {
     state.focusPoint = value;

@@ -1,5 +1,5 @@
-const Mock = require('mockjs');
-const mocks = require('./mocks');
+import Mock from 'mockjs';
+import mocks from './mocks';
 const BaseHost = '/mock';
 
 function fake (url, data) {
