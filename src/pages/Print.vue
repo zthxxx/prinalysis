@@ -48,7 +48,6 @@
         this.addresses = await getAddresses();
       },
       async setPoints (focusID) {
-        console.info('id', focusID);
         const points = await getPoints(focusID);
         const holidays = {
           'RUNNING': '正在运营',
@@ -63,12 +62,9 @@
             mono: false,
             colorful: false
           };
-          for (let size in point.price) {
-            for (let caliper in point.price[size]) {
-              let colorType = point.price[size][caliper];
-              if ('mono' in colorType) point.colorType.mono = true;
-              if ('colorful' in colorType) point.colorType.colorful = true;
-            }
+          for (let {money} of point.price) {
+            if ('mono' in money) point.colorType.mono = true;
+            if ('colorful' in money) point.colorType.colorful = true;
           }
         }
         this.points = points;

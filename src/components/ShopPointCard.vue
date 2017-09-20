@@ -78,34 +78,7 @@
       },
       points: {
         type: Array,
-        default: () => [{
-          pointID: '001',
-          running: true,
-          rest_message: '假期休息',
-          pointType: ['ATM'],
-          delivery_scope: '配送范围',
-          delivery_time: '配送时间',
-          phone: '12345678910',
-          pointName: '店名',
-          address: '详细地址',
-          message: '提示信息',
-          image: require('@/assets/img/print/ATM.jpg'),
-          takeTime: [0, 0, 24, 0],
-          price: {
-            A4: {
-              '70g': {
-                mono: {
-                  oneside: 10,
-                  duplex: 15
-                }
-              }
-            }
-          },
-          colorType: {
-            mono: true,
-            colorful: true
-          }
-        }]
+        required: true
       }
     },
     data () {
@@ -152,20 +125,18 @@
         let unitPrice = (value) => value > 0 ? `${formatCNY(value)} / 张` : null;
         let typeMap = this.typeMap;
         let tariff = [];
-        for (let size in price) {
-          for (let caliper in price[size]) {
-            let prefix = `${size} ${caliper}纸`;
-            let colorType = price[size][caliper];
-            for (let color in colorType) {
-              for (let side in colorType[color]) {
-                let unit = colorType[color][side];
-                tariff.push({
-                  type: `${prefix}${typeMap[color]}${typeMap[side]}`,
-                  price: unitPrice(unit)
-                });
-              }
+        for (let {size, caliper, money} of price) {
+          let prefix = `${size} ${caliper}纸`;
+          for (let color in money) {
+            for (let side in money[color]) {
+              let unit = money[color][side];
+              tariff.push({
+                type: `${prefix}${typeMap[color]}${typeMap[side]}`,
+                price: unitPrice(unit)
+              });
             }
           }
+
         }
         return tariff;
       }

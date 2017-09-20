@@ -92,6 +92,22 @@
       getSelectCoupon () {
         return {couponId: null, couponName: null};
       },
+      calcSidesCount (setting) {
+        let oneside = 0;
+        let duplex = 0;
+        let area = setting.endPage - setting.startPage + 1;
+        let layout = setting.row * setting.col;
+        let pages = Math.ceil(area / layout);
+        if (setting.side == 1) {
+          oneside += pages;
+        } else if (setting.side == 2) {
+          oneside += pages % 2;
+          duplex += Math.floor(pages / 2);
+        }
+        oneside *= setting.copies;
+        duplex *= setting.copies;
+        return [oneside, duplex];
+      },
       getItems () {
         let items = {};
         let units = {};
@@ -100,35 +116,19 @@
         for (let file of this.fileList) {
           if (!file.print) continue;
           if (file.status !== 'success') continue;
-          let oneside = 0;
-          let duplex = 0;
           let setting = file.print;
           let {size, caliper, color} = setting;
-          if (!_.get(price, [size, caliper, color])) {
-            return {items: {}, units: {}};
-          }
-          let area = setting.endPage - setting.startPage + 1;
-          let layout = setting.row * setting.col;
-          let pages = Math.ceil(area / layout);
-          if (setting.side == 1) {
-            oneside += pages;
-          } else if (setting.side == 2) {
-            oneside += pages % 2;
-            duplex += Math.floor(pages / 2);
-          }
-          oneside *= setting.copies;
-          duplex *= setting.copies;
-          let prefix = `${size} ${caliper}纸${typeMap[color]}`;
-          let oddType = `${prefix}${typeMap['1']}`;
-          let evenType = `${prefix}${typeMap['2']}`;
-          if ('oneside' in price[size][caliper][color]) {
-            items[oddType] = _.get(items, oddType, 0) + oneside;
-          } else {
-            items[evenType] = _.get(items, evenType, 0) + oneside;
-          }
+          let sides = _.get(_.find(price, {size, caliper}), ['money', color]);
+          if (!sides) return {items: {}, units: {}};
+          let prefix = side => `${size} ${caliper}纸${typeMap[color]}${typeMap[side]}`;
+          let oddType = prefix(1);
+          let evenType = prefix(2);
+          let [oneside, duplex] = this.calcSidesCount(setting);
+          let isOnesideExist = 'oneside' in sides ? oddType : evenType;
+          items[isOnesideExist] = _.get(items, isOnesideExist, 0) + oneside;
           items[evenType] = _.get(items, evenType, 0) + duplex;
-          units[oddType] = _.get(price, [size, caliper, color, 'oneside'], 0);
-          units[evenType] = _.get(price, [size, caliper, color, 'duplex'], 0);
+          units[oddType] = _.get(sides, 'oneside', 0);
+          units[evenType] = _.get(sides, 'duplex', 0);
         }
         return {items, units};
       },

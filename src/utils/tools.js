@@ -17,16 +17,26 @@ export const sideMap = {
 
 export const checkset = (price, setting) => {
   if (!price) return setting;
-  let checks = ['size', 'caliper', 'color', 'side'];
+  let checks = ['color', 'side'];
   let reset = {};
-  let choices = price;
+  let types = null;
+  price.map(({size, caliper, money}) => {
+    if (setting['size'] == size && setting['caliper'] == caliper) {
+      types = money;
+    }
+  });
+  if (!types) {
+    let {size, caliper, money} = price[0];
+    reset = {size, caliper};
+    types = money;
+  }
   for (let key of checks) {
     let item = setting[key];
-    if (!_.has(choices, item)) {
-      item = _.keys(choices).sort().shift();
+    if (!_.has(types, item)) {
+      item = _.keys(types).sort().shift();
       reset[key] = item;
     }
-    choices = choices[item];
+    types = types[item];
   }
   if (_.has(reset, 'side')) {
     reset.side = sideMap[reset.side];

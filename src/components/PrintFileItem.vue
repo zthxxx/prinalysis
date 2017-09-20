@@ -115,13 +115,11 @@
             <div class="print-area">
               <span>纸张</span>
               <el-select class="sizeside" v-model="sizeside">
-                <template v-for="(calipers, size) in price">
-                  <el-option v-for="(colors, caliper) in calipers"
-                             :label="`${size} ${caliper} 白纸`"
-                             :value="JSON.stringify({size, caliper})"
-                             :key="`${size} ${caliper}`">
-                  </el-option>
-                </template>
+                <el-option v-for="{size, caliper} of price"
+                           :label="`${size} ${caliper} 白纸`"
+                           :value="JSON.stringify({size, caliper})"
+                           :key="`${size} ${caliper}`">
+                </el-option>
                 <el-option v-if="!price"
                            :label="`${setting.size} ${setting.caliper} 白纸`"
                            :value="sizeside">
@@ -235,11 +233,17 @@
       },
       colorable () {
         let setting = this.setting;
-        return _.get(this.price, [setting.size, setting.caliper], {});
+        if (!this.price) return {};
+        for (let {size, caliper, money} of this.price) {
+          if (setting['size'] == size && setting['caliper'] == caliper) {
+            return money;
+          }
+        }
+        return {};
       },
       sideable () {
         let setting = this.setting;
-        let sideable = _.get(this.price, [setting.size, setting.caliper, setting.color], {});
+        let sideable = _.get(this.colorable, setting.color, {});
         if (!_.has(sideable, _.invert(this.sideMap)[setting.side])) {
           setting.side = _.get(this.sideMap, _.keys(sideable).shift(), 1);
         }
