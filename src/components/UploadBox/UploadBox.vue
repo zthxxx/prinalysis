@@ -1,10 +1,7 @@
 <template>
   <div class="upload-box-out">
     <upload-drag-box @file="transmitFiles">
-      <print-file-list :point="focusPoint"
-                       :fileList="fileList"
-                       :handleRemove="transmitRemove">
-      </print-file-list>
+      <slot></slot>
       <transition name="float-fade">
         <div class="tip" v-if="!fileList.length">
           请从本地上传文件 或
@@ -21,7 +18,6 @@
                  :on-change="onChange"
                  :before-upload="onBeforeUpload"
                  :on-progress="onProgress"
-                 :on-success="onSuccessUpload"
                  :on-remove="onRemoveFile"
                  :on-error="onErrorUpload">
         <div class="upload-btn">
@@ -38,22 +34,24 @@
 
 <script>
   import _ from 'lodash'
-  import {mapState} from 'vuex'
   import uploadDragBox from './UploadDragBox'
-  import printFileList from '@/components/PrintFileList'
   import getFileMD5 from '@/utils/getFileMD5'
   import {getPage, getFileURL} from '@/api'
-  import {checkset} from '@/utils/tools'
   export default {
     name: 'upload-box',
     props: {
-      focusPoint: {
-        required: true,
-        default: null
-      },
       sizeKbLimit: {
         type: Number,
         default: 20 * 1024
+      },
+      fileList: {
+        type: Array,
+        required: true
+      },
+      updateFiles: {
+        type: Function,
+        default: () => {
+        }
       }
     },
     data () {
@@ -63,38 +61,29 @@
         supportFormat: ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf']
       }
     },
-    computed: {...mapState(['fileList'])},
     methods: {
-      transmitFiles (files) {
-        this.$refs.uploader.$refs['upload-inner'].uploadFiles(files);
+      transmitFiles (rawFiles) {
+        this.$refs.uploader.$refs['upload-inner'].uploadFiles(rawFiles);
       },
       transmitRemove (file) {
         this.$refs.uploader.handleRemove(file);
       },
-      defaultPrint (rawFile) {
-        let defaults = {
-          copies: 1,
-          size: 'A4',
-          caliper: '70g',
-          color: 'mono',
-          side: 1,
-          row: 1,
-          col: 1,
-          startPage: 1,
-          endPage: rawFile.pageInfo.pageCount
-        };
-        return checkset(_.get(this.focusPoint, 'price'), defaults);
-      },
       async getUploadURL ({md5, name}) {
         let {url} = await getFileURL({md5, name});
         this.action = url;
+      },
+      async setPageInfo (file) {
+        if (file.status == 'success' && !_.has(file, 'pageInfo')) {
+          console.warn('successed change', file);
+          this.$set(file, 'pageInfo', await getPage({md5: file.raw.md5, name: file.name}));
+        }
       },
       fileSizeLimit (rawFile, sizeKb) {
         let size = rawFile.size;
         if (size / 1024 > sizeKb) {
           this.$notify.error({
             title: '请不要上传太大的文件',
-            message: `该文件 ${rawFile.name} 大小超过 ${sizeKb/1024}MB 限制，无法上传`
+            message: `该文件 ${rawFile.name} 大小超过 ${sizeKb / 1024}MB 限制，无法上传`
           });
           throw new Error('stop-upload Size too large');
         }
@@ -123,7 +112,6 @@
         if (check.result == 'EXISTED') {
           console.warn('exist', rawFile.name, rawFile.md5);
           rawFile.pageInfo = {pageCount: check.pageCount, direction: check.direction};
-          rawFile.print = this.defaultPrint(rawFile);
           this.$refs.uploader.handleStart(rawFile);
           throw new Error('stop-upload File existed');
         }
@@ -137,24 +125,18 @@
         await this.fileExistCheck(rawFile);
         await this.getUploadURL(rawFile);
       },
-      async onSuccessUpload (response, file, fileList) {
-        console.warn('success', file);
-        console.warn('success', fileList);
-        this.$set(file.raw, 'pageInfo', await getPage({md5: file.raw.md5, name: file.name}));
-        this.$set(file, 'print', this.defaultPrint(file.raw));
-      },
-      onChange (file, fileList) {
-        console.info('change', file);
-        console.warn('change', fileList);
-        if (!_.has(file.raw, 'pageInfo')) {
-          this.$store.commit('updateFileList', fileList);
+      async onChange (file, fileList) {
+        await this.setPageInfo(file);
+        if (!_.has(file, ['raw', 'pageInfo'])) {
+          console.warn('change commit');
+          this.updateFiles(fileList);
         }
       },
       onProgress (event, file) {
         let {loaded, total, timeStamp} = event;
         let last = _.get(file, 'loaded', {loaded, total, timeStamp});
         let speed = timeStamp > last.timeStamp ?
-          ((loaded - last.loaded) / 1024) /  ((timeStamp - last.timeStamp) / 1000) : 0;
+          ((loaded - last.loaded) / 1024) / ((timeStamp - last.timeStamp) / 1000) : 0;
         let remain = ((total - loaded) / 1024) / speed;
         this.$set(file, 'loaded', {loaded, timeStamp});
         this.$set(file, 'speed', speed.toFixed(2));
@@ -169,11 +151,10 @@
       },
       onRemoveFile (file, fileList) {
         console.warn('remove', file);
-        console.warn('remove', fileList);
-        this.$store.commit('updateFileList', fileList);
+        this.updateFiles(fileList);
       }
     },
-    components: {uploadDragBox, printFileList}
+    components: {uploadDragBox}
   }
 </script>
 

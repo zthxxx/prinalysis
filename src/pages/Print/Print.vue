@@ -13,7 +13,20 @@
         </shop-point-list>
       </box-card>
       <box-card :title="`文件列表 (${fileList.length})`" :noPadding="true">
-        <upload-box :focusPoint="focusPoint"></upload-box>
+        <upload-box ref="uploader"
+                    :fileList="fileList"
+                    :updateFiles="commitFiles">
+          <print-file-list :point="focusPoint"
+                           :fileList="fileList"
+                           :updateSetting="updateSetting"
+                           :handleRemove="removeFile"
+                           :handlePreview="handlePreview">
+          </print-file-list>
+          <filePreview ref="preview"
+                       :price="focusPoint && focusPoint.price"
+                       :file="previewFile">
+          </filePreview>
+        </upload-box>
       </box-card>
       <box-card title="结算" :noPadding="true">
         <div class="account-tips" v-if="!focusPoint">请在上面的打印点板块选择打印点</div>
@@ -30,6 +43,8 @@
   import linkageSelect from '@/components/LinkageSelect'
   import ShopPointList from '@/components/ShopPointList'
   import uploadBox from '@/components/UploadBox'
+  import printFileList from '@/components/PrintFileList'
+  import filePreview from '@/components/FilePreview'
   import settleBill from '@/components/SettleBill'
   import {getAddresses, getPoints} from '@/api'
   export default {
@@ -37,7 +52,8 @@
     data () {
       return {
         addresses: {},
-        points: []
+        points: [],
+        previewFile: null
       }
     },
     mounted () {
@@ -68,6 +84,23 @@
           }
         }
         this.points = points;
+      },
+      updateSetting (set) {
+        let {uid, setting} = set;
+        this.$store.commit('updateFileSetting', {
+          uid,
+          setting
+        });
+      },
+      commitFiles (fileList) {
+        this.$store.commit('updateFileList', fileList);
+      },
+      removeFile (file) {
+        this.$refs.uploader.transmitRemove(file);
+      },
+      handlePreview (file) {
+        this.previewFile = file;
+        this.$refs.preview.open();
       }
     },
     computed: {
@@ -94,6 +127,8 @@
       linkageSelect,
       ShopPointList,
       uploadBox,
+      printFileList,
+      filePreview,
       settleBill
     }
   }

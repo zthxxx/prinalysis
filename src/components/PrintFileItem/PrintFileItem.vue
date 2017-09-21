@@ -26,7 +26,7 @@
         </div>
         <div class="logo-holder">
           <div class="logo"><img :src="fileIcon[file.raw.extension]">
-            <div v-if="upsuccess">{{`${file.raw.pageInfo.pageCount}页`}}</div>
+            <div v-if="upsuccess">{{`${file.pageInfo.pageCount}页`}}</div>
             <div v-else>{{Math.ceil(file.size / 1024)}}kb</div>
           </div>
         </div>
@@ -78,7 +78,7 @@
                   <el-select class="layouts" v-model="layout">
                     <el-option label="1合1" :value="1"></el-option>
                     <el-option label="2合1" :value="2"></el-option>
-                    <template v-if="!file.raw.pageInfo.direction">
+                    <template v-if="!file.pageInfo.direction">
                       <el-option label="4合1" :value="4"></el-option>
                       <el-option label="6合1" :value="6"></el-option>
                       <el-option label="8合1" :value="8"></el-option>
@@ -108,7 +108,7 @@
                 <el-input-number class="print-area-input" :controls="false"
                                  v-model="setting.endPage"
                                  :min="setting.startPage"
-                                 :max="file.raw.pageInfo.pageCount">
+                                 :max="file.pageInfo.pageCount">
                 </el-input-number>
               </span>
             </div>
@@ -204,7 +204,7 @@
         handler (newSetting)  {
           for (let key of _.keys(this.preSetting)) {
             if (_.get(newSetting, key) !== this.preSetting[key]) {
-              this.$store.commit('updateFileSetting', {
+              this.$emit('update', {
                 uid: this.file.uid,
                 setting: newSetting
               });
@@ -230,7 +230,7 @@
     computed: {
       upsuccess () {
         let file = this.file;
-        return _.get(file, 'status') == 'success' && _.get(file, ['raw', 'pageInfo', 'pageCount']);
+        return _.get(file, 'status') == 'success' && _.get(file, ['pageInfo', 'pageCount']);
       },
       colorable () {
         let setting = this.setting;
@@ -271,7 +271,7 @@
         },
         set (value) {
           let {row, col} = this.layouts[value];
-          if (this.file.raw.pageInfo.direction) {
+          if (this.file.pageInfo.direction) {
             [row, col] = [col, row];
           }
           Object.assign(this.setting, {row, col});

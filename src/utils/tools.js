@@ -47,6 +47,21 @@ export const checkset = (price, setting) => {
   }
 };
 
+export const presetPrint = (pageInfo, point) => {
+  let defaults = {
+    copies: 1,
+    size: 'A4',
+    caliper: '70g',
+    color: 'mono',
+    side: 1,
+    row: 1,
+    col: 1,
+    startPage: 1,
+    endPage: _.get(pageInfo, ['pageCount'], 1)
+  };
+  return checkset(_.get(point, 'price'), defaults);
+};
+
 export const debounce = (func, wait) => {
   let timeout = null;
   return function (...args) {

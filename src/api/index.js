@@ -42,7 +42,7 @@ export const uploadFile = file => post(API.UPLOAD, file);
 /**
  * 文档预览
  */
-export const filePreview = ({md5, page, size, row, col}) => _get(API.PREVIEW, {md5, page, size, row, col});
+export const getPreview = ({md5, page, size, row, col}) => _get(API.PREVIEW, {md5, page, size, row, col});
 
 /**
  * 确认打印信息

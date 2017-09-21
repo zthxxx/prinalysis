@@ -1,27 +1,20 @@
 <template>
-  <div>
-    <div class="PrintFileList">
-        <print-file-item v-for="(file, index) in fileList"
-          :key="`${file.name}_${index}`"
-          :index="index + 1"
-          :file="file"
-          :preSetting="file.print"
-          :price="point && point.price"
-          :handleRemove="handleRemove"
-          :handlePreview="handlePreview">
-        </print-file-item>
-    </div>
-    <filePreview v-if="preview"
-                  @close="preview = false"
-                  :price="point && point.price"
-                  :file="previewFile">
-    </filePreview>
+  <div class="PrintFileList">
+    <print-file-item v-for="(file, index) in fileList"
+                     :key="`${file.name}_${index}`"
+                     :index="index + 1"
+                     :file="file"
+                     :preSetting="file.print"
+                     :price="point && point.price"
+                     @update="updateSetting"
+                     :handleRemove="handleRemove"
+                     :handlePreview="handlePreview">
+    </print-file-item>
   </div>
 </template>
 
 <script>
-  import printFileItem from './PrintFileItem'
-  import filePreview from './FilePreview.vue'
+  import printFileItem from '@/components/PrintFileItem'
   export default {
     name: 'print-file-list',
     props: {
@@ -33,25 +26,23 @@
         type: Array,
         required: true
       },
+      updateSetting: {
+        type: Function,
+        default: () => {}
+      },
       handleRemove: {
+        type: Function,
+        required: true
+      },
+      handlePreview: {
         type: Function,
         required: true
       }
     },
     data () {
-      return {
-        preview: false,
-        previewFile: null
-      }
+      return {}
     },
-    methods: {
-      handlePreview (file) {
-        console.warn('handlePreview', file);
-        this.previewFile = file;
-        this.preview = true;
-      }
-    },
-    components: {printFileItem, filePreview}
+    components: {printFileItem}
   }
 </script>
 

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import _ from 'lodash'
+import {presetPrint} from '@/utils/tools'
 
 Vue.use(Vuex);
 
@@ -18,9 +20,12 @@ const mutations = {
   },
   updateFileList (state, fileList) {
     for (let file of fileList) {
-      if (!('print' in file) && 'print' in file.raw) {
-        Vue.set(file, 'print', file.raw.print);
-        delete file.raw.print;
+      if (!_.has(file, 'pageInfo') && _.has(file, ['raw', 'pageInfo'])) {
+        Vue.set(file, 'pageInfo', file.raw.pageInfo);
+        delete file.raw.pageInfo;
+      }
+      if (!_.has(file, 'print') && _.has(file, 'pageInfo')) {
+        Vue.set(file, 'print', presetPrint(file.pageInfo, state.focusPoint));
       }
     }
     state.fileList = fileList;

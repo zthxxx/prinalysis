@@ -1,63 +1,69 @@
 <template>
-  <transition name="fade">
-    <div class="preview">
-      <div class="center">
-        <div class="page" ref="pagebox" @scroll="onscroll">
-          <div class="page-list" ref="pages">
-            <div v-for="img in pagepics">
-              <img :src="img" :class="{gray: isMono}" @load="loadimg">
-            </div>
-            <div class="last-tip">
-              <template v-if="loadEnd && !loading">已到达最后一面，每份需打印{{copies * total}}面</template>
-              <div class="loading" v-else>
-                <spinDot :size="36"></spinDot>
-                <div class="text">拼命加载中...</div>
-              </div>
-            </div>
+  <div class="preview">
+    <div class="center">
+      <div class="page" ref="pagebox" @scroll="onscroll">
+        <div class="page-list" ref="pages">
+          <div v-for="img in pagepics">
+            <img :src="img" :class="{gray: isMono}" @load="loadimg">
           </div>
-        </div>
-        <div class="file">
-          <div class="close">
-            <div class="content">
-              <i class="el-icon-fa-compress close-btn" @click="close"></i>
+          <div class="last-tip">
+            <template v-if="loadEnd && !loading">已到达最后一面，每份需打印{{copies * total}}面</template>
+            <div class="loading" v-else>
+              <spinDot :size="36"></spinDot>
+              <div class="text">拼命加载中...</div>
             </div>
-          </div>
-          <div class="file-setting">
-            <print-file-item class="print-file-item"
-                             :file="file"
-                             :preSetting="file.print"
-                             :price="price">
-              <div slot="control">
-                <div class="page-panel">第<span class="count">{{currentPage}}</span>面</div>
-                <div class="tip">每份{{papers}}张纸</div>
-                <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
-              </div>
-            </print-file-item>
-          </div>
-          <div class="pagination">
-            <div class="panel">{{currentPage}} / {{total}}</div>
           </div>
         </div>
       </div>
+      <div class="file">
+        <div class="close">
+          <div class="content">
+            <i class="el-icon-fa-compress close-btn" @click="close"></i>
+          </div>
+        </div>
+        <div class="file-setting">
+          <print-file-item class="print-file-item"
+                           :price="price"
+                           :file="file"
+                           :preSetting="file.print">
+            <div slot="control">
+              <div class="page-panel">第<span class="count">{{currentPage}}</span>面</div>
+              <div class="tip">每份{{papers}}张纸</div>
+              <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
+            </div>
+          </print-file-item>
+        </div>
+        <div class="pagination">
+          <div class="panel">{{currentPage}} / {{total}}</div>
+        </div>
+      </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
-  import printFileItem from './PrintFileItem'
+  import printFileItem from '@/components/PrintFileItem'
   import spinDot from '@/components/SpinDot'
-  import {filePreview} from '@/api'
+  import {getPreview} from '@/api'
   import {throttle} from '@/utils/tools'
   export default {
-    name: 'file-preview',
+    name: 'preview-mask',
+    model: {
+      prop: 'preview',
+      event: 'close'
+    },
     props: {
+      preview: {
+        type: Boolean,
+        default: false
+      },
       price: {
-        required: true,
+        type: null,
         default: null
       },
       file: {
-        type: Object,
-        required: true
+        type: null,
+        default: null
       }
     },
     mounted () {
@@ -79,7 +85,7 @@
         if (this.loading || this.loadEnd) return;
         this.loading = true;
         let {size, row, col} = this.file.print;
-        let {img} = await filePreview({
+        let {img} = await getPreview({
           md5: this.file.raw.md5,
           page, size,
           row, col
@@ -152,5 +158,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import './file-preview.styl'
+  @import 'preview-mask.styl'
 </style>
