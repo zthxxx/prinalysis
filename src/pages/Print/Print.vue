@@ -9,8 +9,8 @@
                           @track="setPoints">
           </linkage-select>
         </div>
-        <shop-point-card v-model="focusPoint" :points="points">
-        </shop-point-card>
+        <shop-point-list v-model="focusPoint" :points="points">
+        </shop-point-list>
       </box-card>
       <box-card :title="`文件列表 (${fileList.length})`" :noPadding="true">
         <upload-box :focusPoint="focusPoint"></upload-box>
@@ -28,7 +28,7 @@
   import {mapState} from 'vuex'
   import boxCard from '@/components/BoxCard'
   import linkageSelect from '@/components/LinkageSelect'
-  import shopPointCard from '@/components/ShopPointCard'
+  import ShopPointList from '@/components/ShopPointList'
   import uploadBox from '@/components/UploadBox'
   import settleBill from '@/components/SettleBill'
   import {getAddresses, getPoints} from '@/api'
@@ -92,7 +92,7 @@
     components: {
       boxCard,
       linkageSelect,
-      shopPointCard,
+      ShopPointList,
       uploadBox,
       settleBill
     }
@@ -100,6 +100,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "../style/_animate"
-  @import "../style/print"
+  @import "./print"
 </style>

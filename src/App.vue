@@ -16,6 +16,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "/style/_common"
-  @import "/style/_elmui_custom"
+  @import "~@/style/_common"
+  @import "~@/style/_elmui_custom"
 </style>

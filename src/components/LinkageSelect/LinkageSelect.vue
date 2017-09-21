@@ -11,10 +11,14 @@
 </template>
 
 <script>
+  import _ from 'lodash'
   export default {
     name: 'linkage-select',
+    model: {
+      prop: 'focused'
+    },
     props: {
-      value: {
+      focused: {
         type: Array,
         default: () => []
       },
@@ -34,20 +38,16 @@
     },
     data () {
       return {
-        currents: [...this.value]
+        currents: [...this.focused]
       }
     },
-    methods: {
-      isEmpty (obj) {
-        return !Object.keys(obj).length;
-      }
-    },
+    methods: {},
     computed: {
       layerData: function () {
         let layers = [];
         let layer = this.linkageDatas;
         let currents = this.currents;
-        if (this.isEmpty(layer)) {
+        if (_.isEmpty(layer)) {
           layers =  [[]];
           return layers;
         }
@@ -57,17 +57,17 @@
           let nextLayer = layer;
           layers.push(layer.map((item) => {
             if (current in item) nextLayer = item[current];
-            return Object.keys(item)[0];
+            return _.findKey(item);
           }));
           if (nextLayer === layer) {
-            let key = Object.keys(layer[0])[0];
+            let key = _.findKey(layer[0]);
             currents.splice(index, currents.length);
             layer = layer[0][key];
             if (!this.defaultSelected) {
               while (layer instanceof Array) {
                 layers.push([]);
                 currents.push('');
-                layer = Object.values(layer[0])[0];
+                layer = _.find(layer[0]);
               }
               return layers;
             }
@@ -77,8 +77,10 @@
           }
           index ++;
         }
-        this.$emit('input', currents);
-        this.$emit('track', layer);
+        if (!_.isEqual(currents, this.focused)) {
+          this.$emit('input', [...currents]);
+          this.$emit('track', layer);
+        }
         return layers;
       }
     },
@@ -87,17 +89,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import '../style/_variables'
-  .area-select
-    width: auto
-    box-sizing: border-box
-    display: inline-block
-    position: relative
-    vertical-align: middle
-    color: #666
-
-  .selecter
-    width: 160px
-    margin: 0 20px
-
+  @import './linkage-select'
 </style>

@@ -1,7 +1,7 @@
 {
   "name": "prinalysis",
   "description": "A page for manage cloud printers with VUE.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "zthxxx <zth_9451@qq.com>",
   "private": true,
   "main": "index.js",

@@ -40,7 +40,7 @@
   import _ from 'lodash'
   import {mapState} from 'vuex'
   import uploadDragBox from './UploadDragBox'
-  import printFileList from './PrintFileList'
+  import printFileList from '@/components/PrintFileList'
   import getFileMD5 from '@/utils/getFileMD5'
   import {getPage, getFileURL} from '@/api'
   import {checkset} from '@/utils/tools'
@@ -178,35 +178,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "../style/_variables"
-  @import "../style/_animate.styl"
-  .upload-box-out
-    text-align: center
-    position: relative
-
-  .to-library
-    color: theme-green-dark
-    &:hover
-      color: darken(theme-green, 15%)
-
-  .upload-btn
-    width: 232px
-    height: 61px
-    padding: 5px
-    margin: 20px auto
-    color: #fff
-    background-color: dark-blue
-    border-radius: 5px
-    transition: all .2s ease-out
-    font-size: 20px
-    line-height: 1.2
-    .upload-title
-      font-size: 18px
-    .upload-text
-      font-size: 12px
-      margin-top: 20px
-      color: rgba(#fff, 0.65)
-    &:hover
-      box-shadow: 0 0 6px 0 #999
-
+  @import "./upload-box"
 </style>

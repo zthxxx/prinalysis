@@ -10,7 +10,7 @@
             <div class="last-tip">
               <template v-if="loadEnd && !loading">已到达最后一面，每份需打印{{copies * total}}面</template>
               <div class="loading" v-else>
-                <spinDot></spinDot>
+                <spinDot :size="36"></spinDot>
                 <div class="text">拼命加载中...</div>
               </div>
             </div>
@@ -45,7 +45,7 @@
 
 <script>
   import printFileItem from './PrintFileItem'
-  import spinDot from './SpinDot'
+  import spinDot from '@/components/SpinDot'
   import {filePreview} from '@/api'
   import {throttle} from '@/utils/tools'
   export default {
@@ -152,107 +152,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import '../style/_variables'
-  .preview
-    position: fixed
-    display: flex
-    left: 0
-    top: 0
-    width: 100%
-    height: 100%
-    justify-content: center
-    align-items: center
-    background-color: rgba(shallow-text-gray, .6)
-    z-index: 4
-    .center
-      width: 90%
-      height: 100%
-      .page
-        overflow-y: scroll
-        text-align: center
-        margin: 0 auto
-        padding-left: 8px
-        height: 100%
-        scrollbar()
-        .page-list
-          margin: 0 auto
-          margin-top: 126px
-          img
-            box-shadow: 0 0 10px 0 shallow-text-gray
-            margin: 10px auto 0
-            max-width: 98%
-            min-width: 50%
-            min-height: 80%
-          .gray
-            filter: grayscale(100%)
-            filter: gray
-          .last-tip
-            height: 80px
-            font-size: 14px
-            color: #ddd
-            padding: 10px 0
-            margin-bottom: 140px
-      .loading
-        width: 100%
-        margin-top: 30px
-        margin-bottom: 30px
-        text-align: center
-        .text
-          margin-top: 10px
-          font-size: 16px
-          color: #ddd
-      .file
-        position: fixed
-        left: 0
-        top: 10px
-        width: 100%
-        .close
-          position: absolute
-          left: 0
-          top: 35px
-          width: 100%
-          .content
-            width: 1120px
-            text-align: right
-            margin: 0 auto
-            .close-btn
-              border-radius: 30px
-              height: 30px
-              width: 30px
-              line-height: 30px
-              text-align: center
-              font-size: 20px
-              background-color: #fff
-              cursor: pointer
-              opacity: .9
-              box-shadow: 0 0 12px 0 #999
-              &:hover
-                color: #fff
-                background-color: dark-blue
-                opacity: 1
-                transition: all .2s ease-out
-        .print-file-item
-          box-shadow: 0 0 8px 0 #999
-          .page-panel
-            padding-top: 4px
-            color: #069
-            .count
-              font-size: 18px
-          .tip
-            padding-top: 7%
-            font-size: 12px
-            color: #999
-        .pagination
-          position: fixed
-          width: 100%
-          bottom: 20px
-          text-align: center
-          .panel
-            display: inline-block
-            padding: 6px
-            border-radius: 4px
-            font-size: 12px
-            color: #fff
-            background-color: rgba(#000, .4)
-
+  @import './file-preview.styl'
 </style>

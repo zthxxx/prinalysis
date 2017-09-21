@@ -1,0 +1,93 @@
+@import "~@/style/import"
+.account
+  width: 100%
+  height: auto
+  color: shallow-text-gray
+  padding-bottom: 20px
+  font-size: 16px
+
+.print-project
+  width: 960px
+  margin: 0 auto 6px
+  padding-top: 10px
+  display: flex
+  .left-part
+    width: 53%
+    padding-bottom: 6px
+    padding-right: 3%
+    .print-place
+      left: 0
+      margin-top: 12px
+      .place-name
+        font-size: 16px
+        font-weight: 600
+        color: theme-green-dark
+    .project
+      display: block
+      margin-bottom: 15px
+    .coupon
+      font-size: 13px
+      display: flex
+      align-items: center
+      outline: none
+      border: none
+      background: none
+      .coupon-select
+        width: 240px
+  .right-part
+    width: 48%
+    min-height: 290px
+    border-left: 1px solid #ddd
+    padding: 8px 0 6px 26px
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    .title
+      color: dark-blue
+      margin-bottom: 4px
+    .radio
+      width: 100%
+      display: flex
+      align-items: center
+      font-size: 15px
+      padding: 4px 0
+
+.project-account
+  margin-top: 12px
+  width: 100%
+  tr
+    display: block
+    border-bottom: 1px solid #ddd
+    &:first-child td
+      font-weight: 700
+    td
+      width: 200px
+      height: 35px
+      font-size: 14px
+      &:first-child
+        width: 300px
+
+.account-info
+  text-align: right
+  align-self: flex-end
+  .original-money
+    font-size: 15px
+    margin-top: 20px
+    color: #888
+  .final-money
+    font-size: 15px
+    margin: 5px 0
+    span
+      font-size: 24px
+      color: theme-green-dark
+      margin-left: 12px
+  .to-submit
+    background: theme-green-dark
+    outline: none
+    border: none
+    border-radius: 5px
+    width: 150px
+    height: 46px
+    color: #fff
+    margin-top: 7px
+    font-size: 16px

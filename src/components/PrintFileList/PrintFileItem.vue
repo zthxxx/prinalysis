@@ -135,7 +135,8 @@
 
 <script>
   import _ from 'lodash'
-  import spinDot from './SpinDot'
+  import {icons} from '@/assets/img/print'
+  import spinDot from '@/components/SpinDot'
   import {sideMap, checkset} from '@/utils/tools'
   export default {
     name: 'print-file-item',
@@ -186,15 +187,15 @@
         },
         sideMap: sideMap,
         fileIcon: {
-          doc: require('@/assets/img/print/icon-word.png'),
-          docx: require('@/assets/img/print/icon-word.png'),
-          ppt: require('@/assets/img/print/icon-ppt.png'),
-          pptx: require('@/assets/img/print/icon-ppt.png'),
-          xls: require('@/assets/img/print/icon-xls.png'),
-          xlsx: require('@/assets/img/print/icon-xls.png'),
-          pdf: require('@/assets/img/print/icon-pdf.png'),
-          jpg: require('@/assets/img/print/icon-img.jpg'),
-          png: require('@/assets/img/print/icon-img.jpg')
+          doc: icons.doc,
+          docx: icons.doc,
+          ppt: icons.ppt,
+          pptx: icons.ppt,
+          xls: icons.xls,
+          xlsx: icons.xls,
+          pdf: icons.pdf,
+          jpg: icons.pic,
+          png: icons.pic
         }
       }
     },
@@ -288,180 +289,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "../style/_variables"
-  @import "../style/_animate"
-  .print-file-item
-    width: 1000px
-    margin: 0 auto 16px
-
-  .print-file
-    position: relative
-    border: 1px solid #ddd
-    border-radius: 4px
-    font-size: 16px
-    background-color: #fff
-    text-align: left
-    color: shallow-text-gray
-    .valid-index
-      position: absolute
-      font-size: 12px
-      color: #bbb
-      padding-left: 4px
-    .logo-holder
-      position: absolute
-      display: inline-block
-      width: 100px
-      height: 100%
-      border-right: 1px dashed #ddd
-      text-align: center
-      .logo
-        position: relative
-        top: 50%
-        margin-top: -40px
-        img
-          width: 55px
-        div
-          color: shallow-text-gray
-          font-size: 14px
-    .file-info
-      position: absolute
-      height: 80px
-      top: 50%
-      margin-top: -40px
-      left: 120px
-      line-height: 2em
-      display: inline-block
-      .name
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
-        max-width: 340px
-      .source
-        width: 280px
-        margin-top: 18px
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
-        font-size: 14px
-        color: #999
-
-  .file-upload
-    height: 138px
-    .processor
-      .process-bar
-        position: absolute
-        width: 100%
-        height: 100%
-        background: rgba(theme-green, 0.25)
-        transition: all .2s ease-out
-      .loading-info
-        position: absolute
-        margin: -35px 20px 0 auto
-        height: 70px
-        top: 50%
-        right: 120px
-        line-height: 1.8em
-        text-align: center
-        font-size: 16px
-        .uploading
-          display: flex
-          justify-content: center
-          flex-direction: column
-          position: relative
-          height: 100%
-          line-height: 1.28
-          color: theme-text-color
-          .percentage, .analysing
-            font-size: 28px
-            .loading
-              position: absolute
-              left: -24px
-              top: 18px
-              text-align: center
-              margin-right: 14px
-          .speed
-            color: #999
-            font-size: 14px
-
-
-  .delete
-    position: absolute
-    width: 120px
-    height: 85%
-    margin: 10px 0
-    border-left: 1px solid #ddd
-    right: 0
-    font-size: 14px
-    color: #333
-    text-align: center
-    .control
-      position: relative
-      width: 120px
-      height: 100px
-      top: 50%
-      margin: -45px auto
-      font-size: 13px
-      text-align: center
-      z-index: 1
-      & > div
-        padding: 8px 0 0
-      .tip
-        font-size: 12px
-        color: #999
-      .del-btn
-        margin: 4px 0 0
-        font-size: 13px
-        border: none
-        padding: 0
-
-  .print-choice
-    position: relative
-    height: 88px
-    width: 420px
-    margin: 0 130px 0 auto
-    ul
-      display: block
-      position: absolute
-      height: 70px
-      margin: 20px 0
-      right: 0
-      font-size: 13px
-    li
-      position: relative
-      display: block
-      float: left
-      text-align: center
-      margin: 0 10px
-    .selectors
-      position: relative
-      height: 28px
-      margin-top: 10px
-    .colors, .sides
-      width: 85px
-    .layouts, .copies
-      width: 80px
-
-  .setting
-    overflow: hidden
-    position: relative
-    display: block
-    font-size: 14px
-    left: 45%
-    width: 450px
-    margin-bottom: 10px
-    .print-area
-      margin: 0 10px 10px
-      display: inline-block
-      text-align: center
-      .area-tip
-        margin: 0 5px 0 10px
-      .lingkage-are span
-        margin: 0 4px
-      .sizeside
-        width: 160px
-      & > span
-        margin-right: 2px
-    .print-area-input
-      width: 43px
-
+  @import "./print-file-item"
 </style>

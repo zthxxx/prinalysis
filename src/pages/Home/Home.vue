@@ -3,7 +3,7 @@
     <article class="content container">
       <div class="index">
         <div class="banner">
-          <img src="../assets/img/home/home-banner.jpg" alt="">
+          <img :src="banner" alt="">
           <div class="float-div">
             <div class="div-center">
               <router-link :to="{name: 'print'}">
@@ -12,11 +12,11 @@
             </div>
           </div>
         </div>
-        <depict-card :description="description"></depict-card>
+        <depict-card :twigs="twigs" :description="description"></depict-card>
         <div class="depict-foot">
           <div>
-            <img src="../assets/img/home/getup.png" class="foot-img-left">
-            <img src="../assets/img/home/struggle.png" class="foot-img-right">
+            <img :src="foot.left" class="foot-img-left">
+            <img :src="foot.right" class="foot-img-right">
             <div>
               开学加油哦<br/>
               云打印解烦恼~<br/>
@@ -31,8 +31,8 @@
         <footer>
           <div class="cooperation">
             <span class="payMethod">支付方式：</span>
-            <img src="../assets/img/home/wxPay.png" alt="wxPay">
-            <img src="../assets/img/home/aliPay.png" alt="aliPay">
+            <img :src="weixinPay" alt="wxPay">
+            <img :src="aliPay" alt="aliPay">
           </div>
           <div class="foot-section">
             Copyright © 2017 xxxx All Rights Reserved ICP备100000000-1
@@ -43,14 +43,19 @@
   </transition>
 </template>
 <script>
+  import {banner, foot, weixinPay, aliPay, twigs} from '@/assets/img/home'
   import depictCard from '@/components/DepictCard'
   export default {
     name: 'home',
     data () {
       return {
+        banner,
+        foot,
+        weixinPay,
+        aliPay,
+        twigs,
         description: [
           {
-            img: require('@/assets/img/home/des-1.png'),
             title: '快印预先打印，无需等待立即取件',
             depicts: [
               'xxxxxxxxxXXXXXXXXxxxxxxxxxxxx',
@@ -59,7 +64,6 @@
             ]
           },
           {
-            img: require('@/assets/img/home/des-1.png'),
             title: '快印预先打印，无需等待立即取件',
             depicts: [
               'xxxxxxxxxXXXXXXXXxxxxxxxxxxxx',
@@ -68,7 +72,6 @@
             ]
           },
           {
-            img: require('@/assets/img/home/des-1.png'),
             title: '快印预先打印，无需等待立即取件',
             depicts: [
               'xxxxxxxxxXXXXXXXXxxxxxxxxxxxx',
@@ -84,6 +87,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "../style/home"
-  @import "../style/_animate"
+  @import "./home"
 </style>
