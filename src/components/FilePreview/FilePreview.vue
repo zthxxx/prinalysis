@@ -1,11 +1,13 @@
 <template>
-  <transition name="fade">
-    <preview-mask v-if="preview && file"
-                  v-model="preview"
-                  :price="price"
-                  :file="file">
-    </preview-mask>
-  </transition>
+  <div>
+    <transition name="fade">
+      <preview-mask v-if="preview && file"
+                    v-model="preview"
+                    :price="price"
+                    :file="file">
+      </preview-mask>
+    </transition>
+  </div>
 </template>
 
 <script>

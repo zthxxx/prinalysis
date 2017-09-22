@@ -64,7 +64,13 @@
         this.addresses = await getAddresses();
       },
       async setPoints (focusID) {
-        const points = await getPoints(focusID);
+        const {info: points} = await getPoints(focusID);
+        if (!points.length) {
+          this.$notify.warning({
+            title: '打印点为空',
+            message: '该处地址下暂时没有打印点哟，敬请期待~'
+          });
+        }
         const holidays = {
           'RUNNING': '正在运营',
           'SUMMER_HOLIDAY': '暑假休息',

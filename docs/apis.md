@@ -26,7 +26,7 @@ Response:
 
 ### 1. 获取校园地址
 
-GET:  /API/point/address  
+GET:  /API/point/address
 
 描述：用于获得打印点所在的可选位置
 
@@ -78,7 +78,7 @@ Response:
 
 GET:  /API/point/points
 
-Parameters: 
+Parameters:
 
 ```js
 ID: String   // 表示具体地点的 ID
@@ -110,7 +110,7 @@ POINT Object 字段说明
 
 |     Field      |      Type       |                Descprite                 |           Example           |
 | :------------: | :-------------: | :--------------------------------------: | :-------------------------: |
-|    pointID     | String<Number>  |           每个打印点的唯一编号，数值或数值的字符串           |           "0001"            |
+|       id       | String<Number>  |           每个打印点的唯一编号，数值或数值的字符串           |           "0001"            |
 |     status     |     String      |    表示打印点当前状态，运行还是休息或维护，"RUNNING" 为运行     | "RUNNING", "SUMMER_HOLIDAY" |
 |   pointType    |  Array<String>  | 标识打印点的类型，ATM机器，或者门店，或者都有, "ATM"为机器，"DISPATCHING"为门店 |   ["ATM", "DISPATCHING"]    |
 | delivery_scope |     String      |            显示的配送范围，为空表示不支持配送             |        "", "软件园C、E区"        |
@@ -154,7 +154,7 @@ POINT Object 字段说明
 *     }
 *   }
 * }
-* 纸张固有属性有页面大小，页面厚度，两者不能缺少 
+* 纸张固有属性有页面大小，页面厚度，两者不能缺少
 * 页面大小有 "A4" "A3" "B3" "B5" 等
 * 页面厚度有 "70g" "80g" "120g" 等
 * 打印模式有颜色和面数，每一项均为可选，如缺少某一大小或某一厚度，则表示不支持此类型
@@ -203,7 +203,7 @@ POINT Object 字段说明
 ```js
 // POINT Object example
 {
-  "pointID": "0001",
+  "id": "0001",
   "status": "SUMMER_HOLIDAY",
   "pointType": ["ATM"],
   "delivery_scope": "",
@@ -253,7 +253,7 @@ POINT Object 字段说明
 
 GET:  /API/file/page
 
-Parameters: 
+Parameters:
 
 ```js
 md5: 文件的MD5值（HEX编码全大写，以下皆是）
@@ -284,7 +284,7 @@ Response:
 
 GET:  /API/file/url
 
-Parameters: 
+Parameters:
 
 ```js
 md5: 文件的MD5值
@@ -310,7 +310,7 @@ POST:  /API/file/upload
 
 描述：上传文件
 
-post require payload: 
+post require payload:
 
 ```http
 ------WebKitFormBoundaryNbNE3mklwm2Gf9lu
@@ -318,7 +318,7 @@ Content-Disposition: form-data; name="file"; filename="XXX.docx"
 Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
 ```
 
-post entity body: 
+post entity body:
 
 ```js
 文件二进制
@@ -335,7 +335,7 @@ Response:
 
 GET:  /API/file/pic/preview
 
-Parameters: 
+Parameters:
 
 ```js
 md5: String 文件的MD5值
@@ -375,7 +375,7 @@ post entity body
 
 ```js
 {
-  "pointID": String<Number>, // 打印点的唯一编号
+  "id": String<Number>, // 打印点的唯一编号
   "files": [{ // Array<Object> 需打印的文件列表
     "fileID": String, // 文件 MD5 值
     "fileName": String, // 文件名
@@ -386,7 +386,7 @@ post entity body
     "caliper": String,// 纸张厚度，如 "70g" "80g" 等
     "color": String,  // 打印颜色模式， "mono"为黑白打印，"colorful"为彩色打印
     "side": Number, // 单双面设置，值为1是单面打印， 2为双面打印
-    "startPage": Number, // 打印文档起始页 
+    "startPage": Number, // 打印文档起始页
     "endPage": Number    // 打印文档终止页
   }],
   "money": Number, // 总共花费金额，后端需再校验
@@ -405,7 +405,7 @@ post entity body
 
 // example
 {
-  "pointID": "0026",
+  "id": "0026",
   "files": [{
     "fileID": "A52B4686E173B0612B71148F7F9E099A",
     "fileName": "申报指南.docx",
@@ -414,7 +414,7 @@ post entity body
     "size": "A4",
     "caliper": "70g",
     "color": "mono",
-    "side": 1, 
+    "side": 1,
     "startPage": 0,
     "endPage": 0
   }],
@@ -462,7 +462,7 @@ Response:
 
 GET:  /API/order/detail
 
-Parameters: 
+Parameters:
 
 ```js
 orderId: 订单号
@@ -595,7 +595,7 @@ Response:
 
 GET:  /API/pay/payment
 
-Parameters: 
+Parameters:
 
 ```js
 orderId: 订单号
@@ -621,7 +621,7 @@ Response:
 
 GET:  /API/pay/QRCode
 
-Parameters: 
+Parameters:
 
 ```js
 size: 二维码大小，数字，单位px
@@ -634,11 +634,11 @@ Response:
 
 > 成功时直接返回图片
 
-### 12. 查询交易状态 
+### 12. 查询交易状态
 
 GET:  /API/pay/trade
 
-Parameters: 
+Parameters:
 
 ```js
 orderID: 订单号

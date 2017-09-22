@@ -29,9 +29,9 @@ module.exports = {
     ]
   },
   '/point/points': {
-    result: 'OK',
-    'info|2-8': [{
-      'pointID|+1': 1,
+    'result|1': ['OK', 'EMPTY'],
+    'info|0-8': [{
+      'id|+1': 1,
       'status|1': ['RUNNING', 'SUMMER_HOLIDAY'],
       'pointType|1': ['ATM', 'DISPATCHING'],
       'delivery_scope|1': ['', '@name()广场附近'],

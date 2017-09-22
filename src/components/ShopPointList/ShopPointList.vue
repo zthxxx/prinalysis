@@ -36,12 +36,12 @@
     },
     data () {
       return {
-        selectedID: _.get(this.focusPoint, 'pointID', null)
+        selectedID: _.get(this.focusPoint, 'id', null)
       }
     },
     methods: {
       selectPoint (focusPoint) {
-        this.selectedID = _.get(focusPoint, 'pointID', null);
+        this.selectedID = _.get(focusPoint, 'id', null);
         this.$emit('input', focusPoint);
       }
     },

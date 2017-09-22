@@ -3,7 +3,7 @@ const SparkMD5 = require('spark-md5');
 let getFileMD5 = function (file) {
   return new Promise(function (resolve, reject) {
     // Read in chunks of 2MB
-    let chunkSize = 2097152;
+    let chunkSize = 2 * 1024 * 1024;
     let blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
     let chunks = Math.ceil(file.size / chunkSize);
     let currentChunk = 0;

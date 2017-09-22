@@ -3,11 +3,11 @@
             'print-point-item': true,
             'no-running': !point.running,
             'zoom-in' : !selectedID,
-            'selected': selectedID == point.pointID
+            'selected': selectedID === point.id
            }"
-       :key="`${point.pointName}${point.pointID}`"
-       v-if="!selectedID || selectedID == point.pointID"
-       @click="point.running && selected(point.pointID)">
+       :key="`${point.pointName}${point.id}`"
+       v-if="!selectedID || selectedID === point.id"
+       @click="point.running && selected(point.id)">
     <div class="box">
       <div class="info">
         <div class="top-div">
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="price" v-if="selectedID == point.pointID">
+      <div class="price" v-if="selectedID === point.id">
         <div class="price-title">
           <i class="el-icon-fa-list-ul"></i>价格表
         </div>
