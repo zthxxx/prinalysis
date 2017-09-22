@@ -32,7 +32,7 @@
       }
     },
     computed: {
-      ...mapState(['fileList']),
+      ...mapState('print', ['fileList']),
       navIndex: function () {
         return this.$route.path.replace('/', '');
       }

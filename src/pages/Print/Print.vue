@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import {mapState, mapMutations} from 'vuex'
   import boxCard from '@/components/BoxCard'
   import linkageSelect from '@/components/LinkageSelect'
   import ShopPointList from '@/components/ShopPointList'
@@ -47,6 +47,8 @@
   import filePreview from '@/components/FilePreview'
   import settleBill from '@/components/SettleBill'
   import {getAddresses, getPoints} from '@/api'
+  import * as types from '@/store/mutation-types'
+  import {mapModel} from '@/utils/tools'
   export default {
     name: 'print',
     data () {
@@ -60,6 +62,10 @@
       this.initData();
     },
     methods: {
+      ...mapMutations('print', {
+        updateSetting: types.SET_PRINTING,
+        commitFiles: types.UPDATE_FILES
+      }),
       async initData () {
         this.addresses = await getAddresses();
       },
@@ -91,16 +97,6 @@
         }
         this.points = points;
       },
-      updateSetting (set) {
-        let {uid, setting} = set;
-        this.$store.commit('updateFileSetting', {
-          uid,
-          setting
-        });
-      },
-      commitFiles (fileList) {
-        this.$store.commit('updateFileList', fileList);
-      },
       removeFile (file) {
         this.$refs.uploader.transmitRemove(file);
       },
@@ -110,23 +106,11 @@
       }
     },
     computed: {
-      ...mapState(['fileList']),
-      focusAddress: {
-        get () {
-          return this.$store.state.focusAddress;
-        },
-        set (address) {
-          this.$store.commit('updateFocusAddress', address);
-        }
-      },
-      focusPoint: {
-        get () {
-          return this.$store.state.focusPoint;
-        },
-        set (point) {
-          this.$store.commit('updateFocusPoint', point);
-        }
-      }
+      ...mapState('print', ['fileList']),
+      ...mapModel('print', {
+        focusAddress: types.SELECT_ADDRESS,
+        focusPoint: types.SELECT_POINT
+      })
     },
     components: {
       boxCard,

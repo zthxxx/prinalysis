@@ -1,7 +1,10 @@
 import _ from 'lodash'
+import {mapState, mapMutations} from 'vuex'
 
-/*
- 把人名币分值格式化到元
+/**
+ * 把人名币分值格式化到元
+ * @param cents {Number} 以分为单位的人名币数值
+ * return 以元为单位的人名币数值
  */
 export const formatCNY = (cents) => new Intl.NumberFormat(
   'zh-CN',
@@ -83,4 +86,34 @@ export const throttle = (func, rate) => {
       timeout = setTimeout(() => func(...args), rate);
     }
   }
+};
+
+/**
+ * 映射双向绑定的 state 属性， get 获取，set 提交 mutation
+ * 使用方式同 mapStates mapMutations https://vuex.vuejs.org/zh-cn/mutations.html#在组件中提交-mutations
+ * @param namespace {String} 可选项
+ * @param states {string[] | Dictionary<string>}  { state: mutation}
+ * return {{get, set}}
+ */
+export const mapModel = (namespace, states = namespace) => {
+  let maps = {};
+  if (_.isArray(states)) {
+    let statemaps = {};
+    states.map(x => statemaps[x] = x);
+    states = statemaps;
+  }
+  for (let state in states) {
+    let mutation = states[state];
+    let gets = [{get: state}];
+    let sets = [{set: mutation}];
+    if (_.isString(namespace)) {
+      gets.unshift(namespace);
+      sets.unshift(namespace);
+    }
+    maps[state] = {
+      ...mapState(...gets),
+      ...mapMutations(...sets)
+    }
+  }
+  return maps;
 };
