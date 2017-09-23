@@ -91,9 +91,9 @@ export const throttle = (func, rate) => {
 /**
  * 映射双向绑定的 state 属性， get 获取，set 提交 mutation
  * 使用方式同 mapStates mapMutations https://vuex.vuejs.org/zh-cn/mutations.html#在组件中提交-mutations
- * @param namespace {String} 可选项
- * @param states {string[] | Dictionary<string>}  { state: mutation}
- * return {{get, set}}
+ * @param {string} [namespace] - 指定 state 所属的模块名，可选项
+ * @param {string[] | {string: string}[]} states - 指定 state 的变量名和对应 mutation 的名称
+ * @return {{get, set}}
  */
 export const mapModel = (namespace, states = namespace) => {
   let maps = {};
