@@ -8,6 +8,7 @@ const defaultHeaders = {
 };
 
 // 请求参数加工
+// options see https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
 function mutate (url, { headers, body, query, ...options }) {
   headers = { ...defaultHeaders, ...headers };
   options.headers = headers;
@@ -27,7 +28,9 @@ function mutate (url, { headers, body, query, ...options }) {
     url += query;
   }
 
-  options.credentials = 'include'; // omit,same-origin,include
+  // with 'include', Access-Control-Allow-Origin must be <origin> instead of '*'
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Credentialed_requests_and_wildcards
+  options.credentials = 'include'; // omit, same-origin, include
   options.mode = 'cors'; // "same-origin", "cors", "no-cors", "navigate", or "websocket"
 
   return [url, options];
