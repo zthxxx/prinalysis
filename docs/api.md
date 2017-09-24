@@ -28,8 +28,8 @@ Response:
 
 ### 1.各功能模块 API 文档
 
-1. [打印点相关 api](./api - point.md)
-2. [文件操作相关 api](./api - file.md)
-3. [用户相关 api](./api - user.md)
-4. [订单相关 api](./api - order.md)
-5. [支付相关 api](./api - pay.md)
+1. [打印点相关 api](./api%20-%20point.md)
+2. [文件操作相关 api](./api%20-%20file.md)
+3. [用户相关 api](./api%20-%20user.md)
+4. [订单相关 api](./api%20-%20order.md)
+5. [支付相关 api](./api%20-%20pay.md)

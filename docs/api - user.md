@@ -1,4 +1,34 @@
-### 0. 检测登录状态
+### 0.登录流程图
+
+【注】因 GitHub 不支持 Markdown 流程图，所以使用 asciiflow，包含中文请用等宽字体查看
+
+```
+                        +---------------------+
+                        |                     |
+                        |  check login state  |
+                        |                     |
+                        +----------+----------+
+                                   |
+                        NOT Login  |  Logined
+                   +---------------+--------------+
+                   |                              |
+         +---------v----------+         +---------v---------+
+         |                    |         |                   |
+         |  get login QRCode  |         |  fetch user info  |
+         |                    |         |                   |
+         +---------+----------+         +---------+---------+
+                   |                              ^
++------------------>                              |
+|                  |                              |
+|                  |                              |
+|       +----------v----------+                   |
+|  NOT  |                     |                   |
++-------+  check login state  +-------------------+
+  Login |                     |  Completed Login
+        +---------------------+
+```
+
+### 1. 检测登录状态
 
 GET:  /API/user/login/state
 
@@ -33,7 +63,7 @@ Response:
 }
 ```
 
-### 1. 获取登录二维码
+### 2. 获取登录二维码
 
 GET: /API/user/login/QRCode
 
@@ -47,14 +77,14 @@ Response:
 {
   "result": "OK",
   "info": {
-    "url": string, // 用于获取二维码图片的 url（图片建议大小 300px）
+    "url": string // 用于获取二维码图片的 url（图片建议大小 300px）
   }
 }
 ```
 
 > 登录时请求则返回错误
 
-### 2.获取用户信息
+### 3.获取用户信息
 
 GET: /API/user/info
 
@@ -67,12 +97,12 @@ Response:
 ```js
 {
   "result": "OK",
-  {
+  "info": {
     "nickname": string, // 用户名
     "uid": string, // 用户 ID
     "phone": string, // 手机号，大陆应为 3+11 位 "+8612345678910"
     "avatar": string, // 头像图片 url
-    "address": string[], // 配送地址
+    "address": string, // 用户配送文件地址
     "createDate": Date, // 创建时间戳，Unix timestamp，毫秒
     "library": { // 文库信息
       "illegalCount": number, // 上传非法次数

@@ -18,3 +18,8 @@ export const PREVIEW = `${BaseUrl}/file/pic/preview`;
 
 export const VERIFY = `${BaseUrl}/order/verify`;
 
+export const LOGIN_STATE = `${BaseUrl}/user/login/state`;
+
+export const QR_CODE = `${BaseUrl}/user/login/QRCode`;
+
+export const USER_INFO = `${BaseUrl}/user/info`;

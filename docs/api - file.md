@@ -90,7 +90,6 @@ Parameters:
 md5: String 文件的MD5值
 page: Number 需要查看打印预览的第多少页
 size: String 打印页面大小 'A4', 'A3' 等选项
-color: String "mono"为黑白打印，"colorful" 为彩色打印
 row: Number 多合一打印下每行几份
 col: Number 多合一打印下每列几份
 ```
