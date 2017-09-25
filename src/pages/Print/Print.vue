@@ -24,7 +24,8 @@
           </print-file-list>
           <filePreview ref="preview"
                        :price="focusPoint && focusPoint.price"
-                       :file="previewFile">
+                       :file="previewFile"
+                       :updateSetting="updateSetting">
           </filePreview>
         </upload-box>
       </box-card>

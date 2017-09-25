@@ -1,9 +1,5 @@
 const BaseUrl = process.env.API_BASE;
 
-export const LOGIN = `${BaseUrl}/admin/login`;
-
-export const SIGNOUT = `${BaseUrl}/admin/singout`;
-
 export const ADDRESS = `${BaseUrl}/point/address`;
 
 export const POINTS = `${BaseUrl}/point/points`;
@@ -17,6 +13,10 @@ export const UPLOAD = `${BaseUrl}/file/upload`;
 export const PREVIEW = `${BaseUrl}/file/pic/preview`;
 
 export const VERIFY = `${BaseUrl}/order/verify`;
+
+export const LOGIN = `${BaseUrl}/user/login`;
+
+export const SIGNOUT = `${BaseUrl}/user/logout`;
 
 export const LOGIN_STATE = `${BaseUrl}/user/login/state`;
 

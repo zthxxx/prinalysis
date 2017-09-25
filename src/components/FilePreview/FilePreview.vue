@@ -4,7 +4,8 @@
       <preview-mask v-if="preview && file"
                     v-model="preview"
                     :price="price"
-                    :file="file">
+                    :file="file"
+                    :update="updateSetting">
       </preview-mask>
     </transition>
   </div>
@@ -22,6 +23,10 @@
       file: {
         type: null,
         default: null
+      },
+      updateSetting: {
+        type: Function,
+        default: () => {}
       }
     },
     data () {

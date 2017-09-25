@@ -1,4 +1,4 @@
-### 0.登录流程图
+### 0. 扫码登录流程图
 
 【注】因 GitHub 不支持 Markdown 流程图，所以使用 asciiflow，包含中文请用等宽字体查看
 
@@ -47,7 +47,7 @@ Response:
 }
 ```
 
-> 登陆后直接返回用户信息
+> 登陆后直接返回用户基础信息
 
 ```js
 {
@@ -84,7 +84,7 @@ Response:
 
 > 登录时请求则返回错误
 
-### 3.获取用户信息
+### 3. 获取用户信息
 
 GET: /API/user/info
 
@@ -119,9 +119,38 @@ Response:
 }
 ```
 
+### 4. 用户账号登录
 
+POST: /API/user/login
 
+Parameters:
 
+```js
+{
+  "username": string, // 用户名
+  "password": string  // 用户密码，明文
+}
+```
 
+描述：使用用户名及账号密码完成登录认证
 
+Response:
+
+> 登录成功返回用户基本信息 （[同第 1 点](#1-检测登录状态)）
+
+### 5. 用户登出注销 
+
+POST: /API/user/logout
+
+描述：用户账号登出
+
+Response:
+
+> 注销成功返回 OK
+
+```js
+{
+  "result": "OK"
+}
+```
 

@@ -25,7 +25,8 @@
           <print-file-item class="print-file-item"
                            :price="price"
                            :file="file"
-                           :preSetting="file.print">
+                           :preSetting="file.print"
+                           @update="update">
             <div slot="control">
               <div class="page-panel">第<span class="count">{{currentPage}}</span>面</div>
               <div class="tip">每份{{papers}}张纸</div>
@@ -64,6 +65,10 @@
       file: {
         type: null,
         default: null
+      },
+      update: {
+        type: Function,
+        default: () => {}
       }
     },
     mounted () {
@@ -74,7 +79,10 @@
         pagepics: [],
         onscroll: throttle(this.handleScroll, 300),
         currentPage: 1,
-        loading: false
+        loading: false,
+        _color: this.file.print.color,
+        _copies: this.file.print.copies,
+        _side: this.file.print.side
       }
     },
     methods: {
@@ -125,10 +133,16 @@
     },
     watch: {
       file: {
-        handler ()  {
-          console.warn('Update preview setting');
-          this.pagepics = [];
-          this.getpic(1);
+        handler ({print: {color, copies, side}})  {
+          if (color == this._color && copies == this._copies && side == this._side) {
+            console.warn('Update preview setting');
+            this.pagepics = [];
+            this.getpic(1);
+            return;
+          }
+          this._color = color;
+          this._copies = copies;
+          this._side = side;
         },
         deep: true
       }
