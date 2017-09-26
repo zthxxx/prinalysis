@@ -1,0 +1,156 @@
+@import "~@/style/import"
+
+.modal-wrapper
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 20
+  display: flex
+  flex-direction: column
+  justify-content: center
+  overflow-x: hidden
+  overflow-y: auto
+  transition: opacity .3s ease-out
+
+.modal-backdrop
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 0
+  background-color: rgba(#000, .65)
+  transition: background-color .3s ease-out
+
+.login-modal
+  position: relative
+  z-index: 1
+  display: flex
+  flex-direction: column
+  width: 400px
+  max-height: calc(100vh - 48px)
+  margin-right: auto
+  margin-left: auto
+  outline: 0
+  box-shadow: 0 5px 20px 0 rgba(0, 34, 77, .5)
+  transition: max-height .8s ease
+
+.login-inner
+  overflow: auto
+  background: #fff
+  border-radius: 2px
+
+.login-content
+  flex: 1
+  margin-top: 0
+  height: 100%
+  padding: 0 24px 32px
+  line-height: 1.7
+  opacity: 1
+
+.login-header
+  padding: 24px 0 28px
+  margin: 0 -24px
+  background: #0f88eb
+  .login-header-title
+    font-size: 24px
+    color: #fff
+    text-align: center
+  .login-header-subTitle
+    margin-top: 4px
+    font-size: 14px
+    color: #fff
+    text-align: center
+
+.close
+  position: absolute
+  top: 8px
+  right: -60px
+  padding: 12px
+  font-size: 18px
+  color: #9fadc7
+  background-color: transparent
+  border: none
+  &:hover
+    color: #9fadc7
+
+.login-flow
+  margin-top: 0
+  overflow: hidden
+  .flow-account
+    margin-top: 16px
+
+  .flow-password
+    position: relative
+    margin-top: 12px
+    .password input.el-input__inner
+      font-size: 24px
+      letter-spacing: 1.8px
+  .el-input
+    input.el-input__inner, .el-input-group__prepend, .el-input-group__append
+      padding: 0 3px
+      line-height: 24px
+      height: 48px
+      border: none
+      border-bottom: 1px solid #e7eaf1
+      text-align: start
+      font-weight: bold
+      font-size: 14px
+    .el-input-group__prepend
+      .el-select .el-input
+        padding-left: 10px
+        width: 130px
+        border: none
+        background: none
+        background-color: transparent
+    .el-input-group__append
+      position: absolute
+      top: 24px
+      right: 10px
+      padding: 0
+      background-color: transparent
+      font-size: 20px
+  .login-options
+    margin-top: 16px
+    .switch-type, .forget-pass
+      height: auto
+      padding: 0
+      display: inline-block
+      line-height: inherit
+      text-align: center
+      font-size: 14px
+      background: none
+      border: none
+      border-radius: 0
+      color: #175199
+    .forget-pass
+      float: right
+      color: #8590a6
+  .submit
+    width: 100%
+    margin-top: 32px
+    padding: 0
+    border-radius: 3px
+    line-height: 32px
+    background: #0f88eb
+    color: #fff
+    font-size: 14px
+  .login-footer
+    margin-top: 22px
+    text-align: center
+    .footer-text, .footer-separate
+      display: inline-block
+      color: #8590a6
+      vertical-align: middle
+    .footer-separate
+      width: 6%
+
+.plain-button
+  padding: 0
+  border: none
+  border-radius: 0
+  background-color: transparent
+  color: #8590a6
+  text-align: center

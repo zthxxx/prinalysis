@@ -172,5 +172,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import 'preview-mask.styl'
+  @import './preview-mask'
 </style>

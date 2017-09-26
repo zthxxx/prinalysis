@@ -8,7 +8,6 @@ header
   top: 0
   left: 0
   padding: 0 20px
-  z-index: 1
   color: #fff
   box-sizing: border-box
   background-color: dark-blue
@@ -36,7 +35,6 @@ header
   padding: 0 18px
   display: inline-block
   height: $head-hight
-  line-height: $head-hight
   color: #fff
   font-size: 16px
   text-align: center
@@ -67,3 +65,28 @@ header
 
 .right
   float: right
+
+.user
+  float: right
+  padding: 0 6px
+  margin-right: 6px
+  height: 60px
+  .text
+    float: left
+    height: 60px
+    margin: 0 12px
+    line-height: normal
+    display: flex
+    font-size: 14px
+    color: #fff
+    flex-direction: column
+    justify-content: center
+    text-align: left
+    .nick
+      font-size: 12px
+      opacity: .8
+  img
+    float: left
+    height: 50px
+    margin-top: 5px
+    border-radius: 25px

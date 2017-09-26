@@ -55,7 +55,7 @@ Response:
   "info": {
     "nickname": string, // 用户名
     "uid": string, // 用户 ID
-    "phone": string, // 手机号，大陆应为 3+11 位 "+8612345678910"
+    "access": string, // 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者
     "avatar": string, // 头像图片 url
     "lastAddress": string[], // 上次下单的打印点位置 - ["city", "address"]
     "lastPoint": string, // 上次下单的打印点 ID - "1240-235-34"
@@ -100,6 +100,7 @@ Response:
   "info": {
     "nickname": string, // 用户名
     "uid": string, // 用户 ID
+    "access": string, // 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者
     "phone": string, // 手机号，大陆应为 3+11 位 "+8612345678910"
     "avatar": string, // 头像图片 url
     "address": string, // 用户配送文件地址
@@ -121,7 +122,7 @@ Response:
 
 ### 4. 用户账号登录
 
-POST: /API/user/login
+POST: /API/user/logining
 
 Parameters:
 

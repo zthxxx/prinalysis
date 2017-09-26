@@ -14,7 +14,7 @@ export const PREVIEW = `${BaseUrl}/file/pic/preview`;
 
 export const VERIFY = `${BaseUrl}/order/verify`;
 
-export const LOGIN = `${BaseUrl}/user/login`;
+export const LOGIN = `${BaseUrl}/user/logining`;
 
 export const SIGNOUT = `${BaseUrl}/user/logout`;
 

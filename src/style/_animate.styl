@@ -4,11 +4,14 @@
   to
     opacity: 1
 
-.fade-enter-active
-  transition: opacity .2s ease-out
+.fade-enter-active, .fade-leave-active
+  transition: opacity .2s ease
 
-.fade-enter
+.fade-enter, .fade-leave-to
   opacity: 0
+
+.fade-enter-to, .fade-leave
+  opacity: 1
 
 .float-fade-enter
   opacity: .1
