@@ -4,16 +4,20 @@ import {Random} from 'mockjs'
 const md5 = str => crypto.createHash('md5').update(str).digest('hex');
 const getAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`;
 
+const userBase = {
+  'nickname|1': ['@name', '@cname'],
+  'uid': '@id',
+  'access': 'user',
+  'avatar': getAvatar,
+  'lastAddress': ['@province', '@city', '@county'],
+  'lastPoint|+1': 1
+};
+
 module.exports = {
   '/user/logining': {
-    'result|1': ['OK', 'ERROR'],
+    'result|1': ['OK', 'OK', 'ERROR'],
     'info': {
-      'nickname|1': ['@name', '@cname'],
-      'uid': '@id',
-      'access': 'user',
-      'avatar': getAvatar,
-      'lastAddress': ['@province', '@city', '@county'],
-      'lastPoint|+1': 1
+      ...userBase
     },
     'message|1': ['此用户已登录', '用户账号或密码错误']
   },
@@ -23,19 +27,23 @@ module.exports = {
   },
   '/user/login/state/': {
     result: 'OK',
-    'info|+1': ["LOGINING", {
-      'nickname|1': ['@name', '@cname'],
-      'uid': '@id',
-      'access': 'user',
-      'avatar': getAvatar,
-      'lastAddress': ['@province', '@city', '@county'],
-      'lastPoint|+1': 1
+    'info|+1': ["LOGINING", "LOGINING", {
+      ...userBase
     }]
   },
   '/user/login/QRCode': {
     result: 'OK',
     info: {
       url: '@image(300x300, @hex, Mock QRCode)'
+    }
+  },
+  '/user/SMS/captcha': {
+    result: 'OK'
+  },
+  '/user/signing': {
+    result: 'OK',
+    info: {
+      ...userBase
     }
   },
   '/user/info': {

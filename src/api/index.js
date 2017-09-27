@@ -120,6 +120,22 @@ export const checkLogin = () => _get(API.LOGIN_STATE);
 export const getLoginQR = () => _get(API.QR_CODE);
 
 /**
+ * 请求发送用户(注册 | 登录)短信验证码
+ * @param {string} username - 用户名（必须为手机号）
+ */
+export const requireSMS = ({username}) => _post(API.SMS_CAPTCHA, {username});
+
+/**
+ * 完成用户注册
+ * @param {string} username - 用户名
+ * @param {string} password - 账户密码
+ * @param {string} nickname - 用户姓名昵称
+ * @param {string} captcha - 验证码
+ * @return {UserBase}
+ */
+export const signup = ({username, password, nickname, captcha}) => _post(API.SIGNUP, {username, password, nickname, captcha});
+
+/**
  * 获取用户详细信息
  * @return {UserInfo} - 返回用户信息对象
  */

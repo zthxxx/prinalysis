@@ -155,3 +155,46 @@ Response:
 }
 ```
 
+### 6. 发送用户(注册 | 登录)短信验证码
+
+POST: /API/user/SMS/captcha
+
+描述：向后台请求发送用户账号 (注册 | 登录) 时所需的短信验证码
+
+Parameters:
+
+```js
+{
+  "username": string, // 用户名(且为手机号才可发送短信验证码)
+}
+```
+
+Response:
+
+> 请求成功返回 OK
+
+```js
+{
+  "result": "OK"
+}
+```
+
+### 7. 用户注册
+
+POST: /API/user/signing
+
+Parameters:
+
+```js
+{
+  "username": string, // 用户名
+  "password": string, // 账户密码
+  "nickname": string, // 用户姓名昵称
+  "captcha": string   // 验证码
+}
+```
+
+Response:
+
+> 注册成功返回用户基本信息 （[同第 1 点](#1-%E6%A3%80%E6%B5%8B%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81)）
+
