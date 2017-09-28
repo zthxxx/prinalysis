@@ -8,7 +8,7 @@ export default function statusIntercept(method) {
       Notification.error({message});
       throw new Error(message);
     }
-    if (!response.info) throw new Error('Empty response info');
+    // if (!response.info) throw new Error('Empty response info');
     return response.info;
   }
 }

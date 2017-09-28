@@ -12,7 +12,7 @@
               </div>
               <div class="login-flow">
                 <el-form-item class="flow-account" prop="username">
-                  <el-input v-model="form.username" placeholder="请输入手机号" class="account">
+                  <el-input v-model="form.username" placeholder="请输入手机号" class="account" @focus="registerable = true">
                     <el-select v-model="prefix" slot="prepend" placeholder="请选择"
                                :style="{width: `${prefixWidth}px`}">
                       <el-option v-for="{code, name} of countries"
@@ -22,11 +22,15 @@
                       </el-option>
                     </el-select>
                   </el-input>
+                  <div class="endMask" v-if="mode != 'login' && !registerable">
+                    <span class="await-time">该手机号已注册 · </span>
+                    <el-button class="switch-type" @click="loginMode">直接登录</el-button>
+                  </div>
                 </el-form-item>
                 <el-form-item class="flow-password" prop="password">
                   <el-input v-model="form.password" placeholder="密码" :type="syssee ? 'text' : 'password'"
                             :class="{password: form.password && !syssee}">
-                    <el-button slot="append" class="plain-button" :icon="syssee ? 'fa-eye' : 'fa-eye-slash'"
+                    <el-button slot="append" class="plain-button syssee" :icon="syssee ? 'fa-eye' : 'fa-eye-slash'"
                                @click="syssee = !syssee"></el-button>
                   </el-input>
                 </el-form-item>
@@ -81,10 +85,10 @@
                 </div>
                 <div class="login-flow">
                   <el-form-item class="flow-account accept-account" prop="username">
-                    <el-input value="+8618923678901" class="account" disabled></el-input>
+                    <el-input :value="`${country.code}${form.username}`" class="account" disabled></el-input>
                   </el-form-item>
                   <el-form-item class="flow-nickname" prop="username">
-                    <el-input v-model="form.password" placeholder="请输入 6 位短信验证码"  class="nickname">
+                    <el-input v-model="form.captcha" placeholder="请输入 6 位短信验证码"  class="nickname">
                       <span slot="append" class="await-time" v-if="awaitCaptcha">{{awaitCaptcha}} 秒后可重发</span>
                       <el-button slot="append" class="switch-type" @click="accept" v-else>重新获取短信验证码</el-button>
                     </el-input>
@@ -109,7 +113,7 @@
 <script>
   import {mapMutations} from 'vuex'
   import * as types from '@/store/mutation-types'
-  import {login, requireSMS, signup} from '@/api'
+  import {login, isRegisterable, requireSMS, signup} from '@/api'
   const countries = [
     {code: '+86', name: '中国', abbr: 'CN'},
     {code: '+1', name: '美国', abbr: 'US'},
@@ -142,6 +146,7 @@
           password: ''
         },
         syssee: false,
+        registerable: true,
         acceptCaptcha: false,
         awaitCaptcha: 0,
         country: {code: '+86', name: '中国'},
@@ -158,11 +163,16 @@
           nickname: [
             {required: true, message: '请输入姓名', trigger: 'blur'},
             {max: 20, message: '名字不能超过20位哦', trigger: 'blur'}
+          ],
+          captcha: [
+            {required: true, message: '请输入验证码', trigger: 'blur'},
+            {max: 6, message: '请输入 6 位验证码', trigger: 'blur'}
           ]
         }
       }
     },
     methods: {
+      ...mapMutations('user', [types.SET_USER]),
       open () {
         this.visible = true;
       },
@@ -176,15 +186,25 @@
         this.mode = 'signup';
       },
       async login () {
-        console.info(this.form);
-        let user = await login(this.form);
+        let user = await login(this.requestForm);
         this[types.SET_USER](user);
+        this.close();
       },
-      accept () {
-        console.info(this.form);
+      async isRegisted () {
+        try {
+          await isRegisterable(this.requestForm);
+        } catch (e) {
+          this.registerable = false;
+          throw e;
+        }
+      },
+      async accept () {
+        if (!this.acceptCaptcha) {
+          await this.isRegisted(this.requestForm);
+        }
+        requireSMS(this.requestForm);
         this.acceptCaptcha = true;
         this.awaitCaptcha = 59;
-        requireSMS(this.form);
         let timeout = setInterval(() => {
           if (this.awaitCaptcha <= 0) {
             clearInterval(timeout);
@@ -194,20 +214,17 @@
         }, 1000);
       },
       async signup () {
-        console.info(this.form);
-        let user = await signup(this.form);
+        let user = await signup(this.requestForm);
         this[types.SET_USER](user);
+        this.close();
       }
     },
     computed: {
-      ...mapMutations('user', [types.SET_USER]),
       prefix: {
         get () {
           return JSON.stringify(this.country);
         },
         set (value) {
-          console.info(value);
-          console.warn(JSON.parse(value));
           this.country = JSON.parse(value);
         }
       },
@@ -215,6 +232,15 @@
         const wordWidth = 16;
         let {name, code} = this.country;
         return name.length * wordWidth + code.length * wordWidth / 2 + 16
+      },
+      fullaccount () {
+        return `${this.country.code}${this.form.username}`
+      },
+      requestForm () {
+        return {
+          ...this.form,
+          username: this.fullaccount
+        }
       }
     },
     components: {}

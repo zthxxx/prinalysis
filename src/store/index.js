@@ -6,7 +6,6 @@ import print from './modules/print'
 Vue.use(Vuex);
 
 const state = {
-  user: null,
 };
 
 const mutations = {

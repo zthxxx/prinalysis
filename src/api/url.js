@@ -22,6 +22,8 @@ export const LOGIN_STATE = `${BaseUrl}/user/login/state`;
 
 export const QR_CODE = `${BaseUrl}/user/login/QRCode`;
 
+export const REGISTERABLE = `${BaseUrl}/user/registerable`;
+
 export const SMS_CAPTCHA = `${BaseUrl}/user/SMS/captcha`;
 
 export const SIGNUP = `${BaseUrl}/user/signing`;

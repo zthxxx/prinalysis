@@ -90,6 +90,26 @@
       input.el-input__inner
         font-size: 24px
         letter-spacing: 1.8px
+  .endMask
+    position: absolute
+    right: 0
+    height: 90%
+    padding: 10px 0 0 10px
+    margin-top: -15%
+    font-size: 14px
+    color: rgba(red, .8)
+    text-align: right
+    cursor: text
+    background: #fff
+    opacity: 1
+    &:before
+      position: absolute
+      top: 0
+      left: -16px
+      width: 16px
+      height: 46px
+      background: linear-gradient(90deg, transparent, #fff)
+      content: ""
   .el-input
     input.el-input__inner
       padding: 0 3px
@@ -120,6 +140,8 @@
       border-bottom: 1px solid border-gray
       .el-button
         margin: 0
+      .syssee
+        font-size: 16px
   .el-form-item.is-error .el-input__inner
     border-color: border-gray
   .login-options

@@ -79,6 +79,13 @@ export const post = (url, args, options = {}) => {
   return callService(url, options);
 };
 
+export const paramPost = (url, args, options = {}) => {
+  if (args instanceof Object) {
+    args = `param=${JSON.stringify(args)}`;
+  }
+  return post(url, args, options);
+};
+
 export const put = (url, args, options = {}) => {
   options.method = 'PUT';
   options.body = args;
@@ -97,4 +104,4 @@ export const del = (url, args, options = {}) => {
   return callService(url, options);
 };
 
-export default {get, post, put, patch, del};
+export default {get, post, paramPost, put, patch, del};

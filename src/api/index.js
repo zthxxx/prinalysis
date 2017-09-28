@@ -1,8 +1,8 @@
-import {get, post} from '@/utils/fetch'
+import {get, post, paramPost} from '@/utils/fetch'
 import * as API from './url'
 import statusIntercept from './wrapper'
 const _get = statusIntercept(get);
-const _post = statusIntercept(post);
+const _post = statusIntercept(paramPost);
 
 /**
  * 获取校园地址
@@ -118,6 +118,12 @@ export const checkLogin = () => _get(API.LOGIN_STATE);
  * @return {{url: string}} - 用于获取二维码图片的 url
  */
 export const getLoginQR = () => _get(API.QR_CODE);
+
+/**
+ * 判断账户名是否可注册
+ * @param {string} username - 用户账户名
+ */
+export const isRegisterable = ({username}) => _get(API.REGISTERABLE, {username});
 
 /**
  * 请求发送用户(注册 | 登录)短信验证码

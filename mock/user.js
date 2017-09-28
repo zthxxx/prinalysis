@@ -37,14 +37,19 @@ module.exports = {
       url: '@image(300x300, @hex, Mock QRCode)'
     }
   },
+  '/user/registerable': {
+    'result|1': ['OK', 'ERROR'],
+    'message': '该账号已注册，请直接登录'
+  },
   '/user/SMS/captcha': {
     result: 'OK'
   },
   '/user/signing': {
-    result: 'OK',
-    info: {
+    'result|1': ['OK', 'ERROR'],
+    'info': {
       ...userBase
-    }
+    },
+    'message': '验证码错误'
   },
   '/user/info': {
     result: 'OK',
