@@ -36,7 +36,7 @@
     methods: {},
     computed: {
       navIndex () {
-        return this.$route.path;
+        return this.$route.path.match(/^(\/user\/[^\/]*)/)[1];
       }
     },
     components: {}

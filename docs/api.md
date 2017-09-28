@@ -4,6 +4,8 @@
 
 本 API 说明文档风格参考 [GitHub API](https://developer.github.com/v3/apps/) 。
 
+POST 参数如无特殊说明，均以 payload `param={json}` 的形式传参，`param` 为固定参数键，实际参数为 json 对象字符串，不使用 urlencode 转义; 如 `param={"ID": 5, "name": "xxx"}`
+
 
 
 ### 0. 统一错误请求返回

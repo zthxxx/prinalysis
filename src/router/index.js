@@ -3,9 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router);
 
-const home = r => require.ensure([], () => r(require('@/pages/Home')), 'home');
-const print = r => require.ensure([], () => r(require('@/pages/Print')), 'print');
-const user = r => require.ensure([], () => r(require('@/pages/User')), 'user');
+const home = () => import('@/pages/Home');
+const print = () => import('@/pages/Print');
+const user = () => import('@/pages/User');
 
 const routes = [
   {
@@ -27,13 +27,18 @@ const routes = [
     name: 'library',
   },
   {
-    path: '/user',
+    path: '/user/:id',
     component: user,
     name: 'user'
+  },
+  {
+    path: '/user',
+    redirect: '/user/order'
   }
 ];
 
 export default new Router({
+  mode: 'history',
   routes,
   strict: process.env.NODE_ENV !== 'production'
 })

@@ -35,7 +35,7 @@
         </el-button>
       </div>
     </div>
-    <loginCard ref="login"></loginCard>
+    <login-card ref="login"></login-card>
   </header>
 </template>
 

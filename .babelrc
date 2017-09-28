@@ -5,6 +5,7 @@
     "stage-2"
   ],
   "plugins": [
+    "syntax-dynamic-import",
     "transform-optional-chaining",
     "transform-runtime"
   ],

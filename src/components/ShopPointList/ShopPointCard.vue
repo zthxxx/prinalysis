@@ -30,7 +30,7 @@
             </div>
             <div class="ultra-service">
               配送范围：<span v-if="point.delivery_scope">{{point.delivery_scope}}</span>
-              <span v-else class="gray">（本打印点仅提供自提服务）</span>
+              <span v-else class="gray-text">（本打印点仅提供自提服务）</span>
             </div>
             <div>联系电话：{{point.phone}}</div>
           </div>

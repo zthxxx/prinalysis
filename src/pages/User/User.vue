@@ -1,7 +1,8 @@
 <template>
   <div class="content">
     <div class="user">
-      <userLeftBar :user="user"></userLeftBar>
+      <user-left-bar :user="user"></user-left-bar>
+      <manage-board></manage-board>
     </div>
   </div>
 </template>
@@ -9,6 +10,7 @@
 <script>
   import {mapState} from 'vuex'
   import userLeftBar from '@/components/UserLeftBar'
+  import manageBoard from '@/components/manageBoard'
   export default {
     name: 'user',
     data () {
@@ -18,7 +20,7 @@
     computed: {
       ...mapState('user', ['user']),
     },
-    components: {userLeftBar}
+    components: {userLeftBar, manageBoard}
   }
 </script>
 

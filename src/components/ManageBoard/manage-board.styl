@@ -1,0 +1,67 @@
+@import "~@/style/import"
+
+.manage-board
+  width: 850px
+  vertical-align: top
+  display: inline-block
+  background-color: #fff
+  box-shadow: 0 0 4px 1px #ddd
+  margin-bottom: 12px
+
+.infom
+  .inform-header
+    background: theme-text-color
+    height: 40px
+    margin-bottom: 20px
+    h1
+      color: #fff
+      line-height: 40px
+      font-weight: 400
+      font-size: 16px
+  .container
+    padding-bottom: 16px
+    .infom-tab
+      display: table
+      height: 35px
+      margin: 20px auto
+      margin-bottom: 26px
+      overflow: hidden
+      border-radius: 6px
+      border: 1px solid #ccc
+      background: none
+      .select
+        min-width: 120px
+        height: 100%
+        line-height: 35px
+        color: #444
+        font-size: 14px
+        background: transparent
+        border: none
+        &:not(:last-child)
+          border-right: 1px solid #ccc
+        &.is-active
+          background: theme-text-color
+          color: #fff
+  .infom-list
+    margin-top: 28px
+    padding: 0 55px
+
+.empty-tip
+  line-height: 1.5
+  font-size: 14px
+  color: shallow-text-gray
+
+.pages
+  width: 350px
+  margin: 20px 0 18px 450px
+  font-size: 12px
+  .infom-count
+    color: #aaa
+    margin-right: 8px
+    margin-top: 30px
+  .pagination
+    margin: -5px 0 0 -46px
+    display: inline-block
+    float: right
+    vertical-align: middle
+
