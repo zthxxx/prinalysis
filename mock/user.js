@@ -15,7 +15,7 @@ const userBase = {
 
 module.exports = {
   '/user/logining': {
-    'result|1': ['OK', 'OK', 'ERROR'],
+    'result|1': ['OK', 'ERROR'],
     'info': {
       ...userBase
     },
@@ -27,7 +27,7 @@ module.exports = {
   },
   '/user/login/state/': {
     result: 'OK',
-    'info|+1': ["LOGINING", "LOGINING", {
+    'info|+1': ["LOGINING", {
       ...userBase
     }]
   },

@@ -5,6 +5,7 @@ Vue.use(Router);
 
 const home = r => require.ensure([], () => r(require('@/pages/Home')), 'home');
 const print = r => require.ensure([], () => r(require('@/pages/Print')), 'print');
+const user = r => require.ensure([], () => r(require('@/pages/User')), 'user');
 
 const routes = [
   {
@@ -24,8 +25,12 @@ const routes = [
   {
     path: '/library',
     name: 'library',
+  },
+  {
+    path: '/user',
+    component: user,
+    name: 'user'
   }
-
 ];
 
 export default new Router({
