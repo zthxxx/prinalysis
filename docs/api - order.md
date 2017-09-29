@@ -74,8 +74,8 @@ Response:
 {
   "result": "OK",
   "info": {
-    "orderID": String, // 订单号
-    "desc": String // 描述信息
+    "orderID": String, // 用于获取表单、二维码、以及轮询状态订单号
+    "desc": String // 用于向用户显示的描述信息
   }
 }
 
