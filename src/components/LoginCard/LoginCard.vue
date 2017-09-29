@@ -3,6 +3,7 @@
     <modal-backdrop v-if="visible">
       <div class="login-modal" tabindex="0">
         <div class="login-inner">
+          <el-button class="close" icon="close" @click="close"></el-button>
           <el-form ref="loginForm" class="login-content" :rules="rules" :model="form" v-if="!acceptCaptcha">
             <div class="login-header">
               <div class="login-header-title">{{header[mode].title}}</div>
@@ -101,7 +102,6 @@
             </div>
           </el-form>
         </div>
-        <el-button class="close" icon="close" @click="close"></el-button>
       </div>
     </modal-backdrop>
   </div>

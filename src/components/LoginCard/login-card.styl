@@ -7,19 +7,35 @@
   max-height: calc(100vh - 48px)
   outline: 0
   box-shadow: 0 5px 20px 0 rgba(deep-text-gray, .5)
-
-.login-inner
-  overflow: auto
-  background: #fff
-  border-radius: 2px
-
-.login-content
-  flex: 1
-  margin-top: 0
-  height: 100%
-  padding: 0 24px 32px
-  line-height: 1.7
-  opacity: 1
+  .login-inner
+    overflow: auto
+    background: #fff
+    border-radius: 2px
+    .close
+      position: absolute
+      top: 8px
+      right: -60px
+      padding: 12px
+      font-size: 18px
+      color: #ddd
+      background-color: transparent
+      border: none
+      &:hover
+        color: #ddd
+    .login-content
+      flex: 1
+      margin-top: 0
+      height: 100%
+      padding: 0 24px 32px
+      line-height: 1.7
+      opacity: 1
+      .plain-button
+        padding: 0
+        border: none
+        border-radius: 0
+        background-color: transparent
+        color: inconspicuous-text-color
+        text-align: center
 
 .login-header
   padding: 24px 0 28px
@@ -34,18 +50,6 @@
     font-size: 14px
     color: #fff
     text-align: center
-
-.close
-  position: absolute
-  top: 8px
-  right: -60px
-  padding: 12px
-  font-size: 18px
-  color: #ddd
-  background-color: transparent
-  border: none
-  &:hover
-    color: #ddd
 
 .login-flow
   margin-top: 0
@@ -150,11 +154,3 @@
       color: inconspicuous-text-color
     .footer-separate
       width: 6%
-
-.plain-button
-  padding: 0
-  border: none
-  border-radius: 0
-  background-color: transparent
-  color: inconspicuous-text-color
-  text-align: center
