@@ -31,8 +31,8 @@
         <footer>
           <div class="cooperation">
             <span class="payMethod">支付方式：</span>
-            <img :src="weixinPay" alt="wxPay">
-            <img :src="aliPay" alt="aliPay">
+            <img :src="weixinPayIcon" alt="wxPay">
+            <img :src="aliPayIcon" alt="aliPay">
           </div>
           <div class="foot-section">
             Copyright © 2017 xxxx All Rights Reserved ICP备100000000-1
@@ -43,7 +43,8 @@
   </transition>
 </template>
 <script>
-  import {banner, foot, weixinPay, aliPay, twigs} from '@/assets/img/home'
+  import {banner, foot, twigs} from '@/assets/img/home'
+  import {weixinPayIcon, aliPayIcon} from '@/assets/img/pay'
   import depictCard from '@/components/DepictCard'
   export default {
     name: 'home',
@@ -51,8 +52,8 @@
       return {
         banner,
         foot,
-        weixinPay,
-        aliPay,
+        weixinPayIcon,
+        aliPayIcon,
         twigs,
         description: [
           {

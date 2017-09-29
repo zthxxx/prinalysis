@@ -49,9 +49,7 @@
         required: true
       },
       updateFiles: {
-        type: Function,
-        default: () => {
-        }
+        type: Function
       }
     },
     data () {

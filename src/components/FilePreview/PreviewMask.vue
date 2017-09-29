@@ -1,5 +1,5 @@
 <template>
-  <div class="preview">
+  <modal-backdrop>
     <div class="center">
       <div class="page" ref="pagebox" @scroll="onscroll">
         <div class="page-list" ref="pages">
@@ -39,10 +39,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </modal-backdrop>
 </template>
 
 <script>
+  import modalBackdrop from '@/components/ModalBackdrop'
   import printFileItem from '@/components/PrintFileItem'
   import spinDot from '@/components/SpinDot'
   import {getPreview} from '@/api'
@@ -167,7 +168,7 @@
         return this.file.print.copies;
       }
     },
-    components: {printFileItem, spinDot}
+    components: {modalBackdrop, printFileItem, spinDot}
   }
 </script>
 

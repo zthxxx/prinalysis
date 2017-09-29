@@ -4,6 +4,7 @@ export const ADDRESS = `${BaseUrl}/point/address`;
 
 export const POINTS = `${BaseUrl}/point/points`;
 
+
 export const PAGE = `${BaseUrl}/file/page`;
 
 export const FILEURL = `${BaseUrl}/file/url`;
@@ -12,7 +13,6 @@ export const UPLOAD = `${BaseUrl}/file/upload`;
 
 export const PREVIEW = `${BaseUrl}/file/pic/preview`;
 
-export const VERIFY = `${BaseUrl}/order/verify`;
 
 export const LOGIN = `${BaseUrl}/user/logining`;
 
@@ -29,3 +29,15 @@ export const SMS_CAPTCHA = `${BaseUrl}/user/SMS/captcha`;
 export const SIGNUP = `${BaseUrl}/user/signing`;
 
 export const USER_INFO = `${BaseUrl}/user/info`;
+
+
+export const VERIFY = `${BaseUrl}/order/verify`;
+
+export const ORDER_DETAIL = `${BaseUrl}/order/detail`;
+
+
+export const PAYMENT = `${BaseUrl}/pay/payment`;
+
+export const TRADE = `${BaseUrl}/pay/trade`;
+
+

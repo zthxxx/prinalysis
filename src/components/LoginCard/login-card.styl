@@ -1,41 +1,12 @@
 @import "~@/style/import"
 
-.modal-wrapper
-  position: fixed
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
-  z-index: 20
-  display: flex
-  flex-direction: column
-  justify-content: center
-  overflow-x: hidden
-  overflow-y: autoi
-  transition: opacity .3s ease-out
-
-.modal-backdrop
-  position: absolute
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
-  z-index: 0
-  background-color: rgba(#000, .65)
-  transition: background-color .3s ease-out
 
 .login-modal
-  position: relative
-  z-index: 1
-  display: flex
-  flex-direction: column
+  position: absolute
   width: 400px
   max-height: calc(100vh - 48px)
-  margin-right: auto
-  margin-left: auto
   outline: 0
   box-shadow: 0 5px 20px 0 rgba(deep-text-gray, .5)
-  transition: max-height .8s ease
 
 .login-inner
   overflow: auto

@@ -32,7 +32,7 @@
       <box-card title="结算" :noPadding="true">
         <div class="account-tips" v-if="!focusPoint">请在上面的打印点板块选择打印点</div>
         <div class="account-tips" v-else-if="!fileList.length">请添加文件</div>
-        <settle-bill v-else :point="focusPoint" :fileList="fileList"></settle-bill>
+        <settle-bill v-else :point="focusPoint" :fileList="fileList" :updateFiles="commitFiles"></settle-bill>
       </box-card>
     </article>
   </transition>

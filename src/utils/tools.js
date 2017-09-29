@@ -65,6 +65,12 @@ export const presetPrint = (pageInfo, point) => {
   return checkset(_.get(point, 'price'), defaults);
 };
 
+/**
+ * 去抖动函数，等多次频繁调用的函数在全部调用完后才执行
+ * @param {function} func - 待执行去抖动的函数
+ * @param {number} wait - 等待时间，毫秒
+ * @returns {Function}
+ */
 export const debounce = (func, wait) => {
   let timeout = null;
   return function (...args) {
@@ -73,6 +79,12 @@ export const debounce = (func, wait) => {
   };
 };
 
+/**
+ * 节流函数，多次频繁调用的函数按固定时间间隔执行
+ * @param {function} func - 待执行节流的函数
+ * @param {number} wait - 等待时间，毫秒
+ * @returns {Function}
+ */
 export const throttle = (func, rate) => {
   let timeout = null;
   let start = new Date();

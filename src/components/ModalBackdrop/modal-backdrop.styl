@@ -1,0 +1,44 @@
+@import "~@/style/import"
+
+.modal-wrapper
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 20
+  display: flex
+  flex-direction: column
+  justify-content: center
+  overflow-x: hidden
+  overflow-y: autoi
+  transition: opacity .3s ease-out
+
+  .modal-backdrop
+    position: fixed
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: 0
+    background-color: rgba(#000, .65)
+    transition: background-color .3s ease-out
+
+  .modal-dialog
+    position: fixed
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    display: flex
+    z-index: 1
+    margin-right: auto
+    margin-left: auto
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    transition: height .8s ease
+
+//body
+//  overflow: hidden
+//  margin-right: scrollbarWidth
