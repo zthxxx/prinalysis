@@ -80,9 +80,9 @@
         onscroll: throttle(this.handleScroll, 300),
         currentPage: 1,
         loading: false,
-        _color: this.file.print.color,
-        _copies: this.file.print.copies,
-        _side: this.file.print.side
+        precolor: this.file.print.color,
+        precopies: this.file.print.copies,
+        preside: this.file.print.side
       }
     },
     methods: {
@@ -134,15 +134,15 @@
     watch: {
       file: {
         handler ({print: {color, copies, side}})  {
-          if (color == this._color && copies == this._copies && side == this._side) {
+          if (color == this.precolor && copies == this.precopies && side == this.preside) {
             console.warn('Update preview setting');
             this.pagepics = [];
             this.getpic(1);
             return;
           }
-          this._color = color;
-          this._copies = copies;
-          this._side = side;
+          this.precolor = color;
+          this.precopies = copies;
+          this.preside = side;
         },
         deep: true
       }
