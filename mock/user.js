@@ -5,11 +5,13 @@ const md5 = str => crypto.createHash('md5').update(str).digest('hex');
 const getAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`;
 
 const userBase = {
+  'username': /\+861[358]\d{9}/,
   'nickname|1': ['@name', '@cname'],
   'uid': '@id',
   'access': 'user',
   'avatar': getAvatar,
-  'lastAddress': ['@province', '@city', '@county'],
+  'address|1': ['', '@county(true) @csentence'],
+  'lastPointAddress': ['@province', '@city', '@county'],
   'lastPoint|+1': 1
 };
 
@@ -54,12 +56,12 @@ module.exports = {
   '/user/info': {
     result: 'OK',
     info: {
+      'username': /\+861[358]\d{9}/,
       'nickname|1': ['@name', '@cname'],
-      uid: '@id',
+      'uid': '@id',
       'access|1': ['user', 'vendor', 'manager'],
-      phone: /1[358]\d{9}/,
-      avatar: getAvatar,
-      address: '@county(true)',
+      'avatar': getAvatar,
+      'address': '@county(true) @csentence',
       createDate: '@now(T)',
       library: {
         illegalCount: '@natural(0, 1)',

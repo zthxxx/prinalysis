@@ -1,6 +1,6 @@
 <template>
   <transition name="float-fade">
-    <article id="printpage">
+    <article id="printpage" key="print">
       <box-card title="打印点">
         <div class="selector-group" v-if="!focusPoint">
           <span class="tip">请选择目标打印点: </span>

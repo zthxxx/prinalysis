@@ -63,11 +63,13 @@ export const verifyOrder = ({pointID, files, money, couponID, reduction, dispatc
  * 用户基本信息对象
  * @typedef UserBase
  * @type {object}
- * @property {string} nickname - 用户名
+ * @property {string} username - 用户账号
+ * @property {string} nickname - 用户姓名昵称
  * @property {string} uid - 用户 ID
- * @property {string} phone - 用户手机号，大陆区应为 3+11 位
+ * @property {string} access - 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者
  * @property {string} avatar - 用户头像图片 url
- * @property {string[]} lastAddress - 最后一次下单的打印点位置
+ * @property {string} address - 用户默认配送文件地址
+ * @property {string[]} lastPointAddress - 最后一次下单的打印点位置
  * @property {string} lastPoint - 最后一次下单的打印点 ID
  */
 
@@ -75,7 +77,8 @@ export const verifyOrder = ({pointID, files, money, couponID, reduction, dispatc
  * 用户详细信息对象
  * @typedef UserInfo
  * @type {object}
- * @property {string} nickname - 用户名
+ * @property {string} username - 用户账号
+ * @property {string} nickname - 用户姓名昵称
  * @property {string} uid - 用户 ID
  * @property {string} phone - 用户手机号，大陆区应为 3+11 位
  * @property {string} avatar - 用户头像图片 url

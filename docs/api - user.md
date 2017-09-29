@@ -53,11 +53,13 @@ Response:
 {
   "result": "OK",
   "info": {
-    "nickname": string, // 用户名
+    "username": string, // 用户账号
+    "nickname": string, // 用户姓名昵称
     "uid": string, // 用户 ID
     "access": string, // 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者
     "avatar": string, // 头像图片 url
-    "lastAddress": string[], // 上次下单的打印点位置 - ["city", "address"]
+    "address": string, // 用户配送文件地址
+    "lastPointAddress": string[], // 上次下单的打印点位置 - ["city", "address"]
     "lastPoint": string, // 上次下单的打印点 ID - "1240-235-34"
   }
 }
@@ -98,6 +100,7 @@ Response:
 {
   "result": "OK",
   "info": {
+    "username": string, // 用户账号
     "nickname": string, // 用户名
     "uid": string, // 用户 ID
     "access": string, // 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者

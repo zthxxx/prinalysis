@@ -1,10 +1,12 @@
 <template>
-  <div class="content">
-    <div class="user">
-      <user-left-bar :user="user"></user-left-bar>
-      <manage-board></manage-board>
+  <transition name="float-fade">
+    <div class="content" key="user">
+      <div class="user">
+        <user-left-bar :user="user"></user-left-bar>
+        <manage-board></manage-board>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

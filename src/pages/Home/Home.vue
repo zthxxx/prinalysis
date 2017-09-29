@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <article class="content container">
+    <article class="content container" key="home">
       <div class="index">
         <div class="banner">
           <img :src="banner" alt="">

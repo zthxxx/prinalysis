@@ -39,7 +39,14 @@
             <br>
             <el-radio class="radio" :label="true" :disabled="!point.delivery_scope">送件上门{{point.delivery_scope ? '' : '（本打印点暂时不支持）' }}</el-radio>
           </el-radio-group>
-          <div class="dispatch-info"></div>
+          <transition name="left-fade">
+            <div class="dispatch" v-if="dispatch">
+              <el-input v-model="dispatching.nickname" placeholder="请输入姓名" class="dispatch-info nickname"></el-input>
+              <el-input v-model="dispatching.phone" placeholder="请输入手机号" class="dispatch-info phone"></el-input>
+              <el-input v-model="dispatching.address" placeholder="请输入配送地址" class="dispatch-info address"></el-input>
+              <el-input v-model="dispatching.message" placeholder="请输入留言" class="dispatch-info message"></el-input>
+            </div>
+          </transition>
         </div>
         <div class="account-info">
           <div class="original-money">原价：<span>{{finalMoney.originMoney}}</span></div>
@@ -52,6 +59,7 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import _ from 'lodash'
   import {formatCNY} from '@/utils/tools'
   import {verifyOrder} from '@/api'
@@ -71,10 +79,10 @@
       return {
         dispatch: false,
         dispatching: {
-          username: '',
-          userPhone: '',
+          nickname: '',
+          phone: '',
           address: '',
-          leftMessage: ''
+          message: ''
         },
         typeMap: {
           mono: '黑白',
@@ -83,6 +91,16 @@
           '2': '双面'
         },
         formatCNY: formatCNY
+      }
+    },
+    mounted () {
+      if (this.user) {
+        this.dispatching = {
+          nickname: _.get(this.user, 'nickname'),
+          phone: _.get(this.user, 'username'),
+          address: _.get(this.user, 'address'),
+          message: ''
+        }
       }
     },
     methods: {
@@ -134,23 +152,23 @@
       },
       getOrder () {
         let order = {
-          pointID: this.point.pointID,
-          files: this.fileList.map((file) => ({
+          pointID: this.point.id,
+          files: this.fileList.map(file => ({
             fileID: file.raw.md5,
             fileName: file.name,
             ...file.print
           })),
           money: this.finalMoney.amount,
-          couponId: 0,
+          couponID: null,
           reduction: {
             newUser: false,
             full: []
           },
-          dispatchingInfo: this.dispatch ? this.dispatching : {
-            username: '',
-            userPhone: '',
+          dispatching: this.dispatch ? this.dispatching : {
+            nickname: '',
+            phone: '',
             address: '',
-            leftMessage: ''
+            message: ''
           }
         };
         return order;
@@ -162,7 +180,20 @@
         console.warn(orderID);
       }
     },
+    watch: {
+      user: {
+        handler ({nickname, username, address}) {
+          this.dispatching = {
+            ...this.dispatching,
+            phone: username,
+            nickname,
+            address
+          }
+        }
+      }
+    },
     computed: {
+      ...mapState('user', ['user']),
       bills () {
         let {items, units} = this.getItems();
         let bills = [];
@@ -205,4 +236,10 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import './settle-bill'
+</style>
+
+<style lang="stylus" rel="stylesheet/stylus">
+  .dispatch
+    .dispatch-info input
+      text-align: start
 </style>
