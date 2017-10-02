@@ -1,4 +1,6 @@
-### 0. 获取校园地址
+# 打印点相关 API 说明
+
+## 0. 获取校园地址
 
 GET:  /API/point/address
 
@@ -48,7 +50,7 @@ Response:
 }
 ```
 
-### 1. 获取打印点信息
+## 1. 获取打印点信息
 
 GET:  /API/point/points
 

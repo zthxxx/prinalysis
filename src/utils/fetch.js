@@ -63,7 +63,10 @@ const callService = (url, options = {}) => {
     .then(parseJSON)
     .catch(error => {
       console.error(error);
-      throw error;
+      return {
+        result: 'ERROR',
+        message: '链接请求出现异常，请检查您的网络设置。'
+      }
     });
 };
 

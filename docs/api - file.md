@@ -1,4 +1,6 @@
-### 0. 获得文档页面信息
+# 文件操作相关 API 说明
+
+## 0. 获得文档页面信息
 
 GET:  /API/file/page
 
@@ -29,7 +31,7 @@ Response:
 {"result": "NO_EXIST"}
 ```
 
-### 1. 获得文件上传地址
+## 1. 获得文件上传地址
 
 GET:  /API/file/url
 
@@ -53,7 +55,7 @@ Response:
 }
 ```
 
-### 2. 上传文件
+## 2. 上传文件
 
 POST:  /API/file/upload
 
@@ -80,7 +82,7 @@ Response:
 【注】受目前所用框架限制，此处无法获取 Response，包括 `"result": "ERROR"` 的错误也无法获取，因此若上传出错，请返会对应情况的  `4xx` 和 `5xx` HTTP 状态码。
 
 
-### 3. 获取打印预览图片
+## 3. 获取打印预览图片
 
 GET:  /API/file/pic/preview
 

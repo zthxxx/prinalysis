@@ -1,4 +1,6 @@
-###  0. 确认打印信息
+# 订单相关 API 说明
+
+##  0. 确认打印信息
 
 POST:  /API/order/verify
 
@@ -89,7 +91,7 @@ Response:
 }
 ```
 
-### 1.获取订单详情
+## 1. 获取订单详情
 
 GET:  /API/order/detail
 

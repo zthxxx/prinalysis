@@ -101,8 +101,14 @@ var webpackConfig = merge(baseWebpackConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsRoot,
-        ignore: ['.*']
+        to: config.build.assetsRoot
+      }
+    ]),
+    // copy docs static for docsify
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../docs'),
+        to: path.resolve(config.build.assetsRoot, 'docs')
       }
     ])
   ]

@@ -2,7 +2,17 @@
   "name": "prinalysis",
   "description": "A page for manage cloud printers with VUE.",
   "version": "0.0.3",
-  "author": "zthxxx <zth_9451@qq.com>",
+  "author": {
+    "name": "zthxxx",
+    "email": "zth_9451@qq.com",
+    "url": "https://blog.zthxxx.me"
+  },
+  "homepage": "http://cloudprint.zthxxx.me",
+  "license": "GPL",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zthxxx/prinalysis.git"
+  },
   "private": true,
   "main": "index.js",
   "scripts": {
