@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <modal-backdrop v-if="visible">
-      <transition name="float-fade">
-        <pay-dialog v-if="!paid"
-                    :orderID="orderID"
-                    :money="money"
-                    @close="close"
-                    @paid="onpaid">
-        </pay-dialog>
-        <paid-dialog v-else :money="money" :confirm="clearFiles"></paid-dialog>
-      </transition>
-    </modal-backdrop>
-  </div>
+  <modal-backdrop v-if="visible">
+    <transition name="float-fade">
+      <pay-dialog v-if="!paid"
+                  :orderID="orderID"
+                  :money="money"
+                  @close="close"
+                  @paid="onpaid">
+      </pay-dialog>
+      <paid-dialog v-else :money="money" :confirm="clearFiles"></paid-dialog>
+    </transition>
+  </modal-backdrop>
 </template>
 
 <script>
@@ -34,21 +32,31 @@
     data () {
       return {
         visible: false,
-        paid: false
+        paid: false,
+        result: {
+          resolve () {},
+          reject () {}
+        }
       }
     },
     methods: {
       open () {
         this.visible = true;
+        return new Promise((resolve, reject) => {
+          this.result = {resolve, reject};
+        })
       },
       close () {
+        this.result.reject();
         this.visible = false;
+        this.$nextTick(this.$destroy);
       },
       onpaid () {
         this.paid = true;
       },
       clearFiles () {
-        this.$emit('paid');
+        this.result.resolve('paid');
+        this.close();
       }
     },
     computed: {},

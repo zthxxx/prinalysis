@@ -50,15 +50,7 @@
   import {throttle} from '@/utils/tools'
   export default {
     name: 'preview-mask',
-    model: {
-      prop: 'preview',
-      event: 'close'
-    },
     props: {
-      preview: {
-        type: Boolean,
-        default: false
-      },
       price: {
         type: null,
         default: null
@@ -88,7 +80,7 @@
     },
     methods: {
       close () {
-        this.$emit('close', false);
+        this.$emit('close');
       },
       async getpic (page) {
         if (this.loading || this.loadEnd) return;

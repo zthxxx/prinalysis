@@ -35,13 +35,11 @@
         </el-button>
       </div>
     </div>
-    <login-card ref="login"></login-card>
   </header>
 </template>
 
 <script>
   import {mapState} from 'vuex'
-  import loginCard from '@/components/LoginCard'
   export default {
     name: 'header-top',
     data () {
@@ -63,10 +61,10 @@
     },
     methods: {
       login () {
-        this.$refs.login.open();
+        this.$handleLogin();
       }
     },
-    components: {loginCard}
+    components: {}
   }
 </script>
 

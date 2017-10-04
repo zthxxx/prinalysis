@@ -22,11 +22,6 @@
                            :handleRemove="removeFile"
                            :handlePreview="handlePreview">
           </print-file-list>
-          <filePreview ref="preview"
-                       :price="focusPoint && focusPoint.price"
-                       :file="previewFile"
-                       :updateSetting="updateSetting">
-          </filePreview>
         </upload-box>
       </box-card>
       <box-card title="结算" :noPadding="true">
@@ -40,12 +35,12 @@
 
 <script>
   import {mapState, mapMutations} from 'vuex'
+  import _ from 'lodash'
   import boxCard from '@/components/BoxCard'
   import linkageSelect from '@/components/LinkageSelect'
   import ShopPointList from '@/components/ShopPointList'
   import uploadBox from '@/components/UploadBox'
   import printFileList from '@/components/PrintFileList'
-  import filePreview from '@/components/FilePreview'
   import settleBill from '@/components/SettleBill'
   import {getAddresses, getPoints} from '@/api'
   import * as types from '@/store/mutation-types'
@@ -56,7 +51,6 @@
       return {
         addresses: {},
         points: [],
-        previewFile: null
       }
     },
     mounted () {
@@ -102,8 +96,11 @@
         this.$refs.uploader.transmitRemove(file);
       },
       handlePreview (file) {
-        this.previewFile = file;
-        this.$refs.preview.open();
+        this.$preview({
+          price: _.get(this.focusPoint, 'price'),
+          file,
+          updateSetting: this.updateSetting
+        });
       }
     },
     computed: {
@@ -119,7 +116,6 @@
       ShopPointList,
       uploadBox,
       printFileList,
-      filePreview,
       settleBill
     }
   }

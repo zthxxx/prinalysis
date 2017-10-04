@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <transition name="fade">
-      <preview-mask v-if="preview && file"
-                    v-model="preview"
-                    :price="price"
-                    :file="file"
-                    :update="updateSetting">
-      </preview-mask>
-    </transition>
-  </div>
+  <transition name="fade">
+    <preview-mask v-if="preview && file"
+                  :price="price"
+                  :file="file"
+                  :update="updateSetting"
+                  @close="close">
+    </preview-mask>
+  </transition>
 </template>
 
 <script>
@@ -37,6 +35,10 @@
     methods: {
       open () {
         this.preview = true
+      },
+      close () {
+        this.preview = false;
+        this.$nextTick(this.$destroy);
       }
     },
     components: {previewMask}

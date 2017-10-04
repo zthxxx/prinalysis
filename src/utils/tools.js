@@ -129,3 +129,19 @@ export const mapModel = (namespace, states = namespace) => {
   }
   return maps;
 };
+
+/**
+ * 生成全局弹窗组件的 install 方法
+ * @param {ComponentOptions<Vue>} component - 作为全局弹窗的 Vue 组件，组件必须包含 `open` 和 `close` 方法，
+ * `close` 方法中应显式调用 $nextTick($destroy) 销毁自身示例
+ * @param {string} handle - 要注入到 Vue 原型上的方法调用名，以 `$` 开头
+ * @return {function} - 返回一个组件的 install 方法，此方法中将在 Vue 原型上注入一个可以接收 props 的调用该组件的方法
+ */
+export const globalPopupInstaller = (component, handle) => Vue => {
+  Vue.prototype[handle] = (propsData = {}) => {
+    let constructor = Vue.extend(component);
+    let instance = new constructor({propsData});
+    document.body.append(instance.$mount().$el);
+    return instance.open();
+  }
+};

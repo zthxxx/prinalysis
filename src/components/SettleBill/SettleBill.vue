@@ -51,9 +51,7 @@
         <div class="account-info">
           <div class="original-money">原价：<span>{{finalMoney.originMoney}}</span></div>
           <div class="final-money">应付：<span>{{finalMoney.actualMoney}}</span></div>
-          <el-button class="to-submit" @click="verifyOrder()">确认下单</el-button>
-          <login-card ref="login" @logined="onLogined"></login-card>
-          <pay-box ref="paybox" :orderID="orderID" :money="finalMoney.actualMoney" @paid="paidRefresh"></pay-box>
+          <el-button class="to-submit" @click="verifyOrder">确认下单</el-button>
         </div>
       </div>
     </div>
@@ -65,8 +63,6 @@
   import _ from 'lodash'
   import {formatCNY} from '@/utils/tools'
   import {verifyOrder} from '@/api'
-  import loginCard from '@/components/LoginCard'
-  import payBox from '@/components/PayBox'
   export default {
     name: 'settle-bill',
     props: {
@@ -98,7 +94,6 @@
           '2': '双面'
         },
         formatCNY: formatCNY,
-        orderID: ''
       }
     },
     mounted () {
@@ -183,18 +178,17 @@
       },
       async verifyOrder () {
         if (!this.user) {
-          this.$refs.login.open();
-          return;
+          await this.$handleLogin();
         }
         let order = this.getOrder();
         console.warn(order);
         let {orderID} = await verifyOrder(order);
-        this.orderID = orderID;
         console.warn(orderID);
-        this.$refs.paybox.open();
-      },
-      onLogined () {
-        this.verifyOrder();
+        await this.$handlePay({
+          orderID,
+          money: this.finalMoney.actualMoney
+        });
+        this.paidRefresh();
       },
       paidRefresh () {
         this.updateFiles([]);
@@ -251,7 +245,7 @@
         };
       }
     },
-    components: {loginCard, payBox}
+    components: {}
   }
 </script>
 
