@@ -35,6 +35,8 @@ export const VERIFY = `${BaseUrl}/order/verify`;
 
 export const ORDER_DETAIL = `${BaseUrl}/order/detail`;
 
+export const ORDERS = `${BaseUrl}/orders/info`;
+
 
 export const PAYMENT = `${BaseUrl}/pay/payment`;
 

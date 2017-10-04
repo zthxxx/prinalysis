@@ -37,7 +37,7 @@ module.exports = {
       'delivery_scope|1': ['', '@name()广场附近'],
       'delivery_time': '每天中午十二点到两点，每天晚上8点到10点',
       'phone': /1[358]\d{9}/,
-      'pointName|1': ['华阳区大楼', '@county()大楼', '@county()广场'],
+      'pointName|1': ['华阳区大楼', '@county()大楼点', '@county()广场点'],
       'address|1': ['@name()一楼进大门左转', '软件园@region()方向直走'],
       'message|1': ['欢迎使用快印打印~', '新点开张！欢迎使用~'],
       'image': '',

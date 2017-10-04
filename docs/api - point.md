@@ -21,8 +21,10 @@ Response:
     }]
   }]
 }
+```
 
-// example
+```js
+// response example
 {
   "result": "OK",
   "info": [

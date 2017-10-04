@@ -20,8 +20,8 @@ Response:
 ```js
 {
   "result": "EXISTED",
-  "pageCount": 6,    // 文件总页数
-  "direction": true  // 排版方向是否为竖版, true 表示竖版
+  "pageCount": Number,    // 文件总页数
+  "direction": Boolean  // 排版方向是否为竖版, true 表示竖版
 }
 ```
 
@@ -106,7 +106,7 @@ Response:
 {
   "result": "OK",
   "info": {
-    "img": "/xxxxx.jpg"    // 图片链接
+    "img": String    // 图片链接 url, 如 'http://xxxx.com/xx.jpg'
   }
 }
 ```

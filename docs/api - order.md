@@ -32,8 +32,10 @@ post entity body
     "message": String // 用户留言
   }
 }
+```
 
-// example
+```js
+// verify request param example
 {
   "pointID": "0026",
   "money": 25,
@@ -71,8 +73,10 @@ Response:
     "desc": String // 用于向用户显示的描述信息
   }
 }
+```
 
-// example
+```js
+// response example
 {
   "result": "OK",
   "info": {
@@ -94,6 +98,56 @@ orderID: 订单号
 
 描述：获取订单详情信息，用于查询订单各种状态
 
+```js
+/**
+ * 订单详细信息对象
+ * @typedef OrderDetail
+ * @type {object}
+ */
+{
+  "uid": String, // 下单用户 ID
+  "username": String, // 下单用户名
+  "nickname": String, // 下单用户姓名昵称
+  "orderID": String, // 订单号
+  "orderDate": Date, // 订单产生时间戳
+  "state": String,   // 当前订单交易状态，同支付 API 第 2 点 state 字段
+  "payWay": String,  // 支付方式，微信 "WXPAY" 或 支付宝 "ALIPAY"
+  "payDate": Date,   // 【可选】支付时间戳，未支付则无此项或此项为 null
+  "pointName": String, // 所选打印点名称
+  "printDate": Date,   // 【可选】打印时间戳，未打印则无此项或此项为 null
+  "pointID": String,   // 所选打印点 ID
+  "money": Number,     // 总共花费金额，同第 0 点 money 字段
+  "files": [{ // Array<Object> 文件列表
+    "fileID": String, // 文件 MD5 值，同第 0 点中 fileID 字段
+    "fileName": String, // 文件名，同第 0 点中相同字段
+    "row": Number, // 同第 0 点中相同字段
+    "col": Number, // 同第 0 点中相同字段
+    "copies": Number, // 同第 0 点中相同字段
+    "size": Number, // 同第 0 点中相同字段
+    "caliper": String,// 同第 0 点中相同字段
+    "color": String,  // 同第 0 点中相同字段
+    "startPage": Number, // 同第 0 点中相同字段
+    "side": Number, // 同第 0 点中相同字段
+    "endPage": Number, // 同第 0 点中相同字段
+    "downloadable": Boolean, // 是否可下载文件  true 表示可下载
+    "downloadUrl": String // 【可选】文件下载地址URL
+  }],
+  "dispatching": { // 【可选】配送信息，无此项或此项字段全为 null 则表示自取不配送
+    "nickname": String, // 同第 0 点中相同字段
+    "phone": String,// 同第 0 点中相同字段
+    "address": String,  // 同第 0 点中相同字段
+    "message": String // 同第 0 点中相同字段
+  },
+  "settle": [{ // Array<Object> 计费条目信息，应与 files 字段数据能对应
+    "size": Number, // 纸张大小，同第 0 点中相同字段
+    "caliper": String,// 纸张厚度，同第 0 点中相同字段
+    "color": String,  // 颜色模式，同第 0 点中相同字段
+    "side": Number, // 单双面
+    "unit": Number, // 单价金额
+    "count": Number // 该条目打印数量
+  }]
+}
+```
 Response:
 
 > 获取订单成功则返回订单详情
@@ -101,52 +155,12 @@ Response:
 ```js
 {
   "result": "OK",
-  "info": {
-    "uid": String, // 下单用户 ID
-    "username": String, // 下单用户名
-    "nickname": String, // 下单用户姓名昵称
-    "orderID": String, // 订单号
-    "orderDate": Date, // 订单产生时间戳
-    "state": String,   // 当前订单交易状态，同支付 API 第 2 点 state 字段
-    "payWay": String,  // 支付方式，微信 "WXPAY" 或 支付宝 "ALIPAY"
-    "payDate": Date,   // 【可选】支付时间戳，未支付则无此项或此项为 null
-    "pointName": String, // 所选打印点名称
-    "printDate": Date,   // 【可选】打印时间戳，未打印则无此项或此项为 null
-    "pointID": String,   // 所选打印点 ID
-    "money": Number,     // 总共花费金额，同第 0 点 money 字段
-    "files": [{ // Array<Object> 文件列表
-      "fileID": String, // 文件 MD5 值，同第 0 点中 fileID 字段
-      "fileName": String, // 文件名，同第 0 点中相同字段
-      "row": Number, // 同第 0 点中相同字段
-      "col": Number, // 同第 0 点中相同字段
-      "copies": Number, // 同第 0 点中相同字段
-      "size": Number, // 同第 0 点中相同字段
-      "caliper": String,// 同第 0 点中相同字段
-      "color": String,  // 同第 0 点中相同字段
-      "startPage": Number, // 同第 0 点中相同字段
-      "side": Number, // 同第 0 点中相同字段
-      "endPage": Number, // 同第 0 点中相同字段
-      "downloadable": Boolean, // 是否可下载文件  true 表示可下载
-      "downloadUrl": String // 【可选】文件下载地址URL
-    }],
-    "dispatching": { // 【可选】配送信息，无此项或此项字段全为 null 则表示自取不配送
-      "nickname": String, // 同第 0 点中相同字段
-      "phone": String,// 同第 0 点中相同字段
-      "address": String,  // 同第 0 点中相同字段
-      "message": String // 同第 0 点中相同字段
-    },
-    "settle": [{ // Array<Object> 计费条目信息，应与 files 字段数据能对应
-      "size": Number, // 纸张大小，同第 0 点中相同字段
-      "caliper": String,// 纸张厚度，同第 0 点中相同字段
-      "color": String,  // 颜色模式，同第 0 点中相同字段
-      "side": Number, // 单双面
-      "unit": Number, // 单价金额
-      "count": Number // 该条目打印数量
-    }]
-  }
+  "info": OrderDetail // 订单详细信息对象
 }
+```
 
-// example
+```js
+// order detail response example
 {
   "result": "OK",
   "info": {
@@ -154,7 +168,7 @@ Response:
     "username": "18945678900",
     "nickname": "xxx",
     "orderID": "2017081527671193112",
-    "orderDate": "1507110204020", // 订单产生时间戳
+    "orderDate": "1507110204020",
     "state": "PAID",
     "payWay": "ALIPAY",
     "payDate": "1507110422525",
@@ -171,30 +185,99 @@ Response:
       "size": "A4",
       "caliper": "70g",
       "color": "colorful",
-      "side": 2
+      "side": 2,
       "startPage": 2,
       "endPage": 4,
-      "downloadable": false, // 是否可下载文件  true 表示可下载
+      "downloadable": false
     }],
     "settle": [
       {
-        "size": "A4", // 纸张大小，同第 0 点中相同字段
-        "caliper": "70g",// 纸张厚度，同第 0 点中相同字段
-        "color": "colorful",  // 颜色模式，同第 0 点中相同字段
-        "side": 2, // 单双面
-        "unit": 50, // 单价金额
-        "count": 1 // 该条目打印数量
+        "size": "A4",
+        "caliper": "70g",
+        "color": "colorful",
+        "side": 2,
+        "unit": 50,
+        "count": 1
       },
       {
-        "size": "A4", // 纸张大小，同第 0 点中相同字段
-        "caliper": "70g",// 纸张厚度，同第 0 点中相同字段
-        "color": "colorful",  // 颜色模式，同第 0 点中相同字段
-        "side": 1, // 单双面
-        "unit": 30, // 单价金额
-        "count": 1 // 该条目打印数量
+        "size": "A4",
+        "caliper": "70g",
+        "color": "colorful",
+        "side": 1,
+        "unit": 30,
+        "count": 1
       }
     ]
   }
+}
+```
+
+## 2. 获取订单简要信息列表
+
+GET:  /API/orders/info
+
+Parameters:
+
+```js
+limits: Number // 查询列表分页中限制每页的最大条数
+page: Number // 表示查询第几分页，从 1 开始
+type: String // 表示限制查询某种状态类型的订单，具体状态如下
+/**
+ * type 有 8 种
+ * "ALL"     表示所有状态类型
+ * "PAYING"  未支付，正在等待支付
+ * "PAID"    已完成支付，但未打印，正在等待打印
+ * "PRINTED" 已完成打印，但未取件，等待配送或取件
+ * "FINISH"  完成取件
+ * "CANCEL"  取消订单（已支付的订单不可取消）
+ * "REFUNDING" 正在退款（已打印的订单不可退款）
+ * "REFUNDED" 已退款
+ */
+```
+
+描述：获取简要信息的订单列表，用于展示基本订单列表
+
+Response:
+
+> 获取订单成功则返回订单详情
+
+```js
+/**
+ * 订单基本信息对象
+ * @typedef OrderBase
+ * @type {object}
+ */
+{
+  "orderID": String,   // 同第 1 点 OrderDetail 相同字段
+  "orderDate": Date,   // 同第 1 点 OrderDetail 相同字段
+  "state": String,     // 同第 1 点 OrderDetail 相同字段
+  "money": Number,     // 同第 1 点 OrderDetail 相同字段
+  "pointName": String, // 同第 1 点 OrderDetail 相同字段
+  "fileCount": Number, // 该订单包含文件数
+  "filePrename": String // 任一一项文件名
+}
+```
+
+```js
+{
+  "result": "OK",
+  "info": Array<OrderBase> // 订单基本信息列表
+}
+```
+
+```js
+// orders info response example
+{
+  "result": "OK",
+  "info": [{
+    "orderID": "2017081527671193112",
+    "orderDate": "1507110204020",
+    "state": "PAID",
+    "money": 50,
+    "pointName": "第一打印点"
+    "fileCount": 2,
+    "filePrename": "保养指南.docx"
+  }]
 }
 ```
 

@@ -35,8 +35,10 @@ Response:
     "payform": String // 表单 form HTML 字符串
   }
 }
+```
 
-// example
+```js
+// ALIPAY response example
 {
   "result": "OK",
   "info": {
@@ -86,11 +88,13 @@ Response:
     "state": String // 当前交易状态
   }
 }
-// 状态有 5 种
-// "PAYING" 正在支付
-// "PAID"   已完成支付
-// "CANCEL" 取消订单
-// "REFUNDING" 正在退款
-// "REFUNDED" 已退款
+/**
+ * 交易状态有 5 种定义
+ * "PAYING" 正在支付
+ * "PAID"   已完成支付
+ * "CANCEL" 取消订单
+ * "REFUNDING" 正在退款
+ * "REFUNDED" 已退款
+ */
 ```
 

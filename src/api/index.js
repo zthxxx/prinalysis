@@ -151,6 +151,30 @@ export const verifyOrder = ({pointID, files, money, couponID, reduction, dispatc
   _get(API.VERIFY, {pointID, files, money, couponID, reduction, dispatching});
 
 /**
+ * 获取订单详细信息
+ * @param {string} orderID - 订单号
+ * @return {OrderDetail} - 返回订单对象
+ */
+export const getOrder = ({orderID}) => _get(API.ORDER_DETAIL, {orderID});
+
+/**
+ * 获取订单基本信息列表
+ * @param {number} limits - 查询列表分页中限制每页的最大条数
+ * @param {number} page - 表示查询第几分页，从 1 开始
+ * @param {string} type - 表示限制查询某种状态类型的订单，type 有 8 种，具体状态如下
+ * "ALL"     表示所有状态类型
+ * "PAYING"  未支付，正在等待支付
+ * "PAID"    已完成支付，但未打印，正在等待打印
+ * "PRINTED" 已完成打印，但未取件，等待配送或取件
+ * "FINISH"  完成取件
+ * "CANCEL"  取消订单（已支付的订单不可取消）
+ * "REFUNDING" 正在退款（已打印的订单不可退款）
+ * "REFUNDED" 已退款
+ * @return {OrderBase[]} - 返回订单基本信息对象数组
+ */
+export const getOrders = ({limits, page, type}) => _get(API.ORDERS, {limits, page, type});
+
+/**
  * 获取订单支付通道
  * @param {string} orderID - 订单号
  * @param {'WXPAY' | 'ALIPAY'} payway - 支付方式，微信为 "WXPAY"，支付宝为 "ALIPAY"

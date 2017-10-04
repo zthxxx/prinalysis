@@ -1,15 +1,14 @@
-import crypto from 'crypto'
 import {Random} from 'mockjs'
+import {md5} from '../src/utils/tools'
 
-const md5 = str => crypto.createHash('md5').update(str).digest('hex');
-const getAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`;
+const randomAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`;
 
 const userBase = {
   'username': /\+861[358]\d{9}/,
   'nickname|1': ['@name', '@cname'],
   'uid': '@id',
   'access': 'user',
-  'avatar': getAvatar,
+  'avatar': randomAvatar,
   'address|1': ['', '@county(true) @csentence'],
   'lastPointAddress': ['@province', '@city', '@county'],
   'lastPoint|+1': 1
@@ -60,7 +59,7 @@ module.exports = {
       'nickname|1': ['@name', '@cname'],
       'uid': '@id',
       'access|1': ['user', 'vendor', 'manager'],
-      'avatar': getAvatar,
+      'avatar': randomAvatar,
       'address': '@county(true) @csentence',
       createDate: '@now(T)',
       library: {
