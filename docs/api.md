@@ -1,10 +1,12 @@
 # Prinalysis API 总览
 
-?>【注】以下 `/API/` 为地址前缀，应由真实地址替换。金额数值处理（即API中表示金额的数值）均以人民币`分`为单位，前端显示金额（无关API）均以`元`为单位。
-
 本 API 说明文档风格参考 [GitHub API](https://developer.github.com/v3/apps/) 。
 
-POST 参数如无特殊说明，均以 payload `param={json}` 的形式传参，`param` 为固定参数键，实际参数为 json 对象字符串，不使用 urlencode 转义; 如 `param={"ID": 5, "name": "xxx"}`
+?> 本说明所指 API 请求 url 中， `/API/` 为地址前缀，应由真实地址替换。金额数值处理（即 API 中表示金额的数值）均以人民币`分`为单位。
+
+?> API 中所用时间戳，如无特殊说明，均为 Unix timestamp，精确至毫秒。
+
+?> POST 参数如无特殊说明，均以 form-payload 的形式传参，即 `param={json}` ，其中 `param` 为固定参数键，实际参数为 json 对象字符串，不使用 urlencode 转义; 如 `param={"ID": 5, "name": "xxx"}` 。
 
 
 

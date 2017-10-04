@@ -11,6 +11,7 @@ post entity body
 ```js
 {
   "pointID": String<Number>, // 打印点的唯一编号
+  "money": Number, // 总共花费金额，后端需再校验
   "files": [{ // Array<Object> 需打印的文件列表
     "fileID": String, // 文件 MD5 值
     "fileName": String, // 文件名
@@ -24,12 +25,6 @@ post entity body
     "startPage": Number, // 打印文档起始页
     "endPage": Number    // 打印文档终止页
   }],
-  "money": Number, // 总共花费金额，后端需再校验
-  "couponID": String<Number> || Null, // 优惠券ID, null 为没有使用优惠券
-  "reduction": { // Object 折扣活动
-    "newUser": Boolean || Number, // 新用户立减金额，false为新用户不减
-    "full": Array<Array(2)> // 满减活动，每一项为[满多少, 减多少]
-  },
   "dispatching": { // Object - 配送信息 全为空表示不配送
     "nickname": String, // 配送用户姓名
     "phone": String,// 用户手机号
@@ -41,10 +36,12 @@ post entity body
 // example
 {
   "pointID": "0026",
+  "money": 25,
   "files": [{
     "fileID": "A52B4686E173B0612B71148F7F9E099A",
     "fileName": "申报指南.docx",
-    "layout": 2,
+    "row": 1, 
+    "col": 2,
     "copies": 1,
     "size": "A4",
     "caliper": "70g",
@@ -53,12 +50,6 @@ post entity body
     "startPage": 0,
     "endPage": 0
   }],
-  "money": 25,
-  "couponID": 0,
-  "reduction": {
-    "newUser": false,
-    "full": []
-  },
   "dispatching": {
     "nickname": "",
     "phone": "",
@@ -111,56 +102,47 @@ Response:
 {
   "result": "OK",
   "info": {
-    "id": String, // 订单号
-    "orderSecret": String<Number>, // 订单 secret
-    "orderCode": String<Number>, // 订单 secret code
-    "pointType": String, // 所选打印点类型
-    "auth": String, // 用户权限标识
-    "status": "TOPAY", // 当前订单状态 将要支付"TOPAY"，正在支付"PAYING"，已支付"PAID"
-    "money": Number, // 同第0点中相同字段
-    "actualMoney": Number, // 实际需付金额
-    "pageCount": Number, // 总共页数
-    "orderDate": String<Number>, // 订单产生时间戳(毫秒)
-    "payMethod": String, // 支付方式  微信"WXPAY" 或 支付宝"ALIPAY"
-    "printDate": String<Number>,//支付时时间戳
-    "uid": String, // 用户ID
-    "username": String, // 用户名
-    "phone": String<Number>,// 用户手机号
-    "prePointID": String<Number>, // 同第0点中 pointId 字段
-    "pointName": String, // 打印点名称,
-    "printDate": String<Number>,// 打印时时间戳
-    "actualPointID": String<Number>,// 实际执行打印的点的ID
-    "actualPrintName": String,// 实际执行打印的点的名称
-    "printItemCount": { // Object 打印项目计数
-      "monoSingle": Number, // 黑白单页数量
-      "monoDuplex": Number, // 黑白双面数量
-      "colorfulSingle": Number,// 彩色单页数量
-      "colorfulDuplex": Number // 彩色双面数量
-    },
-    "basicPrintItem": { // Objcet 基础打印计费
-      "monoSingle": Number, // 黑白单页单价
-      "monoDuplex": Number  // 黑白双面单价
-    },
-    "firstFileName": String, // 文件列表中第一个文件的名字
-    "fileCount": Number, // 文件数量
+    "uid": String, // 下单用户 ID
+    "username": String, // 下单用户名
+    "nickname": String, // 下单用户姓名昵称
+    "orderID": String, // 订单号
+    "orderDate": Date, // 订单产生时间戳
+    "state": String,   // 当前订单交易状态，同支付 API 第 2 点 state 字段
+    "payWay": String,  // 支付方式，微信 "WXPAY" 或 支付宝 "ALIPAY"
+    "payDate": Date,   // 【可选】支付时间戳，未支付则无此项或此项为 null
+    "pointName": String, // 所选打印点名称
+    "printDate": Date,   // 【可选】打印时间戳，未打印则无此项或此项为 null
+    "pointID": String,   // 所选打印点 ID
+    "money": Number,     // 总共花费金额，同第 0 点 money 字段
     "files": [{ // Array<Object> 文件列表
-      "fileID": String, // 同第0点中相同字段
-      "fileName": String, // 同第0点中相同字段
-      "direction": Boolean, // true 表示文档竖直排版，false为横板
-      "layout": Number, // 同第0点中相同字段
-      "color": String,  // 同第0点中相同字段
-      "duplex": Number, // 同第0点中相同字段
-      "copies": Number, // 同第0点中相同字段
-      "canDownload": Boolean, // 是否可下载文件  true 表示可下载
-      "startPage": Number, // 同第0点中相同字段
-      "endPage": Number, // 同第0点中相同字段
-      "downloadUrl": String // 文件下载地址URL
+      "fileID": String, // 文件 MD5 值，同第 0 点中 fileID 字段
+      "fileName": String, // 文件名，同第 0 点中相同字段
+      "row": Number, // 同第 0 点中相同字段
+      "col": Number, // 同第 0 点中相同字段
+      "copies": Number, // 同第 0 点中相同字段
+      "size": Number, // 同第 0 点中相同字段
+      "caliper": String,// 同第 0 点中相同字段
+      "color": String,  // 同第 0 点中相同字段
+      "startPage": Number, // 同第 0 点中相同字段
+      "side": Number, // 同第 0 点中相同字段
+      "endPage": Number, // 同第 0 点中相同字段
+      "downloadable": Boolean, // 是否可下载文件  true 表示可下载
+      "downloadUrl": String // 【可选】文件下载地址URL
     }],
-    "exp": Number, // 用户可获得经验值
-    "coupon": Object || Null, // 优惠券信息
-    "dispatchingInfo": Object || Null, // 配送信息
-    "errSource": String, // 订单内部错误源
-    "errMsg": String // 订单内部错误提示信息
+    "dispatching": { // 【可选】配送信息，无此项或此项字段全为 null 则表示自取不配送
+      "nickname": String, // 同第 0 点中相同字段
+      "phone": String,// 同第 0 点中相同字段
+      "address": String,  // 同第 0 点中相同字段
+      "message": String // 同第 0 点中相同字段
+    },
+    "settle": [{ // Array<Object> 计费条目信息，应与 files 字段数据能对应
+      "size": Number, // 纸张大小，同第 0 点中相同字段
+      "caliper": String,// 纸张厚度，同第 0 点中相同字段
+      "color": String,  // 颜色模式，同第 0 点中相同字段
+      "side": Number, // 单双面
+      "unit": Number, // 单价金额
+      "count": Number // 该条目打印数量
+    }]
   }
 }
 
@@ -168,58 +150,50 @@ Response:
 {
   "result": "OK",
   "info": {
-    "id": "201708172723119316581112",
-    "orderSecret": "120717116541",
-    "orderCode": "61320401",
-    "pointType": "ATM",
-    "auth": "2411fba29cd8cc72f1ad5a103037fdf9",
-    "status": "TOPAY",
-    "money": 10,
-    "actualMoney": 10,
-    "pageCount": 1,
-    "orderDate": "1502983017322",
-    "payMethod": "",
-    "payDate": "",
-    "uid": "9bc65f5a98bd0e36ef4bdf81",
-    "username": "测试人",
-    "phone": "189xxxx1234",
-    "prePointID": "0001",
-    "pointName": "综合楼大厅",
-    "printDate": "",
-    "actualPointID": "",
-    "actualPointName": "",
-    "printItemCount": {
-      "monoSingle": 1,
-      "monoDuplex": 0,
-      "colorfulSingle": 0,
-      "colorfulDuplex": 0
-    },
-    "basicPrintItem": {
-      "monoSingle": 10,
-      "monoDuplex": 15
-    },
-    "firstFileName": "申报指南.docx",
-    "fileCount": 1,
+    "uid": "1fba29cd8cc72f1ad",
+    "username": "18945678900",
+    "nickname": "xxx",
+    "orderID": "2017081527671193112",
+    "orderDate": "1507110204020", // 订单产生时间戳
+    "state": "PAID",
+    "payWay": "ALIPAY",
+    "payDate": "1507110422525",
+    "pointName": "第一打印点",
+    "printDate": "1507110452525",
+    "pointID": "0026",
+    "money": 80,
     "files": [{
       "fileID": "3B052B46B7111286E48F7648F76E099A",
-      "fileName": "申报指南.docx",
-      "direction": true,
-      "pageCount_source": 1,
-      "pageCount_print": 1,
-      "sideCount_print": 1,
-      "layout": 1,
-      "printMethod": "monoDuplex",
+      "fileName": "保养指南.docx",
+      "row": 1,
+      "col": 2,
       "copies": 1,
-      "canDownload": true,
-      "startPage": 1,
-      "endPage": 1,
-      "downloadUrl": "/file/3B052B46B7111286E48F7648F76E099A.docx?OSSAccessKeyId=u0pANDsMY6yMrNPz&Expires=1502984817&Signature=t8TLCjeBp1kMqMRK4ZZVnHT8Gk4%3D"
+      "size": "A4",
+      "caliper": "70g",
+      "color": "colorful",
+      "side": 2
+      "startPage": 2,
+      "endPage": 4,
+      "downloadable": false, // 是否可下载文件  true 表示可下载
     }],
-    "exp": 24,
-    "coupon": null,
-    "dispatchingInfo": null,
-    "errSource": "",
-    "errMsg": ""
+    "settle": [
+      {
+        "size": "A4", // 纸张大小，同第 0 点中相同字段
+        "caliper": "70g",// 纸张厚度，同第 0 点中相同字段
+        "color": "colorful",  // 颜色模式，同第 0 点中相同字段
+        "side": 2, // 单双面
+        "unit": 50, // 单价金额
+        "count": 1 // 该条目打印数量
+      },
+      {
+        "size": "A4", // 纸张大小，同第 0 点中相同字段
+        "caliper": "70g",// 纸张厚度，同第 0 点中相同字段
+        "color": "colorful",  // 颜色模式，同第 0 点中相同字段
+        "side": 1, // 单双面
+        "unit": 30, // 单价金额
+        "count": 1 // 该条目打印数量
+      }
+    ]
   }
 }
 ```
