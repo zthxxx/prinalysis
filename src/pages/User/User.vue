@@ -15,7 +15,7 @@
 <script>
   import {mapState} from 'vuex'
   import userLeftBar from '@/components/UserLeftBar'
-  import manageBoard from '@/components/manageBoard'
+  import manageBoard from '@/components/ManageBoard'
 
   export default {
     name: 'user',

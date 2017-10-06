@@ -25,7 +25,7 @@ post entity body
     "startPage": Number, // 打印文档起始页
     "endPage": Number    // 打印文档终止页
   }],
-  "dispatching": { // Object - 配送信息 全为空表示不配送
+  "dispatching": { // Object - 【可选】配送信息，无此项表示自取不配送
     "nickname": String, // 配送用户姓名
     "phone": String,// 用户手机号
     "address": String,  // 配送地址
@@ -123,9 +123,10 @@ orderID: 订单号
   "orderID": String, // 订单号
   "orderDate": Date, // 订单产生时间戳
   "state": OrderState,   // 如上定义的当前订单状态
-  "payWay": String,  // 支付方式，微信 "WXPAY" 或 支付宝 "ALIPAY"
   "payDate": Date,   // 【可选】支付时间戳，未支付则无此项或此项为 null
+  "payway": String,  // 【可选】支付方式，同支付 API 第 0 点定义 payway，未支付则无此项
   "pointName": String, // 所选打印点名称
+  "pointPhone": String,// 【可选】打印点联系人电话号码
   "printDate": Date,   // 【可选】打印时间戳，未打印则无此项或此项为 null
   "pointID": String,   // 所选打印点 ID
   "money": Number,     // 总共花费金额，同第 0 点 money 字段
@@ -144,7 +145,7 @@ orderID: 订单号
     "downloadable": Boolean, // 是否可下载文件  true 表示可下载
     "downloadUrl": String // 【可选】文件下载地址URL
   }],
-  "dispatching": { // 【可选】配送信息，无此项或此项字段全为 null 则表示自取不配送
+  "dispatching": { // 【可选】配送信息，无此项则表示自取不配送
     "nickname": String, // 同第 0 点中相同字段
     "phone": String,// 同第 0 点中相同字段
     "address": String,  // 同第 0 点中相同字段
@@ -182,9 +183,10 @@ Response:
     "orderID": "2017081527671193112",
     "orderDate": "1507110204020",
     "state": "PAID",
-    "payWay": "ALIPAY",
     "payDate": "1507110422525",
+    "payway": "ALIPAY",
     "pointName": "第一打印点",
+    "pointPhone": "18945678901",
     "printDate": "1507110452525",
     "pointID": "0026",
     "money": 80,

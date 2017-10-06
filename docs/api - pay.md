@@ -54,7 +54,7 @@ GET:  /API/pay/QRCode
 Parameters:
 
 ```js
-size: 二维码大小，数字，单位px
+size: 二维码大小，数字，单位默认 px 
 uri: 二维码地址，即上一项获取的二维码地址参数
 ```
 
@@ -72,7 +72,7 @@ Parameters:
 
 ```js
 orderID: 订单号
-payway: 支付方式
+payway: 支付方式，同第 0 点定义
 ```
 
 描述：用于前端轮询查询该笔订单是否已支付完成

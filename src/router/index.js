@@ -6,7 +6,7 @@ Vue.use(Router);
 const home = () => import('@/pages/Home');
 const print = () => import('@/pages/Print');
 const user = () => import('@/pages/User');
-import orderList from '@/components/manageBoard/OrderList'
+import order from '@/components/ManageBoard/Order'
 
 const routes = [
   {
@@ -35,8 +35,8 @@ const routes = [
     children: [
       {
         path: 'order',
-        component: orderList,
-        meta: {header: orderList.header}
+        component: order,
+        meta: {header: order.header}
       }
     ]
   }

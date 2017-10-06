@@ -59,7 +59,7 @@ GET:  /API/point/points
 Parameters:
 
 ```js
-ID: String   // 表示具体地点的 ID
+ID: 表示具体地点的 ID
 
 // example
 /API/point/points?ID=xxx

@@ -20,9 +20,10 @@ module.exports = {
       'orderID': '@id',
       'orderDate': '@now(T)',
       'state|+1': ['PAYING', 'PAID', 'CANCEL', 'REFUNDING', 'REFUNDED'],
-      'payWay': 'ALIPAY',
+      'payway': 'ALIPAY',
       'payDate': '@now(T)',
       'pointName|1': ['@county()大楼点', '@county()广场点'],
+      'pointPhone': /\+861[358]\d{9}/,
       'printDate': '@now(T)',
       'pointID|+1': 1,
       'money': '@natural(50, 200)',
@@ -38,7 +39,8 @@ module.exports = {
         'side': '@natural(1, 2)',
         'startPage': '@natural(1, 2)',
         'endPage': '@natural(4, 6)',
-        'downloadable': false
+        'downloadable': '@boolean',
+        'downloadUrl': '@url'
       }],
       'settle|1-3': [{
         'size|1': ['A3', 'A4', 'A5'],

@@ -17,8 +17,7 @@
 </template>
 
 <script>
-  import moment from 'moment'
-  import {formatCNY} from '@/utils/tools'
+  import {formatCNY, formatDate, orderStateMap} from '@/utils/tools'
   export default {
     name: 'order-item',
     props: {
@@ -27,17 +26,7 @@
       }
     },
     data () {
-      return {
-        stateMap: {
-          PAYING: '待支付',
-          PAID: '已支付',
-          PRINTED: '待取件',
-          FINISH: '已取件',
-          CANCEL: '已取消',
-          REFUNDING: '待退款',
-          REFUNDED: '已退款'
-        }
-      }
+      return {}
     },
     methods: {
       select () {
@@ -46,10 +35,10 @@
     },
     computed: {
       state () {
-        return this.stateMap[this.order.state];
+        return orderStateMap[this.order.state];
       },
       date () {
-        return moment(Number(this.order.orderDate)).format('YYYY-MM-DD HH:MM');
+        return formatDate(this.order.orderDate);
       },
       money () {
         return formatCNY(this.order.money);

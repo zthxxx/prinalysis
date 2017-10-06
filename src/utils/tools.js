@@ -1,23 +1,60 @@
 import _ from 'lodash'
+import moment from 'moment'
 import crypto from 'crypto'
 import {mapState, mapMutations} from 'vuex'
 
 export const md5 = str => crypto.createHash('md5').update(str).digest('hex');
+
 /**
  * 把人名币分值格式化到元
  * @param cents {Number} 以分为单位的人名币数值
  * return 以元为单位的人名币数值
  */
-export const formatCNY = (cents) => new Intl.NumberFormat(
+export const formatCNY = cents => new Intl.NumberFormat(
   'zh-CN',
   {
     style: 'currency',
     currency: 'CNY'
   }).format(cents / 100);
 
+/**
+ * 格式化 UNXI 时间戳
+ * @param {string | number} timestamp - UNXI 时间戳，毫秒
+ * @return {string} - 年月日方式显示的时间
+ */
+export const formatDate = timestamp => moment(Number(timestamp)).format('YYYY-MM-DD HH:MM');
+
 export const sideMap = {
   oneside: 1,
   duplex: 2
+};
+
+export const printTypeMap = {
+  mono: '黑白',
+  colorful: '彩色',
+  '1': '单面',
+  '2': '双面'
+};
+
+/**
+ * 获取打印计费项目名称
+ * @param {string} size
+ * @param {string} caliper
+ * @param {string} color
+ * @param {string | number} side - 1 或 2
+ * @return {string} - 计费项目名
+ */
+export const getBillingItem = ({size, caliper, color, side}) =>
+  `${size} ${caliper}纸${printTypeMap[color]}${printTypeMap[side]}`;
+
+export const orderStateMap = {
+  PAYING: '待支付',
+  PAID: '已支付',
+  PRINTED: '待取件',
+  FINISH: '已取件',
+  CANCEL: '已取消',
+  REFUNDING: '待退款',
+  REFUNDED: '已退款'
 };
 
 export const checkset = (price, setting) => {

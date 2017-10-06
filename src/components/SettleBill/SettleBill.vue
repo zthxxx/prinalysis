@@ -61,7 +61,7 @@
 <script>
   import {mapState} from 'vuex'
   import _ from 'lodash'
-  import {formatCNY} from '@/utils/tools'
+  import {formatCNY, getBillingItem} from '@/utils/tools'
   import {verifyOrder} from '@/api'
   export default {
     name: 'settle-bill',
@@ -86,12 +86,6 @@
           phone: '',
           address: '',
           message: ''
-        },
-        typeMap: {
-          mono: '黑白',
-          colorful: '彩色',
-          '1': '单面',
-          '2': '双面'
         },
         formatCNY: formatCNY,
       }
@@ -132,7 +126,6 @@
       getItems () {
         let items = {};
         let units = {};
-        const typeMap = this.typeMap;
         const price = this.point.price;
         for (let file of this.fileList) {
           if (!file.print) continue;
@@ -141,7 +134,7 @@
           let {size, caliper, color} = setting;
           let sides = _.get(_.find(price, {size, caliper}), ['money', color]);
           if (!sides) return {items: {}, units: {}};
-          let prefix = side => `${size} ${caliper}纸${typeMap[color]}${typeMap[side]}`;
+          let prefix = side => getBillingItem({size, caliper, color, side});
           let oddType = prefix(1);
           let evenType = prefix(2);
           let [oneside, duplex] = this.calcSidesCount(setting);
@@ -166,14 +159,11 @@
           reduction: {
             newUser: false,
             full: []
-          },
-          dispatching: this.dispatch ? this.dispatching : {
-            nickname: '',
-            phone: '',
-            address: '',
-            message: ''
           }
         };
+        if (this.dispatch) {
+          order.dispatching = this.dispatching;
+        }
         return order;
       },
       async verifyOrder () {
