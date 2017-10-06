@@ -3,7 +3,10 @@
     <div class="content" key="user">
       <div class="user">
         <user-left-bar :user="user"></user-left-bar>
-        <manage-board></manage-board>
+        <manage-board>
+          <h1 slot="header">{{$route.meta.header}}</h1>
+          <router-view></router-view>
+        </manage-board>
       </div>
     </div>
   </transition>
@@ -13,6 +16,7 @@
   import {mapState} from 'vuex'
   import userLeftBar from '@/components/UserLeftBar'
   import manageBoard from '@/components/manageBoard'
+
   export default {
     name: 'user',
     data () {

@@ -6,6 +6,7 @@ Vue.use(Router);
 const home = () => import('@/pages/Home');
 const print = () => import('@/pages/Print');
 const user = () => import('@/pages/User');
+import orderList from '@/components/manageBoard/OrderList'
 
 const routes = [
   {
@@ -27,13 +28,17 @@ const routes = [
     name: 'library',
   },
   {
-    path: '/user/:id',
-    component: user,
-    name: 'user'
-  },
-  {
     path: '/user',
-    redirect: '/user/order'
+    redirect: '/user/order',
+    component: user,
+    name: 'user',
+    children: [
+      {
+        path: 'order',
+        component: orderList,
+        meta: {header: orderList.header}
+      }
+    ]
   }
 ];
 

@@ -16,11 +16,11 @@ Vue.use(filePreview);
 Vue.use(payBox);
 
 Vue.mixin({
-  router,
   store
 });
 
 new Vue({
   el: '#app',
+  router,
   render: h => h(App)
 });

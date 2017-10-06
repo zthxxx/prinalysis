@@ -52,7 +52,7 @@ module.exports = {
   },
   '/orders/info': {
     'result': 'OK',
-    'info': {
+    'info|0-7': [{
       'orderID': '@id',
       'orderDate': '@now(T)',
       'state|+1': ['PAYING', 'PAID', 'CANCEL', 'REFUNDING', 'REFUNDED'],
@@ -60,6 +60,17 @@ module.exports = {
       'pointName|1': ['@county()大楼点', '@county()广场点'],
       'fileCount': '@natural(1, 5)',
       'filePrename': '@csentence(3, 8).docx',
+    }]
+  },
+  '/orders/amount': {
+    'result': 'OK',
+    'info': {
+      'ALL': '@natural(3, 20)',
+      'PAYING': '@natural(1, 5)',
+      'PAID': '@natural(1, 5)',
+      'PRINTED': '@natural(1, 5)',
+      'FINISH': '@natural(1, 5)',
+      'REFUND': '@natural(1, 5)'
     }
   }
 };

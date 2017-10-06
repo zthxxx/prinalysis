@@ -100,6 +100,19 @@ orderID: 订单号
 
 ```js
 /**
+ * @param {string} state - 订单状态，有 7 种定义，包含支付的交易状态
+ * "PAYING"  未支付，正在等待支付
+ * "PAID"    已完成支付，但未打印，正在等待打印
+ * "PRINTED" 已完成打印，但未取件，等待配送或取件
+ * "FINISH"  完成取件
+ * "CANCEL"  取消订单（已支付的订单不可取消）
+ * "REFUNDING" 正在退款（已打印的订单不可退款）
+ * "REFUNDED" 已退款
+ */
+```
+
+```js
+/**
  * 订单详细信息对象
  * @typedef OrderDetail
  * @type {object}
@@ -110,7 +123,7 @@ orderID: 订单号
   "nickname": String, // 下单用户姓名昵称
   "orderID": String, // 订单号
   "orderDate": Date, // 订单产生时间戳
-  "state": String,   // 当前订单交易状态，同支付 API 第 2 点 state 字段
+  "state": String,   // 如上定义的当前订单交易状态
   "payWay": String,  // 支付方式，微信 "WXPAY" 或 支付宝 "ALIPAY"
   "payDate": Date,   // 【可选】支付时间戳，未支付则无此项或此项为 null
   "pointName": String, // 所选打印点名称
@@ -223,15 +236,13 @@ limits: Number // 查询列表分页中限制每页的最大条数
 page: Number // 表示查询第几分页，从 1 开始
 type: String // 表示限制查询某种状态类型的订单，具体状态如下
 /**
- * type 有 8 种
- * "ALL"     表示所有状态类型
- * "PAYING"  未支付，正在等待支付
- * "PAID"    已完成支付，但未打印，正在等待打印
- * "PRINTED" 已完成打印，但未取件，等待配送或取件
- * "FINISH"  完成取件
- * "CANCEL"  取消订单（已支付的订单不可取消）
- * "REFUNDING" 正在退款（已打印的订单不可退款）
- * "REFUNDED" 已退款
+ * 查询的 type 有 6 种类型，包含第 1 点中定义的状态，但多一种类型 ALL
+ * "ALL"     表示所有查询状态的订单
+ * "PAYING"  同第 1 点 state 中定义的相同字段
+ * "PAID"    同第 1 点 state 中定义的相同字段
+ * "PRINTED" 同第 1 点 state 中定义的相同字段
+ * "FINISH"  包括同第 1 点 state 中定义的 FINISH 和 CANCEL
+ * "REFUND"  包括同第 1 点 state 中定义的 REFUNDING 和 REFUNDED
  */
 ```
 
@@ -250,7 +261,7 @@ Response:
 {
   "orderID": String,   // 同第 1 点 OrderDetail 相同字段
   "orderDate": Date,   // 同第 1 点 OrderDetail 相同字段
-  "state": String,     // 同第 1 点 OrderDetail 相同字段
+  "state": String,     // 同第 1 点 state 定义
   "money": Number,     // 同第 1 点 OrderDetail 相同字段
   "pointName": String, // 同第 1 点 OrderDetail 相同字段
   "fileCount": Number, // 该订单包含文件数
@@ -279,5 +290,51 @@ Response:
     "filePrename": "保养指南.docx"
   }]
 }
+```
+
+## 3. 获取订单状态汇总统计
+
+GET:  /API/orders/amount
+
+描述：用于获取不同状态所有订单数量的统计
+
+Response:
+
+> 获取成功则返回不同状态的统计数量
+
+```js
+{
+  "result": "OK",
+  "info": {
+    "ALL": Number, // 该项状态中订单的数量，以下类型均同第 2 点中 type
+    "PAYING": Number,
+    "PAID": Number, 
+    "PRINTED": Number, 
+    "FINISH": Number, 
+    "REFUND": Number
+  }
+}
+```
+
+## 4. 各项状态间对应范围关系
+
+```
+    
+    trade        order/detail    orders/info query 
++-------------+ +------------+ +----------+-------+
+|  PAYING     | |  PAYING    | |  PAYING  |       |
++-------------+ +------------+ +----------+       |
+|  PAID       | |  PAID      | |  PAID    |       |
+|             | +------------+ +----------+       |
+|             | |  PRINTED   | |  PRINTED |       |
+|             | +------------+ +----------+       |
+|             | |  FINISH    | |  FINISH  |  ALL  |
++-------------+ +------------+ |          |       |
+|  CANCEL     | |  CANCEL    | |          |       |
++-------------+ +------------+ +----------+       |
+|  REFUNDING  | |  REFUNDING | |  REFUND  |       |
++-------------+ +------------+ |          |       |
+|  REFUNDED   | |  REFUNDED  | |          |       |
++-------------+ +------------+ +----------+-------+
 ```
 

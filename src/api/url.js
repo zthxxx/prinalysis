@@ -37,6 +37,8 @@ export const ORDER_DETAIL = `${BaseUrl}/order/detail`;
 
 export const ORDERS = `${BaseUrl}/orders/info`;
 
+export const ORDERS_AMOUNT = `${BaseUrl}/orders/amount`;
+
 
 export const PAYMENT = `${BaseUrl}/pay/payment`;
 
