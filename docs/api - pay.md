@@ -77,6 +77,13 @@ payway: 支付方式
 
 描述：用于前端轮询查询该笔订单是否已支付完成
 
+```js
+/**
+ * @typedef {string} TradeState - 支付状态，同订单 API 第 1 点中定义的订单状态
+ * @alias OrderState
+ */
+```
+
 Response:
 
 > 成功查询时，返回订单交易状态
@@ -85,16 +92,8 @@ Response:
 {
   "result": "OK" 
   "info": {
-    "state": String // 当前交易状态
+    "state": TradeState // 如上定义的当前交易状态
   }
 }
-/**
- * 交易状态有 5 种定义
- * "PAYING" 正在支付
- * "PAID"   已完成支付
- * "CANCEL" 取消订单
- * "REFUNDING" 正在退款
- * "REFUNDED" 已退款
- */
 ```
 
