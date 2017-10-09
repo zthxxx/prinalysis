@@ -38,6 +38,23 @@ cookies 携带 session 后台检测状态
 
 描述：检测当前链接是否登录
 
+```js
+/**
+ * 用户基础信息对象
+ * @typedef {object} UserBase
+ */
+{
+  "username": string, // 用户账号
+  "nickname": string, // 用户姓名昵称
+  "uid": string, // 用户 ID
+  "access": string, // 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者
+  "avatar": string, // 头像图片 url
+  "address": string, // 用户配送文件地址
+  "lastPointAddress": string[], // 上次下单的打印点位置，如 ["city", "address"]，数组每项应依次与打印点 API 第 0 点每一层相对应
+  "lastPoint": string, // 上次下单的打印点 ID - "1240-235-34"
+}
+```
+
 Response:
 
 > 未登录时返回 logining 状态
@@ -54,16 +71,7 @@ Response:
 ```js
 {
   "result": "OK",
-  "info": {
-    "username": string, // 用户账号
-    "nickname": string, // 用户姓名昵称
-    "uid": string, // 用户 ID
-    "access": string, // 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者
-    "avatar": string, // 头像图片 url
-    "address": string, // 用户配送文件地址
-    "lastPointAddress": string[], // 上次下单的打印点位置 - ["city", "address"]
-    "lastPoint": string, // 上次下单的打印点 ID - "1240-235-34"
-  }
+  "info": UserBase // 如上定义用户基础信息对象
 }
 ```
 
@@ -88,7 +96,7 @@ Response:
 
 > 登录时请求则返回错误
 
-## 3. 获取用户信息
+## 3. 获取用户详细信息
 
 GET: /API/user/info
 
@@ -102,13 +110,7 @@ Response:
 {
   "result": "OK",
   "info": {
-    "username": string, // 用户账号
-    "nickname": string, // 用户名
-    "uid": string, // 用户 ID
-    "access": string, // 身份权限角色，"user" | "vendor" | "manager"，对应 个人，商家 ，管理者
-    "phone": string, // 手机号，大陆应为 3+11 位 "+8612345678910"
-    "avatar": string, // 头像图片 url
-    "address": string, // 用户配送文件地址
+    ...UserBase, // 包含用户基础信息对象每个字段，且含义相同
     "createDate": Date, // 创建时间戳，Unix timestamp，毫秒
     "library": { // 文库信息
       "illegalCount": number, // 上传非法次数
@@ -246,6 +248,8 @@ Parameters:
 
 Response:
 
+> 此处后台应限制频率（默认 30s），超过频率返回错误，
+>
 > 请求成功返回 OK
 
 ```js

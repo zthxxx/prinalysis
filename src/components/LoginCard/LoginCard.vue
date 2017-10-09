@@ -74,32 +74,7 @@
             </template>
           </div>
         </el-form>
-        <el-form ref="captchaForm" class="login-content accept-content" :rules="rules" :model="form" v-else>
-          <div class="accept-container">
-            <el-button class="plain-button backButton" icon="arrow-left" @click="acceptCaptcha = false"></el-button>
-            <div class="accept-header">
-              <div class="accept-title">{{header.accept.title}}</div>
-              <div class="accept-subtitle">{{header.accept.subtitle}}</div>
-            </div>
-            <div class="login-flow">
-              <el-form-item class="flow-account accept-account" prop="username">
-                <el-input :value="`${country.code}${form.username}`" class="account" disabled></el-input>
-              </el-form-item>
-              <el-form-item class="flow-nickname" prop="captcha">
-                <el-input v-model="form.captcha" placeholder="请输入 6 位短信验证码" class="nickname">
-                  <span slot="append" class="await-time" v-if="awaitCaptcha">{{awaitCaptcha}} 秒后可重发</span>
-                  <el-button slot="append" class="switch-type" @click="accept" v-else>重新获取短信验证码</el-button>
-                </el-input>
-              </el-form-item>
-              <div class="login-options">
-                <el-button class="forget-pass">更换登录方式</el-button>
-              </div>
-              <div class="accept-footer-container">
-                <el-button class="submit enter" @click="signup">进入知书</el-button>
-              </div>
-            </div>
-          </div>
-        </el-form>
+        <captcha-card v-else :userform="requestForm" :back="backLogin" @signed="onSigned"></captcha-card>
       </div>
     </div>
   </modal-backdrop>
@@ -108,8 +83,9 @@
 <script>
   import {mapMutations} from 'vuex'
   import * as types from '@/store/mutation-types'
-  import {login, isRegisterable, requireSMS, signup} from '@/api'
+  import {login, isRegisterable} from '@/api'
   import modalBackdrop from '@/components/ModalBackdrop'
+  import captchaCard from './CaptchaCard'
   const countries = [
     {code: '+86', name: '中国', abbr: 'CN'},
     {code: '+1', name: '美国', abbr: 'US'},
@@ -144,7 +120,6 @@
         syssee: false,
         registerable: true,
         acceptCaptcha: false,
-        awaitCaptcha: 0,
         country: {code: '+86', name: '中国'},
         countries,
         rules: {
@@ -159,10 +134,6 @@
           nickname: [
             {required: true, message: '请输入姓名', trigger: 'blur'},
             {max: 20, message: '名字不能超过20位哦', trigger: 'blur'}
-          ],
-          captcha: [
-            {required: true, message: '请输入验证码', trigger: 'blur'},
-            {max: 6, message: '请输入 6 位验证码', trigger: 'blur'}
           ]
         },
         result: {
@@ -190,6 +161,9 @@
       signupMode () {
         this.mode = 'signup';
       },
+      backLogin () {
+        this.acceptCaptcha = false;
+      },
       async login () {
         this.$refs.loginForm.validate(valid => {
           if (!valid) throw new Error('login form not validated');
@@ -208,28 +182,13 @@
         }
       },
       async accept () {
-        if (!this.acceptCaptcha) {
-          this.$refs.loginForm.validate(valid => {
-            if (!valid) throw new Error('captcha form not validated');
-          });
-          await this.isRegisted(this.requestForm);
-        }
-        requireSMS(this.requestForm);
-        this.acceptCaptcha = true;
-        this.awaitCaptcha = 59;
-        let timeout = setInterval(() => {
-          if (this.awaitCaptcha <= 0) {
-            clearInterval(timeout);
-          } else {
-            this.awaitCaptcha--;
-          }
-        }, 1000);
-      },
-      async signup () {
-        this.$refs.captchaForm.validate(valid => {
-          if (!valid) throw new Error('signup form not validated');
+        this.$refs.loginForm.validate(valid => {
+          if (!valid) throw new Error('captcha form not validated');
         });
-        let user = await signup(this.requestForm);
+        await this.isRegisted(this.requestForm);
+        this.acceptCaptcha = true;
+      },
+      onSigned (user) {
         this[types.SET_USER](user);
         this.result.resolve('logined');
         this.close();
@@ -259,11 +218,10 @@
         }
       }
     },
-    components: {modalBackdrop}
+    components: {modalBackdrop, captchaCard}
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import './login-card'
-  @import './signup-card'
 </style>

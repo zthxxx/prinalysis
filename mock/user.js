@@ -7,10 +7,10 @@ const userBase = {
   'username': /\+861[358]\d{9}/,
   'nickname|1': ['@name', '@cname'],
   'uid': '@id',
-  'access': 'user',
+  'access': ['user', 'vendor', 'manager'],
   'avatar': randomAvatar,
   'address|1': ['', '@county(true) @csentence'],
-  'lastPointAddress': ['@province', '@city', '@county'],
+  'lastPointAddress': ['@province', '@city', '@county校区'],
   'lastPoint|+1': 1
 };
 
@@ -55,12 +55,7 @@ module.exports = {
   '/user/info': {
     result: 'OK',
     info: {
-      'username': /\+861[358]\d{9}/,
-      'nickname|1': ['@name', '@cname'],
-      'uid': '@id',
-      'access|1': ['user', 'vendor', 'manager'],
-      'avatar': randomAvatar,
-      'address': '@county(true) @csentence',
+      ...userBase,
       createDate: '@now(T)',
       library: {
         illegalCount: '@natural(0, 1)',

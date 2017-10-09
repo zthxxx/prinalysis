@@ -7,6 +7,7 @@ const home = () => import('@/pages/Home');
 const print = () => import('@/pages/Print');
 const user = () => import('@/pages/User');
 import order from '@/components/ManageBoard/Order'
+import personal from '@/components/ManageBoard/Personal'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
         path: 'order',
         component: order,
         meta: {header: order.header}
+      },
+      {
+        path: 'info',
+        component: personal,
+        meta: {header: personal.header}
       }
     ]
   }

@@ -1,7 +1,7 @@
 import {Random} from 'mockjs'
 import {md5} from '../src/utils/tools'
 
-const randomMD5 = () => md5(Random.csentence());
+const randomMD5 = () => md5(Random.ctitle());
 
 module.exports = {
   '/order/verify': {
@@ -29,7 +29,7 @@ module.exports = {
       'money': '@natural(50, 200)',
       'files|1-3': [{
         'fileID': randomMD5,
-        'fileName': '@csentence(3, 8).docx',
+        'fileName': '@ctitle(3, 8).docx',
         'row': '@natural(1, 2)',
         'col': '@natural(1, 3)',
         'copies': '@natural(1, 5)',
@@ -61,7 +61,7 @@ module.exports = {
       'money': '@natural(50, 200)',
       'pointName|1': ['@county()大楼点', '@county()广场点'],
       'fileCount': '@natural(1, 5)',
-      'filePrename': '@csentence(3, 8).docx',
+      'filePrename': '@ctitle(3, 8).docx',
     }]
   },
   '/orders/amount': {
