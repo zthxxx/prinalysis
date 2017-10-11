@@ -1,8 +1,8 @@
-import {get, post, paramPost} from '@/utils/fetch'
+import { get, post } from '@/utils/fetch'
 import * as API from './url'
 import statusIntercept from './wrapper'
 const _get = statusIntercept(get);
-const _post = statusIntercept(paramPost);
+const _post = statusIntercept(post);
 
 /**
  * 获取校园地址
@@ -147,8 +147,7 @@ export const getUserInfo = () => _get(API.USER_INFO);
 /**
  * 确认打印信息
  */
-export const verifyOrder = ({pointID, files, money, couponID, reduction, dispatching}) =>
-  _get(API.VERIFY, {pointID, files, money, couponID, reduction, dispatching});
+export const verifyOrder = ({order}) => _get(API.VERIFY, {order});
 
 /**
  * 获取订单详细信息

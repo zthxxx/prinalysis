@@ -6,8 +6,6 @@
 
 ?> API 中所用时间戳，如无特殊说明，均为 Unix timestamp，精确至毫秒。
 
-?> POST 参数如无特殊说明，均以 form-payload 的形式传参，即 `param={json}` ，其中 `param` 为固定参数键，实际参数为 json 对象字符串，不使用 urlencode 转义; 如 `param={"ID": 5, "name": "xxx"}` 。
-
 
 
 # 0. 统一错误请求返回

@@ -164,7 +164,7 @@
         if (this.dispatch) {
           order.dispatching = this.dispatching;
         }
-        return order;
+        return {order};
       },
       async verifyOrder () {
         if (!this.user) {
