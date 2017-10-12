@@ -5,15 +5,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 import './style/fontawesome-prefix.less';
 import App from './App.vue';
-import loginCard from '@/components/LoginCard';
-import filePreview from '@/components/FilePreview';
-import payBox from '@/components/PayBox';
+import popups from '@/components/Popups';
 
 Vue.use(ElementUI);
-
-Vue.use(loginCard);
-Vue.use(filePreview);
-Vue.use(payBox);
+Vue.use(popups);
 
 Vue.mixin({
   store

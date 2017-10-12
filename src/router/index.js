@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-Vue.use(Router);
-
 const home = () => import('@/pages/Home');
 const print = () => import('@/pages/Print');
 const user = () => import('@/pages/User');
 import order from '@/components/ManageBoard/Order';
 import personal from '@/components/ManageBoard/Personal';
+
+Vue.use(Router);
 
 const routes = [
   {
@@ -36,6 +36,7 @@ const routes = [
     children: [
       {
         path: 'order',
+        name: 'user-order',
         component: order,
         meta: { header: order.header }
       },

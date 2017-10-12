@@ -7,7 +7,7 @@
                   @close="close"
                   @paid="onpaid">
       </pay-dialog>
-      <paid-dialog v-else :money="money" :confirm="clearFiles"></paid-dialog>
+      <paid-dialog v-else :money="money" @confirm="clearFiles"></paid-dialog>
     </transition>
   </modal-backdrop>
 </template>

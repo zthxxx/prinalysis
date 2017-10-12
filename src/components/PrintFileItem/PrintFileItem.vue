@@ -216,33 +216,6 @@
         }
         return {};
       },
-      watch: {
-        setting: {
-          handler (newSetting) {
-            for (let key of _.keys(this.preSetting)) {
-              if (_.get(newSetting, key) !== this.preSetting[key]) {
-                this.$emit('update', {
-                  uid: this.file.uid,
-                  setting: newSetting
-                });
-                break;
-              }
-            }
-          },
-          deep: true
-        },
-        price: {
-          handler (newPrice) {
-            if (newPrice) {
-              this.setting = checkset(newPrice, this.setting);
-            }
-          },
-          deep: true
-        },
-        preSetting (newSetting) {
-          this.setting = { ...newSetting };
-        }
-      },
       sideable () {
         let setting = this.setting;
         let sideable = _.get(this.colorable, setting.color, {});
@@ -283,6 +256,33 @@
         return Math.ceil(
           (setting.endPage - setting.startPage + 1) / setting.side / this.layout
         ) * setting.copies;
+      }
+    },
+    watch: {
+      setting: {
+        handler (newSetting) {
+          for (let key of _.keys(this.preSetting)) {
+            if (_.get(newSetting, key) !== this.preSetting[key]) {
+              this.$emit('update', {
+                uid: this.file.uid,
+                setting: newSetting
+              });
+              break;
+            }
+          }
+        },
+        deep: true
+      },
+      price: {
+        handler (newPrice) {
+          if (newPrice) {
+            this.setting = checkset(newPrice, this.setting);
+          }
+        },
+        deep: true
+      },
+      preSetting (newSetting) {
+        this.setting = { ...newSetting };
       }
     }
   };

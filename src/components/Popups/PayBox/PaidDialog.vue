@@ -9,9 +9,9 @@
         </div>
         <div class="detail">（自取模式凭订单码即可到打印点取件，配送模式请等待商家配送）</div>
         <div class="footer">
-          <router-link :to="{path: '/user/order'}">
+          <!--<router-link :to="{path: '/user/order'}">-->
             <el-button type="primary" class="order" @click="confirm">查看订单详情</el-button>
-          </router-link>
+          <!--</router-link>-->
         </div>
       </div>
     </div>
@@ -19,22 +19,24 @@
 </template>
 
 <script>
-export default {
-  name: 'paid-dialog',
-  props: {
-    money: {
-      required: true,
-      type: String
+  export default {
+    name: 'paid-dialog',
+    props: {
+      money: {
+        required: true,
+        type: String
+      }
     },
-    confirm: {
-      required: true,
-      type: Function
+    data () {
+      return {};
+    },
+    methods: {
+      confirm () {
+        this.$emit('confirm');
+        this.$router.push({ name: 'user-order' });
+      }
     }
-  },
-  data () {
-    return {};
-  }
-};
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
