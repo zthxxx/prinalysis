@@ -231,6 +231,7 @@
       },
       paidRefresh () {
         this.updateFiles([]);
+        this.$router.push({ name: 'user-order' });
       }
     }
   };

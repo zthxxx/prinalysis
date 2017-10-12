@@ -91,11 +91,12 @@ export const getPreview = ({ md5, page, size, row, col }) => _get(API.PREVIEW, {
 
 /**
  * 用户账号登录
+ * @param {string} code - 手机号国际区号
  * @param {string} username - 用户名
  * @param {string} password - 用户密码，明文
  * @return {UserBase} - 用户基本信息对象
  */
-export const login = ({ username, password }) => _post(API.LOGIN, { username, password });
+export const login = ({ code, username, password }) => _post(API.LOGIN, { code, username, password });
 
 /**
  * 用户注销
@@ -118,25 +119,28 @@ export const getLoginQR = () => _get(API.QR_CODE);
 
 /**
  * 判断账户名是否可注册
+ * @param {string} code - 手机号国际区号
  * @param {string} username - 用户账户名
  */
-export const isRegisterable = ({ username }) => _get(API.REGISTERABLE, { username });
+export const isRegisterable = ({ code, username }) => _get(API.REGISTERABLE, { code, username });
 
 /**
  * 请求发送用户(注册 | 登录)短信验证码
+ * @param {string} code - 手机号国际区号
  * @param {string} username - 用户名（必须为手机号）
  */
-export const requireSMS = ({ username }) => _post(API.SMS_CAPTCHA, { username });
+export const requireSMS = ({ code, username }) => _post(API.SMS_CAPTCHA, { code, username });
 
 /**
  * 完成用户注册
+ * @param {string} code - 手机号国际区号
  * @param {string} username - 用户名
  * @param {string} password - 账户密码
  * @param {string} nickname - 用户姓名昵称
  * @param {string} captcha - 验证码
  * @return {UserBase}
  */
-export const signup = ({ username, password, nickname, captcha }) => _post(API.SIGNUP, { username, password, nickname, captcha });
+export const signup = ({ code, username, password, nickname, captcha }) => _post(API.SIGNUP, { code, username, password, nickname, captcha });
 
 /**
  * 获取用户详细信息

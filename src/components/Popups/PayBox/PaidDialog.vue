@@ -9,9 +9,7 @@
         </div>
         <div class="detail">（自取模式凭订单码即可到打印点取件，配送模式请等待商家配送）</div>
         <div class="footer">
-          <!--<router-link :to="{path: '/user/order'}">-->
-            <el-button type="primary" class="order" @click="confirm">查看订单详情</el-button>
-          <!--</router-link>-->
+          <el-button type="primary" class="order" @click="confirm">查看订单详情</el-button>
         </div>
       </div>
     </div>
@@ -33,7 +31,6 @@
     methods: {
       confirm () {
         this.$emit('confirm');
-        this.$router.push({ name: 'user-order' });
       }
     }
   };

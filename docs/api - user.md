@@ -44,6 +44,7 @@ cookies 携带 session 后台检测状态
  * @typedef {object} UserBase
  */
 {
+  "code": string,     // 手机号国际区号
   "username": string, // 用户账号
   "nickname": string, // 用户姓名昵称
   "uid": string, // 用户 ID
@@ -183,6 +184,7 @@ Parameters:
 
 ```js
 {
+  "code": string,     // 手机号国际区号
   "username": string, // 用户名
   "password": string  // 用户密码，明文
 }
@@ -219,6 +221,7 @@ GET: /API/user/registerable
 Parameters:
 
 ```js
+code: string,    // 手机号国际区号
 username: string // 用户名账号
 ```
 
@@ -242,6 +245,7 @@ Parameters:
 
 ```js
 {
+  "code": string,     // 手机号国际区号
   "username": string, // 用户名(且为手机号才可发送短信验证码)
 }
 ```
@@ -266,6 +270,7 @@ Parameters:
 
 ```js
 {
+  "code": string,     // 手机号国际区号
   "username": string, // 用户名
   "password": string, // 账户密码
   "nickname": string, // 用户姓名昵称

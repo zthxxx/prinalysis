@@ -7,7 +7,7 @@
                   @close="close"
                   @paid="onpaid">
       </pay-dialog>
-      <paid-dialog v-else :money="money" @confirm="clearFiles"></paid-dialog>
+      <paid-dialog v-else :money="money" @confirm="confirmPaid"></paid-dialog>
     </transition>
   </modal-backdrop>
 </template>
@@ -55,7 +55,7 @@
       onpaid () {
         this.paid = true;
       },
-      clearFiles () {
+      confirmPaid () {
         this.result.resolve('paid');
         this.close();
       }

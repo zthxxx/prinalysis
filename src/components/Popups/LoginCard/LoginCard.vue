@@ -166,7 +166,7 @@
       requestForm () {
         return {
           ...this.form,
-          username: this.fullaccount
+          code: this.country.code
         };
       }
     },
@@ -213,7 +213,7 @@
         this.$refs.loginForm.validate(valid => {
           if (!valid) throw new Error('captcha form not validated');
         });
-        await this.isRegisted(this.requestForm);
+        await this.isRegisted();
         this.acceptCaptcha = true;
       },
       onSigned (user) {

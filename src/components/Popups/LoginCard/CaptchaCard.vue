@@ -8,7 +8,7 @@
       </div>
       <div class="login-flow">
         <el-form-item class="flow-account accept-account">
-          <el-input :value="form.username" class="account" disabled></el-input>
+          <el-input :value="`${form.code}${form.username}`" class="account" disabled></el-input>
         </el-form-item>
         <el-form-item class="flow-nickname" prop="captcha">
           <el-input v-model="form.captcha" placeholder="请输入 6 位短信验证码" class="nickname">
