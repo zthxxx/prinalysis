@@ -59,6 +59,7 @@
     "css-loader": "^0.28.0",
     "eslint": "^4.8.0",
     "eslint-config-alloy": "^1.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^3.13.1",
     "eventsource-polyfill": "^0.9.6",
