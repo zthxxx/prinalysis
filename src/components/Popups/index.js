@@ -12,4 +12,3 @@ export default Vue => {
     asyncGlobalMountInstaller(loader, handle)(Vue);
   }
 };
-

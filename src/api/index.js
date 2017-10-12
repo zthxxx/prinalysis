@@ -147,7 +147,9 @@ export const getUserInfo = () => _get(API.USER_INFO);
 /**
  * 确认打印信息
  */
-export const verifyOrder = ({ order }) => _get(API.VERIFY, { order });
+export const verifyOrder = ({ pointID, files, money, ...dispatching }) => _post(
+  API.VERIFY, { pointID, files, money, ...dispatching }
+);
 
 /**
  * 获取订单详细信息

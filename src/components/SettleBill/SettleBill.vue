@@ -209,16 +209,11 @@
             ...file.print
           })),
           money: this.finalMoney.amount,
-          couponID: null,
-          reduction: {
-            newUser: false,
-            full: []
-          }
         };
         if (this.dispatch) {
           order.dispatching = this.dispatching;
         }
-        return { order };
+        return order;
       },
       async verifyOrder () {
         if (!this.user) {

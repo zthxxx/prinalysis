@@ -10,28 +10,26 @@ post entity body
 
 ```js
 {
-  "order": {
-    "pointID": String<Number>, // 打印点的唯一编号
-    "money": Number, // 总共花费金额，后端需再校验
-    "files": [{ // Array<Object> 需打印的文件列表
-      "fileID": String, // 文件 MD5 值
-      "fileName": String, // 文件名
-      "row": Number, // 多合一打印下每行几份
-      "col": Number, // 多合一打印下每列几份
-      "copies": Number, // 打印份数
-      "size": String,   // 页面大小，如 "A4" "A3" 之类
-      "caliper": String,// 纸张厚度，如 "70g" "80g" 等
-      "color": String,  // 打印颜色模式， "mono"为黑白打印，"colorful"为彩色打印
-      "side": Number, // 单双面设置，值为1是单面打印， 2为双面打印
-      "startPage": Number, // 打印文档起始页
-      "endPage": Number    // 打印文档终止页
-    }],
-    "dispatching": { // Object - 【可选】配送信息，无此项表示自取不配送
-      "nickname": String, // 配送用户姓名
-      "phone": String,// 用户手机号
-      "address": String,  // 配送地址
-      "message": String // 用户留言
-    }
+  "pointID": String<Number>, // 打印点的唯一编号
+  "money": Number, // 总共花费金额，后端需再校验
+  "files": [{ // Array<Object> 需打印的文件列表
+    "fileID": String, // 文件 MD5 值
+    "fileName": String, // 文件名
+    "row": Number, // 多合一打印下每行几份
+    "col": Number, // 多合一打印下每列几份
+    "copies": Number, // 打印份数
+    "size": String,   // 页面大小，如 "A4" "A3" 之类
+    "caliper": String,// 纸张厚度，如 "70g" "80g" 等
+    "color": String,  // 打印颜色模式， "mono"为黑白打印，"colorful"为彩色打印
+    "side": Number, // 单双面设置，值为1是单面打印， 2为双面打印
+    "startPage": Number, // 打印文档起始页
+    "endPage": Number    // 打印文档终止页
+  }],
+  "dispatching": { // Object - 【可选】配送信息，无此项表示自取不配送
+    "nickname": String, // 配送用户姓名
+    "phone": String,// 用户手机号
+    "address": String,  // 配送地址
+    "message": String // 用户留言
   }
 }
 ```
@@ -39,28 +37,26 @@ post entity body
 ```js
 // verify request param example
 {
-  "order": {
-    "pointID": "0026",
-    "money": 25,
-    "files": [{
-      "fileID": "A52B4686E173B0612B71148F7F9E099A",
-      "fileName": "申报指南.docx",
-      "row": 1, 
-      "col": 2,
-      "copies": 1,
-      "size": "A4",
-      "caliper": "70g",
-      "color": "mono",
-      "side": 1,
-      "startPage": 0,
-      "endPage": 0
-    }],
-    "dispatching": {
-      "nickname": "",
-      "phone": "",
-      "address": "",
-      "message": ""
-    }
+  "pointID": "0026",
+  "money": 25,
+  "files": [{
+    "fileID": "A52B4686E173B0612B71148F7F9E099A",
+    "fileName": "申报指南.docx",
+    "row": 1, 
+    "col": 2,
+    "copies": 1,
+    "size": "A4",
+    "caliper": "70g",
+    "color": "mono",
+    "side": 1,
+    "startPage": 0,
+    "endPage": 0
+  }],
+  "dispatching": {
+    "nickname": "",
+    "phone": "",
+    "address": "",
+    "message": ""
   }
 }
 ```
