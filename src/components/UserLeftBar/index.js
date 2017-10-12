@@ -1,1 +1,1 @@
-export {default} from './UserLeftBar'
+export { default } from './UserLeftBar';

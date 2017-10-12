@@ -12,9 +12,6 @@
 <script>
   export default {
     name: 'box-card',
-    data () {
-      return {}
-    },
     props: {
       title: {
         type: String,
@@ -24,8 +21,11 @@
         type: Boolean,
         default: false
       }
+    },
+    data () {
+      return {};
     }
-  }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

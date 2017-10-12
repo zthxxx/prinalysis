@@ -6,13 +6,16 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
-  import * as types from '@/store/mutation-types'
-  import {checkLogin} from '@/api'
-  import headerTop from '@/components/HeaderTop'
+  import { mapMutations } from 'vuex';
+  import * as types from '@/store/mutation-types';
+  import { checkLogin } from '@/api';
+  import headerTop from '@/components/HeaderTop';
+
   export default {
+    name: 'app',
+    components: { headerTop },
     data () {
-      return {}
+      return {};
     },
     mounted () {
       this.initData();
@@ -25,9 +28,8 @@
           this[types.SET_USER](state);
         }
       }
-    },
-    components: {headerTop}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

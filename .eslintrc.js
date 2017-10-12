@@ -1,48 +1,74 @@
 // http://eslint.org/docs/user-guide/configuring
-
+// https://stackoverflow.com/questions/41735890/how-to-make-webstorm-format-code-according-to-eslint
 module.exports = {
-  root: true,
-  parser: 'babel-eslint',
-  parserOptions: {
-    sourceType: 'module'
-  },
-  env: {
-    es6: true,
-    node: true,
-    browser: true
-  },
-  // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: 'eslint:recommended',
-  // required to lint *.vue files
-  plugins: [
-    'html'
+  extends: [
+    // https://github.com/AlloyTeam/eslint-config-alloy/blob/master/index.js
+    // https://github.com/AlloyTeam/eslint-config-alloy/blob/master/vue.js
+    'eslint-config-alloy/vue',
   ],
-  // check if imports actually resolve
-  'settings': {
-    'import/resolver': {
-      'webpack': {
-        'config': 'build/webpack.base.conf.js'
-      }
-    }
+  parserOptions: {
+    ecmaVersion: 2017,
+    sourceType: 'module',
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+      jsx: true,
+      modules: true
+    },
+    parser: 'babel-eslint',
+    allowImportExportEverywhere: true,
+    codeFrame: false
   },
-  // add your custom rules here
-  'rules': {
-    // allow paren-less arrow functions
-    'arrow-parens': 0,
-    // allow async-await
-    'generator-star-spacing': 0,
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'indent': ['error', 2],
+  rules: {
+    /**
+     * this ref to editorconfig
+     */
+    // https://eslint.org/docs/rules/eol-last
+    'eol-last': ['error', 'always'],
+    // indent bug in <script> https://github.com/vuejs/eslint-plugin-vue/issues/118
+    'indent': 'off',
+    'indent-legacy': ['error', 2],
+    // https://eslint.org/docs/rules/linebreak-style
     'linebreak-style': ['error', 'unix'],
-    'quotes': ['error', 'single'],
-    'no-console': ["error", { allow: ["info", "warn", "error"] }]
-  },
-  'globals': {
-    'require': true,
-    "expect": true,
-    "sinon": true,
-    "exports": true,
-    "module": true
+    // https://eslint.org/docs/rules/unicode-bom
+    'unicode-bom': ['error', 'never'],
+
+    /**
+     * this are link style
+     */
+    // https://eslint.org/docs/rules/eqeqeq
+    'eqeqeq': 'off',
+    // https://eslint.org/docs/rules/guard-for-in
+    'guard-for-in': 'off',
+    'no-alert': 'error',
+    // https://eslint.org/docs/rules/no-empty-function
+    'no-empty-function': 'off',
+    // https://eslint.org/docs/rules/no-param-reassign
+    'no-param-reassign': 'off',
+    // https://eslint.org/docs/rules/prefer-promise-reject-errors
+    'prefer-promise-reject-errors': ['error', { 'allowEmptyReject': true }],
+    // https://eslint.org/docs/rules/no-shadow
+    'no-shadow': 'off',
+    // https://eslint.org/docs/rules/line-comment-position
+    'line-comment-position': ['error', { 'position': 'above' }],
+    // https://eslint.org/docs/rules/object-curly-spacing
+    'object-curly-spacing': [
+      'error',
+      'always',
+      {
+        arraysInObjects: true,
+        objectsInObjects: true
+      }
+    ],
+    // https://eslint.org/docs/rules/space-before-function-paren
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'always',
+        named: 'always',
+        asyncArrow: 'always'
+      }
+    ],
+    // https://eslint.org/docs/rules/no-confusing-arrow
+    'no-confusing-arrow': ['error', { 'allowParens': true }]
   }
 };

@@ -1,7 +1,7 @@
-import _ from 'lodash'
-import moment from 'moment'
-import crypto from 'crypto'
-import {mapState, mapMutations} from 'vuex'
+import _ from 'lodash';
+import moment from 'moment';
+import crypto from 'crypto';
+import { mapState, mapMutations } from 'vuex';
 
 export const md5 = str => crypto.createHash('md5').update(str).digest('hex');
 
@@ -44,7 +44,7 @@ export const printTypeMap = {
  * @param {string | number} side - 1 或 2
  * @return {string} - 计费项目名
  */
-export const getBillingItem = ({size, caliper, color, side}) =>
+export const getBillingItem = ({ size, caliper, color, side }) =>
   `${size} ${caliper}纸${printTypeMap[color]}${printTypeMap[side]}`;
 
 export const orderStateMap = {
@@ -62,14 +62,14 @@ export const checkset = (price, setting) => {
   let checks = ['color', 'side'];
   let reset = {};
   let types = null;
-  price.map(({size, caliper, money}) => {
+  price.map(({ size, caliper, money }) => {
     if (setting['size'] == size && setting['caliper'] == caliper) {
       types = money;
     }
   });
   if (!types) {
-    let {size, caliper, money} = price[0];
-    reset = {size, caliper};
+    let { size, caliper, money } = price[0];
+    reset = { size, caliper };
     types = money;
   }
   for (let key of checks) {
@@ -86,7 +86,7 @@ export const checkset = (price, setting) => {
   return {
     ...setting,
     ...reset
-  }
+  };
 };
 
 export const presetPrint = (pageInfo, point) => {
@@ -136,7 +136,7 @@ export const throttle = (func, rate) => {
     } else {
       timeout = setTimeout(() => func(...args), rate);
     }
-  }
+  };
 };
 
 /**
@@ -150,13 +150,13 @@ export const mapModel = (namespace, states = namespace) => {
   let maps = {};
   if (_.isArray(states)) {
     let statemaps = {};
-    states.map(x => statemaps[x] = x);
+    states.forEach(x => { statemaps[x] = x });
     states = statemaps;
   }
   for (let state in states) {
     let mutation = states[state];
-    let gets = [{get: state}];
-    let sets = [{set: mutation}];
+    let gets = [{ get: state }];
+    let sets = [{ set: mutation }];
     if (_.isString(namespace)) {
       gets.unshift(namespace);
       sets.unshift(namespace);
@@ -164,7 +164,7 @@ export const mapModel = (namespace, states = namespace) => {
     maps[state] = {
       ...mapState(...gets),
       ...mapMutations(...sets)
-    }
+    };
   }
   return maps;
 };
@@ -179,8 +179,8 @@ export const mapModel = (namespace, states = namespace) => {
 export const globalPopupInstaller = (component, handle) => Vue => {
   Vue.prototype[handle] = (propsData = {}) => {
     let constructor = Vue.extend(component);
-    let instance = new constructor({propsData});
+    let instance = new constructor({ propsData });
     document.body.append(instance.$mount().$el);
     return instance.open();
-  }
+  };
 };

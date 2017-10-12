@@ -18,13 +18,15 @@
 </template>
 
 <script>
-  import _ from 'lodash'
-  import shopPointCard from './ShopPointCard.vue'
+  import _ from 'lodash';
+  import shopPointCard from './ShopPointCard.vue';
+
   export default {
     name: 'shop-point-list',
     model: {
       prop: 'focusPoint'
     },
+    components: { shopPointCard },
     props: {
       focusPoint: {
         type: null
@@ -37,16 +39,15 @@
     data () {
       return {
         selectedID: _.get(this.focusPoint, 'id', null)
-      }
+      };
     },
     methods: {
       selectPoint (focusPoint) {
         this.selectedID = _.get(focusPoint, 'id', null);
         this.$emit('input', focusPoint);
       }
-    },
-    components: {shopPointCard}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

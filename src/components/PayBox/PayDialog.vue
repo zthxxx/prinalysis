@@ -31,8 +31,8 @@
 </template>
 
 <script>
-  import {weixinPayIcon, aliPayIcon, QRCodeIcon} from '@/assets/img/pay'
-  import {getPayment, getTrade} from '@/api'
+  import { weixinPayIcon, aliPayIcon, QRCodeIcon } from '@/assets/img/pay';
+  import { getPayment, getTrade } from '@/api';
 
   const WXPAY = 'WXPAY';
   const ALIPAY = 'ALIPAY';
@@ -63,7 +63,7 @@
         QRCode: '',
         payform: '',
         polling: null
-      }
+      };
     },
     beforeDestroy () {
       console.warn('clear polling');
@@ -74,16 +74,16 @@
         this.$emit('close');
       },
       async getWeixinpay () {
-        let {orderID, payway} = this;
+        let { orderID, payway } = this;
         this.payway = WXPAY;
-        let {QRCode} = await getPayment({orderID, payway});
+        let { QRCode } = await getPayment({ orderID, payway });
         this.QRCode = QRCode;
         this.queryTrade();
       },
       async getAlipay () {
-        let {orderID, payway} = this;
+        let { orderID, payway } = this;
         this.payway = ALIPAY;
-        let {payform} = await getPayment({orderID, payway});
+        let { payform } = await getPayment({ orderID, payway });
         this.payform = payform;
         this.queryTrade();
       },
@@ -92,10 +92,10 @@
         clearTimeout(this.polling);
       },
       async queryTrade () {
-        let {orderID, payway} = this;
+        let { orderID, payway } = this;
         console.info(orderID, payway);
         this.polling = setTimeout(this.queryTrade, 1000);
-        let {state} = await getTrade({orderID, payway});
+        let { state } = await getTrade({ orderID, payway });
         console.warn(state);
         if (state == 'PAID') {
           this.$notify.success({
@@ -105,10 +105,8 @@
           this.$emit('paid');
         }
       }
-    },
-    computed: {},
-    components: {}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

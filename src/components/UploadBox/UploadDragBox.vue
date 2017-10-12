@@ -17,7 +17,7 @@
     props: {
       disabled: Boolean
     },
-    data() {
+    data () {
       return {
         dragover: false
       };

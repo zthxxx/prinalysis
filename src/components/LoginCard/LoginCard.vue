@@ -81,16 +81,17 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
-  import * as types from '@/store/mutation-types'
-  import {login, isRegisterable} from '@/api'
-  import modalBackdrop from '@/components/ModalBackdrop'
-  import captchaCard from './CaptchaCard'
+  import { mapMutations } from 'vuex';
+  import * as types from '@/store/mutation-types';
+  import { login, isRegisterable } from '@/api';
+  import modalBackdrop from '@/components/ModalBackdrop';
+  import captchaCard from './CaptchaCard';
+
   const countries = [
-    {code: '+86', name: '中国', abbr: 'CN'},
-    {code: '+1', name: '美国', abbr: 'US'},
-    {code: '+81', name: '日本', abbr: 'JP'},
-    {code: '+886', name: '中国台湾', abbr: 'TW'}
+    { code: '+86', name: '中国', abbr: 'CN' },
+    { code: '+1', name: '美国', abbr: 'US' },
+    { code: '+81', name: '日本', abbr: 'JP' },
+    { code: '+886', name: '中国台湾', abbr: 'TW' }
   ];
   const header = {
     login: {
@@ -108,6 +109,7 @@
   };
   export default {
     name: 'login-card',
+    components: { modalBackdrop, captchaCard },
     data () {
       return {
         visible: false,
@@ -120,26 +122,52 @@
         syssee: false,
         registerable: true,
         acceptCaptcha: false,
-        country: {code: '+86', name: '中国'},
+        country: { code: '+86', name: '中国' },
         countries,
         rules: {
           username: [
-            {required: true, message: '请输入手机号', trigger: 'blur'},
-            {pattern: /^[0-9]{11}$/, message: '请输入正确长度的手机号', trigger: 'blur'}
+            { required: true, message: '请输入手机号', trigger: 'blur' },
+            { pattern: /^[0-9]{11}$/, message: '请输入正确长度的手机号', trigger: 'blur' }
           ],
           password: [
-            {required: true, message: '请输入密码', trigger: 'blur'},
-            {min: 8, max: 20, message: '请输入8-20位密码', trigger: 'blur'}
+            { required: true, message: '请输入密码', trigger: 'blur' },
+            { min: 8, max: 20, message: '请输入8-20位密码', trigger: 'blur' }
           ],
           nickname: [
-            {required: true, message: '请输入姓名', trigger: 'blur'},
-            {max: 20, message: '名字不能超过20位哦', trigger: 'blur'}
+            { required: true, message: '请输入姓名', trigger: 'blur' },
+            { max: 20, message: '名字不能超过20位哦', trigger: 'blur' }
           ]
         },
         result: {
-          resolve () {},
-          reject () {}
+          resolve () {
+          },
+          reject () {
+          }
         }
+      };
+    },
+    computed: {
+      prefix: {
+        get () {
+          return JSON.stringify(this.country);
+        },
+        set (value) {
+          this.country = JSON.parse(value);
+        }
+      },
+      prefixWidth () {
+        const wordWidth = 16;
+        let { name, code } = this.country;
+        return name.length * wordWidth + code.length * wordWidth / 2 + 16;
+      },
+      fullaccount () {
+        return `${this.country.code}${this.form.username}`;
+      },
+      requestForm () {
+        return {
+          ...this.form,
+          username: this.fullaccount
+        };
       }
     },
     methods: {
@@ -147,8 +175,8 @@
       open () {
         this.visible = true;
         return new Promise((resolve, reject) => {
-          this.result = {resolve, reject};
-        })
+          this.result = { resolve, reject };
+        });
       },
       close () {
         this.result.reject();
@@ -193,33 +221,8 @@
         this.result.resolve('logined');
         this.close();
       }
-    },
-    computed: {
-      prefix: {
-        get () {
-          return JSON.stringify(this.country);
-        },
-        set (value) {
-          this.country = JSON.parse(value);
-        }
-      },
-      prefixWidth () {
-        const wordWidth = 16;
-        let {name, code} = this.country;
-        return name.length * wordWidth + code.length * wordWidth / 2 + 16
-      },
-      fullaccount () {
-        return `${this.country.code}${this.form.username}`
-      },
-      requestForm () {
-        return {
-          ...this.form,
-          username: this.fullaccount
-        }
-      }
-    },
-    components: {modalBackdrop, captchaCard}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

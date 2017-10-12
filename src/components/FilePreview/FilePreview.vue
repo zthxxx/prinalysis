@@ -10,9 +10,11 @@
 </template>
 
 <script>
-  import previewMask from './PreviewMask.vue'
+  import previewMask from './PreviewMask.vue';
+
   export default {
     name: 'file-preview',
+    components: { previewMask },
     props: {
       price: {
         type: null,
@@ -24,24 +26,24 @@
       },
       updateSetting: {
         type: Function,
-        default: () => {}
+        default: () => {
+        }
       }
     },
     data () {
       return {
         preview: false
-      }
+      };
     },
     methods: {
       open () {
-        this.preview = true
+        this.preview = true;
       },
       close () {
         this.preview = false;
         this.$nextTick(this.$destroy);
       }
-    },
-    components: {previewMask}
-  }
+    }
+  };
 </script>
 

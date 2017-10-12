@@ -33,12 +33,14 @@
 </template>
 
 <script>
-  import _ from 'lodash'
-  import uploadDragBox from './UploadDragBox'
-  import getFileMD5 from '@/utils/getFileMD5'
-  import {getPage, getFileURL} from '@/api'
+  import _ from 'lodash';
+  import uploadDragBox from './UploadDragBox';
+  import getFileMD5 from '@/utils/getFileMD5';
+  import { getPage, getFileURL } from '@/api';
+
   export default {
     name: 'upload-box',
+    components: { uploadDragBox },
     props: {
       sizeKbLimit: {
         type: Number,
@@ -57,7 +59,7 @@
         action: '',
         payload: {},
         supportFormat: ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf']
-      }
+      };
     },
     methods: {
       transmitFiles (rawFiles) {
@@ -66,14 +68,14 @@
       transmitRemove (file) {
         this.$refs.uploader.handleRemove(file);
       },
-      async getUploadURL ({md5, name}) {
-        let {url} = await getFileURL({md5, name});
+      async getUploadURL ({ md5, name }) {
+        let { url } = await getFileURL({ md5, name });
         this.action = url;
       },
       async setPageInfo (file) {
         if (file.status == 'success' && !_.has(file, 'pageInfo')) {
           console.warn('successed change', file);
-          this.$set(file, 'pageInfo', await getPage({md5: file.raw.md5, name: file.name}));
+          this.$set(file, 'pageInfo', await getPage({ md5: file.raw.md5, name: file.name }));
         }
       },
       fileSizeLimit (rawFile, sizeKb) {
@@ -109,7 +111,7 @@
         let check = await getPage(rawFile);
         if (check.result == 'EXISTED') {
           console.warn('exist', rawFile.name, rawFile.md5);
-          rawFile.pageInfo = {pageCount: check.pageCount, direction: check.direction};
+          rawFile.pageInfo = { pageCount: check.pageCount, direction: check.direction };
           this.$refs.uploader.handleStart(rawFile);
           throw new Error('stop-upload File existed');
         }
@@ -131,12 +133,12 @@
         }
       },
       onProgress (event, file) {
-        let {loaded, total, timeStamp} = event;
-        let last = _.get(file, 'loaded', {loaded, total, timeStamp});
+        let { loaded, total, timeStamp } = event;
+        let last = _.get(file, 'loaded', { loaded, total, timeStamp });
         let speed = timeStamp > last.timeStamp ?
           ((loaded - last.loaded) / 1024) / ((timeStamp - last.timeStamp) / 1000) : 0;
         let remain = ((total - loaded) / 1024) / speed;
-        this.$set(file, 'loaded', {loaded, timeStamp});
+        this.$set(file, 'loaded', { loaded, timeStamp });
         this.$set(file, 'speed', speed.toFixed(2));
         this.$set(file, 'remain', remain.toFixed(0));
       },
@@ -151,9 +153,8 @@
         console.warn('remove', file);
         this.updateFiles(fileList);
       }
-    },
-    components: {uploadDragBox}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

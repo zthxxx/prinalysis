@@ -17,7 +17,8 @@
 </template>
 
 <script>
-  import {formatCNY, formatDate, orderStateMap} from '@/utils/tools'
+  import { formatCNY, formatDate, orderStateMap } from '@/utils/tools';
+
   export default {
     name: 'order-item',
     props: {
@@ -26,12 +27,7 @@
       }
     },
     data () {
-      return {}
-    },
-    methods: {
-      select () {
-        this.$emit('selected', this.order.orderID);
-      }
+      return {};
     },
     computed: {
       state () {
@@ -47,8 +43,12 @@
         return this.order.filePrename.slice(0, 15);
       }
     },
-    components: {}
-  }
+    methods: {
+      select () {
+        this.$emit('selected', this.order.orderID);
+      }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import _ from 'lodash'
-import {presetPrint} from '@/utils/tools'
-import * as types from '../mutation-types'
+import Vue from 'vue';
+import _ from 'lodash';
+import { presetPrint } from '@/utils/tools';
+import * as types from '../mutation-types';
 
 // initial state
 export const state = {
@@ -30,7 +30,7 @@ export const mutations = {
     }
     state.fileList = fileList;
   },
-  [types.SET_PRINTING] (state, {uid, setting}) {
+  [types.SET_PRINTING] (state, { uid, setting }) {
     let files = state.fileList;
     for (let [index, file] of files.entries()) {
       if (file.uid == uid) {
@@ -46,4 +46,4 @@ export default {
   namespaced: true,
   state,
   mutations
-}
+};

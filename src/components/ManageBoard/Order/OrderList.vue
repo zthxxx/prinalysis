@@ -31,14 +31,14 @@
 </template>
 
 <script>
-  import {getOrder, amountOrders, getOrders} from '@/api'
-  import orderItem from './OrderItem'
-  import orderDetail from './OrderDetail'
+  import { getOrder, amountOrders, getOrders } from '@/api';
+  import orderItem from './OrderItem';
+  import orderDetail from './OrderDetail';
 
   export default {
     name: 'order-list',
     header: '我的订单',
-    props: {},
+    components: { orderItem, orderDetail },
     data () {
       return {
         amount: {
@@ -54,41 +54,39 @@
         type: 'ALL',
         orders: [],
         order: null
-      }
+      };
     },
     async created () {
       this.amount = await amountOrders();
       this.getOrders();
     },
     methods: {
-      async getOrders() {
+      async getOrders () {
         this.orders = await getOrders({
           limits: this.pageSize,
           page: this.page,
           type: this.type
-        })
+        });
       },
-      handleSelect(type) {
+      handleSelect (type) {
         this.page = 1;
         this.type = type;
         this.getOrders();
       },
-      handleCurrentChange(page) {
+      handleCurrentChange (page) {
         console.info(`当前页: ${page}`);
         this.getOrders();
       },
       async checkOrder (orderID) {
-        let order = await getOrder({orderID});
+        let order = await getOrder({ orderID });
         console.info(order);
         this.order = order;
       },
       onback () {
         this.order = null;
       }
-    },
-    computed: {},
-    components: {orderItem, orderDetail}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

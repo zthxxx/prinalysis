@@ -1,1 +1,1 @@
-export {default} from './UploadBox'
+export { default } from './UploadBox';

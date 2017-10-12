@@ -29,7 +29,7 @@ let getFileMD5 = function (file) {
       reject(errorMsg);
     };
 
-    function loadNext() {
+    function loadNext () {
       let start = currentChunk * chunkSize;
       let end = ((start + chunkSize) >= file.size) ? file.size : start + chunkSize;
 
@@ -41,4 +41,4 @@ let getFileMD5 = function (file) {
 };
 
 
-export default getFileMD5
+export default getFileMD5;

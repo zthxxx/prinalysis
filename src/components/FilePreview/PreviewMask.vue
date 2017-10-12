@@ -3,7 +3,7 @@
     <div class="center">
       <div class="page" ref="pagebox" @scroll="onscroll">
         <div class="page-list" ref="pages">
-          <div v-for="img in pagepics">
+          <div v-for="(img, index) in pagepics" :key="index + img">
             <img :src="img" :class="{gray: isMono}" @load="loadimg">
           </div>
           <div class="last-tip">
@@ -43,13 +43,15 @@
 </template>
 
 <script>
-  import modalBackdrop from '@/components/ModalBackdrop'
-  import printFileItem from '@/components/PrintFileItem'
-  import spinDot from '@/components/SpinDot'
-  import {getPreview} from '@/api'
-  import {throttle} from '@/utils/tools'
+  import modalBackdrop from '@/components/ModalBackdrop';
+  import printFileItem from '@/components/PrintFileItem';
+  import spinDot from '@/components/SpinDot';
+  import { getPreview } from '@/api';
+  import { throttle } from '@/utils/tools';
+
   export default {
     name: 'preview-mask',
+    components: { modalBackdrop, printFileItem, spinDot },
     props: {
       price: {
         type: null,
@@ -61,11 +63,9 @@
       },
       update: {
         type: Function,
-        default: () => {}
+        default: () => {
+        }
       }
-    },
-    mounted () {
-      this.getpic(1);
     },
     data () {
       return {
@@ -76,7 +76,46 @@
         precolor: this.file.print.color,
         precopies: this.file.print.copies,
         preside: this.file.print.side
+      };
+    },
+    computed: {
+      isMono () {
+        return this.file.print.color == 'mono';
+      },
+      total () {
+        let { endPage, startPage, row, col } = this.file.print;
+        let layouts = row * col;
+        return Math.ceil((endPage - startPage + 1) / layouts);
+      },
+      loadEnd () {
+        return this.pagepics.length >= this.total;
+      },
+      papers () {
+        let { side } = this.file.print;
+        return Math.ceil(this.total / side);
+      },
+      copies () {
+        return this.file.print.copies;
       }
+    },
+    watch: {
+      file: {
+        handler ({ print: { color, copies, side } }) {
+          if (color == this.precolor && copies == this.precopies && side == this.preside) {
+            console.warn('Update preview setting');
+            this.pagepics = [];
+            this.getpic(1);
+            return;
+          }
+          this.precolor = color;
+          this.precopies = copies;
+          this.preside = side;
+        },
+        deep: true
+      }
+    },
+    mounted () {
+      this.getpic(1);
     },
     methods: {
       close () {
@@ -85,8 +124,8 @@
       async getpic (page) {
         if (this.loading || this.loadEnd) return;
         this.loading = true;
-        let {size, row, col} = this.file.print;
-        let {img} = await getPreview({
+        let { size, row, col } = this.file.print;
+        let { img } = await getPreview({
           md5: this.file.raw.md5,
           page, size,
           row, col
@@ -123,45 +162,8 @@
           this.getpic(pagesCount + 1);
         }
       }
-    },
-    watch: {
-      file: {
-        handler ({print: {color, copies, side}})  {
-          if (color == this.precolor && copies == this.precopies && side == this.preside) {
-            console.warn('Update preview setting');
-            this.pagepics = [];
-            this.getpic(1);
-            return;
-          }
-          this.precolor = color;
-          this.precopies = copies;
-          this.preside = side;
-        },
-        deep: true
-      }
-    },
-    computed: {
-      isMono () {
-        return this.file.print.color == 'mono';
-      },
-      total () {
-        let {endPage, startPage, row, col} = this.file.print;
-        let layouts = row * col;
-        return Math.ceil((endPage - startPage + 1) / layouts);
-      },
-      loadEnd () {
-        return this.pagepics.length >= this.total;
-      },
-      papers () {
-        let {side} = this.file.print;
-        return Math.ceil(this.total / side);
-      },
-      copies () {
-        return this.file.print.copies;
-      }
-    },
-    components: {modalBackdrop, printFileItem, spinDot}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

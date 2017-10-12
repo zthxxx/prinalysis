@@ -1,1 +1,1 @@
-export {default} from './LinkageSelect'
+export { default } from './LinkageSelect';

@@ -34,24 +34,40 @@
 </template>
 
 <script>
-  import {mapState, mapMutations} from 'vuex'
-  import _ from 'lodash'
-  import boxCard from '@/components/BoxCard'
-  import linkageSelect from '@/components/LinkageSelect'
-  import ShopPointList from '@/components/ShopPointList'
-  import uploadBox from '@/components/UploadBox'
-  import printFileList from '@/components/PrintFileList'
-  import settleBill from '@/components/SettleBill'
-  import {getAddresses, getPoints} from '@/api'
-  import * as types from '@/store/mutation-types'
-  import {mapModel} from '@/utils/tools'
+  import { mapState, mapMutations } from 'vuex';
+  import _ from 'lodash';
+  import boxCard from '@/components/BoxCard';
+  import linkageSelect from '@/components/LinkageSelect';
+  import ShopPointList from '@/components/ShopPointList';
+  import uploadBox from '@/components/UploadBox';
+  import printFileList from '@/components/PrintFileList';
+  import settleBill from '@/components/SettleBill';
+  import { getAddresses, getPoints } from '@/api';
+  import * as types from '@/store/mutation-types';
+  import { mapModel } from '@/utils/tools';
+
   export default {
     name: 'print',
+    components: {
+      boxCard,
+      linkageSelect,
+      ShopPointList,
+      uploadBox,
+      printFileList,
+      settleBill
+    },
     data () {
       return {
         addresses: {},
-        points: [],
-      }
+        points: []
+      };
+    },
+    computed: {
+      ...mapState('print', ['fileList']),
+      ...mapModel('print', {
+        focusAddress: types.SELECT_ADDRESS,
+        focusPoint: types.SELECT_POINT
+      })
     },
     mounted () {
       this.initData();
@@ -65,7 +81,7 @@
         this.addresses = await getAddresses();
       },
       async setPoints (focusID) {
-        const {info: points} = await getPoints(focusID);
+        const { info: points } = await getPoints(focusID);
         if (!points.length) {
           this.$notify.warning({
             title: '打印点为空',
@@ -85,7 +101,7 @@
             mono: false,
             colorful: false
           };
-          for (let {money} of point.price) {
+          for (let { money } of point.price) {
             if ('mono' in money) point.colorType.mono = true;
             if ('colorful' in money) point.colorType.colorful = true;
           }
@@ -102,23 +118,8 @@
           updateSetting: this.updateSetting
         });
       }
-    },
-    computed: {
-      ...mapState('print', ['fileList']),
-      ...mapModel('print', {
-        focusAddress: types.SELECT_ADDRESS,
-        focusPoint: types.SELECT_POINT
-      })
-    },
-    components: {
-      boxCard,
-      linkageSelect,
-      ShopPointList,
-      uploadBox,
-      printFileList,
-      settleBill
     }
-  }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

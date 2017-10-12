@@ -27,20 +27,18 @@
     props: {
       user: {
         required: true,
-        default: ()=>({})
+        default: () => ({})
       }
     },
     data () {
-      return {}
+      return {};
     },
-    methods: {},
     computed: {
       navIndex () {
         return this.$route.path.match(/^(\/user\/[^\/]*)/)[1];
       }
-    },
-    components: {}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

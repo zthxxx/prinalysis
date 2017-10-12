@@ -13,21 +13,20 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import userLeftBar from '@/components/UserLeftBar'
-  import manageBoard from '@/components/ManageBoard'
+  import { mapState } from 'vuex';
+  import userLeftBar from '@/components/UserLeftBar';
+  import manageBoard from '@/components/ManageBoard';
 
   export default {
     name: 'user',
+    components: { userLeftBar, manageBoard },
     data () {
-      return {}
+      return {};
     },
-    methods: {},
     computed: {
-      ...mapState('user', ['user']),
-    },
-    components: {userLeftBar, manageBoard}
-  }
+      ...mapState('user', ['user'])
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

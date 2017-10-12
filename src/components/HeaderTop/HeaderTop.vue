@@ -39,7 +39,8 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import { mapState } from 'vuex';
+
   export default {
     name: 'header-top',
     data () {
@@ -50,7 +51,7 @@
           vendor: '商家管理',
           manager: '后台管理'
         }
-      }
+      };
     },
     computed: {
       ...mapState('print', ['fileList']),
@@ -63,9 +64,8 @@
       login () {
         this.$handleLogin();
       }
-    },
-    components: {}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

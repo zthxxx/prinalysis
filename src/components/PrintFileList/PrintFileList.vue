@@ -14,9 +14,11 @@
 </template>
 
 <script>
-  import printFileItem from '@/components/PrintFileItem'
+  import printFileItem from '@/components/PrintFileItem';
+
   export default {
     name: 'print-file-list',
+    components: { printFileItem },
     props: {
       point: {
         required: true,
@@ -40,9 +42,8 @@
       }
     },
     data () {
-      return {}
-    },
-    components: {printFileItem}
-  }
+      return {};
+    }
+  };
 </script>
 

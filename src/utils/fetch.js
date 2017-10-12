@@ -1,10 +1,11 @@
-import 'whatwg-fetch'
-import qs from 'querystring'
+import 'whatwg-fetch';
+import qs from 'querystring';
 
 // 缺省请求头
 const defaultHeaders = {
   'Accept': 'application/json',
-  'Content-Type': 'application/json' // application/x-www-form-urlencoded
+  // application/json application/x-www-form-urlencoded
+  'Content-Type': 'application/json'
 };
 
 // 请求参数加工
@@ -30,8 +31,10 @@ function mutate (url, { headers, body, query, ...options }) {
 
   // with 'include', Access-Control-Allow-Origin must be <origin> instead of '*'
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Credentialed_requests_and_wildcards
-  options.credentials = 'include'; // omit, same-origin, include
-  options.mode = 'cors'; // "same-origin", "cors", "no-cors", "navigate", or "websocket"
+  // omit, same-origin, include
+  options.credentials = 'include';
+  // "same-origin", "cors", "no-cors", "navigate", or "websocket"
+  options.mode = 'cors';
 
   return [url, options];
 }
@@ -42,7 +45,7 @@ function checkStatus (response) {
   } else {
     let error = new Error(response.statusText);
     error.response = response;
-    throw error
+    throw error;
   }
 }
 
@@ -66,7 +69,7 @@ const callService = (url, options = {}) => {
       return {
         result: 'ERROR',
         message: '链接请求出现异常，请检查您的网络设置。'
-      }
+      };
     });
 };
 
@@ -107,4 +110,4 @@ export const del = (url, args, options = {}) => {
   return callService(url, options);
 };
 
-export default {get, post, paramPost, put, patch, del};
+export default { get, post, paramPost, put, patch, del };

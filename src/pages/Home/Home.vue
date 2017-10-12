@@ -43,11 +43,13 @@
   </transition>
 </template>
 <script>
-  import {banner, foot, twigs} from '@/assets/img/home'
-  import {weixinPayIcon, aliPayIcon} from '@/assets/img/pay'
-  import depictCard from '@/components/DepictCard'
+  import { banner, foot, twigs } from '@/assets/img/home';
+  import { weixinPayIcon, aliPayIcon } from '@/assets/img/pay';
+  import depictCard from '@/components/DepictCard';
+
   export default {
     name: 'home',
+    components: { depictCard },
     data () {
       return {
         banner,
@@ -81,10 +83,9 @@
             ]
           }
         ]
-      }
-    },
-    components: {depictCard}
-  }
+      };
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

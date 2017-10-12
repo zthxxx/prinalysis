@@ -1,1 +1,1 @@
-export {default} from './SettleBill'
+export { default } from './SettleBill';

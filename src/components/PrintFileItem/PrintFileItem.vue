@@ -134,12 +134,14 @@
 </template>
 
 <script>
-  import _ from 'lodash'
-  import {icons} from '@/assets/img/print'
-  import spinDot from '@/components/SpinDot'
-  import {sideMap, checkset} from '@/utils/tools'
+  import _ from 'lodash';
+  import { icons } from '@/assets/img/print';
+  import spinDot from '@/components/SpinDot';
+  import { sideMap, checkset } from '@/utils/tools';
+
   export default {
     name: 'print-file-item',
+    components: { spinDot },
     props: {
       price: {
         required: true,
@@ -176,14 +178,14 @@
     },
     data () {
       return {
-        setting: {...this.preSetting},
+        setting: { ...this.preSetting },
         layouts: {
-          1: {row: 1, col: 1},
-          2: {row: 2, col: 1},
-          4: {row: 2, col: 2},
-          6: {row: 3, col: 2},
-          8: {row: 4, col: 2},
-          9: {row: 3, col: 3},
+          1: { row: 1, col: 1 },
+          2: { row: 2, col: 1 },
+          4: { row: 2, col: 2 },
+          6: { row: 3, col: 2 },
+          8: { row: 4, col: 2 },
+          9: { row: 3, col: 3 }
         },
         sideMap: sideMap,
         fileIcon: {
@@ -197,36 +199,8 @@
           jpg: icons.pic,
           png: icons.pic
         }
-      }
+      };
     },
-    watch: {
-      setting: {
-        handler (newSetting)  {
-          for (let key of _.keys(this.preSetting)) {
-            if (_.get(newSetting, key) !== this.preSetting[key]) {
-              this.$emit('update', {
-                uid: this.file.uid,
-                setting: newSetting
-              });
-              break;
-            }
-          }
-        },
-        deep: true
-      },
-      price: {
-        handler (newPrice) {
-          if (newPrice) {
-            this.setting = checkset(newPrice, this.setting);
-          }
-        },
-        deep: true
-      },
-      preSetting (newSetting) {
-        this.setting = {...newSetting};
-      }
-    },
-    methods: {},
     computed: {
       upsuccess () {
         let file = this.file;
@@ -235,12 +209,39 @@
       colorable () {
         let setting = this.setting;
         if (!this.price) return {};
-        for (let {size, caliper, money} of this.price) {
+        for (let { size, caliper, money } of this.price) {
           if (setting['size'] == size && setting['caliper'] == caliper) {
             return money;
           }
         }
         return {};
+      },
+      watch: {
+        setting: {
+          handler (newSetting) {
+            for (let key of _.keys(this.preSetting)) {
+              if (_.get(newSetting, key) !== this.preSetting[key]) {
+                this.$emit('update', {
+                  uid: this.file.uid,
+                  setting: newSetting
+                });
+                break;
+              }
+            }
+          },
+          deep: true
+        },
+        price: {
+          handler (newPrice) {
+            if (newPrice) {
+              this.setting = checkset(newPrice, this.setting);
+            }
+          },
+          deep: true
+        },
+        preSetting (newSetting) {
+          this.setting = { ...newSetting };
+        }
       },
       sideable () {
         let setting = this.setting;
@@ -270,22 +271,21 @@
           return setting.row * setting.col;
         },
         set (value) {
-          let {row, col} = this.layouts[value];
+          let { row, col } = this.layouts[value];
           if (this.file.pageInfo.direction) {
             [row, col] = [col, row];
           }
-          Object.assign(this.setting, {row, col});
+          Object.assign(this.setting, { row, col });
         }
       },
       total () {
         let setting = this.setting;
         return Math.ceil(
-            (setting.endPage - setting.startPage + 1) / setting.side / this.layout
-          ) * setting.copies;
+          (setting.endPage - setting.startPage + 1) / setting.side / this.layout
+        ) * setting.copies;
       }
-    },
-    components: {spinDot}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

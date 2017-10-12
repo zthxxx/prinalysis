@@ -1,0 +1,23 @@
+<template>
+  <div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'template',
+    components: {},
+    props: {},
+    data () {
+      return {}
+    },
+    computed: {},
+    watch: {},
+    mounted: {},
+    methods: {}
+  }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+
+</style>

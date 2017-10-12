@@ -12,14 +12,10 @@
 <script>
   export default {
     name: 'modal-backdrop',
-    props: {},
     data () {
-      return {}
-    },
-    methods: {},
-    computed: {},
-    components: {}
-  }
+      return {};
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

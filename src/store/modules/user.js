@@ -1,4 +1,4 @@
-import * as types from '../mutation-types'
+import * as types from '../mutation-types';
 
 // initial state
 export const state = {
@@ -20,4 +20,4 @@ export default {
   namespaced: true,
   state,
   mutations
-}
+};

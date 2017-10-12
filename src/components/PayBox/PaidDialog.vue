@@ -19,25 +19,22 @@
 </template>
 
 <script>
-  export default {
-    name: 'paid-dialog',
-    props: {
-      money: {
-        required: true,
-        type: String
-      },
-      confirm: {
-        required: true,
-        type: Function
-      }
+export default {
+  name: 'paid-dialog',
+  props: {
+    money: {
+      required: true,
+      type: String
     },
-    data () {
-      return {}
-    },
-    methods: {},
-    computed: {},
-    components: {}
+    confirm: {
+      required: true,
+      type: Function
+    }
+  },
+  data () {
+    return {};
   }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

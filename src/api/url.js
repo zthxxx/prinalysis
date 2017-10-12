@@ -44,4 +44,3 @@ export const PAYMENT = `${BaseUrl}/pay/payment`;
 
 export const TRADE = `${BaseUrl}/pay/trade`;
 
-

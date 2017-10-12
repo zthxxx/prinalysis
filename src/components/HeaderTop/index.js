@@ -1,1 +1,1 @@
-export {default} from './HeaderTop'
+export { default } from './HeaderTop';

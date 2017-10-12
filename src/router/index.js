@@ -1,32 +1,32 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
 const home = () => import('@/pages/Home');
 const print = () => import('@/pages/Print');
 const user = () => import('@/pages/User');
-import order from '@/components/ManageBoard/Order'
-import personal from '@/components/ManageBoard/Personal'
+import order from '@/components/ManageBoard/Order';
+import personal from '@/components/ManageBoard/Personal';
 
 const routes = [
   {
     path: '/',
-    redirect: {name: 'home'}
+    redirect: { name: 'home' }
   },
   {
     path: '/home',
     component: home,
-    name: 'home',
+    name: 'home'
   },
   {
     path: '/print',
     component: print,
-    name: 'print',
+    name: 'print'
   },
   {
     path: '/library',
-    name: 'library',
+    name: 'library'
   },
   {
     path: '/user',
@@ -37,12 +37,12 @@ const routes = [
       {
         path: 'order',
         component: order,
-        meta: {header: order.header}
+        meta: { header: order.header }
       },
       {
         path: 'info',
         component: personal,
-        meta: {header: personal.header}
+        meta: { header: personal.header }
       }
     ]
   }
@@ -52,4 +52,4 @@ export default new Router({
   mode: 'history',
   routes,
   strict: process.env.NODE_ENV !== 'production'
-})
+});

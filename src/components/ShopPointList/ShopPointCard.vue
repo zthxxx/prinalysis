@@ -41,7 +41,7 @@
           <i class="el-icon-fa-list-ul"></i>价格表
         </div>
         <div class="price-list">
-          <div v-for="item in getPriceList(point.price)"
+          <div v-for="(item, index) in getPriceList(point.price)" :key="index"
                :class="{'price-item': true, 'invalid': !item.price}">
             <div class="price-name">{{item.type}}</div>
             <div class="money">{{item.price || '不支持'}}</div>
@@ -58,8 +58,9 @@
 </template>
 
 <script>
-  import {ATM, printPoint} from '@/assets/img/print'
-  import {formatCNY} from '@/utils/tools'
+  import { ATM, printPoint } from '@/assets/img/print';
+  import { formatCNY } from '@/utils/tools';
+
   export default {
     name: 'shop-point-card',
     props: {
@@ -83,7 +84,7 @@
           oneside: '单面',
           duplex: '双面'
         }
-      }
+      };
     },
     methods: {
       isColorful (printItem) {
@@ -104,10 +105,10 @@
         this.$emit('input', this.point);
       },
       getPriceList (price) {
-        let unitPrice = (value) => value > 0 ? `${formatCNY(value)} / 张` : null;
+        let unitPrice = (value) => (value > 0 ? `${formatCNY(value)} / 张` : null);
         let typeMap = this.typeMap;
         let tariff = [];
-        for (let {size, caliper, money} of price) {
+        for (let { size, caliper, money } of price) {
           let prefix = `${size} ${caliper}纸`;
           for (let color in money) {
             for (let side in money[color]) {
@@ -121,9 +122,8 @@
         }
         return tariff;
       }
-    },
-    components: {}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

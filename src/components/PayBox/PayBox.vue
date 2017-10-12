@@ -13,12 +13,13 @@
 </template>
 
 <script>
-  import modalBackdrop from '@/components/ModalBackdrop'
-  import payDialog from './PayDialog'
-  import paidDialog from './PaidDialog'
+  import modalBackdrop from '@/components/ModalBackdrop';
+  import payDialog from './PayDialog';
+  import paidDialog from './PaidDialog';
 
   export default {
     name: 'pay-box',
+    components: { modalBackdrop, payDialog, paidDialog },
     props: {
       orderID: {
         required: true,
@@ -37,14 +38,14 @@
           resolve () {},
           reject () {}
         }
-      }
+      };
     },
     methods: {
       open () {
         this.visible = true;
         return new Promise((resolve, reject) => {
-          this.result = {resolve, reject};
-        })
+          this.result = { resolve, reject };
+        });
       },
       close () {
         this.result.reject();
@@ -58,10 +59,8 @@
         this.result.resolve('paid');
         this.close();
       }
-    },
-    computed: {},
-    components: {modalBackdrop, payDialog, paidDialog}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

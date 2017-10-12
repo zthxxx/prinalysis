@@ -28,7 +28,8 @@
 </template>
 
 <script>
-  import {requireSMS, signup} from '@/api'
+  import { requireSMS, signup } from '@/api';
+
   export default {
     name: 'captcha-card',
     props: {
@@ -41,15 +42,15 @@
           title: '验证手机',
           subtitle: '请输入你收到的 6 位数验证码'
         },
-        form: {...this.userform},
+        form: { ...this.userform },
         awaitCaptcha: 0,
         rules: {
           captcha: [
-            {required: true, message: '请输入验证码', trigger: 'blur'},
-            {max: 6, message: '请输入 6 位验证码', trigger: 'blur'}
+            { required: true, message: '请输入验证码', trigger: 'blur' },
+            { max: 6, message: '请输入 6 位验证码', trigger: 'blur' }
           ]
         }
-      }
+      };
     },
     mounted () {
       this.accept();
@@ -73,10 +74,8 @@
         let user = await signup(this.form);
         this.$emit('signed', user);
       }
-    },
-    computed: {},
-    components: {}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

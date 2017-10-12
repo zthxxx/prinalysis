@@ -11,7 +11,8 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+  import _ from 'lodash';
+
   export default {
     name: 'linkage-select',
     model: {
@@ -39,16 +40,15 @@
     data () {
       return {
         currents: [...this.focused]
-      }
+      };
     },
-    methods: {},
     computed: {
       layerData: function () {
         let layers = [];
         let layer = this.linkageDatas;
         let currents = this.currents;
         if (_.isEmpty(layer)) {
-          layers =  [[]];
+          layers = [[]];
           return layers;
         }
         let index = 0;
@@ -75,7 +75,7 @@
           } else {
             layer = nextLayer;
           }
-          index ++;
+          index++;
         }
         if (!_.isEqual(currents, this.focused)) {
           this.$emit('input', [...currents]);
@@ -83,9 +83,8 @@
         }
         return layers;
       }
-    },
-    components: {}
-  }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
