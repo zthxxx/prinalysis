@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   '/pay/payment': {
     'result': 'OK',
     'info': {

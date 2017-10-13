@@ -81,7 +81,7 @@
         this.addresses = await getAddresses();
       },
       async setPoints (focusID) {
-        const { info: points } = await getPoints(focusID);
+        const points = await getPoints(focusID);
         if (!points.length) {
           this.$notify.warning({
             title: '打印点为空',
@@ -95,7 +95,7 @@
           'CLOSE_DOWN': '关门停业'
         };
         for (let point of points) {
-          point.running = point.status == 'RUNNING';
+          point.running = point.status === 'RUNNING';
           point.rest_message = holidays[point.status];
           point.colorType = {
             mono: false,

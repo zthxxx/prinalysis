@@ -33,7 +33,7 @@ export const mutations = {
   [types.SET_PRINTING] (state, { uid, setting }) {
     let files = state.fileList;
     for (let [index, file] of files.entries()) {
-      if (file.uid == uid) {
+      if (file.uid === uid) {
         Vue.set(file, 'print', setting);
         Vue.set(state.fileList, index, file);
         break;

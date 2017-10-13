@@ -1,20 +1,21 @@
-import {Random} from 'mockjs'
-import {md5} from '../src/utils/tools'
+import { Random } from 'mockjs';
+import { md5 } from '../src/utils/tools';
 
 const randomAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`;
 
 const userBase = {
-  'username': /\+861[358]\d{9}/,
+  'code': '+86',
+  'username': /\1[358]\d{9}/,
   'nickname|1': ['@name', '@cname'],
   'uid': '@id',
   'access': ['user', 'vendor', 'manager'],
   'avatar': randomAvatar,
   'address|1': ['', '@county(true) @csentence'],
-  'lastPointAddress': ['@province', '@city', '@county校区'],
+  'lastPointAddress': ['@province', '@city', '@county()校区'],
   'lastPoint|+1': 1
 };
 
-module.exports = {
+export default {
   '/user/logining': {
     'result|1': ['OK', 'ERROR'],
     'info': {
@@ -28,9 +29,9 @@ module.exports = {
   },
   '/user/login/state/': {
     result: 'OK',
-    'info|+1': ["LOGINING", {
-      ...userBase
-    }]
+    'info|+1': [
+      'LOGINING', { ...userBase }
+    ]
   },
   '/user/login/QRCode': {
     result: 'OK',
@@ -64,9 +65,9 @@ module.exports = {
         deleteFileCount: '@natural(0, 3)'
       },
       school: {
-        "city": '@province',
-        "name": '@city',
-        "campus": '@city()大学'
+        'city': '@province',
+        'name': '@city',
+        'campus': '@city()大学'
       }
     }
   }

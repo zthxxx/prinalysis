@@ -73,9 +73,10 @@
         this.action = url;
       },
       async setPageInfo (file) {
-        if (file.status == 'success' && !_.has(file, 'pageInfo')) {
+        if (file.status === 'success' && !_.has(file, 'pageInfo')) {
           console.warn('successed change', file);
-          this.$set(file, 'pageInfo', await getPage({ md5: file.raw.md5, name: file.name }));
+          let { pageCount, direction } = await getPage({ md5: file.raw.md5, name: file.name });
+          this.$set(file, 'pageInfo', { pageCount, direction });
         }
       },
       fileSizeLimit (rawFile, sizeKb) {
@@ -92,7 +93,7 @@
         let supports = this.supportFormat;
         rawFile.extension = rawFile.name.split('.').pop().toLowerCase();
         if (!rawFile.name.match(/\./) ||
-          supports.findIndex((format) => format == rawFile.extension) < 0) {
+          supports.findIndex((format) => format === rawFile.extension) < 0) {
           this.$notify.error({
             title: `暂不支持此文件格式: ${rawFile.extension}`,
             message: `当前仅支持 ${supports.join('，')} 等格式。`
@@ -109,9 +110,10 @@
       },
       async fileExistCheck (rawFile) {
         let check = await getPage(rawFile);
-        if (check.result == 'EXISTED') {
+        if (check.state === 'EXISTED') {
           console.warn('exist', rawFile.name, rawFile.md5);
-          rawFile.pageInfo = { pageCount: check.pageCount, direction: check.direction };
+          let { pageCount, direction } = check;
+          rawFile.pageInfo = { pageCount, direction };
           this.$refs.uploader.handleStart(rawFile);
           throw new Error('stop-upload File existed');
         }

@@ -63,7 +63,7 @@ export const checkset = (price, setting) => {
   let reset = {};
   let types = null;
   price.map(({ size, caliper, money }) => {
-    if (setting['size'] == size && setting['caliper'] == caliper) {
+    if (setting['size'] === size && setting['caliper'] === caliper) {
       types = money;
     }
   });

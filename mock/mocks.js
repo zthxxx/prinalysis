@@ -1,10 +1,10 @@
-const user = require('./user');
-const point = require('./point');
-const file = require('./file');
-const order = require('./order');
-const pay = require('./pay');
+import user from './user';
+import point from './point';
+import file from './file';
+import order from './order';
+import pay from './pay';
 
-module.exports = {
+export default {
   ...user,
   ...point,
   ...file,

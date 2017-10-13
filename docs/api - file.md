@@ -19,16 +19,24 @@ Response:
 
 ```js
 {
-  "result": "EXISTED",
-  "pageCount": Number,    // 文件总页数
-  "direction": Boolean  // 排版方向是否为竖版, true 表示竖版
+  "result": "OK",
+  "info": {
+    "state": "EXISTED",
+    "pageCount": Number,    // 文件总页数
+    "direction": Boolean  // 排版方向是否为竖版, true 表示竖版
+  }
 }
 ```
 
 > 查询到不存在时，只需返回不存在状态
 
 ```js
-{"result": "NO_EXIST"}
+{
+  "result": "OK",
+  "info": {
+    "state": "NO_EXIST"
+  }
+}
 ```
 
 ## 1. 获得文件上传地址

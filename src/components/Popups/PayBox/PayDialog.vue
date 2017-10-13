@@ -97,7 +97,7 @@
         this.polling = setTimeout(this.queryTrade, 1000);
         let { state } = await getTrade({ orderID, payway });
         console.warn(state);
-        if (state == 'PAID') {
+        if (state === 'PAID') {
           this.$notify.success({
             title: '您的订单支付成功！',
             message: '您可前往打印点自行领取，或是等候支持的商家配送打印文件。'

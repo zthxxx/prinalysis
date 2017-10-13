@@ -167,9 +167,9 @@
         let area = setting.endPage - setting.startPage + 1;
         let layout = setting.row * setting.col;
         let pages = Math.ceil(area / layout);
-        if (setting.side == 1) {
+        if (setting.side === 1) {
           oneside += pages;
-        } else if (setting.side == 2) {
+        } else if (setting.side === 2) {
           oneside += pages % 2;
           duplex += Math.floor(pages / 2);
         }

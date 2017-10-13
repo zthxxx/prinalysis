@@ -35,8 +35,6 @@ module.exports = {
     /**
      * this are link style
      */
-    // https://eslint.org/docs/rules/eqeqeq
-    'eqeqeq': 'off',
     // https://eslint.org/docs/rules/guard-for-in
     'guard-for-in': 'off',
     'no-alert': 'error',

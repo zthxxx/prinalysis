@@ -69,10 +69,10 @@ ID: 表示具体地点的 ID
 
 Response:
 
-> 查询为空时返回 EMPTY， `Info` 应为空数组
+> 查询为空时返回  `Info` 应为空数组
 
 ```js
-{"result":"EMPTY","info":[]}
+{"result":"OK","info":[]}
 ```
 
 > 查询成功时，返回包含打印点信息的集合

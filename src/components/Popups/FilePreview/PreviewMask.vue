@@ -80,7 +80,7 @@
     },
     computed: {
       isMono () {
-        return this.file.print.color == 'mono';
+        return this.file.print.color === 'mono';
       },
       total () {
         let { endPage, startPage, row, col } = this.file.print;
@@ -101,7 +101,7 @@
     watch: {
       file: {
         handler ({ print: { color, copies, side } }) {
-          if (color == this.precolor && copies == this.precopies && side == this.preside) {
+          if (color === this.precolor && copies === this.precopies && side === this.preside) {
             console.warn('Update preview setting');
             this.pagepics = [];
             this.getpic(1);
@@ -145,7 +145,7 @@
         let pagesCount = this.pagepics.length;
         let buttomLimit = pagesHeight - clientHeight;
         let current = this.calcCurrent(scrollTop, pagesHeight, pagesCount);
-        if (this.currentPage != current) this.currentPage = current;
+        if (this.currentPage !== current) this.currentPage = current;
         if (scrollTop >= buttomLimit && !this.loadEnd) {
           let next = pagesCount + 1;
           console.warn('next page', next);

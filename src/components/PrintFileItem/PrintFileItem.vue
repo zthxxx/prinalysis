@@ -204,13 +204,13 @@
     computed: {
       upsuccess () {
         let file = this.file;
-        return _.get(file, 'status') == 'success' && _.get(file, ['pageInfo', 'pageCount']);
+        return _.get(file, 'status') === 'success' && _.get(file, ['pageInfo', 'pageCount']);
       },
       colorable () {
         let setting = this.setting;
         if (!this.price) return {};
         for (let { size, caliper, money } of this.price) {
-          if (setting['size'] == size && setting['caliper'] == caliper) {
+          if (setting['size'] === size && setting['caliper'] === caliper) {
             return money;
           }
         }
