@@ -1,21 +1,20 @@
-import { get, post } from '@/utils/fetch';
+import { setBaseUrl, get, post } from '@/utils/axios';
 import * as API from './url';
-import statusIntercept from './wrapper';
-const _get = statusIntercept(get);
-const _post = statusIntercept(post);
+
+setBaseUrl(API.BaseUrl);
 
 /**
  * 获取校园地址
  * @return {Addresses} - 地址池对象
  */
-export const getAddresses = () => _get(API.ADDRESS);
+export const getAddresses = () => get(API.ADDRESS);
 
 /**
  * 获取地址对应打印点信息
  * @param {string} ID - 具体地址 id
  * @return {Point[]} - 打印点对象数组
  */
-export const getPoints = ID => _get(API.POINTS, { ID });
+export const getPoints = ID => get(API.POINTS, { ID });
 
 /**
  * 检验通过MD5检验文档是否存在, 避免重复上传，并获取文档页数
@@ -26,7 +25,7 @@ export const getPoints = ID => _get(API.POINTS, { ID });
  * @property {number} pageCount - 文件单页总数
  * @property {boolean} direction - 排版方向是否为竖版, true 表示竖版
  */
-export const getPage = ({ md5, name }) => _get(API.PAGE, { md5, name });
+export const getPage = ({ md5, name }) => get(API.PAGE, { md5, name });
 
 /**
  * 获取云端空间的目标上传地址及权限
@@ -34,13 +33,7 @@ export const getPage = ({ md5, name }) => _get(API.PAGE, { md5, name });
  * @param {string} name - 文件名
  * @return {{url: string}} - 文件上传地址。地址带协议名，如 https://xxxx/xxx
  */
-export const getFileURL = ({ md5, name }) => _get(API.FILEURL, { md5, name });
-
-/**
- * 上传文件
- * @param {FILE} file - FILE 文件对象
- */
-export const uploadFile = file => post(API.UPLOAD, file);
+export const getFileURL = ({ md5, name }) => get(API.FILEURL, { md5, name });
 
 /**
  * 获取打印预览图片
@@ -51,7 +44,7 @@ export const uploadFile = file => post(API.UPLOAD, file);
  * @param {number} col - 多合一打印下每列几份
  * @return {{url: string}} - 打印预览图片 url （图片总为彩色）
  */
-export const getPreview = ({ md5, page, size, row, col }) => _get(API.PREVIEW, { md5, page, size, row, col });
+export const getPreview = ({ md5, page, size, row, col }) => get(API.PREVIEW, { md5, page, size, row, col });
 
 /**
  * 用户基本信息对象
@@ -96,12 +89,12 @@ export const getPreview = ({ md5, page, size, row, col }) => _get(API.PREVIEW, {
  * @param {string} password - 用户密码，明文
  * @return {UserBase} - 用户基本信息对象
  */
-export const login = ({ code, username, password }) => _post(API.LOGIN, { code, username, password });
+export const login = ({ code, username, password }) => post(API.LOGIN, { code, username, password });
 
 /**
  * 用户注销
  */
-export const signout = () => _post(API.SIGNOUT);
+export const signout = () => post(API.SIGNOUT);
 
 /**
  * 检测登录状态
@@ -109,27 +102,27 @@ export const signout = () => _post(API.SIGNOUT);
  * 已登录时返回用户基本信息对象
  * @return {(string | UserBase)}
  */
-export const checkLogin = () => _get(API.LOGIN_STATE);
+export const checkLogin = () => get(API.LOGIN_STATE);
 
 /**
  * 获取登录二维码图片地址
  * @return {{url: string}} - 用于获取二维码图片的 url
  */
-export const getLoginQR = () => _get(API.QR_CODE);
+export const getLoginQR = () => get(API.QR_CODE);
 
 /**
  * 判断账户名是否可注册
  * @param {string} code - 手机号国际区号
  * @param {string} username - 用户账户名
  */
-export const isRegisterable = ({ code, username }) => _get(API.REGISTERABLE, { code, username });
+export const isRegisterable = ({ code, username }) => get(API.REGISTERABLE, { code, username });
 
 /**
  * 请求发送用户(注册 | 登录)短信验证码
  * @param {string} code - 手机号国际区号
  * @param {string} username - 用户名（必须为手机号）
  */
-export const requireSMS = ({ code, username }) => _post(API.SMS_CAPTCHA, { code, username });
+export const requireSMS = ({ code, username }) => post(API.SMS_CAPTCHA, { code, username });
 
 /**
  * 完成用户注册
@@ -140,18 +133,18 @@ export const requireSMS = ({ code, username }) => _post(API.SMS_CAPTCHA, { code,
  * @param {string} captcha - 验证码
  * @return {UserBase}
  */
-export const signup = ({ code, username, password, nickname, captcha }) => _post(API.SIGNUP, { code, username, password, nickname, captcha });
+export const signup = ({ code, username, password, nickname, captcha }) => post(API.SIGNUP, { code, username, password, nickname, captcha });
 
 /**
  * 获取用户详细信息
  * @return {UserInfo} - 返回用户信息对象
  */
-export const getUserInfo = () => _get(API.USER_INFO);
+export const getUserInfo = () => get(API.USER_INFO);
 
 /**
  * 确认打印信息
  */
-export const verifyOrder = ({ pointID, files, money, ...dispatching }) => _post(
+export const verifyOrder = ({ pointID, files, money, ...dispatching }) => post(
   API.VERIFY, { pointID, files, money, ...dispatching }
 );
 
@@ -160,7 +153,7 @@ export const verifyOrder = ({ pointID, files, money, ...dispatching }) => _post(
  * @param {string} orderID - 订单号
  * @return {OrderDetail} - 返回订单对象
  */
-export const getOrder = ({ orderID }) => _get(API.ORDER_DETAIL, { orderID });
+export const getOrder = ({ orderID }) => get(API.ORDER_DETAIL, { orderID });
 
 /**
  * 获取订单基本信息列表
@@ -175,7 +168,7 @@ export const getOrder = ({ orderID }) => _get(API.ORDER_DETAIL, { orderID });
  * "REFUND"  退款中或已退款
  * @return {OrderBase[]} - 返回订单基本信息对象数组
  */
-export const getOrders = ({ limits, page, type }) => _get(API.ORDERS, { limits, page, type });
+export const getOrders = ({ limits, page, type }) => get(API.ORDERS, { limits, page, type });
 
 /**
  * 用于获取不同状态所有订单数量的统计
@@ -187,7 +180,7 @@ export const getOrders = ({ limits, page, type }) => _get(API.ORDERS, { limits, 
  * @property {number} FINISH
  * @property {number} REFUND
  */
-export const amountOrders = () => _get(API.ORDERS_AMOUNT);
+export const amountOrders = () => get(API.ORDERS_AMOUNT);
 
 /**
  * 获取订单支付通道
@@ -196,7 +189,7 @@ export const amountOrders = () => _get(API.ORDERS_AMOUNT);
  * @return {string} QRCode - 对微信支付，返回用于获取二维码图片的地址
  * @return {string} payform - 对支付宝，返回用于提交支付宝表单的 HTML 字符串
  */
-export const getPayment = ({ orderID, payway }) => _get(API.PAYMENT, { orderID, payway });
+export const getPayment = ({ orderID, payway }) => get(API.PAYMENT, { orderID, payway });
 
 /**
  * 查询订单交易状态
@@ -205,4 +198,4 @@ export const getPayment = ({ orderID, payway }) => _get(API.PAYMENT, { orderID, 
  * @return {string} state - 当前交易状态, "PAYING" 正在支付, "PAID" 已完成支付,
  * "CANCEL" 取消订单, "REFUNDING" 正在退款, "REFUNDED" 已退款
  */
-export const getTrade = ({ orderID, payway }) => _get(API.TRADE, { orderID, payway });
+export const getTrade = ({ orderID, payway }) => get(API.TRADE, { orderID, payway });

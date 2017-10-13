@@ -1,14 +1,17 @@
 import { Notification } from 'element-ui';
 
-export default function statusIntercept (method) {
-  return async (...args) => {
-    let response = await method(...args);
-    if (response.result.toUpperCase() !== 'OK') {
-      let message = response.message || 'Unknown Error';
-      Notification.error({ message });
-      throw new Error(message);
-    }
-    // if (!response.info) throw new Error('Empty response info');
-    return response.info;
-  };
-}
+export const statusIntercept = ({ data }) => {
+  console.info(data);
+  if (data.result.toUpperCase() !== 'OK') {
+    let message = data.message || 'Unknown Error';
+    Notification.error({ message });
+    throw new Error(message);
+  }
+  return data.info;
+};
+
+export const requestErrorIntercept = error => {
+  console.error(error);
+  let message = '链接请求出现异常，请检查您的网络设置。';
+  Notification.error({ message });
+};

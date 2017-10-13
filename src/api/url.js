@@ -1,46 +1,46 @@
-const BaseUrl = process.env.API_BASE;
+export const BaseUrl = process.env.API_BASE;
 
-export const ADDRESS = `${BaseUrl}/point/address`;
+export const ADDRESS = '/point/address';
 
-export const POINTS = `${BaseUrl}/point/points`;
-
-
-export const PAGE = `${BaseUrl}/file/page`;
-
-export const FILEURL = `${BaseUrl}/file/url`;
-
-export const UPLOAD = `${BaseUrl}/file/upload`;
-
-export const PREVIEW = `${BaseUrl}/file/pic/preview`;
+export const POINTS = '/point/points';
 
 
-export const LOGIN = `${BaseUrl}/user/logining`;
+export const PAGE = '/file/page';
 
-export const SIGNOUT = `${BaseUrl}/user/logout`;
+export const FILEURL = '/file/url';
 
-export const LOGIN_STATE = `${BaseUrl}/user/login/state`;
+export const UPLOAD = '/file/upload';
 
-export const QR_CODE = `${BaseUrl}/user/login/QRCode`;
-
-export const REGISTERABLE = `${BaseUrl}/user/registerable`;
-
-export const SMS_CAPTCHA = `${BaseUrl}/user/SMS/captcha`;
-
-export const SIGNUP = `${BaseUrl}/user/signing`;
-
-export const USER_INFO = `${BaseUrl}/user/info`;
+export const PREVIEW = '/file/pic/preview';
 
 
-export const VERIFY = `${BaseUrl}/order/verify`;
+export const LOGIN = '/user/logining';
 
-export const ORDER_DETAIL = `${BaseUrl}/order/detail`;
+export const SIGNOUT = '/user/logout';
 
-export const ORDERS = `${BaseUrl}/orders/info`;
+export const LOGIN_STATE = '/user/login/state';
 
-export const ORDERS_AMOUNT = `${BaseUrl}/orders/amount`;
+export const QR_CODE = '/user/login/QRCode';
+
+export const REGISTERABLE = '/user/registerable';
+
+export const SMS_CAPTCHA = '/user/SMS/captcha';
+
+export const SIGNUP = '/user/signing';
+
+export const USER_INFO = '/user/info';
 
 
-export const PAYMENT = `${BaseUrl}/pay/payment`;
+export const VERIFY = '/order/verify';
 
-export const TRADE = `${BaseUrl}/pay/trade`;
+export const ORDER_DETAIL = '/order/detail';
+
+export const ORDERS = '/orders/info';
+
+export const ORDERS_AMOUNT = '/orders/amount';
+
+
+export const PAYMENT = '/pay/payment';
+
+export const TRADE = '/pay/trade';
 

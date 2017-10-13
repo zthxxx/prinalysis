@@ -47,7 +47,7 @@
         rules: {
           captcha: [
             { required: true, message: '请输入验证码', trigger: 'blur' },
-            { max: 6, message: '请输入 6 位验证码', trigger: 'blur' }
+            { min: 6, max: 6, message: '请输入 6 位验证码', trigger: 'blur' }
           ]
         }
       };
