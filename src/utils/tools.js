@@ -1,9 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import crypto from 'crypto';
 import { mapState, mapMutations } from 'vuex';
-
-export const md5 = str => crypto.createHash('md5').update(str).digest('hex');
 
 /**
  * 把人名币分值格式化到元

@@ -1,13 +1,7 @@
 {
   "presets": [
-    "es2015",
-    ["env", { "modules": false }],
+    ["env", { "targets": { "node": "current" } } ],
     "stage-2"
-  ],
-  "plugins": [
-    "syntax-dynamic-import",
-    "transform-optional-chaining",
-    "transform-runtime"
   ],
   "comments": false,
   "env": {

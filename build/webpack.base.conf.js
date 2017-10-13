@@ -48,6 +48,10 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        options: {
+          babelrc: false,
+          extends: path.join(__dirname, '../.webpack.babelrc')
+        },
         include: [resolve('src'), resolve('test')]
       },
       {

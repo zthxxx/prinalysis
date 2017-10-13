@@ -1,5 +1,5 @@
 import { Random } from 'mockjs';
-import { md5 } from '../src/utils/tools';
+import { md5 } from './tools';
 
 const randomAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`;
 
@@ -27,7 +27,7 @@ export default {
     'result|1': ['OK', 'ERROR'],
     'message': '此用户未登录，注销失败'
   },
-  '/user/login/state/': {
+  '/user/login/state': {
     result: 'OK',
     'info|+1': [
       'LOGINING', { ...userBase }

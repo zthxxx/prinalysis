@@ -1,5 +1,7 @@
+// https://github.com/axios/axios
 import axios from 'axios';
 import { statusIntercept, requestErrorIntercept } from '@/api/wrapper';
+export { post } from 'axios';
 
 axios.defaults.withCredentials = true;
 
@@ -12,10 +14,4 @@ axios.interceptors.response.use(
   requestErrorIntercept
 );
 
-export const get = (url, params) => {
-  return axios.get(url, { params });
-};
-
-export const post = (url, data) => {
-  return axios.post(url, { data });
-};
+export const get = (url, params, ...config) => axios.get(url, { ...config, params });

@@ -1,5 +1,5 @@
 import { Random } from 'mockjs';
-import { md5 } from '../src/utils/tools';
+import { md5 } from './tools';
 
 const randomMD5 = () => md5(Random.ctitle());
 

@@ -1,5 +1,4 @@
 require('./check-versions')()
-require('babel-core/register')
 process.env.NODE_ENV = 'production'
 
 var ora = require('ora')

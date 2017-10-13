@@ -1,5 +1,5 @@
 require('./check-versions')()
-require('babel-core/register')
+require('babel-register')
 var config = require('../config')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
@@ -50,7 +50,7 @@ Object.keys(proxyTable).forEach(function (context) {
   app.use(proxyMiddleware(options.filter || context, options))
 })
 
-const mocks = require('../mock')
+const {default: mocks} = require('../mock')
 for (let mock of mocks) {
   app.use(mock.api, mock.response)
 }

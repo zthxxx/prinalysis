@@ -12,4 +12,4 @@ function fake (url, data) {
   };
 }
 
-module.exports = Object.keys(mocks).map((url) => fake(url, mocks[url]));
+export default Object.keys(mocks).map(url => fake(url, mocks[url]));

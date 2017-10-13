@@ -1,4 +1,5 @@
 <code_scheme name="Default">
+  <option name="LINE_SEPARATOR" value="&#xA;" />
   <option name="HTML_ENFORCE_QUOTES" value="true" />
   <JSCodeStyleSettings>
     <option name="FORCE_SEMICOLON_STYLE" value="true" />
