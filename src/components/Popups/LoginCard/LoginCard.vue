@@ -84,7 +84,7 @@
   import { mapMutations } from 'vuex';
   import * as types from '@/store/mutation-types';
   import { login, isRegisterable } from '@/api';
-  import modalBackdrop from '@/components/ModalBackdrop';
+  import modalBackdrop from '$@/Stateless/ModalBackdrop';
   import captchaCard from './CaptchaCard';
 
   const countries = [

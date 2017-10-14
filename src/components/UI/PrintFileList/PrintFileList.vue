@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import printFileItem from '@/components/PrintFileItem';
+  import printFileItem from '$@/UI/PrintFileItem';
 
   export default {
     name: 'print-file-list',

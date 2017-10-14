@@ -135,8 +135,8 @@
 
 <script>
   import _ from 'lodash';
-  import { icons } from '@/assets/img/print';
-  import spinDot from '@/components/SpinDot';
+  import { icons } from '@/assets/img/print/index';
+  import spinDot from '$@/Stateless/SpinDot/index';
   import { sideMap, checkset } from '@/utils/tools';
 
   export default {

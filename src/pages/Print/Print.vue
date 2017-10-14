@@ -36,12 +36,12 @@
 <script>
   import { mapState, mapMutations } from 'vuex';
   import _ from 'lodash';
-  import boxCard from '@/components/BoxCard';
-  import linkageSelect from '@/components/LinkageSelect';
-  import ShopPointList from '@/components/ShopPointList';
-  import uploadBox from '@/components/UploadBox';
-  import printFileList from '@/components/PrintFileList';
-  import settleBill from '@/components/SettleBill';
+  import boxCard from '$@/Stateless/BoxCard';
+  import linkageSelect from '$@/UI/LinkageSelect';
+  import ShopPointList from '$@/UI/ShopPointList';
+  import uploadBox from '$@/Business/UploadBox';
+  import printFileList from '$@/UI/PrintFileList';
+  import settleBill from '$@/Business/SettleBill';
   import { getAddresses, getPoints } from '@/api';
   import * as types from '@/store/mutation-types';
   import { mapModel } from '@/utils/tools';

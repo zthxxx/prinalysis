@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import { ATM, printPoint } from '@/assets/img/print';
+  import { ATM, printPoint } from '@/assets/img/print/index';
   import { formatCNY } from '@/utils/tools';
 
   export default {

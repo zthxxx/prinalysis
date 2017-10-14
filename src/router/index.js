@@ -4,8 +4,8 @@ import Router from 'vue-router';
 const home = () => import('@/pages/Home');
 const print = () => import('@/pages/Print');
 const user = () => import('@/pages/User');
-import order from '@/components/ManageBoard/Order';
-import personal from '@/components/ManageBoard/Personal';
+import order from '$@/Business/ManageBoard/Order';
+import personal from '$@/Business/ManageBoard/Personal';
 
 Vue.use(Router);
 

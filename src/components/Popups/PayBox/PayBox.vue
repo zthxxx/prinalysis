@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import modalBackdrop from '@/components/ModalBackdrop';
+  import modalBackdrop from '$@/Stateless/ModalBackdrop';
   import payDialog from './PayDialog';
   import paidDialog from './PaidDialog';
 

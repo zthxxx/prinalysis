@@ -43,9 +43,9 @@
 </template>
 
 <script>
-  import modalBackdrop from '@/components/ModalBackdrop';
-  import printFileItem from '@/components/PrintFileItem';
-  import spinDot from '@/components/SpinDot';
+  import modalBackdrop from '$@/Stateless/ModalBackdrop';
+  import printFileItem from '$@/UI/PrintFileItem';
+  import spinDot from '$@/Stateless/SpinDot';
   import { getPreview } from '@/api';
   import { throttle } from '@/utils/tools';
 

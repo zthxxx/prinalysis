@@ -9,7 +9,7 @@
   import { mapMutations } from 'vuex';
   import * as types from '@/store/mutation-types';
   import { checkLogin } from '@/api';
-  import headerTop from '@/components/HeaderTop';
+  import headerTop from '$@/Business/HeaderTop';
 
   export default {
     name: 'app',

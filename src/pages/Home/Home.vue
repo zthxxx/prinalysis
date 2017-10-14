@@ -45,7 +45,7 @@
 <script>
   import { banner, foot, twigs } from '@/assets/img/home';
   import { weixinPayIcon, aliPayIcon } from '@/assets/img/pay';
-  import depictCard from '@/components/DepictCard';
+  import depictCard from '$@/Stateless/DepictCard';
 
   export default {
     name: 'home',
