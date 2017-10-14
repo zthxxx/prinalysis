@@ -139,7 +139,7 @@
         let last = _.get(file, 'loaded', { loaded, total, timeStamp });
         let speed = timeStamp > last.timeStamp ?
           ((loaded - last.loaded) / 1024) / ((timeStamp - last.timeStamp) / 1000) : 0;
-        let remain = ((total - loaded) / 1024) / speed;
+        let remain = ((total - loaded) / 1024) / (speed || 1);
         this.$set(file, 'loaded', { loaded, timeStamp });
         this.$set(file, 'speed', speed.toFixed(2));
         this.$set(file, 'remain', remain.toFixed(0));
