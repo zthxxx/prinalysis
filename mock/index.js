@@ -3,13 +3,19 @@ import mocks from './mocks';
 
 const BaseHost = '/mock';
 
-function fake (url, data) {
+const serverFake = (url, data) => {
   return {
     api: `${BaseHost}${url}`,
     response (req, res) {
       res.json(Mock.mock(data));
     }
   };
-}
+};
 
-export default Object.keys(mocks).map(url => fake(url, mocks[url]));
+export const interceptFake = () => {
+  for (let [url, data] of Object.entries(mocks)) {
+    Mock.mock(`${BaseHost}${url}`, data);
+  }
+};
+
+export default Object.entries(mocks).map(([url, data]) => serverFake(url, data));

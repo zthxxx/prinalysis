@@ -1,7 +1,6 @@
 import { Notification } from 'element-ui';
 
 export const statusIntercept = ({ data }) => {
-  console.info(data);
   if (data.result.toUpperCase() !== 'OK') {
     let message = data.message || 'Unknown Error';
     Notification.error({ message });

@@ -135,8 +135,8 @@
 
 <script>
   import _ from 'lodash';
-  import { icons } from '@/assets/img/print/index';
-  import spinDot from '$@/Stateless/SpinDot/index';
+  import { icons } from '@/assets/img/print';
+  import spinDot from '$@/Stateless/SpinDot';
   import { sideMap, checkset } from '@/utils/tools';
 
   export default {
@@ -178,7 +178,12 @@
     },
     data () {
       return {
-        setting: { ...this.preSetting },
+        setting: {
+          ...checkset(
+            this.price,
+            this.preSetting
+          )
+        },
         layouts: {
           1: { row: 1, col: 1 },
           2: { row: 2, col: 1 },

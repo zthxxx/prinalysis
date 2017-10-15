@@ -16,7 +16,8 @@
   export default {
     name: 'linkage-select',
     model: {
-      prop: 'focused'
+      prop: 'focused',
+      event: 'currents'
     },
     props: {
       focused: {
@@ -28,7 +29,6 @@
         default: () => []
       },
       linkageDatas: {
-        required: true,
         type: [Array, Object],
         default: () => ({})
       },
@@ -66,7 +66,6 @@
             if (!this.defaultSelected) {
               while (layer instanceof Array) {
                 layers.push([]);
-                currents.push('');
                 layer = _.find(layer[0]);
               }
               return layers;
@@ -78,7 +77,7 @@
           index++;
         }
         if (!_.isEqual(currents, this.focused)) {
-          this.$emit('input', [...currents]);
+          this.$emit('currents', [...currents]);
           this.$emit('track', layer);
         }
         return layers;
