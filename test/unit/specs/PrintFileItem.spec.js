@@ -36,11 +36,36 @@ let expectSetting = {
 };
 
 describe('PrintFileItem', () => {
-  it('print-file-item will rewrite default setting', done => {
+  it('print-file-item will rewrite default setting', () => {
     let vm = creatVM(printFileItem, { price, file });
-    vm.$nextTick(() => {
-      expect(vm.setting).to.deep.equal(expectSetting);
+    expect(vm.setting).to.deep.equal(expectSetting);
+  });
+
+  it('print-file-item colorable and sideable will be set', () => {
+    let vm = creatVM(printFileItem, { price, file });
+    expect(vm.colorable).to.deep.equal(price[0].money);
+    expect(vm.sideable).to.deep.equal(price[0].money.colorful);
+  });
+
+  it('print-file-item layout is times of row and col', () => {
+    let vm = creatVM(printFileItem, { price, file });
+    vm.setting.row = 3;
+    vm.setting.col = 2;
+    expect(vm.layout).to.equal(3 * 2);
+  });
+
+  it('print-file-item adjust setting will emit update', done => {
+    let _price = JSON.parse(JSON.stringify(price));
+    _price[0].money.mono = { oneside: 30 };
+    let vm = creatVM(printFileItem, { price: _price, file });
+    expect(vm.setting.side).to.equal(1);
+    vm.$on('update', ({ setting }) => {
+      expect(vm.sideable).to.deep.equal(price[0].money.colorful);
+      expect(setting).to.deep.equal({
+        ...expectSetting
+      });
       done();
     });
+    vm.setting.color = 'colorful';
   });
 });

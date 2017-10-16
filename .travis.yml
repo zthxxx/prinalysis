@@ -26,10 +26,10 @@ install:
 
 script:
   - npm run build
+  - npm run unit
 
-  
 after_success:
   - npm run publish
 
-notifications: # 设置通知项
+notifications:
   email: true

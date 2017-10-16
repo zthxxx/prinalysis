@@ -16,33 +16,24 @@ let addresses = [
 let expectCurrents = ['province', 'city', 'county'];
 
 describe('LinkageSelect', () => {
-  it('linkage-select have default setting', done => {
+  it('linkage-select have default setting', () => {
     let vm = creatVM(linkageSelect);
-    vm.$nextTick(() => {
-      expect(vm.currents.length).to.equal(0);
-      expect(vm.layerData).to.deep.equal([[]]);
-      done();
-    });
+    expect(vm.currents.length).to.equal(0);
+    expect(vm.layerData).to.deep.equal([[]]);
   });
 
-  it('linkage-select currents will selected automatically', done => {
+  it('linkage-select currents will selected automatically', () => {
     let vm = creatVM(linkageSelect, { linkageDatas: addresses });
-    vm.$nextTick(() => {
-      expect(vm.currents).to.deep.equal(expectCurrents);
-      done();
-    });
+    expect(vm.currents).to.deep.equal(expectCurrents);
   });
 
-  it('linkage-select currents will reselected with default focus', done => {
+  it('linkage-select currents will reselected with default focus', () => {
     let vm = creatVM(linkageSelect,
       {
         linkageDatas: addresses,
         focused: ['province', 'other-city']
       });
-    vm.$nextTick(() => {
-      expect(vm.currents).to.deep.equal(expectCurrents);
-      done();
-    });
+    expect(vm.currents).to.deep.equal(expectCurrents);
   });
 
   it('linkage-select will emit currents', done => {
@@ -64,18 +55,15 @@ describe('LinkageSelect', () => {
     vm.$mount();
   });
 
-  it('linkage-select will not selected with defaultSelected off', done => {
+  it('linkage-select will not selected with defaultSelected off', () => {
     let vm = creatVM(linkageSelect,
       {
         linkageDatas: addresses,
         defaultSelected: false
       }
     );
-    vm.$nextTick(() => {
-      expect(vm.currents.length).to.equal(0);
-      expect(vm.layerData).to.deep.equal([['province'], [], []]);
-      done();
-    });
+    expect(vm.currents.length).to.equal(0);
+    expect(vm.layerData).to.deep.equal([['province'], [], []]);
   });
 
   it('linkage-select will not emit with defaultSelected off', done => {

@@ -56,7 +56,6 @@ export const orderStateMap = {
 
 export const checkset = (price, setting) => {
   if (!price) return setting;
-  let checks = ['color', 'side'];
   let reset = {};
   let types = null;
   price.map(({ size, caliper, money }) => {
@@ -69,17 +68,17 @@ export const checkset = (price, setting) => {
     reset = { size, caliper };
     types = money;
   }
-  for (let key of checks) {
-    let item = setting[key];
-    if (!_.has(types, item)) {
-      item = _.keys(types).sort().shift();
-      reset[key] = item;
-    }
-    types = types[item];
+  let color  = setting.color;
+  if (!_.has(types, color)) {
+    color = _.keys(types).sort().shift();
+    reset.color = color;
   }
-  if (_.has(reset, 'side')) {
-    reset.side = sideMap[reset.side];
+  types = types[color];
+
+  if (!_.has(types, _.invert(sideMap)[setting.side])) {
+    reset.side = _.get(sideMap, _.keys(types).shift());
   }
+
   return {
     ...setting,
     ...reset
