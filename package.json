@@ -21,6 +21,7 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node --es_staging test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
+    "coveralls": "cat test/unit/coverage/lcov.info | coveralls",
     "lint": "eslint --ext .js,.vue src",
     "fixlint": "eslint src --ext .js,.vue --fix",
     "publish": "ghp-import dist && git push -f https://${GIT_REPO_TOKEN}${GIT_REPO_TOKEN:+@}github.com/zthxxx/prinalysis.git gh-pages"
@@ -50,6 +51,7 @@
     "compression-webpack-plugin": "^0.4.0",
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
+    "coveralls": "^3.0.0",
     "cross-env": "^4.0.0",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.7",
