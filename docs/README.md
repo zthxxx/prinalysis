@@ -1,6 +1,7 @@
 # prinalysis
 
-[![Build Status](https://api.travis-ci.org/zthxxx/prinalysis.png?branch=master)](https://travis-ci.org/zthxxx/prinalysis)
+[![Build Status](https://api.travis-ci.org/zthxxx/prinalysis.svg?branch=master)](https://travis-ci.org/zthxxx/prinalysis)
+[![Coverage Status](https://coveralls.io/repos/github/zthxxx/prinalysis/badge.svg?branch=master)](https://coveralls.io/github/zthxxx/prinalysis?branch=master)
 [![Node](https://img.shields.io/badge/node-6.11.0+-blue.svg)](https://nodejs.org/)
 [![Vue](https://img.shields.io/badge/vue-2.4.0+-brightgreen.svg)](https://vuejs.org/)
 
@@ -27,8 +28,8 @@ npm run dev
 npm run build
 
 # run unit test and e2e test
-# oh, this is todo yet
-npm run test
+# oh, e2e is todo yet
+npm run unit
 
 # publish on gh-pages
 # u need install ghp-import at first (pip install ghp-import)
@@ -43,4 +44,8 @@ API detailes see [docs](/docs ":ignore :target=_self")
 
 ## License
 
-GPL
+[![license-badge]][license-link]
+
+<!-- Link -->
+[license-badge]:    https://img.shields.io/aur/license/yaourt.svg
+[license-link]:     https://opensource.org/licenses/GPL-3.0

@@ -1,5 +1,5 @@
 <template>
-  <div class="PrintFileList">
+  <div class="print-file-list">
     <print-file-item v-for="(file, index) in fileList"
                      :key="`${file.name}_${index}`"
                      :index="index + 1"
@@ -21,7 +21,7 @@
     components: { printFileItem },
     props: {
       point: {
-        required: true,
+        required: false,
         default: null
       },
       fileList: {

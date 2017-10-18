@@ -144,7 +144,6 @@
     components: { spinDot },
     props: {
       price: {
-        required: true,
         default: null
       },
       index: {
@@ -286,8 +285,11 @@
         },
         deep: true
       },
-      preSetting (newSetting) {
-        this.setting = { ...newSetting };
+      preSetting: {
+        handler (newSetting) {
+          this.setting = { ...newSetting };
+        },
+        deep: true
       }
     }
   };

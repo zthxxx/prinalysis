@@ -102,7 +102,7 @@
         return `${momnets.slice(0, 2).join(':')}-${momnets.slice(2, 4).join(':')}`;
       },
       selected () {
-        this.$emit('input', this.point);
+        this.$emit('select', this.point);
       },
       getPriceList (price) {
         let unitPrice = (value) => (value > 0 ? `${formatCNY(value)} / 张` : null);

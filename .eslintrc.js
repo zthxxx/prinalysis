@@ -42,6 +42,9 @@ module.exports = {
     'no-empty-function': 'off',
     // https://eslint.org/docs/rules/no-param-reassign
     'no-param-reassign': 'off',
+    // https://eslint.org/docs/rules/no-unused-expressions
+    // @off it not support chai expect style
+    'no-unused-expressions': 'off',
     // https://eslint.org/docs/rules/prefer-promise-reject-errors
     'prefer-promise-reject-errors': ['error', { 'allowEmptyReject': true }],
     // https://eslint.org/docs/rules/no-shadow

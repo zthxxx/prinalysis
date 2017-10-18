@@ -1,7 +1,7 @@
 import { creatVM } from '../util';
 import printFileItem from '$@/UI/PrintFileItem';
 
-let price = [
+export const getPrices = () => [
   {
     size: 'A3',
     caliper: '80g',
@@ -13,17 +13,17 @@ let price = [
   }
 ];
 
-let file = {
+const file = {
   uid: '#1',
   status: 'success',
   percentage: 100,
   size: '2048',
   name: 'mock test file',
   raw: { extension: 'doc', origin: '本地' },
-  pageInfo: { pageCount: 5, direction: false }
+  pageInfo: { pageCount: 5, direction: true }
 };
 
-let expectSetting = {
+const expectSetting = {
   copies: 1,
   size: 'A3',
   caliper: '80g',
@@ -36,15 +36,41 @@ let expectSetting = {
 };
 
 describe('PrintFileItem', () => {
+  let price = getPrices();
+  beforeEach(() => {
+    price = getPrices();
+  });
+
   it('print-file-item will rewrite default setting', () => {
     let vm = creatVM(printFileItem, { price, file });
     expect(vm.setting).to.deep.equal(expectSetting);
   });
 
-  it('print-file-item colorable and sideable will be set', () => {
+  it('print-file-item colorable and sideable will be set automatically', () => {
     let vm = creatVM(printFileItem, { price, file });
     expect(vm.colorable).to.deep.equal(price[0].money);
     expect(vm.sideable).to.deep.equal(price[0].money.colorful);
+  });
+
+  it('print-file-item colorable and sideable will be empty with not price', () => {
+    let vm = creatVM(printFileItem, { file });
+    expect(vm.colorable).to.be.empty.and.an('object');
+    expect(vm.sideable).to.be.empty.and.an('object');
+  });
+
+  it('print-file-item colorable will be empty will the setting is wrong', () => {
+    let vm = creatVM(printFileItem, { price, file });
+    vm.setting.caliper = 'notcaliper';
+    expect(vm.colorable).to.be.empty.and.an('object');
+  });
+
+  it('print-file-item sizeside set will be rewrite by checked', () => {
+    let vm = creatVM(printFileItem, { price, file });
+    vm.sizeside = JSON.stringify({
+      size: 'A4',
+      caliper: '70g',
+    });
+    expect(vm.setting).to.deep.equal(expectSetting);
   });
 
   it('print-file-item layout is times of row and col', () => {
@@ -54,10 +80,19 @@ describe('PrintFileItem', () => {
     expect(vm.layout).to.equal(3 * 2);
   });
 
+  it('print-file-item layout set will rewrite row and col', () => {
+    let vm = creatVM(printFileItem, { price, file });
+    for (let layout of Object.keys(vm.layouts)) {
+      vm.layout = layout;
+      // row and col will be exchange while the direction is true
+      expect(vm.setting.row).to.equal(vm.layouts[layout].col);
+      expect(vm.setting.col).to.equal(vm.layouts[layout].row);
+    }
+  });
+
   it('print-file-item adjust setting will emit update', done => {
-    let _price = JSON.parse(JSON.stringify(price));
-    _price[0].money.mono = { oneside: 30 };
-    let vm = creatVM(printFileItem, { price: _price, file });
+    price[0].money.mono = { oneside: 30 };
+    let vm = creatVM(printFileItem, { price, file });
     expect(vm.setting.side).to.equal(1);
     vm.$on('update', ({ setting }) => {
       expect(vm.sideable).to.deep.equal(price[0].money.colorful);
@@ -67,5 +102,35 @@ describe('PrintFileItem', () => {
       done();
     });
     vm.setting.color = 'colorful';
+  });
+
+  it('print-file-item update price will rewrite setting', done => {
+    let vm = creatVM(printFileItem, { price, file });
+    vm.$set(price[0].money, 'mono', { oneside: 30 });
+    vm.$delete(price[0].money, 'colorful');
+    vm.$nextTick(() => {
+      expect(vm.setting).to.deep.equal({
+        ...expectSetting,
+        color: 'mono',
+        side: 1
+      });
+      done();
+    });
+  });
+
+  it('print-file-item update preSetting will rewrite setting', done => {
+    let price = getPrices();
+    let _preSetting = JSON.parse(JSON.stringify(expectSetting));
+    let vm = creatVM(printFileItem, { price, file, preSetting: _preSetting });
+    _preSetting.color = 'notcolor';
+    _preSetting.side = Infinity;
+    vm.$nextTick(() => {
+      expect(vm.setting).to.deep.equal({
+        ...expectSetting,
+        color: 'notcolor',
+        side: 1
+      });
+      done();
+    });
   });
 });

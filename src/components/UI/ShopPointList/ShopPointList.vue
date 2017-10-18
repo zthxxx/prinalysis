@@ -11,7 +11,7 @@
                        :key="index"
                        :point="point"
                        :selectedID="selectedID"
-                       @input="selectPoint">
+                       @select="selectPoint">
       </shop-point-card>
     </div>
   </div>
@@ -24,7 +24,8 @@
   export default {
     name: 'shop-point-list',
     model: {
-      prop: 'focusPoint'
+      prop: 'focusPoint',
+      event: 'focus'
     },
     components: { shopPointCard },
     props: {
@@ -44,7 +45,7 @@
     methods: {
       selectPoint (focusPoint) {
         this.selectedID = _.get(focusPoint, 'id', null);
-        this.$emit('input', focusPoint);
+        this.$emit('focus', focusPoint);
       }
     }
   };

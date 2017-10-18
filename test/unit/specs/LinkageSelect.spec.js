@@ -1,7 +1,7 @@
 import { creatVM } from '../util';
 import linkageSelect from '$@/UI/LinkageSelect';
 
-let addresses = [
+const addresses = [
   {
     province: [
       {
@@ -13,7 +13,7 @@ let addresses = [
   }
 ];
 
-let expectCurrents = ['province', 'city', 'county'];
+const expectCurrents = ['province', 'city', 'county'];
 
 describe('LinkageSelect', () => {
   it('linkage-select have default setting', () => {

@@ -17,10 +17,12 @@
   export default {
     name: 'depict-card',
     props: {
-      twigs: Array,
+      twigs: {
+        type: Array,
+        default: () => ['']
+      },
       description: {
         type: Array,
-        required: true,
         default: () => [{
           title: '',
           depicts: ['']
