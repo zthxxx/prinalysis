@@ -7,32 +7,29 @@
     width: 100%
     margin: 60px auto
 
-depict-base(direct)
+.depicts
   height: 420px
-  other-direct = direct == 'left' ? right : left
-  background-color: direct == 'left' ? transparent : descrip-back
-  &>div
+  background-color: descrip-back
+  &:nth-of-type(2n)
+    background-color: transparent
+    figure img
+      float: right
+    figure figcaption
+      float: left
+  figure
     max-width: 1400px
     margin: 0 auto
-    &>img
-      float: other-direct
-      margin-{other-direct}: 100px
-      margin-top: 80px
-    &>div
-      float: direct
-      margin-{direct}: 160px
-      margin-top: 150px
-      div
+    img
+      float: left
+      margin: 80px 100px 0
+    figcaption
+      float: right
+      margin: 150px 160px 0
+      p
         line-height: 38px
         color: shallow-text-gray
         font-size: 14px
-        &:first-child
+        &:first-of-type
           font-size: 26px
           margin-bottom: 10px
           color: deep-text-gray
-
-.depict-right
-  depict-base(right)
-
-.depict-left
-  depict-base(left)

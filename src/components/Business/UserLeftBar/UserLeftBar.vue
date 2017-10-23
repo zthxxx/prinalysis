@@ -1,12 +1,12 @@
 <template>
   <div class="left-bar">
     <div class="head">
-      <div class="left">
-        <img :src="user.avatar" alt="avatar">
-      </div>
-      <div class="name">
-        <div class="nickname">{{user.nickname}}</div>
-      </div>
+      <figure>
+        <img class="avatar" :src="user.avatar" alt="avatar">
+        <figcaption class="name">
+          <div class="nickname">{{user.nickname}}</div>
+        </figcaption>
+      </figure>
     </div>
     <div class="tabs">
       <el-menu :default-active="navIndex" class="items" router>

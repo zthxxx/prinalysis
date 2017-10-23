@@ -1,14 +1,12 @@
 <template>
   <transition name="float-fade">
-    <div class="content" key="user">
-      <div class="user">
-        <user-left-bar :user="user"></user-left-bar>
-        <manage-board>
-          <h1 slot="header">{{$route.meta.header}}</h1>
-          <router-view></router-view>
-        </manage-board>
-      </div>
-    </div>
+    <article class="content" key="user">
+      <user-left-bar :user="user"></user-left-bar>
+      <manage-board>
+        <h1 slot="header">{{$route.meta.header}}</h1>
+        <router-view></router-view>
+      </manage-board>
+    </article>
   </transition>
 </template>
 

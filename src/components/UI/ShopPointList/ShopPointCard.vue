@@ -1,5 +1,5 @@
 <template>
-  <div :class="{
+  <article :class="{
             'print-point-item': true,
             'no-running': !point.running,
             'zoom-in' : !selectedID,
@@ -8,14 +8,13 @@
        :key="`${point.pointName}${point.id}`"
        v-if="!selectedID || selectedID === point.id"
        @click="point.running && selected(point.id)">
-    <div class="box">
+    <section class="box">
       <div class="info">
-        <div class="top-div">
-          <div class="pic-div">
-            <img :src="point.image || roleImage[point.pointType]">
-          </div>
-          <div class="detial-div">
-            <div class="point-name">{{point.pointName}}</div>
+        <div class="pic-div">
+          <img :src="point.image || roleImage[point.pointType]">
+        </div>
+        <div class="detial-div">
+            <header class="point-name">{{point.pointName}}</header>
             <div class="addr">
               <i class="el-icon-fa-map-marker"></i>{{point.address}}
             </div>
@@ -34,7 +33,6 @@
             </div>
             <div>联系电话：{{point.phone}}</div>
           </div>
-        </div>
       </div>
       <div class="price" v-if="selectedID === point.id">
         <div class="price-title">
@@ -48,13 +46,13 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="announce" v-if="point.running">{{point.message}}</div>
-    <div class="no-running-tip" v-else>
+    </section>
+    <footer class="announce" v-if="point.running">{{point.message}}</footer>
+    <footer class="no-running-tip" v-else>
       <div class="title">{{point.rest_message}}</div>
       <div class="msg">{{point.message}}</div>
-    </div>
-  </div>
+    </footer>
+  </article>
 </template>
 
 <script>

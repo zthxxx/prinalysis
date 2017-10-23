@@ -1,12 +1,12 @@
 <template>
-  <div class="box-card">
-    <div class="card-header" v-if="title">
+  <section class="box-card">
+    <header class="card-header" v-if="title">
       <div class="card-title">{{title}}</div>
-    </div>
+    </header>
     <div :class="{'card-body': !noPadding}">
       <slot></slot>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

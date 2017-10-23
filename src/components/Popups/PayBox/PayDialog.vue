@@ -6,21 +6,21 @@
       <div class="tip" v-if="!payway">下单成功，请选择支付方式</div>
       <div class="tip" v-else>请使用 [{{paywayMap[payway]}}] 进行扫码支付</div>
       <div class="payway" v-if="!payway">
-        <div class="wechat zoom-in" @click="getWeixinpay">
+        <figure class="wechat zoom-in" @click="getWeixinpay">
           <img class="title" :src="weixinPayIcon">
           <img class="QR-icon" :src="QRCodeIcon.green">
-          <span class="way-tip">微信扫码支付</span>
-        </div>
-        <div class="alipay zoom-in" @click="getAlipay">
+          <figcaption class="way-tip">微信扫码支付</figcaption>
+        </figure>
+        <figure class="alipay zoom-in" @click="getAlipay">
           <img class="title" :src="aliPayIcon">
           <img class="QR-icon" :src="QRCodeIcon.blue">
-          <span class="way-tip">支付宝扫码支付</span>
-        </div>
+          <figcaption class="way-tip">支付宝扫码支付</figcaption>
+        </figure>
       </div>
-      <div class="QR-box" v-if="payway">
+      <figure class="QR-box" v-if="payway">
         <img v-if="payway == WXPAY" class="wxPay-code zoom-in" :src="QRCode" alt="weixin pay">
         <iframe v-else-if="payway == ALIPAY" class="aliPay-iframe zoom-in" scrolling="no" :srcdoc="payform"></iframe>
-      </div>
+      </figure>
       <div>
         <el-button class="switch" @click="changePayWay" v-if="payway">切换支付方式</el-button>
         <el-button class="switch" @click="close">稍后支付</el-button>

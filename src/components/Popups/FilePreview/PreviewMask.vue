@@ -1,28 +1,22 @@
 <template>
   <modal-backdrop>
-    <div class="center">
+    <article class="center">
       <div class="page" ref="pagebox" @scroll="onscroll">
         <div class="page-list" ref="pages">
-          <div v-for="(img, index) in pagepics" :key="index + img">
+          <figure v-for="(img, index) in pagepics" :key="index + img">
             <img :src="img" :class="{gray: isMono}" @load="loadimg">
-          </div>
-          <div class="last-tip">
+          </figure>
+          <footer class="last-tip">
             <template v-if="loadEnd && !loading">已到达最后一面，每份需打印{{copies * total}}面</template>
             <div class="loading" v-else>
               <spinDot :size="36"></spinDot>
               <div class="text">拼命加载中...</div>
             </div>
-          </div>
+          </footer>
         </div>
       </div>
       <div class="file">
-        <div class="close">
-          <div class="content">
-            <i class="el-icon-fa-compress close-btn" @click="close"></i>
-          </div>
-        </div>
-        <div class="file-setting">
-          <print-file-item class="print-file-item"
+        <print-file-item class="print-file-item"
                            :price="price"
                            :file="file"
                            :preSetting="file.print"
@@ -33,12 +27,16 @@
               <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
             </div>
           </print-file-item>
-        </div>
-        <div class="pagination">
+        <aside class="close">
+          <div class="content">
+            <i class="el-icon-fa-compress close-btn" @click="close"></i>
+          </div>
+        </aside>
+        <footer class="pagination">
           <div class="panel">{{currentPage}} / {{total}}</div>
-        </div>
+        </footer>
       </div>
-    </div>
+    </article>
   </modal-backdrop>
 </template>
 

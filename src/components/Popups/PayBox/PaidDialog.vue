@@ -8,9 +8,9 @@
           已成功支付{{money}}，感谢支持知书
         </div>
         <div class="detail">（自取模式凭订单码即可到打印点取件，配送模式请等待商家配送）</div>
-        <div class="footer">
+        <footer class="footer">
           <el-button type="primary" class="order" @click="confirm">查看订单详情</el-button>
-        </div>
+        </footer>
       </div>
     </div>
   </div>

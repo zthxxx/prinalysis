@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <div class="point-detial-title" v-if="selectedID">
+  <article class="print-point-list">
+    <header class="point-detial-title" v-if="selectedID">
       <el-button type="text" class="back" icon="fa-chevron-left"
                  @click="selectPoint(null)">选择其他打印点
       </el-button>
       <span class="tip"> 已选择该打印点: </span>
-    </div>
-    <div class="print-point-list">
-      <shop-point-card v-for="(point, index) in points"
-                       :key="index"
-                       :point="point"
-                       :selectedID="selectedID"
-                       @select="selectPoint">
-      </shop-point-card>
-    </div>
-  </div>
+    </header>
+    <shop-point-card v-for="(point, index) in points"
+                     :key="index"
+                     :point="point"
+                     :selectedID="selectedID"
+                     @select="selectPoint">
+    </shop-point-card>
+  </article>
 </template>
 
 <script>

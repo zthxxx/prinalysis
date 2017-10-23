@@ -3,12 +3,12 @@
     <upload-drag-box @file="transmitFiles">
       <slot></slot>
       <transition name="float-fade">
-        <div class="tip" v-if="!fileList.length">
+        <header class="tip" v-if="!fileList.length">
           请从本地上传文件 或
           <router-link :to="{name: 'library'}">
             <span class="to-library">从校园文库添加文件</span>
           </router-link>
-        </div>
+        </header>
       </transition>
       <el-upload class="upload" ref="uploader" multiple
                  :action="action"
@@ -26,7 +26,7 @@
           <br>
           <span class="upload-text">点击按钮或者把文件拖放到这里</span>
         </div>
-        <div class="el-upload__tip" slot="tip">已支持的格式：{{supportFormat.join(',')}}</div>
+        <footer class="el-upload__tip" slot="tip">已支持的格式：{{supportFormat.join(',')}}</footer>
       </el-upload>
     </upload-drag-box>
   </div>

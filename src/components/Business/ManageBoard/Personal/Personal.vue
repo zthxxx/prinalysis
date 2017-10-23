@@ -1,10 +1,14 @@
 <template>
   <transition name="float-fade">
     <div>
-      <div class="user-header">
-        <span><img class="avatar" :src="user.avatar" alt="avatar"/></span>
-        <span class="nickname">{{user.nickname}}</span>
-      </div>
+      <header class="user-header">
+        <figure class="avatar">
+          <img :src="user.avatar" alt="avatar"/>
+          <figcaption class="nickname">
+            <span>{{user.nickname}}</span>
+          </figcaption>
+        </figure>
+      </header>
       <div class="user-info">
         <div class="row">
           <span class="school">学校：{{user.lastPointAddress.join('')}}</span>
@@ -15,10 +19,10 @@
           <span class="address">默认收件地址：{{user.address}}</span>
         </div>
       </div>
-      <div class="footer">
+      <footer class="footer">
         <el-button class="footer-button" type="primary">修改信息</el-button>
         <el-button class="footer-button" type="primary" @click="signout">退出登录</el-button>
-      </div>
+      </footer>
     </div>
   </transition>
 </template>

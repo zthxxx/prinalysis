@@ -1,16 +1,15 @@
 <template>
-  <div class="description">
-    <div v-for="(item, index) in description" :key="index"
-         :class="'depict-' + (index % 2 ? 'left' : 'right')">
-      <div>
+  <article class="description">
+    <section class="depicts" v-for="(item, index) in description" :key="index">
+      <figure>
         <img :src="twigs[index % twigs.length]">
-        <div>
-          <div>{{item.title}}</div>
-          <div v-for="depict in item.depicts" :key="depict">{{depict}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
+        <figcaption>
+          <p>{{item.title}}</p>
+          <p v-for="depict in item.depicts" :key="depict">{{depict}}</p>
+        </figcaption>
+      </figure>
+    </section>
+  </article>
 </template>
 
 <script>

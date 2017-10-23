@@ -1,8 +1,8 @@
 <template>
-  <div class="order-detail">
+  <article class="order-detail">
     <el-button type="text" icon="fa-chevron-left" class="back" @click="back">返回</el-button>
-    <div class="overview">
-      <div class="over-title">订单概况</div>
+    <section class="overview">
+      <header class="over-title">订单概况</header>
       <div>
         <ul class="overview-info">
           <li>
@@ -46,9 +46,9 @@
       <div class="overview-inform" v-if="inform[order.state]">
         {{inform[order.state]}}
       </div>
-    </div>
-    <div class="content">
-      <div class="over-title">订单内容</div>
+    </section>
+    <section class="content">
+      <header class="over-title">订单内容</header>
       <div class="content-detail">
         <div class="content-line line-header">
           <span class="item-index">序号</span>
@@ -76,9 +76,9 @@
           <span class="item-operation over-none" v-else>不可下载</span>
         </div>
       </div>
-    </div>
-    <div class="content">
-      <div class="over-title">结算信息</div>
+    </section>
+    <section class="content">
+      <header class="over-title">结算信息</header>
       <div class="content-detail">
         <div class="content-line line-header">
           <span class="item-field">条目</span>
@@ -99,8 +99,8 @@
           <span class="over-money">{{amount}}</span>
         </p>
       </div>
-    </div>
-  </div>
+    </section>
+  </article>
 </template>
 
 <script>

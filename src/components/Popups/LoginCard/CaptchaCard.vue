@@ -2,10 +2,10 @@
   <el-form ref="captchaForm" class="login-content accept-content" :rules="rules" :model="form">
     <div class="accept-container">
       <el-button class="plain-button backButton" icon="arrow-left" @click="back"></el-button>
-      <div class="accept-header">
+      <header class="accept-header">
         <div class="accept-title">{{header.title}}</div>
         <div class="accept-subtitle">{{header.subtitle}}</div>
-      </div>
+      </header>
       <div class="login-flow">
         <el-form-item class="flow-account accept-account">
           <el-input :value="`${form.code}${form.username}`" class="account" disabled></el-input>
@@ -19,9 +19,9 @@
         <div class="login-options">
           <el-button class="forget-pass" @click="back">更换登录方式</el-button>
         </div>
-        <div class="accept-footer-container">
+        <footer class="accept-footer-container">
           <el-button class="submit enter" @click="signup">进入知书</el-button>
-        </div>
+        </footer>
       </div>
     </div>
   </el-form>

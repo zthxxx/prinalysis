@@ -2,7 +2,7 @@
   <transition name="fade">
     <article class="content container" key="home">
       <div class="index">
-        <div class="banner">
+        <section class="banner">
           <img :src="banner" alt="">
           <div class="float-div">
             <div class="div-center">
@@ -11,9 +11,9 @@
               </router-link>
             </div>
           </div>
-        </div>
+        </section>
         <depict-card :twigs="twigs" :description="description"></depict-card>
-        <div class="depict-foot">
+        <section class="depict-foot">
           <div>
             <img :src="foot.left" class="foot-img-left">
             <img :src="foot.right" class="foot-img-right">
@@ -27,7 +27,7 @@
               </router-link>
             </div>
           </div>
-        </div>
+        </section>
         <footer>
           <div class="cooperation">
             <span class="payMethod">支付方式：</span>

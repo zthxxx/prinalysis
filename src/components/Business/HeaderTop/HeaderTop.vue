@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="container">
-      <div class="left">
+      <nav class="left">
         <a href="/">
           <img :src="logo" alt="logo" class="nav-logo">
         </a>
@@ -14,18 +14,20 @@
           <el-menu-item index="/library" class="nav-item">校园文库</el-menu-item>
           <el-menu-item index="/contact" class="nav-item">联系我们</el-menu-item>
         </el-menu>
-      </div>
-      <div class="right">
+      </nav>
+      <nav class="right">
         <el-menu :default-active="navIndex" class="nav-list"
                  mode="horizontal"
                  v-if="user"
                  router>
           <el-menu-item index="/user" class="nav-item user">
-            <div class="text">
-              <div>{{this.accessMap[user.access]}}</div>
-              <div class="nick">{{user.nickname}}</div>
-            </div>
-            <img :src="user.avatar" alt="avatar">
+            <figure>
+              <figcaption class="identity">
+                <p>{{this.accessMap[user.access]}}</p>
+                <p class="nick">{{user.nickname}}</p>
+              </figcaption>
+              <img :src="user.avatar" alt="avatar">
+            </figure>
           </el-menu-item>
         </el-menu>
         <el-button icon="fa-weixin" class="nav-item nav-button"
@@ -33,7 +35,7 @@
                    @click="login">
           微信登录
         </el-button>
-      </div>
+      </nav>
     </div>
   </header>
 </template>

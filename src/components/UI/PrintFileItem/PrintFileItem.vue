@@ -1,6 +1,6 @@
 <template>
   <transition name="left-fade">
-    <div class="print-file-item">
+    <section class="print-file-item">
       <div class="print-file" :class="{'file-upload': !upsuccess}">
         <div class="valid-index" v-if="index">{{`#${index}`}}</div>
         <div class="processor" v-if="!upsuccess">
@@ -129,7 +129,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </transition>
 </template>
 

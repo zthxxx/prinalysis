@@ -4,10 +4,10 @@
       <div class="login-inner">
         <el-button class="close" icon="close" @click="close"></el-button>
         <el-form ref="loginForm" class="login-content" :rules="rules" :model="form" v-if="!acceptCaptcha">
-          <div class="login-header">
+          <header class="login-header">
             <div class="login-header-title">{{header[mode].title}}</div>
             <div class="login-header-subTitle">{{header[mode].subtitle}}</div>
-          </div>
+          </header>
           <div class="login-flow">
             <el-form-item class="flow-account" prop="username">
               <el-input v-model="form.username" placeholder="请输入手机号" class="account" @focus="registerable = true">
@@ -38,7 +38,7 @@
                 <el-button class="forget-pass">忘记密码？</el-button>
               </div>
               <el-button class="submit" @click="login">登录</el-button>
-              <div class="login-footer">
+              <footer class="login-footer">
                   <span class="footer-text">
                     <el-button class="plain-button" @click="signupMode">新用户注册</el-button>
                   </span>
@@ -50,14 +50,14 @@
                 <span class="footer-text">
                     <el-button class="plain-button" @click="close">社交账号登录</el-button>
                   </span>
-              </div>
+              </footer>
             </template>
             <template v-else>
               <el-form-item class="flow-nickname" prop="nickname">
                 <el-input v-model="form.nickname" placeholder="姓名" class="nickname"></el-input>
               </el-form-item>
               <el-button class="submit" @click="accept">注册</el-button>
-              <div class="login-footer">
+              <footer class="login-footer">
                 <div class="left">
                   <span class="footer-text">注册即代表同意</span>
                   <span class="footer-text">
@@ -70,7 +70,7 @@
                         <el-button class="switch-type" @click="loginMode">登录</el-button>
                       </span>
                 </div>
-              </div>
+              </footer>
             </template>
           </div>
         </el-form>

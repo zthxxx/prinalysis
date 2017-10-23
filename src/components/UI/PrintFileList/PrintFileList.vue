@@ -1,5 +1,5 @@
 <template>
-  <div class="print-file-list">
+  <article class="print-file-list">
     <print-file-item v-for="(file, index) in fileList"
                      :key="`${file.name}_${index}`"
                      :index="index + 1"
@@ -10,7 +10,7 @@
                      :handleRemove="handleRemove"
                      :handlePreview="handlePreview">
     </print-file-item>
-  </div>
+  </article>
 </template>
 
 <script>

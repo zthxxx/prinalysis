@@ -1,17 +1,15 @@
 <template>
   <div class="manage-board">
-    <div class="infom">
-      <div class="inform-header">
-        <slot name="header">
-          <h1>通知消息</h1>
-        </slot>
-      </div>
-      <div class="container">
-        <slot>
-          <div class="empty-tip"> 啦啦~ 这里没有消息哦 O(∩_∩)O </div>
-        </slot>
-      </div>
-    </div>
+    <header class="inform-header">
+      <slot name="header">
+        <h1>通知消息</h1>
+      </slot>
+    </header>
+    <article class="inform-container">
+      <slot>
+        <footer class="empty-tip"> 啦啦~ 这里没有消息哦 O(∩_∩)O </footer>
+      </slot>
+    </article>
   </div>
 </template>
 
