@@ -22,7 +22,7 @@ describe('BoxCard', () => {
 
   it('box-card should have header with title', () => {
     let vm = creatVM(boxCard, { title: 'box card title' });
-    let elm = vm.$el.querySelector('.box-card div:first-child');
+    let elm = vm.$el.querySelector('.box-card header');
     expect(elm.classList.contains('card-header')).to.be.true;
   });
 });
