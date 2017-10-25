@@ -1,20 +1,20 @@
 @import "~@/style/import"
 .account
+  padding-bottom: 20px
   width: 100%
   height: auto
-  color: shallow-text-gray
-  padding-bottom: 20px
   font-size: 16px
+  color: shallow-text-gray
 
 .print-project
-  width: 960px
+  display: flex
   margin: 0 auto 6px
   padding-top: 10px
-  display: flex
+  width: 960px
   .left-part
-    width: 53%
-    padding-bottom: 6px
     padding-right: 3%
+    padding-bottom: 6px
+    width: 53%
     .print-place
       left: 0
       margin-top: 12px
@@ -26,37 +26,37 @@
       display: block
       margin-bottom: 15px
     .coupon
-      font-size: 13px
       display: flex
       align-items: center
-      outline: none
       border: none
+      font-size: 13px
       background: none
+      outline: none
       .coupon-select
         width: 240px
   .right-part
-    width: 48%
-    min-height: 290px
-    border-left: 1px solid #ddd
-    padding: 8px 0 6px 26px
     display: flex
     flex-direction: column
     justify-content: space-between
+    border-left: 1px solid #ddd
+    padding: 8px 0 6px 26px
+    width: 48%
+    min-height: 290px
     .title
-      color: dark-blue
       margin-bottom: 4px
+      color: blue-dark
     .radio
-      width: 100%
       display: flex
       align-items: center
-      font-size: 15px
       padding: 4px 0
+      width: 100%
+      font-size: 15px
     .dispatch
       color: deep-text-gray
       .dispatch-info
         display: block
-        width: 250px
         margin: 10px 0
+        width: 250px
         text-align: start
       .nickname, .phone
         width: 200px
@@ -79,26 +79,26 @@
         width: 300px
 
 .account-info
-  text-align: right
   align-self: flex-end
+  text-align: right
   .original-money
-    font-size: 15px
     margin-top: 20px
+    font-size: 15px
     color: #888
   .final-money
-    font-size: 15px
     margin: 5px 0
+    font-size: 15px
     span
+      margin-left: 12px
       font-size: 24px
       color: theme-green-dark
-      margin-left: 12px
   .to-submit
-    background: theme-green-dark
-    outline: none
+    margin-top: 7px
     border: none
     border-radius: 5px
     width: 150px
     height: 46px
-    color: #fff
-    margin-top: 7px
     font-size: 16px
+    color: #fff
+    background: theme-green-dark
+    outline: none

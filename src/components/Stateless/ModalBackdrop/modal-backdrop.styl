@@ -1,17 +1,17 @@
 @import "~@/style/import"
 
 .modal-wrapper
-  position: fixed
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  z-index: 20
   display: flex
   flex-direction: column
   justify-content: center
   overflow-x: hidden
   overflow-y: autoi
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 20
+  width: 100%
+  height: 100%
   transition: opacity .3s ease-out
 
   .modal-backdrop
@@ -25,20 +25,16 @@
     transition: background-color .3s ease-out
 
   .modal-dialog
-    position: fixed
-    left: 0
-    top: 0
-    width: 100%
-    height: 100%
     display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    position: fixed
+    top: 0
+    left: 0
     z-index: 1
     margin-right: auto
     margin-left: auto
-    flex-direction: column
-    justify-content: center
-    align-items: center
+    width: 100%
+    height: 100%
     transition: height .8s ease
-
-//body
-//  overflow: hidden
-//  margin-right: scrollbarWidth

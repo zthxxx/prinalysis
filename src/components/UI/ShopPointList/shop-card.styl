@@ -1,31 +1,31 @@
 @import "~@/style/import"
 .print-point-item
   display: inline-block
-  position: relative
-  vertical-align: top
-  text-align: left
-  width: 400px
-  padding-bottom: 4px
-  border: 1px solid #ddd
-  box-sizing: border-box
-  border-radius: 4px
-  margin: 10px 20px
-  cursor: pointer
   overflow: hidden
+  position: relative
+  margin: 10px 20px
+  box-sizing: border-box
+  border: 1px solid #ddd
+  border-radius: 4px
+  padding-bottom: 4px
+  width: 400px
+  text-align: left
+  vertical-align: top
   white-space: nowrap
+  cursor: pointer
   &:hover
     box-shadow: 0 0 6px 2px #eee
   .announce
-    width: 100%
-    text-align: center
     border-top: 1px solid #eee
     padding-top: 4px
+    width: 100%
+    text-align: center
     color: #f63
   &.selected
-    width: 840px
     border-left: 4px solid theme-green-dark
-    cursor: auto
+    width: 840px
     transition: all .3s ease-out
+    cursor: auto
     &:hover
       box-shadow: none
   &.no-running
@@ -33,105 +33,106 @@
     &:hover
       box-shadow: none
   .no-running-tip
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    border-radius: 6px
-    text-align: center
     display: flex
     flex-direction: column
     justify-content: flex-end
+    position: absolute
+    top: 0
+    left: 0
+    border-radius: 6px
+    width: 100%
+    height: 100%
+    text-align: center
     .title
-      background-color: rgba(#fff, .8)
-      color: #aaa
-      font-size: 28px
       padding: 8px 0
-    .msg
+      font-size: 28px
+      color: #aaa
       background-color: rgba(#fff, .8)
+    .msg
       padding: 4px 10px
+      background-color: rgba(#fff, .8)
 
 .box
   display: flex
   .price
-    vertical-align: top
     flex-grow: 1
-    width: 240px
     border-left: 1px dashed #ddd
+    width: 240px
+    vertical-align: top
     .price-title
-      color: theme-text-color
       font-size: 16px
       margin: 10px 0 0 14px
+      color: theme-text-color
       i
         padding-right: 4px
         .min-charge
           font-size: 14px
     .price-list
+      overflow-x: hidden
+      overflow-y: auto
       margin: 6px auto 10px
       width: 90%
       height: 100px
-      overflow-y: auto
       scrollbar 6px
       &::-webkit-scrollbar
         width: 6px
       .price-item
-        width: 86%
-        height: 24px
-        margin: 0 auto
-        padding: 0 2px
-        border-bottom: 1px solid #f3f3f3
         display: flex
         align-items: center
         justify-content: space-between
+        margin: 0 auto
+        border-bottom: 1px solid #f3f3f3
+        padding: 0 2px
+        width: 86%
+        height: 24px
         color: #555
         &.invalid
           color: #bbb
   .discount
-    vertical-align: top
     display: inline-block
-    width: 200px
     border-left: 1px dashed #ddd
+    width: 200px
+    vertical-align: top
     .discount-title
-      color: theme-text-color
-      font-size: 16px
       margin: 10px 0 8px 14px
+      font-size: 16px
+      color: theme-text-color
       i
         padding-right: 4px
       .min-charge
         font-size: 14px
     .favor
-      color: #096
-      font-size: 13px
       margin: 6px 16px
+      font-size: 13px
+      color: #096
 
   .info
-    vertical-align: top
     flex-grow: 1
     padding-bottom: 4px
+    vertical-align: top
     .pic-div
-      vertical-align: top
       display: inline-block
       width: 138px
       height: 138px
+      vertical-align: top
       img
-        width: 84%
         margin: 8% 0 8% 9%
+        width: 84%
 
 .detial-div
-  vertical-align: top
   display: inline-block
-  width: 250px
-  padding: 0 0 6px 8px
   border: none
+  padding: 0 0 6px 8px
+  width: 250px
+  vertical-align: top
   .point-name
+    margin-top: 6px
     font-size: 18px
     color: theme-text-color
-    margin-top: 6px
   .addr
-    color: theme-green-dark
     margin-top: 2px
     font-size: 14px
+    color: theme-green-dark
     i
       margin-right: 6px
   .print-type

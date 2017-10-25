@@ -5,33 +5,32 @@
   height: 100%
   .page
     overflow-y: scroll
-    text-align: center
     margin: 0 auto
     padding-left: 8px
     height: 100%
+    text-align: center
     scrollbar()
     .page-list
-      margin: 0 auto
-      margin-top: 126px
+      margin: 126px auto 0
       img
-        box-shadow: 0 0 10px 0 shallow-text-gray
         margin: 10px auto 0
-        max-width: 98%
         min-width: 50%
+        max-width: 98%
         min-height: 80%
+        box-shadow: 0 0 10px 0 shallow-text-gray
       .gray
         filter: grayscale(100%)
         filter: gray
       .last-tip
+        margin-bottom: 140px
+        padding: 10px 0
         height: 80px
         font-size: 14px
         color: #ddd
-        padding: 10px 0
-        margin-bottom: 140px
   .loading
-    width: 100%
     margin-top: 30px
     margin-bottom: 30px
+    width: 100%
     text-align: center
     .text
       margin-top: 10px
@@ -39,32 +38,32 @@
       color: #ddd
   .file
     position: fixed
-    left: 0
     top: 10px
+    left: 0
     width: 100%
     .close
       position: absolute
-      left: 0
       top: 35px
+      left: 0
       width: 100%
       .content
+        margin: 0 auto
         width: 1120px
         text-align: right
-        margin: 0 auto
         .close-btn
           border-radius: 30px
-          height: 30px
           width: 30px
+          height: 30px
+          font-size: 20px
           line-height: 30px
           text-align: center
-          font-size: 20px
           background-color: #fff
-          cursor: pointer
           opacity: .9
           box-shadow: 0 0 12px 0 #999
+          cursor: pointer
           &:hover
             color: #fff
-            background-color: dark-blue
+            background-color: blue-dark
             opacity: 1
             transition: all .2s ease-out
     .print-file-item
@@ -80,13 +79,13 @@
         color: #999
     .pagination
       position: fixed
-      width: 100%
       bottom: 20px
+      width: 100%
       text-align: center
       .panel
         display: inline-block
-        padding: 6px
         border-radius: 4px
+        padding: 6px
         font-size: 12px
         color: #fff
         background-color: rgba(#000, .4)

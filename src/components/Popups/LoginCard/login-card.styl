@@ -9,51 +9,51 @@
   box-shadow: 0 5px 20px 0 rgba(deep-text-gray, .5)
   .login-inner
     overflow: auto
-    background: #fff
     border-radius: 2px
+    background: #fff
     .close
       position: absolute
       top: 8px
       right: -60px
+      border: none
       padding: 12px
       font-size: 18px
       color: #ddd
       background-color: transparent
-      border: none
       &:hover
         color: #ddd
     .login-content
       flex: 1
       margin-top: 0
-      height: 100%
       padding: 0 24px 32px
+      height: 100%
       line-height: 1.7
       opacity: 1
       .plain-button
-        padding: 0
         border: none
         border-radius: 0
-        background-color: transparent
-        color: inconspicuous-text-color
+        padding: 0
         text-align: center
+        color: gray-bluish-inconspicuous-text
+        background-color: transparent
 
 .login-header
-  padding: 24px 0 28px
   margin: 0 -24px
-  background: dark-blue
+  padding: 24px 0 28px
+  background: blue-dark
   .login-header-title
     font-size: 24px
-    color: #fff
     text-align: center
+    color: #fff
   .login-header-subTitle
     margin-top: 4px
     font-size: 14px
-    color: #fff
     text-align: center
+    color: #fff
 
 .login-flow
-  margin-top: 0
   overflow: hidden
+  margin-top: 0
   .flow-account
     margin-top: 16px
     margin-bottom: 0
@@ -68,15 +68,15 @@
   .endMask
     position: absolute
     right: 0
-    height: 90%
-    padding: 10px 0 0 10px
     margin-top: -15%
+    padding: 10px 0 0 10px
+    height: 90%
     font-size: 14px
-    color: rgba(red, .8)
     text-align: right
-    cursor: text
+    color: rgba(red, .8)
     background: #fff
     opacity: 1
+    cursor: text
     &:before
       position: absolute
       top: 0
@@ -87,21 +87,21 @@
       content: ""
   .el-input
     input.el-input__inner
-      padding: 0 3px
-      line-height: 24px
-      height: 48px
       border: none
-      border-radius: 0
       border-bottom: 1px solid border-gray
-      background: none
-      text-align: start
-      font-weight: bold
+      border-radius: 0
+      padding: 0 3px
+      height: 48px
       font-size: 14px
+      font-weight: bold
+      line-height: 24px
+      text-align: start
+      background: none
     .el-input-group__prepend, .el-input-group__append
       padding: 0
       border: none
-      background: none
       border-radius: 0
+      background: none
     .el-input-group__prepend
       .el-select
         margin: 0
@@ -122,35 +122,35 @@
   .login-options
     margin-top: 16px
   .el-button.switch-type, .forget-pass
-    height: auto
-    padding: 0
     display: inline-block
-    line-height: inherit
-    text-align: center
-    font-size: 14px
-    background: none
     border: none
     border-radius: 0
-    color: induce-text-color
+    padding: 0
+    height: auto
+    font-size: 14px
+    line-height: inherit
+    text-align: center
+    color: blue-induce-text
+    background: none
   .forget-pass
     float: right
-    color: inconspicuous-text-color
+    color: gray-bluish-inconspicuous-text
   .submit
-    width: 100%
     margin-top: 32px
-    padding: 0
     border-radius: 3px
-    line-height: 32px
-    background: dark-blue
-    color: #fff
+    padding: 0
+    width: 100%
     font-size: 14px
+    line-height: 32px
+    color: #fff
+    background: blue-dark
   .login-footer
     margin-top: 22px
     text-align: center
     .footer-text, .footer-separate
       display: inline-block
-      vertical-align: middle
       font-size: 15px
-      color: inconspicuous-text-color
+      vertical-align: middle
+      color: gray-bluish-inconspicuous-text
     .footer-separate
       width: 6%

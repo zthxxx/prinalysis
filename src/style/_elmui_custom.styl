@@ -7,48 +7,48 @@ selector-dropdown-font-size = 12px
   font-size: selector-font-size
   .el-input__inner,
   &.is-without-controls .el-input__inner
-    height: selector-area-height
-    text-align: center
     border-radius: 6px
     padding: 10px
+    height: selector-area-height
+    text-align: center
   input::-webkit-input-placeholder
     color: #bbb
 
 .el-select
-  width: auto
   margin: 0
-  text-align: center
+  width: auto
   font-size: selector-font-size
+  text-align: center
   &:hover
     .el-input__inner
-      border-color: light-blue
+      border-color: blue-light
   .el-input__inner
-    height: selector-area-height
-    text-align: center
     border-radius: 6px
     padding-right: 24px
+    height: selector-area-height
+    text-align: center
     &:focus
       outline: 0
-      box-shadow: 0 0 0 2px rgba(light-blue, 0.2)
+      box-shadow: 0 0 0 2px rgba(blue-light, 0.2)
 
 .el-select-dropdown__list
   padding: 0
 
 .el-select-dropdown__item
-  font-size: selector-dropdown-font-size
-  height: auto
   padding: 7px 15px
+  height: auto
+  font-size: selector-dropdown-font-size
 
 .el-upload__tip
-  color: #666
-  font-size: selector-font-size
   margin: 0
+  font-size: selector-font-size
+  color: #666
 
 .el-input-number
   .el-input-number__decrease, .el-input-number__increase
+    border: none
     width: 20px
     line-height: selector-area-height
-    border: none
   .el-input-number__decrease
-    left: 0
     right: auto
+    left: 0

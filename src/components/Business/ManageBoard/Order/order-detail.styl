@@ -1,9 +1,9 @@
 @import "~@/style/import"
 
 .order-detail
+  padding: 0 40px
   width: 100%
   margin: 0
-  padding: 0 40px
   text-align: left
   color: deep-black
   .back
@@ -17,12 +17,12 @@
       color: #fff
 
 .over-title
-  color: theme-text-color
+  border-left: 3px solid theme-text-color
+  padding-left: 12px
+  height: 28px
   font-size: 18px
   line-height: 28px
-  height: 28px
-  padding-left: 12px
-  border-left: 3px solid theme-text-color
+  color: theme-text-color
 
 .over-money
   font-size: 18px
@@ -35,26 +35,26 @@
   margin-top: -32px
   .overview-info
     display: inline-block
-    width: 362px
-    margin-left: 16px
     margin-top: 18px
+    margin-left: 16px
+    width: 362px
     vertical-align: top
     li
-      line-height: 30px
       font-size: 14px
+      line-height: 30px
     .order-state
       display: inline-block
-      text-align: center
-      line-height: 20px
-      height: 20px
-      padding: 0 8px
       border-radius: 7px
+      padding: 0 8px
+      height: 20px
+      line-height: 20px
+      text-align: center
       color: #fff
   .overview-inform
     margin-top: 26px
     font-size: 14px
-    color: #f90
     text-align: center
+    color: #f90
 
 .content
   margin-top: 20px
@@ -62,18 +62,18 @@
     margin-top: 10px
     margin-left: 28px
     .content-line
-      font-size: 12px
+      border-bottom: 1px solid #ddd
+      padding-left: 8px
       width: 718px
       height: 42px
+      font-size: 12px
       line-height: 42px
-      padding-left: 8px
-      border-bottom: 1px solid #ddd
       &.line-header
         color: theme-text-color
       span
         display: inline-block
       .download
-       color: induce-text-color
+       color: blue-induce-text
       .item-index
         width: 38px
       .item-name
@@ -102,6 +102,6 @@
   margin-right: 30px
   .money-bottom
     float: right
+    margin: 10px 0 20px
     font-size: 14px
     text-align: right
-    margin: 10px 0 20px

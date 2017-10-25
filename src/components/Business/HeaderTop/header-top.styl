@@ -2,61 +2,61 @@
 $head-hight = 60px
 
 header
-  height: $head-hight
   position: relative
-  width: 100%
   top: 0
   left: 0
-  padding: 0 20px
-  color: #fff
   box-sizing: border-box
-  background-color: dark-blue
+  padding: 0 20px
+  width: 100%
+  height: $head-hight
+  color: #fff
+  background-color: blue-dark
 
 .container
-  width: 1140px
   margin: 0 auto
-  padding: 0 30px
-  height: 100%
   box-sizing: border-box
-  background-color: dark-blue
+  padding: 0 30px
+  width: 1140px
+  height: 100%
+  background-color: blue-dark
 
 .nav-logo
-  height: $head-hight
   width: auto
+  height: $head-hight
   vertical-align: sub
 
 .nav-list
-  height: 100%
   float: right
   padding-left: 20px
-  background-color: dark-blue
+  height: 100%
+  background-color: blue-dark
 
 .nav-item
+  display: inline-block
   margin: 0 10px
   padding: 0 18px
-  display: inline-block
   height: $head-hight
-  color: #fff
   font-size: 16px
   text-align: center
-  background-color: dark-blue
+  color: #fff
+  background-color: blue-dark
   transition: border-color .3s, background-color .3s, color .3s
   &:hover
-    border-bottom: dark-blue
+    border-bottom: blue-dark
   &:hover, &.is-active:hover
     background-color: rgba(0, 0, 0, .05)
   &.is-active
-    background-color: rgba(0, 0, 0, .1)
     border-bottom: 4px solid theme-green
+    background-color: rgba(0, 0, 0, .1)
   .count
-    font-size: 14px
     display: inline-block
     margin: 0 2px
+    border-radius: 10px
     padding: 0 6px
     height: 20px
+    font-size: 14px
     line-height: 20px
     background: theme-green
-    border-radius: 10px
 
 .nav-button
   border: none
@@ -69,26 +69,26 @@ header
 
 .user
   float: right
-  padding: 0 6px
   margin-right: 6px
+  padding: 0 6px
   height: 60px
   .identity
     display: flex
     flex-direction: column
     justify-content: center
     float: left
-    height: 60px
     margin: 0 12px
+    height: 60px
     font-size: 14px
-    color: #fff
     text-align: left
+    color: #fff
     .nick
       font-size: 12px
       opacity: .8
   img
     float: left
-    height: 50px
-    width: 50px
     margin-top: 5px
     border-radius: 25px
+    width: 50px
+    height: 50px
     background: lightgray

@@ -1,6 +1,7 @@
 # prinalysis
 
 [![Build Status](https://api.travis-ci.org/zthxxx/prinalysis.svg?branch=master)](https://travis-ci.org/zthxxx/prinalysis)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b6e4a3e3934192dd2d5f/maintainability)](https://codeclimate.com/github/zthxxx/prinalysis/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/zthxxx/prinalysis/badge.svg?branch=master)](https://coveralls.io/github/zthxxx/prinalysis?branch=master)
 [![Node](https://img.shields.io/badge/node-6.11.0+-blue.svg)](https://nodejs.org/)
 [![Vue](https://img.shields.io/badge/vue-2.4.0+-brightgreen.svg)](https://vuejs.org/)

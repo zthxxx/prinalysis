@@ -1,27 +1,27 @@
 @import "~@/style/import"
 .print-file-item
-  width: 1000px
   margin: 0 auto 16px
+  width: 1000px
 
 .print-file
-  position: relative
   border: 1px solid #ddd
   border-radius: 4px
+  position: relative
   font-size: 16px
-  background-color: #fff
   text-align: left
   color: shallow-text-gray
+  background-color: #fff
   .valid-index
     position: absolute
+    padding-left: 4px
     font-size: 12px
     color: #bbb
-    padding-left: 4px
   .logo-holder
-    position: absolute
     display: inline-block
+    position: absolute
+    border-right: 1px dashed #ddd
     width: 100px
     height: 100%
-    border-right: 1px dashed #ddd
     text-align: center
     .logo
       position: relative
@@ -30,28 +30,28 @@
       img
         width: 55px
       div
-        color: shallow-text-gray
         font-size: 14px
+        color: shallow-text-gray
   .file-info
-    position: absolute
-    height: 80px
-    top: 50%
-    margin-top: -40px
-    left: 120px
-    line-height: 2em
     display: inline-block
+    position: absolute
+    top: 50%
+    left: 120px
+    margin-top: -40px
+    height: 80px
+    line-height: 2em
     .name
       overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
       max-width: 340px
-    .source
-      width: 280px
-      margin-top: 18px
-      overflow: hidden
-      text-overflow: ellipsis
       white-space: nowrap
+      text-overflow: ellipsis
+    .source
+      overflow: hidden
+      margin-top: 18px
+      width: 280px
       font-size: 14px
+      white-space: nowrap
+      text-overflow: ellipsis
       color: #999
 
 .file-upload
@@ -65,17 +65,17 @@
       transition: all .2s ease-out
     .loading-info
       position: absolute
-      margin: -35px 20px 0 auto
-      height: 70px
       top: 50%
       right: 120px
+      margin: -35px 20px 0 auto
+      height: 70px
+      font-size: 16px
       line-height: 1.8em
       text-align: center
-      font-size: 16px
       .uploading
         display: flex
-        justify-content: center
         flex-direction: column
+        justify-content: center
         position: relative
         height: 100%
         line-height: 1.28
@@ -84,31 +84,31 @@
           font-size: 28px
           .loading
             position: absolute
-            left: -24px
             top: 18px
-            text-align: center
+            left: -24px
             margin-right: 14px
+            text-align: center
         .speed
-          color: #999
           font-size: 14px
+          color: #999
 
 
 .delete
   position: absolute
-  width: 120px
-  height: 85%
+  right: 0
   margin: 10px 0
   border-left: 1px solid #ddd
-  right: 0
+  width: 120px
+  height: 85%
   font-size: 14px
-  color: #333
   text-align: center
+  color: #333
   .control
     position: relative
-    width: 120px
-    height: 100px
     top: 50%
     margin: -45px auto
+    width: 120px
+    height: 100px
     font-size: 13px
     text-align: center
     z-index: 1
@@ -119,48 +119,48 @@
       color: #999
     .del-btn
       margin: 4px 0 0
-      font-size: 13px
       border: none
       padding: 0
+      font-size: 13px
 
 .print-choice
   position: relative
-  height: 88px
-  width: 420px
   margin: 0 130px 0 auto
+  width: 420px
+  height: 88px
   ul
     display: block
     position: absolute
-    height: 70px
-    margin: 20px 0
     right: 0
+    margin: 20px 0
+    height: 70px
     font-size: 13px
   li
-    position: relative
     display: block
     float: left
-    text-align: center
+    position: relative
     margin: 0 10px
+    text-align: center
   .selectors
     position: relative
-    height: 28px
     margin-top: 10px
+    height: 28px
   .colors, .sides
     width: 85px
   .layouts, .copies
     width: 80px
 
 .setting
+  display: block
   overflow: hidden
   position: relative
-  display: block
-  font-size: 14px
   left: 45%
-  width: 450px
   margin-bottom: 10px
+  width: 450px
+  font-size: 14px
   .print-area
-    margin: 0 10px 10px
     display: inline-block
+    margin: 0 10px 10px
     text-align: center
     .area-tip
       margin: 0 5px 0 10px

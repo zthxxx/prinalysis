@@ -1,30 +1,30 @@
 @import "~@/style/import"
 .upload-dragger
-  width: 100%
-  height: auto
-  padding: 20px 0
-  box-sizing: border-box
-  cursor: default
-  background-color: transparent
-  text-align: center
   display: inline-block
   position: relative
+  box-sizing: border-box
+  padding: 20px 0
+  width: 100%
+  height: auto
+  text-align: center
+  background-color: transparent
+  cursor: default
   &.dragover
     position: relative
     &::before
+      position: absolute
       top: 0
       left: 0
+      z-index: 2
+      box-sizing: border-box
+      border: 2px dashed theme-color
+      border-radius: 6px
+      padding-top: 20px
       width: 100%
       height: 100%
-      padding-top: 20px
-      position: absolute
-      background: rgba(theme-green-light, .6)
-      content: "释放即可添加文件"
-      z-index: 2
-      color: #096
       font-size: 24px
       text-align: center
-      box-sizing: border-box
-      border: 2px dashed color-theme
-      border-radius: 6px
+      color: #096
+      background: rgba(theme-green-light, .6)
       animation: fade-in .3s ease-out
+      content: "释放即可添加文件"
