@@ -63,6 +63,7 @@
 <script>
   import { mapState } from 'vuex';
   import _ from 'lodash';
+  import { POPUP_LOGIN, POPUP_PAY } from '$@/Popups';
   import { formatCNY, getBillingItem } from '@/utils/tools';
   import { verifyOrder } from '@/api';
 
@@ -217,13 +218,13 @@
       },
       async verifyOrder () {
         if (!this.user) {
-          await this.$handleLogin();
+          await this[POPUP_LOGIN]();
         }
         let order = this.getOrder();
         console.warn(order);
         let { orderID } = await verifyOrder(order);
         console.warn(orderID);
-        await this.$handlePay({
+        await this[POPUP_PAY]({
           orderID,
           money: this.finalMoney.actualMoney
         });

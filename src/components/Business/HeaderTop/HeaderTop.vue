@@ -42,6 +42,7 @@
 
 <script>
   import { mapState } from 'vuex';
+  import { POPUP_LOGIN } from '$@/Popups';
 
   export default {
     name: 'header-top',
@@ -64,7 +65,7 @@
     },
     methods: {
       login () {
-        this.$handleLogin();
+        this[POPUP_LOGIN]();
       }
     }
   };

@@ -12,6 +12,7 @@ Vue.use(Router);
 const routes = [
   {
     path: '/',
+    name: 'index',
     redirect: { name: 'home' }
   },
   {
@@ -33,6 +34,7 @@ const routes = [
     redirect: '/user/order',
     component: user,
     name: 'user',
+    meta: { access: ['user'] },
     children: [
       {
         path: 'order',
@@ -46,6 +48,10 @@ const routes = [
         meta: { header: personal.header }
       }
     ]
+  },
+  {
+    path: '*',
+    redirect: { name: 'index' }
   }
 ];
 

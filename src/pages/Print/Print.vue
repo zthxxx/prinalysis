@@ -42,6 +42,7 @@
   import uploadBox from '$@/Business/UploadBox';
   import printFileList from '$@/UI/PrintFileList';
   import settleBill from '$@/Business/SettleBill';
+  import { POPUP_PREVIEW } from '$@/Popups';
   import { getAddresses, getPoints } from '@/api';
   import * as types from '@/store/mutation-types';
   import { mapModel } from '@/utils/tools';
@@ -112,7 +113,7 @@
         this.$refs.uploader.transmitRemove(file);
       },
       handlePreview (file) {
-        this.$preview({
+        this[POPUP_PREVIEW]({
           price: _.get(this.focusPoint, 'price'),
           file,
           updateSetting: this.updateSetting

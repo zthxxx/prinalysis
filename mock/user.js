@@ -8,7 +8,7 @@ const userBase = {
   'username': /\1[358]\d{9}/,
   'nickname|1': ['@name', '@cname'],
   'uid': '@id',
-  'access': ['user', 'vendor', 'manager'],
+  'access|1': ['user', 'vendor', 'manager'],
   'avatar': randomAvatar,
   'address|1': ['', '@county(true) @csentence'],
   'lastPointAddress': ['@province', '@city', '@county()校区'],
