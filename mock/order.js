@@ -16,7 +16,7 @@ export default {
     'info': {
       'uid': '@id',
       'code': '+86',
-      'username': /\1[358]\d{9}/,
+      'username': /1[358]\d{9}/,
       'nickname|1': ['@name', '@cname'],
       'orderID': '@id',
       'orderDate': '@now(T)',

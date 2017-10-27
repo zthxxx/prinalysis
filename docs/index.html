@@ -11,17 +11,17 @@
   <div id="app"></div>
 </body>
 <script>
+  var repo = 'https://github.com/zthxxx/prinalysis'
   window.$docsify = {
     name: '<b>prinalysis dev</b><br>API GUIDE',
-    repo: 'https://github.com/zthxxx/prinalysis',
+    repo: repo,
     
-    // 加载 _sidebar.md
     loadSidebar: '_sidebar.md',
-    // 单文档目录层级
+    
     maxLevel: 4,
-    // 自定义侧边栏目录层级
+    
     subMaxLevel: 3,
-    //自动回到顶部
+    
     auto2top: true,
     
     mergeNavbar: true,
@@ -30,9 +30,11 @@
     
     formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}',
     
+    routerMode: 'hash',
+    
     search: {
-      maxAge: 86400000, // 过期时间，单位毫秒，默认一天
-      paths: 'auto', // or 'auto'
+      maxAge: 86400000,
+      paths: 'auto',
       placeholder: 'Type to search',
       placeholder: {
         '/': 'Type to search'
@@ -45,20 +47,24 @@
     plugins: [
       function(hook, vm) {
         hook.beforeEach(function (html) {
-          var url = 'https://github.com/zthxxx/prinalysis/blob/master/docs/' + vm.route.file
-          var editHtml = '[Edit Document](' + url + ')\n'
+          var url = repo + '/edit/master/docs/' + vm.route.file
           var updateTime = 'Last update in {docsify-updated} | '
+          var editHtml = '[Edit Document](' + url + ')\n'
+          var poweredBy =  'Powered by [docsify](https://github.com/QingWei-Li/docsify/) | '
+          var topTag = vm.route.path + '?id=main'
+          var goToTop = ['go back [to top](', topTag, ')'].join('')
           return updateTime
             + editHtml
             + html
             + '\n----\n'
-            + updateTime
-            + editHtml
+            + poweredBy
+            + goToTop
         })
       }
     ]
   }
-  if (typeof navigator.serviceWorker !== 'undefined') {
+  if (window.location.hostname !== 'localhost' && typeof navigator.serviceWorker !== 'undefined') {
+    console.info('Service Worker will register.')
     navigator.serviceWorker.register('sw.js')
   }
 </script>

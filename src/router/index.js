@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 const home = () => import('@/pages/Home');
 const print = () => import('@/pages/Print');
+const library = () => import('@/pages/Library');
 const user = () => import('@/pages/User');
 import order from '$@/Business/ManageBoard/Order';
 import personal from '$@/Business/ManageBoard/Personal';
@@ -27,6 +28,7 @@ const routes = [
   },
   {
     path: '/library',
+    component: library,
     name: 'library'
   },
   {
@@ -34,7 +36,7 @@ const routes = [
     redirect: '/user/order',
     component: user,
     name: 'user',
-    meta: { access: ['user'] },
+    meta: { access: ['user', 'vendor', 'manager'] },
     children: [
       {
         path: 'order',

@@ -118,6 +118,7 @@ orderID: 订单号
  */
 {
   "uid": String, // 下单用户 ID
+  "code": String, // 【可选】国际区号，当用户名为手机号时使用
   "username": String, // 下单用户名
   "nickname": String, // 下单用户姓名昵称
   "orderID": String, // 订单号
@@ -178,6 +179,7 @@ Response:
   "result": "OK",
   "info": {
     "uid": "1fba29cd8cc72f1ad",
+    "code": "+86",
     "username": "18945678900",
     "nickname": "xxx",
     "orderID": "2017081527671193112",

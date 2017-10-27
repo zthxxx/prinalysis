@@ -30,10 +30,10 @@
             </figure>
           </el-menu-item>
         </el-menu>
-        <el-button icon="fa-weixin" class="nav-item nav-button"
+        <el-button icon="fa-rocket" class="nav-item nav-button"
                    v-else
                    @click="login">
-          微信登录
+          用户登录
         </el-button>
       </nav>
     </div>

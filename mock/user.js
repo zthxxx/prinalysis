@@ -5,7 +5,7 @@ const randomAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email()
 
 const userBase = {
   'code': '+86',
-  'username': /\1[358]\d{9}/,
+  'username': /1[358]\d{9}/,
   'nickname|1': ['@name', '@cname'],
   'uid': '@id',
   'access|1': ['user', 'vendor', 'manager'],
@@ -17,7 +17,7 @@ const userBase = {
 
 export default {
   '/user/logining': {
-    'result|1': ['OK', 'ERROR'],
+    'result|1': ['OK', 'OK', 'ERROR'],
     'info': {
       ...userBase
     },
