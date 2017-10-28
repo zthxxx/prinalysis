@@ -21,13 +21,63 @@
     padding: 0
     font-size: 16px
     color: blue-induce-text
+    transition: all .3s ease
     & >>> i
       border-radius: 50%
-      width: 28px
-      height: 28px
-      font-size: 20px
-      line-height: 28px
+      width: size = 28px
+      height: size
+      font-size: 16px
+      line-height: size
       color: #fff
       background-color: blue-dark
+      transition: all .3s ease
     &:hover
       color: blue-pure
+      & >>> i
+        background-color: blue-pure
+
+.seach, .documents
+  selector-tabs()
+  .selector-tabs
+    margin: 6px auto 20px
+
+.table-line
+  display: flex
+  align-items: center
+  min-height: 40px
+  font-size: 14px
+  color: deep-black
+  border-top: 1px solid #eee
+  &:first-of-type
+    border-top-width: 2px
+  &:last-of-type
+    border-bottom: 2px solid #eee
+  .select-title
+    display: inline-block
+    margin-left: 20px
+    min-width: 60px
+    font-weight: bold
+    text-align: center
+  .select-radio
+    display: inline-block
+    background: none
+    .select-radio-item
+      margin: 6px 0 6px 20px
+      border: none
+      padding: 0 10px
+      height: 28px
+      line-height: 28px
+      text-align: center
+      vertical-align: middle
+      color: shallow-text-gray
+      &.is-active
+        border: 1px solid theme-text-color
+        border-radius: 6px
+        line-height: 26px
+        color: theme-text-color
+
+.empty-tip
+  padding: 40px 0
+  font-size: 24px
+  text-align: center
+  color: shallow-text-gray

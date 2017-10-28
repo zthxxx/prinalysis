@@ -2,13 +2,13 @@
   <transition name="float-fade">
     <orderDetail v-if="order" :order="order" @back="onback"></orderDetail>
     <div v-else>
-      <el-menu :default-active="type" class="infom-tab" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="ALL" class="select">全部订单({{`${amount.ALL}`}})</el-menu-item>
-        <el-menu-item index="PAYING" class="select">待支付({{`${amount.PAYING}`}})</el-menu-item>
-        <el-menu-item index="PAID" class="select">待打印({{`${amount.PAID}`}})</el-menu-item>
-        <el-menu-item index="PRINTED" class="select">待收/取件({{`${amount.PRINTED}`}})</el-menu-item>
-        <el-menu-item index="FINISH" class="select">已完成({{`${amount.FINISH}`}})</el-menu-item>
-        <el-menu-item index="REFUND" class="select">退款({{`${amount.REFUND}`}})</el-menu-item>
+      <el-menu :default-active="type" class="selector-tabs" mode="horizontal" @select="handleSelect">
+        <el-menu-item index="ALL" class="selector-item">全部订单({{`${amount.ALL}`}})</el-menu-item>
+        <el-menu-item index="PAYING" class="selector-item">待支付({{`${amount.PAYING}`}})</el-menu-item>
+        <el-menu-item index="PAID" class="selector-item">待打印({{`${amount.PAID}`}})</el-menu-item>
+        <el-menu-item index="PRINTED" class="selector-item">待收/取件({{`${amount.PRINTED}`}})</el-menu-item>
+        <el-menu-item index="FINISH" class="selector-item">已完成({{`${amount.FINISH}`}})</el-menu-item>
+        <el-menu-item index="REFUND" class="selector-item">退款({{`${amount.REFUND}`}})</el-menu-item>
       </el-menu>
       <div class="infom-list">
         <orderItem v-for="order of orders" :key="order.orderID"

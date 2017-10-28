@@ -29,7 +29,7 @@ theme-text-color = blue-text
 scrollbarWidth = 8px
 
 // Scrollbar
-scrollbar(barWidth = scrollbarWidth)
+scrollbar(barWidth=scrollbarWidth)
   &::-webkit-scrollbar
     width: barWidth
     background-color: rgba(#000, .05)
@@ -48,3 +48,28 @@ scrollbar(barWidth = scrollbarWidth)
 .gray
   color: #fff
   background-color: #999
+
+selector-tabs(width=150px, height=30px, fontsize=12px)
+  .selector-tabs
+    display: flex
+    justify-content: center
+    font-size: 0
+    background: none
+    .selector-item
+      margin: 0
+      border: 1px solid #ccc
+      min-width: width
+      height: height
+      font-size: fontsize
+      line-height: height
+      text-align: center
+      color: shallow-text-gray
+      &.is-active
+        color: #fff
+        background: theme-text-color
+      &:first-of-type
+        border-radius: 6px 0 0 6px
+      &:last-of-type
+        border-radius: 0 6px 6px 0
+      &:not(:first-of-type)
+        margin-left: -1px
