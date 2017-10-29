@@ -9,13 +9,15 @@
   box-shadow: 0 0 4px 1px #ddd
 
 .inform-header
+  display: flex
+  justify-content: center
+  align-items: center
   margin-bottom: 20px
   height: 40px
   background: theme-text-color
   h1
     font-size: 16px
     font-weight: 400
-    line-height: 40px
     color: #fff
 .inform-container
   selector-tabs(125px, 35px, 14px)
@@ -30,10 +32,11 @@
   color: shallow-text-gray
 
 .pages
+  display: flex
+  justify-content: flex-end
+  align-items: center
   padding: 8px 40px 18px
   font-size: 12px
-  line-height: 24px
-  text-align: right
   .infom-count
     display: inline-block
     color: #aaa

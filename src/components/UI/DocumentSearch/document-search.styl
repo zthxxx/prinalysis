@@ -1,0 +1,37 @@
+@import "~@/style/import"
+
+.table-line
+  display: flex
+  align-items: center
+  min-height: 40px
+  font-size: 14px
+  color: deep-black
+  border-top: 1px solid #eee
+  &:first-of-type
+    border-top-width: 2px
+  &:last-of-type
+    border-bottom: 2px solid #eee
+  .select-title
+    display: inline-block
+    margin-left: 20px
+    min-width: 60px
+    font-weight: bold
+    text-align: center
+  .select-radio
+    display: inline-block
+    background: none
+    .select-radio-item
+      margin: 6px 0 6px 20px
+      border: 1px solid transparent
+      padding: 0 10px
+      height: auto
+      line-height: 28px
+      text-align: center
+      vertical-align: middle
+      color: shallow-text-gray
+      transition: all .2s ease-out
+      &.is-active
+        border: 1px solid theme-text-color
+        border-radius: 6px
+        color: theme-text-color
+
