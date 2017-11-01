@@ -7,3 +7,4 @@
   - [用户相关](/api - user)
   - [订单相关](/api - order)
   - [支付相关](/api - pay)
+  - [文库相关](/api - library)
