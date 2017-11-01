@@ -27,7 +27,7 @@ const expectSearchs = {
 };
 
 describe('ProfessionSearch', () => {
-  it('profession-search will emit search while created by institutes', done => {
+  it('profession-search will emit search while created by optionalSearchs', done => {
     let vm = creatVM(professionSearch, { optionalSearchs });
     vm.$on('search', searchs => {
       expect(searchs).to.be.deep.equal(expectSearchs);

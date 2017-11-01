@@ -34,7 +34,8 @@ export default {
     info: {
       defaults: {
         category: '金融类',
-        topic: '区块链'
+        topic: '区块链',
+        order: 'COLLECTED'
       },
       optional: {
         '语言类': ['托福', '雅思', 'GRE'],

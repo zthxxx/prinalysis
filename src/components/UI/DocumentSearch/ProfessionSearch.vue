@@ -27,7 +27,7 @@
       <el-menu class="select-radio" :default-active="subject" mode="horizontal" @select="setSubject">
         <el-menu-item index="ALL" class="select-radio-item">全部</el-menu-item>
         <el-menu-item class="select-radio-item"
-                      v-for="name in subjects" :key="name"
+                      v-for="name of subjects" :key="name"
                       :index="name">{{ name }}
         </el-menu-item>
       </el-menu>
@@ -46,6 +46,7 @@
 <script>
   import _ from 'lodash';
   import linkageSelect from '$@/UI/LinkageSelect';
+  import { getFirstKey } from '@/utils/tools';
 
   export default {
     name: 'profession-search',
@@ -98,32 +99,24 @@
         this.subject = subject;
         this.order = order;
       },
-      getFirstKey (map, current, defaultAll = true) {
-        if (map instanceof Array) {
-          if (map.includes(current)) return current;
-          return defaultAll ? 'ALL' : _.find(map);
-        }
-        if (_.has(map, current)) return current;
-        return _.findKey(map);
-      },
       async onSetInstitute (majors) {
         this.majors = majors;
         await this.$nextTick();
-        let major = this.getFirstKey(majors, this.major);
+        let major = getFirstKey(majors, this.major);
         this.setMajor(major);
       },
       async setMajor (major) {
         this.major = major;
         this.semesters = this.majors[major];
         await this.$nextTick();
-        let semester = this.getFirstKey(this.semesters, this.semester);
+        let semester = getFirstKey(this.semesters, this.semester);
         this.setSemester(semester);
       },
       async setSemester (semester) {
         this.semester = semester;
         this.subjects = this.semesters[semester];
         await this.$nextTick();
-        let subject = this.getFirstKey(this.subjects, this.subject);
+        let subject = getFirstKey(this.subjects, this.subject);
         this.setSubject(subject);
       },
       setSubject (subject) {

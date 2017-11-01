@@ -54,6 +54,23 @@ export const orderStateMap = {
   REFUNDED: '已退款'
 };
 
+/**
+ * 获取对象或列表的第一个键（值）
+ * 如果预设值在映射的键或列表的值中就直接返回，否则就取第一个键或值
+ * @param {Array | object} map - 数据映射或列表
+ * @param {string} current - 当前预设值
+ * @param {boolean} defaultAll - 对于列表，预设不存在时是否默认为 ALL；为`false`表示取第一项
+ * @returns {string} - 取值
+ */
+export const getFirstKey = (map, current, defaultAll = true) => {
+  if (map instanceof Array) {
+    if (map.includes(current)) return current;
+    return defaultAll ? 'ALL' : _.find(map);
+  }
+  if (_.has(map, current)) return current;
+  return _.findKey(map);
+};
+
 export const checkset = (price, setting) => {
   if (!price) return setting;
   let reset = {};
