@@ -26,6 +26,14 @@ const expectSearchs = {
   order: 'COLLECTED'
 };
 
+const defaults = {
+  institute: ['A城大学', 'xxx 学院'],
+  major: '土木工程',
+  semester: '大一上',
+  subject: '材料力学(A)',
+  order: 'TIME'
+};
+
 describe('ProfessionSearch', () => {
   it('profession-search will emit search while created by optionalSearchs', done => {
     let vm = creatVM(professionSearch, { optionalSearchs });
@@ -34,6 +42,18 @@ describe('ProfessionSearch', () => {
       done();
     });
   });
+
+  it('profession-search should use default by defaultSearchs', done => {
+    let defaultSearchs = { ...defaults };
+    let vm = creatVM(professionSearch, { defaultSearchs, optionalSearchs });
+    defaultSearchs.order = 'COLLECTED';
+    defaultSearchs.order = defaults.order;
+    vm.$on('search', searchs => {
+      expect(searchs).to.be.deep.equal(defaults);
+      done();
+    });
+  });
+
   it('profession-search setOrder will emit search', done => {
     let vm = creatVM(professionSearch, { optionalSearchs });
     let isSetByOrder = false;

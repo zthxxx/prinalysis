@@ -36,6 +36,18 @@ describe('LinkageSelect', () => {
     expect(vm.currents).to.deep.equal(expectCurrents);
   });
 
+  it('linkage-select currents will not reselected with focus change to wrong', () => {
+    let focused = ['province', 'other-city'];
+    let vm = creatVM(linkageSelect,
+      {
+        linkageDatas: addresses,
+        focused
+      });
+    expect(vm.currents).to.deep.equal(expectCurrents);
+    focused.push('other-county');
+    expect(vm.currents).to.deep.equal(expectCurrents);
+  });
+
   it('linkage-select will emit currents', done => {
     let vm = creatVM(linkageSelect, { linkageDatas: addresses }, false);
     vm.$on('currents', currents => {
