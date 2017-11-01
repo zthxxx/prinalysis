@@ -19,6 +19,7 @@
     "dev": "node --es_staging build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "unit:dev": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js",
     "e2e": "node --es_staging test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "coveralls": "cat test/unit/coverage/lcov.info | coveralls",

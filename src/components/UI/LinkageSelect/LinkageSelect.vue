@@ -35,11 +35,16 @@
       defaultSelected: {
         type: Boolean,
         default: true
+      },
+      firstMountEmit: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
       return {
-        currents: [...this.focused]
+        currents: [...this.focused],
+        firstMount: this.firstMountEmit
       };
     },
     computed: {
@@ -76,12 +81,21 @@
           }
           index++;
         }
-        if (!_.isEqual(currents, this.focused)) {
+        if (!_.isEqual(currents, this.focused) || this.firstMount) {
+          this.firstMount = false;
           this.$emit('currents', [...currents]);
           this.$emit('track', layer);
         }
         return layers;
       }
+    },
+    watch: {
+      focused: {
+        handler (focused) {
+          if (!_.isEqual(this.currents, focused)) this.currents = [...focused];
+        }
+      },
+      deep: true
     }
   };
 </script>

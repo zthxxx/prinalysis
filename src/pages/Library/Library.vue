@@ -13,10 +13,13 @@
       <box-card class="seach">
         <el-menu :default-active="seachMethod" class="selector-tabs" mode="horizontal" @select="changeSeachMethod">
           <el-menu-item index="profession" class="selector-item">通过专业科目查找</el-menu-item>
-          <el-menu-item index="subject" class="selector-item">通过专题查找</el-menu-item>
+          <el-menu-item index="thematic" class="selector-item">通过专题查找</el-menu-item>
         </el-menu>
-        <profession-search v-if="seachMethod === 'profession'"></profession-search>
-        <subject-search v-else-if="seachMethod === 'subject'"></subject-search>
+        <component :is="seachMethod"
+                   :defaultSearchs="defaultSearchs"
+                   :optionalSearchs="optionalSearchs"
+                   @search="onSearch">
+        </component>
       </box-card>
       <box-card class="documents">
         <el-menu :default-active="seachType" class="selector-tabs" mode="horizontal" @select="changeSeachType">
@@ -32,27 +35,42 @@
 <script>
   import boxCard from '$@/Stateless/BoxCard';
   import professionSearch from '$@/UI/DocumentSearch/ProfessionSearch';
-  import subjectSearch from '$@/UI/DocumentSearch/SubjectSearch';
+  import thematicSearch from '$@/UI/DocumentSearch/ThematicSearch';
+  import { getLibOptional } from '@/api';
 
   export default {
     name: 'library',
-    components: { boxCard, professionSearch, subjectSearch },
+    components: {
+      boxCard,
+      profession: professionSearch,
+      thematic: thematicSearch
+    },
     props: {},
     data () {
       return {
         seachMethod: 'profession',
-        seachType: 'file'
+        seachType: 'file',
+        defaultSearchs: {},
+        optionalSearchs: []
       };
     },
     computed: {},
     watch: {},
-    mounted: {},
+    created () {
+      this.changeSeachMethod(this.seachMethod);
+    },
     methods: {
-      changeSeachMethod (method) {
+      async changeSeachMethod (method) {
+        let { defaults, optional } = await getLibOptional(method);
+        this.defaultSearchs = defaults;
+        this.optionalSearchs = optional;
         this.seachMethod = method;
       },
       changeSeachType (type) {
         this.seachType = type;
+      },
+      onSearch (payload) {
+        console.log(payload);
       }
     }
   };

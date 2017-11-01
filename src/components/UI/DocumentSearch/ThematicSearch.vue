@@ -30,7 +30,17 @@
   export default {
     name: 'subject-search',
     components: {},
-    props: {},
+    props: {
+      defaultSearchs: {
+        type: Object,
+        required: false,
+        default: () => ({})
+      },
+      optionalSearchs: {
+        type: Object,
+        required: true
+      }
+    },
     data () {
       return {
         category: '环境工程',
@@ -40,7 +50,6 @@
     },
     computed: {},
     watch: {},
-    mounted: {},
     methods: {}
   };
 </script>

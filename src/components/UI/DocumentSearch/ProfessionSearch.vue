@@ -2,78 +2,149 @@
   <div>
     <div class="table-line">
       <span class="select-title">学校学院</span>
-      <linkage-select :linkageDatas="institutes" v-model="institute"></linkage-select>
+      <linkage-select :linkageDatas="optionalSearchs" v-model="institute" @track="onSetInstitute"></linkage-select>
     </div>
     <div class="table-line">
       <span class="select-title">专业</span>
-      <el-menu :default-active="major" class="select-radio" mode="horizontal">
-        <el-menu-item index="环境工程" class="select-radio-item">环境工程</el-menu-item>
-        <el-menu-item index="机械工程" class="select-radio-item">机械工程</el-menu-item>
-        <el-menu-item index="车辆工程" class="select-radio-item">车辆工程</el-menu-item>
-        <el-menu-item index="通信工程" class="select-radio-item">通信工程</el-menu-item>
+      <el-menu class="select-radio" :default-active="major" mode="horizontal" @select="setMajor">
+        <el-menu-item class="select-radio-item"
+                      v-for="(value, name) in majors" :key="name"
+                      :index="name">{{ name }}
+        </el-menu-item>
       </el-menu>
     </div>
     <div class="table-line">
       <span class="select-title">学期</span>
-      <el-menu :default-active="semester" class="select-radio" mode="horizontal">
-        <el-menu-item index="大一上" class="select-radio-item">大一上</el-menu-item>
-        <el-menu-item index="大一下" class="select-radio-item">大一下</el-menu-item>
-        <el-menu-item index="大二上" class="select-radio-item">大二上</el-menu-item>
-        <el-menu-item index="大二下" class="select-radio-item">大二下</el-menu-item>
+      <el-menu class="select-radio" :default-active="semester" mode="horizontal" @select="setSemester">
+        <el-menu-item class="select-radio-item"
+                      v-for="(value, name) in semesters" :key="name"
+                      :index="name">{{ name }}
+        </el-menu-item>
       </el-menu>
     </div>
     <div class="table-line">
       <span class="select-title">科目</span>
-      <el-menu :default-active="subject" class="select-radio" mode="horizontal">
+      <el-menu class="select-radio" :default-active="subject" mode="horizontal" @select="setSubject">
         <el-menu-item index="ALL" class="select-radio-item">全部</el-menu-item>
-        <el-menu-item index="1" class="select-radio-item">环境与艺术</el-menu-item>
-        <el-menu-item index="2" class="select-radio-item">线性代数与解析几何</el-menu-item>
-        <el-menu-item index="3" class="select-radio-item">微积分</el-menu-item>
-        <el-menu-item index="4" class="select-radio-item">过程装备与控制工程</el-menu-item>
-        <el-menu-item index="5" class="select-radio-item">材料成型与分解制作</el-menu-item>
-        <el-menu-item index="6" class="select-radio-item">过程装备与控制工程</el-menu-item>
-        <el-menu-item index="7" class="select-radio-item">能源化学</el-menu-item>
-        <el-menu-item index="8" class="select-radio-item">给排水工程</el-menu-item>
+        <el-menu-item class="select-radio-item"
+                      v-for="name in subjects" :key="name"
+                      :index="name">{{ name }}
+        </el-menu-item>
       </el-menu>
     </div>
     <div class="table-line">
       <span class="select-title">排序</span>
-      <el-menu :default-active="order" class="select-radio" mode="horizontal">
+      <el-menu class="select-radio" :default-active="order" mode="horizontal" @select="setOrder">
         <el-menu-item index="COLLECTED" class="select-radio-item">收藏量</el-menu-item>
-        <el-menu-item index="1" class="select-radio-item">打印量</el-menu-item>
-        <el-menu-item index="2" class="select-radio-item">上传时间</el-menu-item>
+        <el-menu-item index="PRINT" class="select-radio-item">打印量</el-menu-item>
+        <el-menu-item index="TIME" class="select-radio-item">上传时间</el-menu-item>
       </el-menu>
     </div>
   </div>
 </template>
 
 <script>
+  import _ from 'lodash';
   import linkageSelect from '$@/UI/LinkageSelect';
 
   export default {
     name: 'profession-search',
     components: { linkageSelect },
-    props: {},
+    props: {
+      defaultSearchs: {
+        type: Object,
+        required: false,
+        default: () => ({})
+      },
+      optionalSearchs: {
+        type: Array,
+        required: true
+      }
+    },
     data () {
       return {
-        institutes: [
-          {
-            'xxx 科技大学': [
-              { 'xxx 方向专业': 'major id' }
-            ]
-          }
-        ],
         institute: [],
-        major: '环境工程',
-        semester: '大一上',
-        subject: 'ALL',
+        majors: {},
+        major: '',
+        semesters: {},
+        semester: '',
+        subjects: [],
+        subject: '',
         order: 'COLLECTED'
       };
     },
     computed: {},
-    watch: {},
-    mounted: {},
-    methods: {}
+    watch: {
+      defaultSearchs: {
+        handler () {
+          this.setDefault();
+        },
+        deep: true
+      }
+    },
+    created () {
+      this.setDefault();
+    },
+    methods: {
+      async setDefault () {
+        if (_.isEmpty(this.defaultSearchs)) return;
+        let { institute, major, semester, subject, order } = this.defaultSearchs;
+        this.institute = institute;
+        await this.$nextTick();
+        this.major = major;
+        await this.$nextTick();
+        this.semester = semester;
+        await this.$nextTick();
+        this.subject = subject;
+        this.order = order;
+      },
+      getFirstKey (map, current, defaultAll = true) {
+        if (map instanceof Array) {
+          if (map.includes(current)) return current;
+          return defaultAll ? 'ALL' : _.find(map);
+        }
+        if (_.has(map, current)) return current;
+        return _.findKey(map);
+      },
+      async onSetInstitute (majors) {
+        this.majors = majors;
+        await this.$nextTick();
+        let major = this.getFirstKey(majors, this.major);
+        this.setMajor(major);
+      },
+      async setMajor (major) {
+        this.major = major;
+        this.semesters = this.majors[major];
+        await this.$nextTick();
+        let semester = this.getFirstKey(this.semesters, this.semester);
+        this.setSemester(semester);
+      },
+      async setSemester (semester) {
+        this.semester = semester;
+        this.subjects = this.semesters[semester];
+        await this.$nextTick();
+        let subject = this.getFirstKey(this.subjects, this.subject);
+        this.setSubject(subject);
+      },
+      setSubject (subject) {
+        this.subject = subject;
+        this.search();
+      },
+      setOrder (order) {
+        this.order = order;
+        this.search();
+      },
+      search () {
+        let { institute, major, semester, subject, order } = this;
+        this.$emit('search', {
+          institute,
+          major,
+          semester,
+          subject,
+          order
+        });
+      }
+    }
   };
 </script>
 

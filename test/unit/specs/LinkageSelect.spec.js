@@ -55,6 +55,40 @@ describe('LinkageSelect', () => {
     vm.$mount();
   });
 
+  it('linkage-select will emit on first mount with set focused', done => {
+    let vm = creatVM(linkageSelect,
+      {
+        linkageDatas: addresses,
+        focused: expectCurrents
+      },
+      false
+    );
+    vm.$on('track', track => {
+      expect(track).to.equal('id');
+      done();
+    });
+    vm.$mount();
+  });
+
+  it('linkage-select will not emit on first mount with set focused and disable firstMountEmit', done => {
+    let vm = creatVM(linkageSelect,
+      {
+        linkageDatas: addresses,
+        focused: expectCurrents,
+        firstMountEmit: false
+      },
+      false
+    );
+    vm.$on('track', track => {
+      expect(track).to.equal('id');
+      done('should not emit with firstMountEmit disabled');
+    });
+    vm.$mount();
+    vm.$nextTick(() => {
+      done();
+    });
+  });
+
   it('linkage-select will not selected with defaultSelected off', () => {
     let vm = creatVM(linkageSelect,
       {
@@ -81,6 +115,18 @@ describe('LinkageSelect', () => {
     vm.$mount();
     vm.$nextTick(() => {
       done();
+    });
+  });
+
+  it('Vue emit even should ahead of nextTick order', done => {
+    let vm = creatVM(linkageSelect, { linkageDatas: addresses }, false);
+    vm.$on('track', track => {
+      expect(track).to.equal('id');
+      done();
+    });
+    vm.$mount();
+    vm.$nextTick(() => {
+      done('emit should not behind nextTick');
     });
   });
 });

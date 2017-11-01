@@ -6,5 +6,6 @@ export * from './file';
 export * from './user';
 export * from './order';
 export * from './pay';
+export * from './library';
 
 setBaseUrl(API.BaseUrl);

@@ -13,7 +13,7 @@
     },
     computed: {},
     watch: {},
-    mounted: {},
+    mounted () {},
     methods: {}
   };
 </script>

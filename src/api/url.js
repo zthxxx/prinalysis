@@ -44,3 +44,7 @@ export const PAYMENT = '/pay/payment';
 
 export const TRADE = '/pay/trade';
 
+
+export const PROFESSION_SEARCH = '/library/profession';
+
+export const THEMATIC_SEARCH = '/library/thematic';
