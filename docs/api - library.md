@@ -39,8 +39,11 @@ Response:
     "optional": [{ // 支持的可选项集合
       学校: [{ // Array<Object>
         学院: { // 前两层为同打印点 API 第 0 点校园地址相同格式的学校学院名
-          专业: { // Object - 支持的专业，以及专业下支持的学期
-            学期: [科目] // Array[String] - 当前学期下支持的科目
+          "id": String, // 学院对应的 ID，用于后续查询参数
+          "majors": { // 学院对应的专业集合
+            专业: { // Object - 支持的专业，以及专业下支持的学期
+              学期: [科目] // Array[String] - 当前学期下支持的科目
+            }
           }
         }
       }]
@@ -64,12 +67,15 @@ Response:
     "optional": [{
       "xx 大学": [{
         "xx 学院": {
-          "建筑学": {
-            "大一上": ["大学英语(一)", "大学英语(B)"],
-            "大二下": ["大学英语(一)", "大学英语(B)"]
-          },
-          "土木工程": {
-            "大一上": ["大学英语(B)"]
+          "id": 1,
+          "majors": {
+            "建筑学": {
+              "大一上": ["大学英语(一)", "大学英语(B)"],
+              "大二下": ["大学英语(一)", "大学英语(B)"]
+            },
+            "土木工程": {
+              "大一上": ["大学英语(B)"]
+            }
           }
         }
       }]
@@ -121,6 +127,93 @@ Response:
       "金融类": ["风控", "区块链"]
     }
   }
+}
+```
+
+## 2. 搜索文库中的文档
+
+GET:  /API/library/search/files
+
+描述：用于通过专业科目或专题搜索获得文库中符合条件的文档列表
+
+Parameters:
+
+```js
+// 当通过专业科目搜索时，method 字段固定为 'profession'
+method: profession
+institute: 学院对应的 ID
+major: 专业 - 同第 0 点中定义
+semester: 学期 - 同第 0 点中定义
+subject: 科目 - 同第 0 点中定义
+order: 倒排序方式 - 同第 0 点中 DocsOrder 定义
+```
+
+```js
+// 当通过专题搜索时，method 字段固定为 'thematic'
+method: thematic
+category: 专题分类 - 同第 1 点中定义
+topic: 专题 - 同第 1 点中定义
+order: 倒排序方式 - 同第 0 点中 DocsOrder 定义
+```
+
+?> 注：两种查询参数中 `method` 和 `order` 字段均有，其余字段参数会增减变化
+
+Response:
+
+```js
+/**
+ * 搜索到的文档文件对象
+ * @typedef DocFile
+ * @type {object}
+ * @property {string} id - 文档 ID
+ * @property {string} name - 文档名
+ * @property {date} created - 文档创建时间戳
+ * @property {number} pages - 文档页数
+ * @property {string} format - 文档格式（或扩展名）
+ * @property {number} collected - 收藏数
+ * @property {number} printed - 打印次数
+ * @property {string} uid - 上传用户 ID
+ * @property {string} user - 上传用户昵称
+ */
+```
+
+```js
+{
+  "result": "OK",
+  "info": Array<DocFile> // 文档列表
+}
+```
+
+## 3. 搜索文库中的精选集
+
+GET:  /API/library/search/floders
+
+描述：通过搜索获得文库中符合条件的精选集
+
+Parameters: 同第 2 点
+
+Response:
+
+```js
+/**
+ * 搜索到的精选集对象
+ * @typedef DocsFloder
+ * @type {object}
+ * @property {string} id - 精选集 ID
+ * @property {string} name - 精选集名
+ * @property {date} updated - 本集合的最后修改时间
+ * @property {number} count - 包含文件数
+ * @property {number} collected - 收藏数
+ * @property {number} view - 浏览次数
+ * @property {string} uid - 创建用户 ID
+ * @property {string} user - 创建用户昵称
+ */
+```
+
+```js
+{
+  "result": "OK",
+  "info": Array<DocsFloder> // 文档列表
 }
 ```
 

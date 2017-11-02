@@ -65,6 +65,7 @@
     data () {
       return {
         institute: [],
+        instituteID: null,
         majors: {},
         major: '',
         semesters: {},
@@ -99,10 +100,11 @@
         this.subject = subject;
         this.order = order;
       },
-      async onSetInstitute (majors) {
-        this.majors = majors;
+      async onSetInstitute (institute) {
+        this.instituteID = institute.id;
+        this.majors = institute.majors;
         await this.$nextTick();
-        let major = getFirstKey(majors, this.major);
+        let major = getFirstKey(this.majors, this.major);
         this.setMajor(major);
       },
       async setMajor (major) {
@@ -128,7 +130,7 @@
         this.search();
       },
       search () {
-        let { institute, major, semester, subject, order } = this;
+        let { instituteID: institute, major, semester, subject, order } = this;
         this.$emit('search', {
           institute,
           major,

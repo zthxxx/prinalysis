@@ -112,7 +112,7 @@ Response:
   "result": "OK",
   "info": {
     ...UserBase, // 包含用户基础信息对象每个字段，且含义相同
-    "createDate": Date, // 创建时间戳，Unix timestamp，毫秒
+    "created": Date, // 创建时间戳，Unix timestamp，毫秒
     "library": { // 文库信息
       "illegalCount": number, // 上传非法次数
       "uploadFileCount": number, // 上传文件次数
@@ -196,7 +196,7 @@ Response:
 
 > 登录成功返回用户基本信息 （[同第 1 点](#1-检测登录状态)）
 
-## 6. 用户登出注销 
+## 6. 用户登出注销
 
 POST: /API/user/logout
 

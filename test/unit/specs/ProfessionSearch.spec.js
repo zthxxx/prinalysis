@@ -5,21 +5,27 @@ const optionalSearchs = [{
   'A城大学': [
     {
       'xxx 学院': {
-        '建筑学': { '大一上': ['大学英语(一)', '大学英语(B)'], '大一下': ['大学英语(二)', '大学英语(E)'] },
-        '土木工程': { '大一上': ['大学英语(一)', '材料力学(A)', '大学英语(B)', '大学英语(C)'] }
+        id: 1,
+        majors: {
+          '建筑学': { '大一上': ['大学英语(一)', '大学英语(B)'], '大一下': ['大学英语(二)', '大学英语(E)'] },
+          '土木工程': { '大一上': ['大学英语(一)', '材料力学(A)', '大学英语(B)', '大学英语(C)'] }
+        }
       }
     },
     {
       'XxXxx 学院': {
-        '环境工程': { '大一上': ['大学英语(一)', '大学英语(B)'], '大一下': ['大学英语(二)', '大学英语(E)'] },
-        '车辆工程': { '大一上': ['大学英语(一)', '材料力学(A)', '大学英语(B)', '大学英语(C)'] }
+        id: 2,
+        majors: {
+          '环境工程': { '大一上': ['大学英语(一)', '大学英语(B)'], '大一下': ['大学英语(二)', '大学英语(E)'] },
+          '车辆工程': { '大一上': ['大学英语(一)', '材料力学(A)', '大学英语(B)', '大学英语(C)'] }
+        }
       }
     }
   ]
 }];
 
 const expectSearchs = {
-  institute: ['A城大学', 'xxx 学院'],
+  institute: 1,
   major: '建筑学',
   semester: '大一上',
   subject: 'ALL',
@@ -28,6 +34,14 @@ const expectSearchs = {
 
 const defaults = {
   institute: ['A城大学', 'xxx 学院'],
+  major: '土木工程',
+  semester: '大一上',
+  subject: '材料力学(A)',
+  order: 'TIME'
+};
+
+const expectSearchsWithDefault = {
+  institute: 1,
   major: '土木工程',
   semester: '大一上',
   subject: '材料力学(A)',
@@ -49,7 +63,7 @@ describe('ProfessionSearch', () => {
     defaultSearchs.order = 'COLLECTED';
     defaultSearchs.order = defaults.order;
     vm.$on('search', searchs => {
-      expect(searchs).to.be.deep.equal(defaults);
+      expect(searchs).to.be.deep.equal(expectSearchsWithDefault);
       done();
     });
   });

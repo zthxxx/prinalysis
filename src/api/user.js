@@ -25,7 +25,7 @@ import * as API from './url';
  * @property {string} phone - 用户手机号，大陆区应为 3+11 位
  * @property {string} avatar - 用户头像图片 url
  * @property {string} address - 用户配送文件地址
- * @property {date} createDate - 创建时间戳，Unix timestamp，毫秒
+ * @property {date} created - 创建时间戳，Unix timestamp，毫秒
  * @property {object} library - 文库信息对象
  * @property {number} library.illegalCount - 上传非法次数
  * @property {number} library.uploadFileCount - 上传文件次数

@@ -22,9 +22,9 @@
         </component>
       </box-card>
       <box-card class="documents">
-        <el-menu :default-active="seachType" class="selector-tabs" mode="horizontal" @select="changeSeachType">
-          <el-menu-item index="file" class="selector-item">文档</el-menu-item>
-          <el-menu-item index="folder" class="selector-item">精选集</el-menu-item>
+        <el-menu :default-active="docsType" class="selector-tabs" mode="horizontal" @select="changeDocsType">
+          <el-menu-item index="files" class="selector-item">文档</el-menu-item>
+          <el-menu-item index="folders" class="selector-item">精选集</el-menu-item>
         </el-menu>
         <div class="empty-tip">暂时搜索不到相关文档</div>
       </box-card>
@@ -33,10 +33,11 @@
 </template>
 
 <script>
+  import _ from 'lodash';
   import boxCard from '$@/Stateless/BoxCard';
   import professionSearch from '$@/UI/DocumentSearch/ProfessionSearch';
   import thematicSearch from '$@/UI/DocumentSearch/ThematicSearch';
-  import { getLibOptional } from '@/api';
+  import { getLibOptional, seekLibFiles, seekLibFolders } from '@/api';
 
   export default {
     name: 'library',
@@ -48,29 +49,52 @@
     props: {},
     data () {
       return {
-        seachMethod: 'profession',
-        seachType: 'file',
+        seachMethod: '',
+        docsType: 'files',
         defaultSearchs: {},
-        optionalSearchs: []
+        optionalSearchs: [],
+        searchMap: {
+          files: this.searchFiles,
+          folders: this.searchFloders
+        },
+        lastSearchs: null
       };
     },
     computed: {},
     watch: {},
     created () {
-      this.changeSeachMethod(this.seachMethod);
+      this.changeSeachMethod('profession');
     },
     methods: {
       async changeSeachMethod (method) {
+        if (method === this.seachMethod) return;
         let { defaults, optional } = await getLibOptional(method);
         this.defaultSearchs = defaults;
         this.optionalSearchs = optional;
         this.seachMethod = method;
       },
-      changeSeachType (type) {
-        this.seachType = type;
+      changeDocsType (type) {
+        if (type === this.docsType) return;
+        this.docsType = type;
+        if (!_.isEmpty(this.lastSearchs)) {
+          this.searchMap[type](this.lastSearchs);
+        }
       },
       onSearch (payload) {
-        console.log(payload);
+        let searchs = {
+          method: this.seachMethod,
+          ...payload
+        };
+        this.lastSearchs = searchs;
+        this.searchMap[this.docsType](searchs);
+      },
+      async searchFiles (payload) {
+        let docFiles = await seekLibFiles(payload);
+        console.log(docFiles);
+      },
+      async searchFloders (payload) {
+        let docsFolders = await seekLibFolders(payload);
+        console.log(docsFolders);
       }
     }
   };

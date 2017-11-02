@@ -48,3 +48,7 @@ export const TRADE = '/pay/trade';
 export const PROFESSION_SEARCH = '/library/profession';
 
 export const THEMATIC_SEARCH = '/library/thematic';
+
+export const FILES_SEARCH = '/library/search/files';
+
+export const FOLDERS_SEARCH = '/library/search/floders';

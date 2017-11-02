@@ -57,7 +57,7 @@ export default {
     result: 'OK',
     info: {
       ...userBase,
-      createDate: '@now(T)',
+      created: '@now(T)',
       library: {
         illegalCount: '@natural(0, 1)',
         uploadFileCount: '@natural(1, 10)',
