@@ -176,6 +176,7 @@
       }
     },
     data () {
+      let { doc, ppt, xls, pdf } = icons;
       return {
         setting: {
           ...checkset(
@@ -193,15 +194,10 @@
         },
         sideMap: sideMap,
         fileIcon: {
-          doc: icons.doc,
-          docx: icons.doc,
-          ppt: icons.ppt,
-          pptx: icons.ppt,
-          xls: icons.xls,
-          xlsx: icons.xls,
-          pdf: icons.pdf,
-          jpg: icons.pic,
-          png: icons.pic
+          doc, docx: doc,
+          ppt, pptx: ppt,
+          xls, xlsx: xls,
+          pdf
         }
       };
     },

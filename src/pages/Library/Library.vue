@@ -26,17 +26,23 @@
           <el-menu-item index="files" class="selector-item">文档</el-menu-item>
           <el-menu-item index="folders" class="selector-item">精选集</el-menu-item>
         </el-menu>
-        <div class="empty-tip">暂时搜索不到相关文档</div>
+        <template v-if="docs.length">
+          <component :is="docsType"
+                     v-for="docItem of docs" :key="docItem.id"
+                     :docItem="docItem">
+          </component>
+        </template>
+        <div class="empty-tip" v-else>暂时搜索不到相关文档</div>
       </box-card>
     </article>
   </transition>
 </template>
 
 <script>
-  import _ from 'lodash';
   import boxCard from '$@/Stateless/BoxCard';
   import professionSearch from '$@/UI/DocumentSearch/ProfessionSearch';
   import thematicSearch from '$@/UI/DocumentSearch/ThematicSearch';
+  import fileCard from '$@/UI/LibraryDocs/FileCard';
   import { getLibOptional, seekLibFiles, seekLibFolders } from '@/api';
 
   export default {
@@ -44,7 +50,8 @@
     components: {
       boxCard,
       profession: professionSearch,
-      thematic: thematicSearch
+      thematic: thematicSearch,
+      files: fileCard
     },
     props: {},
     data () {
@@ -53,11 +60,8 @@
         docsType: 'files',
         defaultSearchs: {},
         optionalSearchs: [],
-        searchMap: {
-          files: this.searchFiles,
-          folders: this.searchFloders
-        },
-        lastSearchs: null
+        lastSearchs: null,
+        docs: []
       };
     },
     computed: {},
@@ -76,20 +80,23 @@
       changeDocsType (type) {
         if (type === this.docsType) return;
         this.docsType = type;
-        if (!_.isEmpty(this.lastSearchs)) {
-          this.searchMap[type](this.lastSearchs);
-        }
+        this.onSearch(this.lastSearchs);
       },
       onSearch (payload) {
+        this.lastSearchs = payload;
+        let searchMap = {
+          files: this.searchFiles,
+          folders: this.searchFloders
+        };
         let searchs = {
           method: this.seachMethod,
           ...payload
         };
-        this.lastSearchs = searchs;
-        this.searchMap[this.docsType](searchs);
+        searchMap[this.docsType](searchs);
       },
       async searchFiles (payload) {
         let docFiles = await seekLibFiles(payload);
+        this.docs = docFiles;
         console.log(docFiles);
       },
       async searchFloders (payload) {

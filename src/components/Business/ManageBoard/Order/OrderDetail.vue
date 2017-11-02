@@ -105,7 +105,7 @@
 
 <script>
   import _ from 'lodash';
-  import { formatCNY, formatDate, orderStateMap, printTypeMap, getBillingItem } from '@/utils/tools';
+  import { formatCNY, formatTime, orderStateMap, printTypeMap, getBillingItem } from '@/utils/tools';
 
   export default {
     name: 'order-detail',
@@ -134,16 +134,16 @@
         return formatCNY(this.order.money);
       },
       orderDate () {
-        return formatDate(this.order.orderDate);
+        return formatTime(this.order.orderDate);
       },
       payDate () {
-        return this.order.payDate ? formatDate(this.order.payDate) : '待支付';
+        return this.order.payDate ? formatTime(this.order.payDate) : '待支付';
       },
       payway () {
         return this.order.payDate ? this.paywayMap[this.order.payway] : '无';
       },
       printDate () {
-        return this.order.printDate ? formatDate(this.order.printDate) : '待打印';
+        return this.order.printDate ? formatTime(this.order.printDate) : '待打印';
       },
       state () {
         return orderStateMap[this.order.state];

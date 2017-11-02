@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { formatCNY, formatDate, orderStateMap } from '@/utils/tools';
+  import { formatCNY, formatTime, orderStateMap } from '@/utils/tools';
 
   export default {
     name: 'order-item',
@@ -34,7 +34,7 @@
         return orderStateMap[this.order.state];
       },
       date () {
-        return formatDate(this.order.orderDate);
+        return formatTime(this.order.orderDate);
       },
       money () {
         return formatCNY(this.order.money);
