@@ -19,7 +19,13 @@ const searchMap = {
   thematic: getThematic
 };
 
+/**
+ * 获取文库搜索的可选项
+ * @param {string} type - 搜索方式 profession | thematic
+ * @return {object | Array} 专业科目可选项或专题可选项
+ */
 export const getLibOptional = type => searchMap[type]();
+
 
 /**
  * @typedef {object} DocFile - 搜索到的文档文件对象
@@ -35,30 +41,6 @@ export const getLibOptional = type => searchMap[type]();
  */
 
 /**
- * 搜索文库中的文档
- * @param {string} method - 搜索方式
- * @param {string} [institute] - 学院对应的 ID
- * @param {string} [major] - 专业
- * @param {string} [semester] - 学期
- * @param {string} [subject] - 科目
- * @param {string} [category] - 话题分类
- * @param {string} [topic] - 话题名
- * @param {DocsOrder} order - 排序方式
- * @return {DocFile[]} - 返回文件集合
- */
-export const seekLibFiles = ({
-  method,
-  institute, major, semester, subject,
-  category, topic,
-  order
-}) => get(API.FILES_SEARCH, {
-  method,
-  institute, major, semester, subject,
-  category, topic,
-  order
-});
-
-/**
  * @typedef {object} DocsFloder - 搜索到的精选集对象
  * @property {string} id - 精选集 ID
  * @property {string} name - 精选集名
@@ -71,25 +53,44 @@ export const seekLibFiles = ({
  */
 
 /**
+ * 高阶函数，返回生成对应请求的搜索函数
+ * @param {string} target - 请求 url
+ * @returns {function} 搜索函数
+ */
+const seekTarget = target => {
+  /**
+   * 搜索文库中的文档或精选集
+   * @param {string} method - 搜索方式 profession | thematic
+   * @param {string} [institute] - 学院对应的 ID
+   * @param {string} [major] - 专业
+   * @param {string} [semester] - 学期
+   * @param {string} [subject] - 科目
+   * @param {string} [category] - 话题分类
+   * @param {string} [topic] - 话题名
+   * @param {DocsOrder} order - 排序方式
+   * @return {DocFile[] | DocsFloder[]} - 返回文件或精选集集合
+   */
+  return ({
+    method,
+    institute, major, semester, subject,
+    category, topic,
+    order
+  }) => get(target, {
+    method,
+    institute, major, semester, subject,
+    category, topic,
+    order
+  });
+};
+
+/**
+ * 搜索文库中的文档
+ * @return {DocFile[]} - 返回文件集合
+ */
+export const seekLibFiles = seekTarget(API.FILES_SEARCH);
+
+/**
  * 搜索文库中的精选集
- * @param {string} method - 搜索方式
- * @param {string} [institute] - 学院对应的 ID
- * @param {string} [major] - 专业
- * @param {string} [semester] - 学期
- * @param {string} [subject] - 科目
- * @param {string} [category] - 话题分类
- * @param {string} [topic] - 话题名
- * @param {DocsOrder} order - 排序方式
  * @return {DocsFloder[]} - 返回精选集列表
  */
-export const seekLibFolders = ({
-  method,
-  institute, major, semester, subject,
-  category, topic,
-  order
-}) => get(API.FOLDERS_SEARCH, {
-  method,
-  institute, major, semester, subject,
-  category, topic,
-  order
-});
+export const seekLibFolders = seekTarget(API.FOLDERS_SEARCH);

@@ -17,8 +17,8 @@ Response:
 ```js
 /**
  * 文档排序规则
- * @typedef DocsOrder
- * @type {string} - 表示所搜索的文档倒排序规则，有如下 3 个值
+ * @typedef {string} DocsOrder - 文档排序规则
+ * @enum {string} - 表示所搜索的文档倒排序规则，有如下 3 个值
  * "COLLECTED" - 以收藏数倒排序
  * "PRINT" - 以打印次数倒排序
  * "TIME" - 以上传时间倒排序
@@ -42,7 +42,7 @@ Response:
           "id": String, // 学院对应的 ID，用于后续查询参数
           "majors": { // 学院对应的专业集合
             专业: { // Object - 支持的专业，以及专业下支持的学期
-              学期: [科目] // Array[String] - 当前学期下支持的科目
+              学期: [科目] // Array<String> - 当前学期下支持的科目
             }
           }
         }
@@ -106,7 +106,7 @@ Response:
       "order": DocsOrder   // 排序方式，同第 0 点
     },
     "optional": { // {String: Array<String>} - 支持的可选项集合
-      分类: [专题] // Array[String] - 当前话题分类下的专题列表
+      分类: [专题] // Array<String> - 当前话题分类下的专题列表
     }
   }
 }
@@ -162,9 +162,7 @@ Response:
 
 ```js
 /**
- * 搜索到的文档文件对象
- * @typedef DocFile
- * @type {object}
+ * @typedef {object} DocFile - 搜索到的文档文件对象
  * @property {string} id - 文档 ID
  * @property {string} name - 文档名
  * @property {date} created - 文档创建时间戳
@@ -196,9 +194,7 @@ Response:
 
 ```js
 /**
- * 搜索到的精选集对象
- * @typedef DocsFloder
- * @type {object}
+ * @typedef {object} DocsFloder - 搜索到的精选集对象
  * @property {string} id - 精选集 ID
  * @property {string} name - 精选集名
  * @property {date} updated - 本集合的最后修改时间

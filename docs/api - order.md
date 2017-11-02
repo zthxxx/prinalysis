@@ -42,7 +42,7 @@ post entity body
   "files": [{
     "fileID": "A52B4686E173B0612B71148F7F9E099A",
     "fileName": "申报指南.docx",
-    "row": 1, 
+    "row": 1,
     "col": 2,
     "copies": 1,
     "size": "A4",
@@ -254,8 +254,7 @@ type: String // 表示限制查询某种状态类型的订单，具体状态如�
 ```js
 /**
  * 订单基本信息对象
- * @typedef OrderBase
- * @type {object}
+ * @typedef {object} OrderBase
  */
 {
   "orderID": String,   // 同第 1 点 OrderDetail 相同字段
@@ -312,9 +311,9 @@ Response:
   "info": {
     "ALL": Number, // 该项状态中订单的数量，以下类型均同第 2 点中 type
     "PAYING": Number,
-    "PAID": Number, 
-    "PRINTED": Number, 
-    "FINISH": Number, 
+    "PAID": Number,
+    "PRINTED": Number,
+    "FINISH": Number,
     "REFUND": Number
   }
 }
@@ -323,8 +322,8 @@ Response:
 ## 4. 各项状态间对应范围关系
 
 ```
-    
-    trade       order/detail    orders/info query 
+
+    trade       order/detail    orders/info query
 +------------+ +------------+ +----------+-------+
 |  PAYING    | |  PAYING    | |  PAYING  |       |
 +------------+ +------------+ +----------+       |

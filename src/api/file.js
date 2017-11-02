@@ -29,4 +29,7 @@ export const getFileURL = ({ md5, name }) => get(API.FILEURL, { md5, name });
  * @param {number} col - 多合一打印下每列几份
  * @return {{url: string}} - 打印预览图片 url （图片总为彩色）
  */
-export const getPreview = ({ md5, page, size, row, col }) => get(API.PREVIEW, { md5, page, size, row, col });
+export const getPreview = ({ md5, page, size, row, col }) => get(
+  API.PREVIEW,
+  { md5, page, size, row, col }
+);

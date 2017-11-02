@@ -3,8 +3,7 @@ import * as API from './url';
 
 /**
  * 用户基本信息对象
- * @typedef UserBase
- * @type {object}
+ * @typedef {object} UserBase
  * @property {string} username - 用户账号
  * @property {string} nickname - 用户姓名昵称
  * @property {string} uid - 用户 ID
@@ -17,8 +16,7 @@ import * as API from './url';
 
 /**
  * 用户详细信息对象
- * @typedef UserInfo
- * @type {object}
+ * @typedef {object} UserInfo
  * @property {string} username - 用户账号
  * @property {string} nickname - 用户姓名昵称
  * @property {string} uid - 用户 ID
@@ -44,7 +42,10 @@ import * as API from './url';
  * @param {string} password - 用户密码，明文
  * @return {UserBase} - 用户基本信息对象
  */
-export const login = ({ code, username, password }) => post(API.LOGIN, { code, username, password });
+export const login = ({ code, username, password }) => post(
+  API.LOGIN,
+  { code, username, password }
+);
 
 /**
  * 用户注销
@@ -88,7 +89,10 @@ export const requireSMS = ({ code, username }) => post(API.SMS_CAPTCHA, { code, 
  * @param {string} captcha - 验证码
  * @return {UserBase}
  */
-export const signup = ({ code, username, password, nickname, captcha }) => post(API.SIGNUP, { code, username, password, nickname, captcha });
+export const signup = ({ code, username, password, nickname, captcha }) => post(
+  API.SIGNUP,
+  { code, username, password, nickname, captcha }
+);
 
 /**
  * 获取用户详细信息
