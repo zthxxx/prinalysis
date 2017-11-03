@@ -1,28 +1,35 @@
 <template>
   <section class="file-card">
-    <figure class="format">
-      <img class="file-icon" :src="fileIcon[format]" />
-      <figcaption class="pages">{{pages}} 页</figcaption>
-    </figure>
-    <div class="descripte">
-      <header class="file-name">{{name}}</header>
-      <div>
-        <span class="uploader">
-          <i class="el-icon-fa-user"></i>
-          {{uploader}}
+    <div class="file-box">
+      <figure class="format">
+        <img class="file-icon" :src="fileIcon[format]" />
+        <figcaption class="pages">{{pages}} 页</figcaption>
+      </figure>
+      <div class="descripte">
+        <header class="file-name">{{name}}</header>
+        <div>
+          <span class="uploader">
+            <i class="el-icon-fa-user"></i>
+            {{user}}
+          </span>
+          <span class="created">{{created}}</span>
+        </div>
+        <span class="collected">
+          <i class="el-icon-fa-bookmark-o"></i>
+          收藏 {{collected}}
         </span>
-        <span class="created">{{created}}</span>
+        <span class="printed">
+          <i class="el-icon-fa-print"></i>
+          打印 {{printed}}
+        </span>
       </div>
-      <span class="collected">
-        <i class="el-icon-fa-bookmark-o"></i>
-        收藏 {{collected}}
-      </span>
-      <span class="printed">
-        <i class="el-icon-fa-folder-open-o"></i>
-        打印 {{printed}}
-      </span>
     </div>
-    <!--<footer>点击查看详情</footer>-->
+    <footer>
+      <span>
+        <i class="el-icon-fa-list-ul"></i>&nbsp;
+        点击查看详情
+      </span>
+    </footer>
   </section>
 </template>
 
@@ -44,19 +51,19 @@
         id, name,
         created, pages, format,
         collected, printed,
-        uid, uploader
+        uid, user
       } = this.docItem;
       let { doc, ppt, xls, pdf } = icons;
       return {
         id,
-        name,
+        name: name || '匿名用户',
         created: formatDate(created),
         pages,
         format,
         collected,
         printed,
         uid,
-        uploader,
+        user: user || '匿名用户',
         fileIcon: {
           doc, docx: doc,
           ppt, pptx: ppt,
@@ -73,5 +80,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "./file-card"
+  @import "./library-docs-card"
 </style>

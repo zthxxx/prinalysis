@@ -6,6 +6,8 @@ POST:  /API/order/verify
 
 描述： 将用户选择的打印信息发到后端再次校验，并生成订单
 
+?> 权限：需要权限
+
 post entity body
 
 ```js
@@ -90,13 +92,17 @@ Response:
 
 GET:  /API/order/detail
 
+描述：获取订单详情信息，用于查询订单各种状态
+
+?> 权限：需要权限
+
 Parameters:
 
 ```js
 orderID: 订单号
 ```
 
-描述：获取订单详情信息，用于查询订单各种状态
+Response:
 
 ```js
 /**
@@ -162,7 +168,6 @@ orderID: 订单号
   }]
 }
 ```
-Response:
 
 > 获取订单成功则返回订单详情
 
@@ -232,6 +237,10 @@ Response:
 
 GET:  /API/orders/info
 
+描述：获取简要信息的订单列表，用于展示基本订单列表
+
+?> 权限：需要权限
+
 Parameters:
 
 ```js
@@ -249,7 +258,7 @@ type: String // 表示限制查询某种状态类型的订单，具体状态如�
  */
 ```
 
-描述：获取简要信息的订单列表，用于展示基本订单列表
+Response:
 
 ```js
 /**
@@ -266,8 +275,6 @@ type: String // 表示限制查询某种状态类型的订单，具体状态如�
   "filePrename": String // 任一一项文件名
 }
 ```
-
-Response:
 
 > 获取订单成功则返回订单详情
 
@@ -300,6 +307,8 @@ Response:
 GET:  /API/orders/amount
 
 描述：用于获取不同状态所有订单数量的统计
+
+?> 权限：需要权限
 
 Response:
 

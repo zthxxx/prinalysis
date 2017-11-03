@@ -4,14 +4,16 @@
 
 GET:  /API/pay/payment
 
+描述：获取订单支付时所需要的二维码或表单
+
+?> 权限：需要权限
+
 Parameters:
 
 ```js
 orderID: 订单号
 payway: 支付方式，微信为 "WXPAY"，支付宝为 "ALIPAY"
 ```
-
-描述：获取订单支付时所需要的二维码或表单
 
 Response:
 
@@ -51,14 +53,16 @@ Response:
 
 GET:  /API/pay/QRCode
 
+描述：获取指定大小的二维码图片，直接用于 `img` 标签
+
+?> 权限：需要权限
+
 Parameters:
 
 ```js
 size: 二维码大小，数字，单位默认 px 
 uri: 二维码地址，即上一项获取的二维码地址参数
 ```
-
-描述：获取指定大小的二维码图片，直接用于 `img` 标签
 
 Response:
 
@@ -68,23 +72,25 @@ Response:
 
 GET:  /API/pay/trade
 
+描述：用于前端轮询查询该笔订单是否已支付完成
+
+?> 权限：需要权限
+
 Parameters:
 
 ```js
 orderID: 订单号
 payway: 支付方式，同第 0 点定义
-```
+````
 
-描述：用于前端轮询查询该笔订单是否已支付完成
+Response:
 
 ```js
 /**
  * @typedef {string} TradeState - 支付状态，同订单 API 第 1 点中定义的订单状态
  * @alias OrderState
  */
-```
-
-Response:
+``
 
 > 成功查询时，返回订单交易状态
 

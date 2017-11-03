@@ -38,6 +38,8 @@ cookies 携带 session 后台检测状态
 
 描述：检测当前链接是否登录
 
+?> 权限：依赖 session，但不强制需要权限
+
 ```js
 /**
  * 用户基础信息对象
@@ -102,6 +104,8 @@ Response:
 GET: /API/user/info
 
 描述：获取用户详细信息
+
+?> 权限：需要权限
 
 Response:
 
@@ -201,6 +205,8 @@ Response:
 POST: /API/user/logout
 
 描述：用户账号登出
+
+?> 权限：需要权限
 
 Response:
 

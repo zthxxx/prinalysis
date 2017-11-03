@@ -60,7 +60,7 @@ export default {
       collected: '@natural(0, 5)',
       printed: '@natural(0, 15)',
       uid: '@id',
-      'uploader|1': ['@name', '@cname']
+      'user|1': ['', '@name', '@cname']
     }]
   },
   '/library/search/floders': {
@@ -73,7 +73,7 @@ export default {
       collected: '@natural(0, 5)',
       view: '@natural(0, 15)',
       uid: '@id',
-      'user|1': ['@name', '@cname']
+      'user|1': ['', '@name', '@cname']
     }]
   }
 };

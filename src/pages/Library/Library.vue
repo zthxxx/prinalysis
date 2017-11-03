@@ -42,7 +42,8 @@
   import boxCard from '$@/Stateless/BoxCard';
   import professionSearch from '$@/UI/DocumentSearch/ProfessionSearch';
   import thematicSearch from '$@/UI/DocumentSearch/ThematicSearch';
-  import fileCard from '$@/UI/LibraryDocs/FileCard';
+  import fileCard from '$@/Stateless/LibraryDocs/FileCard';
+  import folderCard from '$@/Stateless/LibraryDocs/FolderCard';
   import { getLibOptional, seekLibFiles, seekLibFolders } from '@/api';
 
   export default {
@@ -51,7 +52,8 @@
       boxCard,
       profession: professionSearch,
       thematic: thematicSearch,
-      files: fileCard
+      files: fileCard,
+      folders: folderCard
     },
     props: {},
     data () {
@@ -77,12 +79,12 @@
         this.optionalSearchs = optional;
         this.seachMethod = method;
       },
-      changeDocsType (type) {
+      async changeDocsType (type) {
         if (type === this.docsType) return;
+        await this.onSearch(this.lastSearchs, type);
         this.docsType = type;
-        this.onSearch(this.lastSearchs);
       },
-      onSearch (payload) {
+      async onSearch (payload, type = null) {
         this.lastSearchs = payload;
         let searchMap = {
           files: this.searchFiles,
@@ -92,7 +94,8 @@
           method: this.seachMethod,
           ...payload
         };
-        searchMap[this.docsType](searchs);
+
+        await searchMap[type || this.docsType](searchs);
       },
       async searchFiles (payload) {
         let docFiles = await seekLibFiles(payload);
@@ -101,6 +104,7 @@
       },
       async searchFloders (payload) {
         let docsFolders = await seekLibFolders(payload);
+        this.docs = docsFolders;
         console.log(docsFolders);
       }
     }

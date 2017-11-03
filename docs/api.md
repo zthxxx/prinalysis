@@ -6,6 +6,8 @@
 
 ?> API 中所用时间戳，如无特殊说明，均为 Unix timestamp，精确至毫秒。
 
+?> 目前授权方式为简单的依赖 session 在后台做权限判断
+
 
 
 # 0. 统一错误请求返回
@@ -37,3 +39,4 @@ Response:
 3. [用户相关 API](/api - user)
 4. [订单相关 API](/api - order)
 5. [支付相关 API](/api - pay)
+6. [文库相关 API](/api - library)

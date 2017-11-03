@@ -16,6 +16,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "docs": "docsify serve docs",
     "dev": "node --es_staging build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
