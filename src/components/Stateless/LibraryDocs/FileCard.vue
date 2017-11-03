@@ -1,45 +1,26 @@
 <template>
-  <section class="file-card">
-    <div class="file-box">
-      <figure class="format">
-        <img class="file-icon" :src="fileIcon[format]" />
-        <figcaption class="pages">{{pages}} 页</figcaption>
-      </figure>
-      <div class="descripte">
-        <header class="file-name">{{name}}</header>
-        <div>
-          <span class="uploader">
-            <i class="el-icon-fa-user"></i>
-            {{user}}
-          </span>
-          <span class="created">{{created}}</span>
-        </div>
-        <span class="collected">
-          <i class="el-icon-fa-bookmark-o"></i>
-          收藏 {{collected}}
-        </span>
-        <span class="printed">
-          <i class="el-icon-fa-print"></i>
-          打印 {{printed}}
-        </span>
-      </div>
-    </div>
-    <footer>
-      <span>
-        <i class="el-icon-fa-list-ul"></i>&nbsp;
-        点击查看详情
-      </span>
-    </footer>
-  </section>
+  <doc-item-card :iconURL="fileIcon[format]">
+    <template slot="count">{{pages}} 页</template>
+    <template slot="doc-name">{{name}}</template>
+    <template slot="user">{{user}}</template>
+    <template slot="created">{{created}}</template>
+    <template slot="collected">{{collected}}</template>
+    <template slot="reviews">
+      <i class="el-icon-fa-print"></i>
+      打印 {{printed}}
+    </template>
+    <template slot="tips">点击查看详情</template>
+  </doc-item-card>
 </template>
 
 <script>
   import { icons } from '@/assets/img/print';
+  import docItemCard from './DocItemCard';
   import { formatDate } from '@/utils/tools';
 
   export default {
     name: 'file-card',
-    components: {},
+    components: { docItemCard },
     props: {
       docItem: {
         type: Object,
@@ -56,7 +37,7 @@
       let { doc, ppt, xls, pdf } = icons;
       return {
         id,
-        name: name || '匿名用户',
+        name,
         created: formatDate(created),
         pages,
         format,
@@ -78,7 +59,3 @@
     methods: {}
   };
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "./library-docs-card"
-</style>

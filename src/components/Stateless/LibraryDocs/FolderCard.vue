@@ -1,45 +1,26 @@
 <template>
-  <section class="file-card">
-    <div class="file-box">
-      <figure class="format">
-        <img class="file-icon" :src="folderIcon" />
-        <figcaption class="pages">{{count}} 个文件</figcaption>
-      </figure>
-      <div class="descripte">
-        <header class="file-name">{{name}}</header>
-        <div>
-          <span class="uploader">
-            <i class="el-icon-fa-user"></i>
-            {{user}}
-          </span>
-          <span class="created">{{updated}}</span>
-        </div>
-        <span class="collected">
-          <i class="el-icon-fa-bookmark-o"></i>
-          收藏 {{collected}}
-        </span>
-        <span class="printed">
-          <i class="el-icon-fa-folder-open-o"></i>
-          浏览 {{view}}
-        </span>
-      </div>
-    </div>
-    <footer>
-      <span>
-        <i class="el-icon-fa-list-ul"></i>&nbsp;
-        点击查看详情
-      </span>
-    </footer>
-  </section>
+  <doc-item-card :iconURL="folderIcon">
+    <template slot="count">{{count}} 个文件</template>
+    <template slot="doc-name">{{name}}</template>
+    <template slot="user">{{user}}</template>
+    <template slot="created">{{updated}}</template>
+    <template slot="collected">{{collected}}</template>
+    <template slot="reviews">
+      <i class="el-icon-fa-folder-open-o"></i>
+      浏览 {{view}}
+    </template>
+    <template slot="tips">点击查看详情</template>
+  </doc-item-card>
 </template>
 
 <script>
   import { collectionFolder } from '@/assets/img/print';
+  import docItemCard from './DocItemCard';
   import { formatDate } from '@/utils/tools';
 
   export default {
-    name: 'file-card',
-    components: {},
+    name: 'folder-card',
+    components: { docItemCard },
     props: {
       docItem: {
         type: Object,
@@ -71,7 +52,3 @@
     methods: {}
   };
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "./library-docs-card"
-</style>

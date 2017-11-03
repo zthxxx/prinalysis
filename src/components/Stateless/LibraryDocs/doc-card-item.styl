@@ -1,6 +1,6 @@
 @import "~@/style/import"
 
-.file-card
+.doc-item-card
   display: inline-block
   align-items: center
   margin: 8px 12px
@@ -14,19 +14,19 @@
   transition: box-shadow .2s ease-out
   &:hover
     box-shadow: 0 0 1px 2px #eee
-  .file-box
+  .doc-item-box
     display: flex
     padding-bottom: 10px
     align-items: center
 
-  .format
+  .doc-view
     display: inline-block
     border-right: 1px dashed #ddd
     width: 25%
     text-align: center
-    .file-icon
+    .doc-icon
       width: 86%
-    .pages
+    .count
       font-size: 14px
       color: shallow-text-gray
 
@@ -36,13 +36,13 @@
     padding-left: 14px
     width: 75%
     line-height: normal
-    .file-name
+    .doc-name
       overflow: hidden
       height: 56px
       font-size: 14px
       text-overflow: ellipsis
       color: deep-black
-    .uploader, .created
+    .user, .created
       overflow: hidden
       margin-right: 15px
       max-width: 110px
@@ -50,11 +50,11 @@
       white-space: nowrap
       text-overflow: ellipsis
       color: shallow-text-gray
-    .uploader
+    .user
       color: blue-induce-text
       i
         font-size: 14px
-    .collected, .printed
+    .collected, .reviews
       display: inline-block
       margin-top: 8px
       margin-right: 15px
