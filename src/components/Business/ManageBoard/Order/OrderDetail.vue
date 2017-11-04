@@ -179,8 +179,8 @@
         this.$emit('back');
       },
       async paying () {
-        let { orderID, money } = this.order;
-        await this[POPUP_PAY]({ orderID, money });
+        let { orderID } = this.order;
+        await this[POPUP_PAY]({ orderID, money: this.amount });
         this.$emit('update', orderID);
       },
       async cancel () {

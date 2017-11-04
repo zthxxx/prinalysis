@@ -37,8 +37,14 @@
           <el-radio-group v-model="dispatch">
             <el-radio class="radio" :label="false">到打印点自取</el-radio>
             <br>
-            <el-radio class="radio" :label="true" :disabled="!point.delivery_scope">
-              送件上门{{point.delivery_scope ? '' : '（本打印点暂时不支持）' }}
+            <el-radio class="radio" :label="true"
+                      :disabled="!point.delivery_scope || finalMoney.originMoney < point.dispatch.distributionStart">
+              送件上门
+              {{
+                point.delivery_scope ?
+                `（${formatCNY(point.dispatch.distributionStart)} 起送，配送费 ${formatCNY(point.dispatch.distributionCharge)}）` :
+                '（本打印点暂时不支持）'
+              }}
             </el-radio>
           </el-radio-group>
           <transition name="left-fade">
@@ -51,8 +57,8 @@
           </transition>
         </div>
         <div class="account-info">
-          <div class="original-money">原价：<span>{{finalMoney.originMoney}}</span></div>
-          <div class="final-money">应付：<span>{{finalMoney.actualMoney}}</span></div>
+          <div class="original-money">原价：<span>{{formatCNY(finalMoney.originMoney)}}</span></div>
+          <div class="final-money">应付：<span>{{formatCNY(finalMoney.amount)}}</span></div>
           <el-button class="to-submit" @click="verifyOrder">确认下单</el-button>
         </div>
       </div>
@@ -125,10 +131,12 @@
         actualCost = originCost;
         if (reduce.hasReduced) actualCost -= reduce.money;
         // TODO: handle selected coupon
+        if (this.dispatch) {
+          actualCost += this.point.dispatch.distributionCharge;
+        }
         actualCost = actualCost < this.point.minCharge ? this.point.minCharge : actualCost;
         return {
-          originMoney: formatCNY(originCost),
-          actualMoney: formatCNY(actualCost),
+          originMoney: originCost,
           amount: actualCost
         };
       }
@@ -226,7 +234,7 @@
         console.warn(orderID);
         await this[POPUP_PAY]({
           orderID,
-          money: this.finalMoney.actualMoney
+          money: formatCNY(this.finalMoney.amount)
         });
         this.paidRefresh();
       },

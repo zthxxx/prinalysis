@@ -78,7 +78,6 @@ export default {
         'dispatch': {
           'maxPageCount': 500,
           'distributionStart': 500,
-          'distributionCharge_free': 300,
           'distributionCharge': 200,
           'desc': ''
         },
