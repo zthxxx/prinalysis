@@ -1,12 +1,18 @@
-import { get, post } from '@/utils/axios';
+import { get, post, put } from '@/utils/axios';
 import * as API from './url';
 
 /**
  * 确认打印信息
  */
 export const verifyOrder = ({ pointID, files, money, ...dispatching }) => post(
-  API.VERIFY, { pointID, files, money, ...dispatching }
+  API.ORDER_VERIFY, { pointID, files, money, ...dispatching }
 );
+
+/**
+ * 取消订单
+ * @param {string} orderID - 订单号
+ */
+export const cancelOrder = ({ orderID }) => put(API.ORDER_CANCEL, { orderID });
 
 /**
  * 获取订单详细信息

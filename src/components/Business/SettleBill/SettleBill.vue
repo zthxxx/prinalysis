@@ -64,8 +64,8 @@
   import { mapState } from 'vuex';
   import _ from 'lodash';
   import { POPUP_LOGIN, POPUP_PAY } from '$@/Popups';
-  import { formatCNY, getBillingItem } from '@/utils/tools';
   import { verifyOrder } from '@/api';
+  import { formatCNY, getBillingItem } from '@/utils/tools';
 
   export default {
     name: 'settle-bill',

@@ -1,7 +1,7 @@
 // https://github.com/axios/axios
 import axios from 'axios';
 import { statusIntercept, requestErrorIntercept } from '@/api/wrapper';
-export { post } from 'axios';
+export { post, put } from 'axios';
 
 axios.defaults.withCredentials = true;
 

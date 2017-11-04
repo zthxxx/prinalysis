@@ -52,7 +52,23 @@
     margin-top: 26px
     font-size: 14px
     text-align: center
-    color: #f90
+    color: orange-deep
+    .paying, .cancel
+      margin: 6px 18px
+      border-radius: 6px
+      padding: 0
+      width: 162px
+      height: 32px
+      font-size: 14px
+      transition: box-shadow .2s ease-out
+      &:hover
+        box-shadow: 0 0 8px 0 #bbb
+    .paying
+      border-color: orange-deep
+      color: #fff
+      background-color: orange-deep
+      &:hover
+        box-shadow: 0 0 8px 0 orange-deep
 
 .content
   margin-top: 20px

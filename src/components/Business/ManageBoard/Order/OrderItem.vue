@@ -3,7 +3,7 @@
     <span class="item-icon"><i class="el-icon-fa-file-text-o"></i></span>
     <span class="item-info">
       <div class="file-info">
-        <span class="tag gray">{{state}}</span>
+        <span class="tag" :class="order.state==='PAYING' ? 'orange' : 'gray'">{{state}}</span>
         <span class="point-name">{{order.pointName}}</span>
         <span class="date">{{date}}</span>
       </div>

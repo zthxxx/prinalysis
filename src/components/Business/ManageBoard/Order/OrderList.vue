@@ -1,6 +1,6 @@
 <template>
   <transition name="float-fade">
-    <orderDetail v-if="order" :order="order" @back="onback"></orderDetail>
+    <orderDetail v-if="order" :order="order" @back="onback" @update="checkOrder"></orderDetail>
     <div v-else>
       <el-menu :default-active="type" class="selector-tabs" mode="horizontal" @select="handleSelect">
         <el-menu-item index="ALL" class="selector-item">全部订单({{`${amount.ALL}`}})</el-menu-item>

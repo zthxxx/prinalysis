@@ -11,6 +11,9 @@ export default {
       'desc': '《@name.docx》等共2个文件'
     }
   },
+  '/order/cancel': {
+    'result': 'OK'
+  },
   '/order/detail': {
     'result': 'OK',
     'info': {

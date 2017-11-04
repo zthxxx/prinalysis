@@ -31,7 +31,9 @@ export const SIGNUP = '/user/signing';
 export const USER_INFO = '/user/info';
 
 
-export const VERIFY = '/order/verify';
+export const ORDER_VERIFY = '/order/verify';
+
+export const ORDER_CANCEL = '/order/cancel';
 
 export const ORDER_DETAIL = '/order/detail';
 

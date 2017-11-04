@@ -8,6 +8,8 @@ POST:  /API/order/verify
 
 ?> 权限：需要权限
 
+Parameters:
+
 post entity body
 
 ```js
@@ -348,5 +350,33 @@ Response:
 +------------+ +------------+ |          |       |
 |  REFUNDED  | |  REFUNDED  | |          |       |
 +------------+ +------------+ +----------+-------+
+```
+
+## 5. 取消指定订单
+
+PUT  /API/order/cancel
+
+描述：通过订单号取消未支付的订单，只有在待支付状态的订单才能取消
+
+?> 权限：需要权限
+
+Parameters:
+
+put entity body
+
+```js
+{
+  "orderID": String // 订单号
+}
+```
+
+Response:
+
+> 订单取消成功则返回 OK
+
+```js
+{
+  "result": "OK"
+}
 ```
 

@@ -9,7 +9,8 @@
             <span>订单金额：</span><span class="over-money">{{amount}}</span>
           </li>
           <li>
-            <span>订单状态：</span><span class="order-state gray">{{state}}</span>
+            <span>订单状态：</span><span class="order-state"
+                                    :class="order.state==='PAYING' ? 'orange' : 'gray'">{{state}}</span>
           </li>
           <li>
             <span>支付方式：</span><span>{{payway}}</span>
@@ -45,6 +46,10 @@
       </div>
       <div class="overview-inform" v-if="inform[order.state]">
         {{inform[order.state]}}
+      </div>
+      <div class="overview-inform" v-if="order.state === 'PAYING'">
+        <el-button class="paying" @click="paying">立即支付</el-button>
+        <el-button class="cancel" @click="cancel">取消订单</el-button>
       </div>
     </section>
     <section class="content">
@@ -105,6 +110,8 @@
 
 <script>
   import _ from 'lodash';
+  import { POPUP_PAY } from '$@/Popups';
+  import { cancelOrder } from '@/api';
   import { formatCNY, formatTime, orderStateMap, printTypeMap, getBillingItem } from '@/utils/tools';
 
   export default {
@@ -170,6 +177,16 @@
     methods: {
       back () {
         this.$emit('back');
+      },
+      async paying () {
+        let { orderID, money } = this.order;
+        await this[POPUP_PAY]({ orderID, money });
+        this.$emit('update', orderID);
+      },
+      async cancel () {
+        let { orderID } = this.order;
+        await cancelOrder({ orderID });
+        this.$emit('update', orderID);
       }
     }
   };
