@@ -15,11 +15,20 @@ Vue.mixin({
 });
 
 router.beforeEach((to, from, next) => {
+  const permission = (access) => {
+    if (!access) return true;
+    let user = store.state.user.user;
+    return access.includes(user && user.access);
+  };
   for (let matched of to.matched) {
     let { access } = matched.meta;
-    let user = store.state.user.user;
-    if (access && !access.includes(user && user.access)) {
+    if (!permission(access)) {
       router.app[POPUP_LOGIN]()
+        .then(() => {
+          if (!permission(access)) {
+            throw Error('User logged in now, but also not permission');
+          }
+        })
         .then(() => next())
         .catch(() => next({ name: 'index' }));
       return;
