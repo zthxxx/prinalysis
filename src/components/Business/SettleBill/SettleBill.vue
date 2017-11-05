@@ -229,9 +229,7 @@
           await this[POPUP_LOGIN]();
         }
         let order = this.getOrder();
-        console.warn(order);
         let { orderID } = await verifyOrder(order);
-        console.warn(orderID);
         await this[POPUP_PAY]({
           orderID,
           money: formatCNY(this.finalMoney.amount)

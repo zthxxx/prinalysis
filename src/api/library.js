@@ -10,8 +10,20 @@ import * as API from './url';
  * "TIME" - 以上传时间倒排序
  */
 
+/**
+ * 获取支持搜索的专业科目
+ * @return {object} - 返回中包含 defaults 和 optional 两个字段
+ * @property {object} default - 代表用户的默认选项
+ * @property {object} optional - 代表能够提供支持的选项集合
+ */
 export const getProfession = () => get(API.PROFESSION_SEARCH);
 
+/**
+ * 获取支持搜索的专题
+ * @return {object} - 返回中包含 defaults 和 optional 两个字段
+ * @property {object} default - 代表用户的默认选项
+ * @property {object} optional - 代表能够提供支持的选项集合
+ */
 export const getThematic = () => get(API.THEMATIC_SEARCH);
 
 const searchMap = {

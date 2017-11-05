@@ -100,12 +100,10 @@
       async searchFiles (payload) {
         let docFiles = await seekLibFiles(payload);
         this.docs = docFiles;
-        console.log(docFiles);
       },
       async searchFloders (payload) {
         let docsFolders = await seekLibFolders(payload);
         this.docs = docsFolders;
-        console.log(docsFolders);
       }
     }
   };

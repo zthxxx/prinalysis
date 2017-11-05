@@ -100,7 +100,6 @@
       file: {
         handler ({ print: { color, copies, side } }) {
           if (color === this.precolor && copies === this.precopies && side === this.preside) {
-            console.warn('Update preview setting');
             this.pagepics = [];
             this.getpic(1);
             return;
@@ -146,7 +145,6 @@
         if (this.currentPage !== current) this.currentPage = current;
         if (scrollTop >= buttomLimit && !this.loadEnd) {
           let next = pagesCount + 1;
-          console.warn('next page', next);
           this.getpic(next);
         }
       },

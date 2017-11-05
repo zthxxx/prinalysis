@@ -74,12 +74,10 @@
         this.getOrders();
       },
       handleCurrentChange (page) {
-        console.info(`当前页: ${page}`);
         this.getOrders();
       },
       async checkOrder (orderID) {
         let order = await getOrder({ orderID });
-        console.info(order);
         this.order = order;
       },
       onback () {

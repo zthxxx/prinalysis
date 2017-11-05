@@ -2,7 +2,18 @@ import { get, post, put } from '@/utils/axios';
 import * as API from './url';
 
 /**
- * 确认打印信息
+ * 确认打印订单信息
+ * @param {string} pointID - 打印点的唯一 ID 编号
+ * @param {PrintFile[]} files - 需打印的文件列表
+ * @param {number} money - 总共花费金额
+ * @param {object} [dispatching] - 配送信息
+ * @property {string} nickname - 配送用户姓名
+ * @property {string} phone - 用户手机号
+ * @property {string} address - 配送地址
+ * @property {string} message - 用户留言
+ * @return {object}
+ * @property {string} orderID - 获取表单、二维码、以及轮询状态订单号
+ * @property {string} desc - 向用户显示的描述信息
  */
 export const verifyOrder = ({ pointID, files, money, ...dispatching }) => post(
   API.ORDER_VERIFY, { pointID, files, money, ...dispatching }

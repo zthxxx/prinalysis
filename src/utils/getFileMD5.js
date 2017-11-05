@@ -16,9 +16,7 @@ let getFileMD5 = function (file) {
       if (currentChunk < chunks) {
         loadNext();
       } else {
-        console.info('finished file loading');
         let md5Value = spark.end().toUpperCase();
-        console.info('computed hash', file.name, md5Value);
         resolve(md5Value);
       }
     };

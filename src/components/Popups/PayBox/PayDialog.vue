@@ -66,7 +66,6 @@
       };
     },
     beforeDestroy () {
-      console.warn('clear polling');
       clearTimeout(this.polling);
     },
     methods: {
@@ -74,15 +73,15 @@
         this.$emit('close');
       },
       async getWeixinpay () {
-        let { orderID, payway } = this;
         this.payway = WXPAY;
+        let { orderID, payway } = this;
         let { QRCode } = await getPayment({ orderID, payway });
         this.QRCode = QRCode;
         this.queryTrade();
       },
       async getAlipay () {
-        let { orderID, payway } = this;
         this.payway = ALIPAY;
+        let { orderID, payway } = this;
         let { payform } = await getPayment({ orderID, payway });
         this.payform = payform;
         this.queryTrade();
@@ -93,10 +92,8 @@
       },
       async queryTrade () {
         let { orderID, payway } = this;
-        console.info(orderID, payway);
         this.polling = setTimeout(this.queryTrade, 1000);
         let { state } = await getTrade({ orderID, payway });
-        console.warn(state);
         if (state === 'PAID') {
           this.$notify.success({
             title: '您的订单支付成功！',

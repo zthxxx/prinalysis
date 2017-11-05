@@ -74,7 +74,6 @@
       },
       async setPageInfo (file) {
         if (file.status === 'success' && !_.has(file, 'pageInfo')) {
-          console.warn('successed change', file);
           let { pageCount, direction } = await getPage({ md5: file.raw.md5, name: file.name });
           this.$set(file, 'pageInfo', { pageCount, direction });
         }
@@ -111,7 +110,6 @@
       async fileExistCheck (rawFile) {
         let check = await getPage(rawFile);
         if (check.state === 'EXISTED') {
-          console.warn('exist', rawFile.name, rawFile.md5);
           let { pageCount, direction } = check;
           rawFile.pageInfo = { pageCount, direction };
           this.$refs.uploader.handleStart(rawFile);
@@ -123,14 +121,12 @@
         this.fileFormatCheck(rawFile);
         rawFile.md5 = await getFileMD5(rawFile);
         rawFile.origin = '本地上传';
-        console.info(rawFile.md5);
         await this.fileExistCheck(rawFile);
         await this.getUploadURL(rawFile);
       },
       async onChange (file, fileList) {
         await this.setPageInfo(file);
         if (!_.has(file, ['raw', 'pageInfo'])) {
-          console.warn('change commit');
           this.updateFiles(fileList);
         }
       },
@@ -152,7 +148,6 @@
         });
       },
       onRemoveFile (file, fileList) {
-        console.warn('remove', file);
         this.updateFiles(fileList);
       }
     }
