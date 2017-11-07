@@ -16,22 +16,22 @@
         </div>
       </div>
       <div class="file">
-        <print-file-item class="print-file-item"
-                           :price="price"
-                           :file="file"
-                           :preSetting="file.print"
-                           @update="update">
-            <div slot="control">
-              <div class="page-panel">第<span class="count">{{currentPage}}</span>面</div>
-              <div class="tip">每份{{papers}}张纸</div>
-              <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
-            </div>
-          </print-file-item>
         <aside class="close">
           <div class="content">
             <i class="el-icon-fa-compress close-btn" @click="close"></i>
           </div>
         </aside>
+        <print-file-item class="print-file-item"
+                         :price="price"
+                         :file="file"
+                         :preSetting="file.print"
+                         @update="update">
+          <div slot="control">
+            <div class="page-panel">第<span class="count">{{currentPage}}</span>面</div>
+            <div class="tip">每份{{papers}}张纸</div>
+            <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
+          </div>
+        </print-file-item>
         <footer class="pagination">
           <div class="panel">{{currentPage}} / {{total}}</div>
         </footer>
