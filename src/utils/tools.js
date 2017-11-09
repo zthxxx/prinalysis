@@ -1,6 +1,8 @@
+import Vue from 'vue';
 import _ from 'lodash';
 import moment from 'moment';
 import { mapState, mapMutations } from 'vuex';
+import { POPUP_LOGIN } from '$@/Popups';
 
 /**
  * 把人名币分值格式化到元
@@ -162,7 +164,7 @@ export const throttle = (func, rate) => {
  * 映射双向绑定的 state 属性， get 获取，set 提交 mutation
  * 使用方式同 mapStates mapMutations https://vuex.vuejs.org/zh-cn/mutations.html#在组件中提交-mutations
  * @param {string} [namespace] - 指定 state 所属的模块名，可选项
- * @param {string[] | {string: string}[]} states - 指定 state 的变量名和对应 mutation 的名称
+ * @param {string[] | {string: string}} states - 指定 state 的变量名和对应 mutation 的名称
  * @return {{get, set}}
  */
 export const mapModel = (namespace, states = namespace) => {
@@ -215,4 +217,25 @@ export const asyncGlobalMountInstaller = (loader, handle) => Vue => {
     let { default: component } = await loader();
     return globalMount(Vue, component, propsData);
   };
+};
+
+export const routeIdentify = (matches, user) => {
+  const permission = (access) => {
+    if (!access) return true;
+    if (!user) return false;
+    return access.includes(user.access);
+  };
+  for (let matched of matches) {
+    let { access } = matched.meta;
+    if (!permission(access)) {
+      let login = new Vue()[POPUP_LOGIN];
+      return login()
+        .then(() => {
+          if (!permission(access)) {
+            throw Error('User logged in now, but also not permission');
+          }
+        });
+    }
+  }
+  return new Promise(resolve => resolve());
 };

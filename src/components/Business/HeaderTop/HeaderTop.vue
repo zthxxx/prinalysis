@@ -18,7 +18,7 @@
       <nav class="right">
         <el-menu :default-active="navIndex" class="nav-list"
                  mode="horizontal"
-                 v-if="user"
+                 v-if="user" key="auth-permiss"
                  router>
           <el-menu-item index="/user" class="nav-item user">
             <figure>
@@ -31,7 +31,7 @@
           </el-menu-item>
         </el-menu>
         <el-button icon="fa-rocket" class="nav-item nav-button"
-                   v-else
+                   v-else key="auth-permiss"
                    @click="login">
           用户登录
         </el-button>

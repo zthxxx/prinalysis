@@ -2,9 +2,9 @@
   <div class="left-bar">
     <div class="head">
       <figure>
-        <img class="avatar" :src="user.avatar" alt="avatar">
+        <img class="avatar" :src="user && user.avatar" alt="avatar">
         <figcaption class="name">
-          <div class="nickname">{{user.nickname}}</div>
+          <div class="nickname">{{user && user.nickname}}</div>
         </figcaption>
       </figure>
     </div>

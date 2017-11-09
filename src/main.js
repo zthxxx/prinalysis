@@ -5,7 +5,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
 import './style/fontawesome-prefix.less';
 import App from './App.vue';
-import popups, { POPUP_LOGIN } from '$@/Popups';
+import popups from '$@/Popups';
+import { routeIdentify } from './utils/tools';
 
 Vue.use(ElementUI);
 Vue.use(popups);
@@ -15,26 +16,10 @@ Vue.mixin({
 });
 
 router.beforeEach((to, from, next) => {
-  const permission = (access) => {
-    if (!access) return true;
-    let user = store.state.user.user;
-    return access.includes(user && user.access);
-  };
-  for (let matched of to.matched) {
-    let { access } = matched.meta;
-    if (!permission(access)) {
-      router.app[POPUP_LOGIN]()
-        .then(() => {
-          if (!permission(access)) {
-            throw Error('User logged in now, but also not permission');
-          }
-        })
-        .then(() => next())
-        .catch(() => next({ name: 'index' }));
-      return;
-    }
-  }
-  next();
+  let user = store.state.user.user;
+  routeIdentify(to.matched, user)
+    .then(() => next())
+    .catch(() => next({ name: 'index' }));
 });
 
 new Vue({

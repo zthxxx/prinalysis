@@ -6,10 +6,10 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex';
   import * as types from '@/store/mutation-types';
   import { checkLogin } from '@/api';
   import headerTop from '$@/Business/HeaderTop';
+  import { mapModel } from '@/utils/tools';
 
   export default {
     name: 'app',
@@ -17,16 +17,16 @@
     data () {
       return {};
     },
-    mounted () {
+    computed: {
+      ...mapModel('user', { user: types.SET_USER })
+    },
+    created () {
       this.initData();
     },
     methods: {
-      ...mapMutations('user', [types.SET_USER]),
       async initData () {
         let state = await checkLogin();
-        if (state instanceof Object) {
-          this[types.SET_USER](state);
-        }
+        this.user = state instanceof Object ? state : null;
       }
     }
   };

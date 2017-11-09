@@ -45,8 +45,8 @@
     methods: {
       async signout () {
         await signout();
-        this.user = null;
         this.$router.push({ name: 'home' });
+        this.user = null;
       }
     }
   };

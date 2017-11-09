@@ -30,7 +30,7 @@ export default {
   '/user/login/state': {
     result: 'OK',
     'info|+1': [
-      'LOGINING', { ...userBase }
+      'LOGINING', { ...userBase }, { ...userBase }
     ]
   },
   '/user/login/QRCode': {
