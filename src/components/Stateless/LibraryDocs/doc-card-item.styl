@@ -37,12 +37,17 @@
     width: 75%
     line-height: normal
     .doc-name
+      display: -webkit-box
+      -webkit-box-orient: vertical
+      -webkit-line-clamp: 2
       overflow: hidden
-      height: 56px
+      margin-bottom: 12px
+      height: 42px
       font-size: 14px
       text-overflow: ellipsis
       color: deep-black
     .user, .created
+      display: inline-block
       overflow: hidden
       margin-right: 15px
       max-width: 110px

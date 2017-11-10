@@ -20,10 +20,18 @@
     height: 50px
   .name
     display: inline-block
+    width: 120px
     vertical-align: top
     .nickname
+      display: -webkit-box
+      -webkit-box-orient: vertical
+      -webkit-line-clamp: 2
+      overflow: hidden
       margin-top: 14px
+      height: 50px
       font-size: 16px
+      text-overflow: ellipsis
+      word-break: break-all
       color: #fff
 
 .tabs

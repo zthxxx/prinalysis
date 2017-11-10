@@ -8,8 +8,8 @@
         <span class="date">{{date}}</span>
       </div>
       <div class="file-content">
-        <span class="file-count">文件个数： {{order.fileCount}}</span>
-        <span class="first-file-name">包含文件：「{{filename}}」等</span>
+        <span class="file-count">文件个数: {{order.fileCount}}</span>
+        <span class="first-file-name">包含文件:「{{filename}}」等</span>
       </div>
     </span>
     <span class="item-count">{{money}}</span>
