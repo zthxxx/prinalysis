@@ -20,22 +20,22 @@
     data () {
       return {
         dragover: false
-      };
+      }
     },
     methods: {
       onDragover () {
         if (!this.disabled) {
-          this.dragover = true;
+          this.dragover = true
         }
       },
       onDrop (e) {
         if (!this.disabled) {
-          this.dragover = false;
-          this.$emit('file', e.dataTransfer.files);
+          this.dragover = false
+          this.$emit('file', e.dataTransfer.files)
         }
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

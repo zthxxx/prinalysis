@@ -31,9 +31,9 @@
 </template>
 
 <script>
-  import { getOrder, amountOrders, getOrders } from '@/api';
-  import orderItem from './OrderItem';
-  import orderDetail from './OrderDetail';
+  import { getOrder, amountOrders, getOrders } from '@/api'
+  import orderItem from './OrderItem'
+  import orderDetail from './OrderDetail'
 
   export default {
     name: 'order-list',
@@ -54,11 +54,11 @@
         type: 'ALL',
         orders: [],
         order: null
-      };
+      }
     },
     async created () {
-      this.amount = await amountOrders();
-      this.getOrders();
+      this.amount = await amountOrders()
+      this.getOrders()
     },
     methods: {
       async getOrders () {
@@ -66,25 +66,25 @@
           limits: this.pageSize,
           page: this.page,
           type: this.type
-        });
+        })
       },
       handleSelect (type) {
-        this.page = 1;
-        this.type = type;
-        this.getOrders();
+        this.page = 1
+        this.type = type
+        this.getOrders()
       },
       handleCurrentChange (page) {
-        this.getOrders();
+        this.getOrders()
       },
       async checkOrder (orderID) {
-        let order = await getOrder({ orderID });
-        this.order = order;
+        let order = await getOrder({ orderID })
+        this.order = order
       },
       onback () {
-        this.order = null;
+        this.order = null
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

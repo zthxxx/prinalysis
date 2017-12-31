@@ -1,13 +1,13 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import user from './modules/user';
-import print from './modules/print';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import user from './modules/user'
+import print from './modules/print'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
-const state = {};
+const state = {}
 
-const mutations = {};
+const mutations = {}
 
 const store = new Vuex.Store({
   // strict: process.env.NODE_ENV !== 'production',
@@ -17,6 +17,6 @@ const store = new Vuex.Store({
     user,
     print
   }
-});
+})
 
-export default store;
+export default store

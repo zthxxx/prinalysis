@@ -1,1 +1,1 @@
-export { default } from './PrintFileItem';
+export { default } from './PrintFileItem'

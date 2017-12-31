@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import modalBackdrop from '$@/Stateless/ModalBackdrop';
-  import payDialog from './PayDialog';
-  import paidDialog from './PaidDialog';
+  import modalBackdrop from '$@/Stateless/ModalBackdrop'
+  import payDialog from './PayDialog'
+  import paidDialog from './PaidDialog'
 
   export default {
     name: 'pay-box',
@@ -38,29 +38,29 @@
           resolve () {},
           reject () {}
         }
-      };
+      }
     },
     methods: {
       open () {
-        this.visible = true;
+        this.visible = true
         return new Promise((resolve, reject) => {
-          this.result = { resolve, reject };
-        });
+          this.result = { resolve, reject }
+        })
       },
       close () {
-        this.result.reject();
-        this.visible = false;
-        this.$nextTick(this.$destroy);
+        this.result.reject()
+        this.visible = false
+        this.$nextTick(this.$destroy)
       },
       onpaid () {
-        this.paid = true;
+        this.paid = true
       },
       confirmPaid () {
-        this.result.resolve('paid');
-        this.close();
+        this.result.resolve('paid')
+        this.close()
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

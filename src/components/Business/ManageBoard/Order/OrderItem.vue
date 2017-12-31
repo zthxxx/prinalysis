@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { formatCNY, formatTime, orderStateMap } from '@/utils/tools';
+  import { formatCNY, formatTime, orderStateMap } from '@/utils/tools'
 
   export default {
     name: 'order-item',
@@ -27,28 +27,28 @@
       }
     },
     data () {
-      return {};
+      return {}
     },
     computed: {
       state () {
-        return orderStateMap[this.order.state];
+        return orderStateMap[this.order.state]
       },
       date () {
-        return formatTime(this.order.orderDate);
+        return formatTime(this.order.orderDate)
       },
       money () {
-        return formatCNY(this.order.money);
+        return formatCNY(this.order.money)
       },
       filename () {
-        return this.order.filePrename.slice(0, 15);
+        return this.order.filePrename.slice(0, 15)
       }
     },
     methods: {
       select () {
-        this.$emit('selected', this.order.orderID);
+        this.$emit('selected', this.order.orderID)
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

@@ -109,10 +109,10 @@
 </template>
 
 <script>
-  import _ from 'lodash';
-  import { POPUP_PAY } from '$@/Popups';
-  import { cancelOrder } from '@/api';
-  import { formatCNY, formatTime, orderStateMap, printTypeMap, getBillingItem } from '@/utils/tools';
+  import _ from 'lodash'
+  import { POPUP_PAY } from '$@/Popups'
+  import { cancelOrder } from '@/api'
+  import { formatCNY, formatTime, orderStateMap, printTypeMap, getBillingItem } from '@/utils/tools'
 
   export default {
     name: 'order-detail',
@@ -134,62 +134,62 @@
           PRINTED: '自取模式凭订单码即可到打印点取件，配送模式请等待商家配送',
           REFUNDING: '温馨提示：该订单已取消并正在退款，退款将在2个工作日内退回到支付账户'
         }
-      };
+      }
     },
     computed: {
       amount () {
-        return formatCNY(this.order.money);
+        return formatCNY(this.order.money)
       },
       orderDate () {
-        return formatTime(this.order.orderDate);
+        return formatTime(this.order.orderDate)
       },
       payDate () {
-        return this.order.payDate ? formatTime(this.order.payDate) : '待支付';
+        return this.order.payDate ? formatTime(this.order.payDate) : '待支付'
       },
       payway () {
-        return this.order.payDate ? this.paywayMap[this.order.payway] : '无';
+        return this.order.payDate ? this.paywayMap[this.order.payway] : '无'
       },
       printDate () {
-        return this.order.printDate ? formatTime(this.order.printDate) : '待打印';
+        return this.order.printDate ? formatTime(this.order.printDate) : '待打印'
       },
       state () {
-        return orderStateMap[this.order.state];
+        return orderStateMap[this.order.state]
       },
       pointPhone () {
-        return _.get(this.order, 'pointPhone', '(无)');
+        return _.get(this.order, 'pointPhone', '(无)')
       },
       takeway () {
-        let { dispatching } = this.order;
+        let { dispatching } = this.order
         if (_.isEmpty(dispatching)) {
-          return '刷票自取';
+          return '刷票自取'
         }
-        return '店家配送';
+        return '店家配送'
       },
       dispatch () {
-        let { dispatching } = this.order;
+        let { dispatching } = this.order
         if (!_.isEmpty(dispatching)) {
-          let { phone, address } = dispatching;
-          return [phone, address].join(' ');
+          let { phone, address } = dispatching
+          return [phone, address].join(' ')
         }
-        return null;
+        return null
       }
     },
     methods: {
       back () {
-        this.$emit('back');
+        this.$emit('back')
       },
       async paying () {
-        let { orderID } = this.order;
-        await this[POPUP_PAY]({ orderID, money: this.amount });
-        this.$emit('update', orderID);
+        let { orderID } = this.order
+        await this[POPUP_PAY]({ orderID, money: this.amount })
+        this.$emit('update', orderID)
       },
       async cancel () {
-        let { orderID } = this.order;
-        await cancelOrder({ orderID });
-        this.$emit('update', orderID);
+        let { orderID } = this.order
+        await cancelOrder({ orderID })
+        this.$emit('update', orderID)
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

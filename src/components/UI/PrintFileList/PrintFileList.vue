@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import printFileItem from '$@/UI/PrintFileItem';
+  import printFileItem from '$@/UI/PrintFileItem'
 
   export default {
     name: 'print-file-list',
@@ -42,8 +42,8 @@
       }
     },
     data () {
-      return {};
+      return {}
     }
-  };
+  }
 </script>
 

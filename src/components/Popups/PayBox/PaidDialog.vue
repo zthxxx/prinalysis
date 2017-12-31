@@ -26,14 +26,14 @@
       }
     },
     data () {
-      return {};
+      return {}
     },
     methods: {
       confirm () {
-        this.$emit('confirm');
+        this.$emit('confirm')
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

@@ -39,12 +39,12 @@
 </template>
 
 <script>
-  import boxCard from '$@/Stateless/BoxCard';
-  import professionSearch from '$@/UI/DocumentSearch/ProfessionSearch';
-  import thematicSearch from '$@/UI/DocumentSearch/ThematicSearch';
-  import fileCard from '$@/Stateless/LibraryDocs/FileCard';
-  import folderCard from '$@/Stateless/LibraryDocs/FolderCard';
-  import { getLibOptional, seekLibFiles, seekLibFolders } from '@/api';
+  import boxCard from '$@/Stateless/BoxCard'
+  import professionSearch from '$@/UI/DocumentSearch/ProfessionSearch'
+  import thematicSearch from '$@/UI/DocumentSearch/ThematicSearch'
+  import fileCard from '$@/Stateless/LibraryDocs/FileCard'
+  import folderCard from '$@/Stateless/LibraryDocs/FolderCard'
+  import { getLibOptional, seekLibFiles, seekLibFolders } from '@/api'
 
   export default {
     name: 'library',
@@ -64,49 +64,49 @@
         optionalSearchs: [],
         lastSearchs: null,
         docs: []
-      };
+      }
     },
     computed: {},
     watch: {},
     created () {
-      this.changeSeachMethod('profession');
+      this.changeSeachMethod('profession')
     },
     methods: {
       async changeSeachMethod (method) {
-        if (method === this.seachMethod) return;
-        let { defaults, optional } = await getLibOptional(method);
-        this.defaultSearchs = defaults;
-        this.optionalSearchs = optional;
-        this.seachMethod = method;
+        if (method === this.seachMethod) return
+        let { defaults, optional } = await getLibOptional(method)
+        this.defaultSearchs = defaults
+        this.optionalSearchs = optional
+        this.seachMethod = method
       },
       async changeDocsType (type) {
-        if (type === this.docsType) return;
-        await this.onSearch(this.lastSearchs, type);
-        this.docsType = type;
+        if (type === this.docsType) return
+        await this.onSearch(this.lastSearchs, type)
+        this.docsType = type
       },
       async onSearch (payload, type = null) {
-        this.lastSearchs = payload;
+        this.lastSearchs = payload
         let searchMap = {
           files: this.searchFiles,
           folders: this.searchFloders
-        };
+        }
         let searchs = {
           method: this.seachMethod,
           ...payload
-        };
+        }
 
-        await searchMap[type || this.docsType](searchs);
+        await searchMap[type || this.docsType](searchs)
       },
       async searchFiles (payload) {
-        let docFiles = await seekLibFiles(payload);
-        this.docs = docFiles;
+        let docFiles = await seekLibFiles(payload)
+        this.docs = docFiles
       },
       async searchFloders (payload) {
-        let docsFolders = await seekLibFolders(payload);
-        this.docs = docsFolders;
+        let docsFolders = await seekLibFolders(payload)
+        this.docs = docsFolders
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

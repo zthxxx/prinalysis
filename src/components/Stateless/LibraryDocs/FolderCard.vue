@@ -14,9 +14,9 @@
 </template>
 
 <script>
-  import { collectionFolder } from '@/assets/img/print';
-  import docItemCard from './DocItemCard';
-  import { formatDate } from '@/utils/tools';
+  import { collectionFolder } from '@/assets/img/print'
+  import docItemCard from './DocItemCard'
+  import { formatDate } from '@/utils/tools'
 
   export default {
     name: 'folder-card',
@@ -33,7 +33,7 @@
         updated, count,
         collected, view,
         uid, user
-      } = this.docItem;
+      } = this.docItem
       return {
         id,
         name,
@@ -44,11 +44,11 @@
         uid,
         user: user || '匿名用户',
         folderIcon: collectionFolder
-      };
+      }
     },
     computed: {},
     watch: {},
     mounted () {},
     methods: {}
-  };
+  }
 </script>

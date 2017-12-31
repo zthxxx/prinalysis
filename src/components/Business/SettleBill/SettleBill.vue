@@ -67,11 +67,11 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import _ from 'lodash';
-  import { POPUP_LOGIN, POPUP_PAY } from '$@/Popups';
-  import { verifyOrder } from '@/api';
-  import { formatCNY, getBillingItem } from '@/utils/tools';
+  import { mapState } from 'vuex'
+  import _ from 'lodash'
+  import { POPUP_LOGIN, POPUP_PAY } from '$@/Popups'
+  import { verifyOrder } from '@/api'
+  import { formatCNY, getBillingItem } from '@/utils/tools'
 
   export default {
     name: 'settle-bill',
@@ -98,47 +98,47 @@
           message: ''
         },
         formatCNY: formatCNY
-      };
+      }
     },
     computed: {
       ...mapState('user', ['user']),
       bills () {
-        let { items, units } = this.getItems();
-        let bills = [];
-        let unitPrice = value => (value > 0 ? `${formatCNY(value)}/张` : null);
+        let { items, units } = this.getItems()
+        let bills = []
+        let unitPrice = value => (value > 0 ? `${formatCNY(value)}/张` : null)
         for (let item in items) {
           if (items[item] > 0) {
-            let count = items[item];
-            let unit = units[item];
+            let count = items[item]
+            let unit = units[item]
             bills.push({
               name: item,
               unit: unitPrice(unit),
               count: count,
               cost: count * unit
-            });
+            })
           }
         }
-        return bills;
+        return bills
       },
       finalMoney () {
-        let originCost = 0;
-        let actualCost;
-        let reduce = this.getReducedMoney();
+        let originCost = 0
+        let actualCost
+        let reduce = this.getReducedMoney()
         //        let coupon = this.getSelectCoupon();
         for (let item of this.bills) {
-          originCost += item.cost;
+          originCost += item.cost
         }
-        actualCost = originCost;
-        if (reduce.hasReduced) actualCost -= reduce.money;
+        actualCost = originCost
+        if (reduce.hasReduced) actualCost -= reduce.money
         // TODO: handle selected coupon
         if (this.dispatch) {
-          actualCost += this.point.dispatch.distributionCharge;
+          actualCost += this.point.dispatch.distributionCharge
         }
-        actualCost = actualCost < this.point.minCharge ? this.point.minCharge : actualCost;
+        actualCost = actualCost < this.point.minCharge ? this.point.minCharge : actualCost
         return {
           originMoney: originCost,
           amount: actualCost
-        };
+        }
       }
     },
     watch: {
@@ -149,7 +149,7 @@
             phone: username,
             nickname,
             address
-          };
+          }
         }
       }
     },
@@ -160,54 +160,54 @@
           phone: _.get(this.user, 'username'),
           address: _.get(this.user, 'address'),
           message: ''
-        };
+        }
       }
     },
     methods: {
       getReducedMoney () {
-        return { money: 0, hasReduced: false };
+        return { money: 0, hasReduced: false }
       },
       getSelectCoupon () {
-        return { couponId: null, couponName: null };
+        return { couponId: null, couponName: null }
       },
       calcSidesCount (setting) {
-        let oneside = 0;
-        let duplex = 0;
-        let area = setting.endPage - setting.startPage + 1;
-        let layout = setting.row * setting.col;
-        let pages = Math.ceil(area / layout);
+        let oneside = 0
+        let duplex = 0
+        let area = setting.endPage - setting.startPage + 1
+        let layout = setting.row * setting.col
+        let pages = Math.ceil(area / layout)
         if (setting.side === 1) {
-          oneside += pages;
+          oneside += pages
         } else if (setting.side === 2) {
-          oneside += pages % 2;
-          duplex += Math.floor(pages / 2);
+          oneside += pages % 2
+          duplex += Math.floor(pages / 2)
         }
-        oneside *= setting.copies;
-        duplex *= setting.copies;
-        return [oneside, duplex];
+        oneside *= setting.copies
+        duplex *= setting.copies
+        return [oneside, duplex]
       },
       getItems () {
-        let items = {};
-        let units = {};
-        const price = this.point.price;
+        let items = {}
+        let units = {}
+        const price = this.point.price
         for (let file of this.fileList) {
-          if (!file.print) continue;
-          if (file.status !== 'success') continue;
-          let setting = file.print;
-          let { size, caliper, color } = setting;
-          let sides = _.get(_.find(price, { size, caliper }), ['money', color]);
-          if (!sides) return { items: {}, units: {} };
-          let prefix = side => getBillingItem({ size, caliper, color, side });
-          let oddType = prefix(1);
-          let evenType = prefix(2);
-          let [oneside, duplex] = this.calcSidesCount(setting);
-          let isOnesideExist = 'oneside' in sides ? oddType : evenType;
-          items[isOnesideExist] = _.get(items, isOnesideExist, 0) + oneside;
-          items[evenType] = _.get(items, evenType, 0) + duplex;
-          units[oddType] = _.get(sides, 'oneside', 0);
-          units[evenType] = _.get(sides, 'duplex', 0);
+          if (!file.print) continue
+          if (file.status !== 'success') continue
+          let setting = file.print
+          let { size, caliper, color } = setting
+          let sides = _.get(_.find(price, { size, caliper }), ['money', color])
+          if (!sides) return { items: {}, units: {} }
+          let prefix = side => getBillingItem({ size, caliper, color, side })
+          let oddType = prefix(1)
+          let evenType = prefix(2)
+          let [oneside, duplex] = this.calcSidesCount(setting)
+          let isOnesideExist = 'oneside' in sides ? oddType : evenType
+          items[isOnesideExist] = _.get(items, isOnesideExist, 0) + oneside
+          items[evenType] = _.get(items, evenType, 0) + duplex
+          units[oddType] = _.get(sides, 'oneside', 0)
+          units[evenType] = _.get(sides, 'duplex', 0)
         }
-        return { items, units };
+        return { items, units }
       },
       getOrder () {
         let order = {
@@ -218,30 +218,30 @@
             ...file.print
           })),
           money: this.finalMoney.amount,
-        };
-        if (this.dispatch) {
-          order.dispatching = this.dispatching;
         }
-        return order;
+        if (this.dispatch) {
+          order.dispatching = this.dispatching
+        }
+        return order
       },
       async verifyOrder () {
         if (!this.user) {
-          await this[POPUP_LOGIN]();
+          await this[POPUP_LOGIN]()
         }
-        let order = this.getOrder();
-        let { orderID } = await verifyOrder(order);
+        let order = this.getOrder()
+        let { orderID } = await verifyOrder(order)
         await this[POPUP_PAY]({
           orderID,
           money: formatCNY(this.finalMoney.amount)
-        });
-        this.paidRefresh();
+        })
+        this.paidRefresh()
       },
       paidRefresh () {
-        this.updateFiles([]);
-        this.$router.push({ name: 'user-order' });
+        this.updateFiles([])
+        this.$router.push({ name: 'user-order' })
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

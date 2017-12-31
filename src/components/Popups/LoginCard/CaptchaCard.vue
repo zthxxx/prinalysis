@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { requireSMS, signup } from '@/api';
+  import { requireSMS, signup } from '@/api'
 
   export default {
     name: 'captcha-card',
@@ -50,32 +50,32 @@
             { min: 6, max: 6, message: '请输入 6 位验证码', trigger: 'blur' }
           ]
         }
-      };
+      }
     },
     mounted () {
-      this.accept();
+      this.accept()
     },
     methods: {
       async accept () {
-        requireSMS(this.form);
-        this.awaitCaptcha = 59;
+        requireSMS(this.form)
+        this.awaitCaptcha = 59
         let timeout = setInterval(() => {
           if (this.awaitCaptcha <= 0) {
-            clearInterval(timeout);
+            clearInterval(timeout)
           } else {
-            this.awaitCaptcha--;
+            this.awaitCaptcha--
           }
-        }, 1000);
+        }, 1000)
       },
       async signup () {
         this.$refs.captchaForm.validate(valid => {
-          if (!valid) throw new Error('signup form not validated');
-        });
-        let user = await signup(this.form);
-        this.$emit('signed', user);
+          if (!valid) throw new Error('signup form not validated')
+        })
+        let user = await signup(this.form)
+        this.$emit('signed', user)
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

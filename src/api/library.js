@@ -1,5 +1,5 @@
-import { get } from '@/utils/axios';
-import * as API from './url';
+import { get } from '@/utils/axios'
+import * as API from './url'
 
 /**
  * 文档排序规则
@@ -16,7 +16,7 @@ import * as API from './url';
  * @property {object} default - 代表用户的默认选项
  * @property {object} optional - 代表能够提供支持的选项集合
  */
-export const getProfession = () => get(API.PROFESSION_SEARCH);
+export const getProfession = () => get(API.PROFESSION_SEARCH)
 
 /**
  * 获取支持搜索的专题
@@ -24,19 +24,19 @@ export const getProfession = () => get(API.PROFESSION_SEARCH);
  * @property {object} default - 代表用户的默认选项
  * @property {object} optional - 代表能够提供支持的选项集合
  */
-export const getThematic = () => get(API.THEMATIC_SEARCH);
+export const getThematic = () => get(API.THEMATIC_SEARCH)
 
 const searchMap = {
   profession: getProfession,
   thematic: getThematic
-};
+}
 
 /**
  * 获取文库搜索的可选项
  * @param {string} type - 搜索方式 profession | thematic
  * @return {object | Array} 专业科目可选项或专题可选项
  */
-export const getLibOptional = type => searchMap[type]();
+export const getLibOptional = type => searchMap[type]()
 
 
 /**
@@ -92,17 +92,17 @@ const seekTarget = target => {
     institute, major, semester, subject,
     category, topic,
     order
-  });
-};
+  })
+}
 
 /**
  * 搜索文库中的文档
  * @return {DocFile[]} - 返回文件集合
  */
-export const seekLibFiles = seekTarget(API.FILES_SEARCH);
+export const seekLibFiles = seekTarget(API.FILES_SEARCH)
 
 /**
  * 搜索文库中的精选集
  * @return {DocsFloder[]} - 返回精选集列表
  */
-export const seekLibFolders = seekTarget(API.FOLDERS_SEARCH);
+export const seekLibFolders = seekTarget(API.FOLDERS_SEARCH)

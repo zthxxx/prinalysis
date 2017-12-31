@@ -28,28 +28,28 @@
 </template>
 
 <script>
-  import { signout } from '@/api';
-  import * as types from '@/store/mutation-types';
-  import { mapModel } from '@/utils/tools';
+  import { signout } from '@/api'
+  import * as types from '@/store/mutation-types'
+  import { mapModel } from '@/utils/tools'
 
   export default {
     name: 'personal',
     header: '我的信息',
     props: {},
     data () {
-      return {};
+      return {}
     },
     computed: {
       ...mapModel('user', { user: types.SET_USER })
     },
     methods: {
       async signout () {
-        await signout();
-        this.$router.push({ name: 'home' });
-        this.user = null;
+        await signout()
+        this.$router.push({ name: 'home' })
+        this.user = null
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

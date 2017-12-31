@@ -17,9 +17,9 @@
   export default {
     name: 'manage-board',
     data () {
-      return {};
+      return {}
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

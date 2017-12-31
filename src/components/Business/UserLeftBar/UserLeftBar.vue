@@ -31,14 +31,14 @@
       }
     },
     data () {
-      return {};
+      return {}
     },
     computed: {
       navIndex () {
-        return this.$route.path.match(/^(\/user\/[^\/]*)/)[1];
+        return this.$route.path.match(/^(\/user\/[^\/]*)/)[1]
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

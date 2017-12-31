@@ -1,5 +1,5 @@
-import { get } from '@/utils/axios';
-import * as API from './url';
+import { get } from '@/utils/axios'
+import * as API from './url'
 
 /**
  * 检验通过MD5检验文档是否存在, 避免重复上传，并获取文档页数
@@ -10,7 +10,7 @@ import * as API from './url';
  * @property {number} pageCount - 文件单页总数
  * @property {boolean} direction - 排版方向是否为竖版, true 表示竖版
  */
-export const getPage = ({ md5, name }) => get(API.PAGE, { md5, name });
+export const getPage = ({ md5, name }) => get(API.PAGE, { md5, name })
 
 /**
  * 获取云端空间的目标上传地址及权限
@@ -18,7 +18,7 @@ export const getPage = ({ md5, name }) => get(API.PAGE, { md5, name });
  * @param {string} name - 文件名
  * @return {{url: string}} - 文件上传地址。地址带协议名，如 https://xxxx/xxx
  */
-export const getFileURL = ({ md5, name }) => get(API.FILEURL, { md5, name });
+export const getFileURL = ({ md5, name }) => get(API.FILEURL, { md5, name })
 
 /**
  * 获取打印预览图片
@@ -32,4 +32,4 @@ export const getFileURL = ({ md5, name }) => get(API.FILEURL, { md5, name });
 export const getPreview = ({ md5, page, size, row, col }) => get(
   API.PREVIEW,
   { md5, page, size, row, col }
-);
+)

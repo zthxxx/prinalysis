@@ -41,8 +41,8 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import { POPUP_LOGIN } from '$@/Popups';
+  import { mapState } from 'vuex'
+  import { POPUP_LOGIN } from '$@/Popups'
 
   export default {
     name: 'header-top',
@@ -54,21 +54,21 @@
           vendor: '商家管理',
           manager: '后台管理'
         }
-      };
+      }
     },
     computed: {
       ...mapState('print', ['fileList']),
       ...mapState('user', ['user']),
       navIndex () {
-        return this.$route.path.match(/^(\/[^\/]*)/)[1];
+        return this.$route.path.match(/^(\/[^\/]*)/)[1]
       }
     },
     methods: {
       login () {
-        this[POPUP_LOGIN]();
+        this[POPUP_LOGIN]()
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

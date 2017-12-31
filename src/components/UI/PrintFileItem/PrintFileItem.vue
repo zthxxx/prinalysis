@@ -134,10 +134,10 @@
 </template>
 
 <script>
-  import _ from 'lodash';
-  import { icons } from '@/assets/img/print';
-  import spinDot from '$@/Stateless/SpinDot';
-  import { sideMap, checkset } from '@/utils/tools';
+  import _ from 'lodash'
+  import { icons } from '@/assets/img/print'
+  import spinDot from '$@/Stateless/SpinDot'
+  import { sideMap, checkset } from '@/utils/tools'
 
   export default {
     name: 'print-file-item',
@@ -176,7 +176,7 @@
       }
     },
     data () {
-      let { doc, ppt, xls, pdf } = icons;
+      let { doc, ppt, xls, pdf } = icons
       return {
         setting: {
           ...checkset(
@@ -199,63 +199,63 @@
           xls, xlsx: xls,
           pdf
         }
-      };
+      }
     },
     computed: {
       upsuccess () {
-        let file = this.file;
-        return _.get(file, 'status') === 'success' && _.get(file, ['pageInfo', 'pageCount']);
+        let file = this.file
+        return _.get(file, 'status') === 'success' && _.get(file, ['pageInfo', 'pageCount'])
       },
       colorable () {
-        let setting = this.setting;
-        if (!this.price) return {};
+        let setting = this.setting
+        if (!this.price) return {}
         for (let { size, caliper, money } of this.price) {
           if (setting['size'] === size && setting['caliper'] === caliper) {
-            return money;
+            return money
           }
         }
-        return {};
+        return {}
       },
       sideable () {
-        let setting = this.setting;
-        let sideable = _.get(this.colorable, setting.color, {});
+        let setting = this.setting
+        let sideable = _.get(this.colorable, setting.color, {})
         if (!_.has(sideable, _.invert(this.sideMap)[setting.side])) {
-          setting.side = _.get(this.sideMap, _.keys(sideable).shift(), 1);
+          setting.side = _.get(this.sideMap, _.keys(sideable).shift(), 1)
         }
-        return sideable;
+        return sideable
       },
       sizeside: {
         get () {
           return JSON.stringify({
             size: this.setting.size,
             caliper: this.setting.caliper
-          });
+          })
         },
         set (value) {
           this.setting = checkset(this.price, {
             ...this.setting,
             ...JSON.parse(value)
-          });
+          })
         }
       },
       layout: {
         get () {
-          let setting = this.setting;
-          return setting.row * setting.col;
+          let setting = this.setting
+          return setting.row * setting.col
         },
         set (value) {
-          let { row, col } = this.layouts[value];
+          let { row, col } = this.layouts[value]
           if (this.file.pageInfo.direction) {
-            [row, col] = [col, row];
+            [row, col] = [col, row]
           }
-          Object.assign(this.setting, { row, col });
+          Object.assign(this.setting, { row, col })
         }
       },
       total () {
-        let setting = this.setting;
+        let setting = this.setting
         return Math.ceil(
           (setting.endPage - setting.startPage + 1) / setting.side / this.layout
-        ) * setting.copies;
+        ) * setting.copies
       }
     },
     watch: {
@@ -266,8 +266,8 @@
               this.$emit('update', {
                 uid: this.file.uid,
                 setting: newSetting
-              });
-              break;
+              })
+              break
             }
           }
         },
@@ -276,19 +276,19 @@
       price: {
         handler (newPrice) {
           if (newPrice) {
-            this.setting = checkset(newPrice, this.setting);
+            this.setting = checkset(newPrice, this.setting)
           }
         },
         deep: true
       },
       preSetting: {
         handler (newSetting) {
-          this.setting = { ...newSetting };
+          this.setting = { ...newSetting }
         },
         deep: true
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

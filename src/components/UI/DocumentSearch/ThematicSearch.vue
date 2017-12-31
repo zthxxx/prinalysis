@@ -30,8 +30,8 @@
 </template>
 
 <script>
-  import _ from 'lodash';
-  import { getFirstKey } from '@/utils/tools';
+  import _ from 'lodash'
+  import { getFirstKey } from '@/utils/tools'
 
   export default {
     name: 'thematic-search',
@@ -54,57 +54,57 @@
         topics: [],
         topic: '',
         order: 'COLLECTED'
-      };
+      }
     },
     computed: {},
     watch: {
       defaultSearchs: {
         handler () {
-          this.setDefault();
+          this.setDefault()
         },
         deep: true
       }
     },
     created () {
       if (_.isEmpty(this.defaultSearchs)) {
-        let category = getFirstKey(this.categories, this.category);
-        this.setCategory(category);
-        return;
+        let category = getFirstKey(this.categories, this.category)
+        this.setCategory(category)
+        return
       }
-      this.setDefault();
+      this.setDefault()
     },
     methods: {
       setDefault () {
-        let { category, topic, order } = this.defaultSearchs;
-        this.topic = topic;
-        this.order = order;
-        this.setCategory(category);
+        let { category, topic, order } = this.defaultSearchs
+        this.topic = topic
+        this.order = order
+        this.setCategory(category)
       },
       async setCategory (category) {
-        this.category = category;
-        this.topics = this.categories[category];
-        await this.$nextTick();
-        let topic = getFirstKey(this.topics, this.topic, false);
-        this.setTopic(topic);
+        this.category = category
+        this.topics = this.categories[category]
+        await this.$nextTick()
+        let topic = getFirstKey(this.topics, this.topic, false)
+        this.setTopic(topic)
       },
       setTopic (topic) {
-        this.topic = topic;
-        this.search();
+        this.topic = topic
+        this.search()
       },
       setOrder (order) {
-        this.order = order;
-        this.search();
+        this.order = order
+        this.search()
       },
       search () {
-        let { category, topic, order } = this;
+        let { category, topic, order } = this
         this.$emit('search', {
           category,
           topic,
           order
-        });
+        })
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

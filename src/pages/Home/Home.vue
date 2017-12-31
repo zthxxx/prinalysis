@@ -43,9 +43,9 @@
   </transition>
 </template>
 <script>
-  import { banner, foot, twigs } from '@/assets/img/home';
-  import { weixinPayIcon, aliPayIcon } from '@/assets/img/pay';
-  import depictCard from '$@/Stateless/DepictCard';
+  import { banner, foot, twigs } from '@/assets/img/home'
+  import { weixinPayIcon, aliPayIcon } from '@/assets/img/pay'
+  import depictCard from '$@/Stateless/DepictCard'
 
   export default {
     name: 'home',
@@ -83,9 +83,9 @@
             ]
           }
         ]
-      };
+      }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

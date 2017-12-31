@@ -1,1 +1,1 @@
-export { default } from './Personal';
+export { default } from './Personal'

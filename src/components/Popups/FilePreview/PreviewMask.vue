@@ -41,11 +41,11 @@
 </template>
 
 <script>
-  import modalBackdrop from '$@/Stateless/ModalBackdrop';
-  import printFileItem from '$@/UI/PrintFileItem';
-  import spinDot from '$@/Stateless/SpinDot';
-  import { getPreview } from '@/api';
-  import { throttle } from '@/utils/tools';
+  import modalBackdrop from '$@/Stateless/ModalBackdrop'
+  import printFileItem from '$@/UI/PrintFileItem'
+  import spinDot from '$@/Stateless/SpinDot'
+  import { getPreview } from '@/api'
+  import { throttle } from '@/utils/tools'
 
   export default {
     name: 'preview-mask',
@@ -74,92 +74,92 @@
         precolor: this.file.print.color,
         precopies: this.file.print.copies,
         preside: this.file.print.side
-      };
+      }
     },
     computed: {
       isMono () {
-        return this.file.print.color === 'mono';
+        return this.file.print.color === 'mono'
       },
       total () {
-        let { endPage, startPage, row, col } = this.file.print;
-        let layouts = row * col;
-        return Math.ceil((endPage - startPage + 1) / layouts);
+        let { endPage, startPage, row, col } = this.file.print
+        let layouts = row * col
+        return Math.ceil((endPage - startPage + 1) / layouts)
       },
       loadEnd () {
-        return this.pagepics.length >= this.total;
+        return this.pagepics.length >= this.total
       },
       papers () {
-        let { side } = this.file.print;
-        return Math.ceil(this.total / side);
+        let { side } = this.file.print
+        return Math.ceil(this.total / side)
       },
       copies () {
-        return this.file.print.copies;
+        return this.file.print.copies
       }
     },
     watch: {
       file: {
         handler ({ print: { color, copies, side } }) {
           if (color === this.precolor && copies === this.precopies && side === this.preside) {
-            this.pagepics = [];
-            this.getpic(1);
-            return;
+            this.pagepics = []
+            this.getpic(1)
+            return
           }
-          this.precolor = color;
-          this.precopies = copies;
-          this.preside = side;
+          this.precolor = color
+          this.precopies = copies
+          this.preside = side
         },
         deep: true
       }
     },
     mounted () {
-      this.getpic(1);
+      this.getpic(1)
     },
     methods: {
       close () {
-        this.$emit('close');
+        this.$emit('close')
       },
       async getpic (page) {
-        if (this.loading || this.loadEnd) return;
-        this.loading = true;
-        let { size, row, col } = this.file.print;
+        if (this.loading || this.loadEnd) return
+        this.loading = true
+        let { size, row, col } = this.file.print
         let { img } = await getPreview({
           md5: this.file.raw.md5,
           page, size,
           row, col
-        });
-        this.pagepics.push(img);
+        })
+        this.pagepics.push(img)
       },
       calcCurrent (scroll, totalHeight, pagesCount) {
-        pagesCount = this.loading ? pagesCount - 1 : pagesCount;
-        scroll = scroll || 1;
-        let current = scroll / totalHeight * pagesCount;
-        return Math.ceil(current);
+        pagesCount = this.loading ? pagesCount - 1 : pagesCount
+        scroll = scroll || 1
+        let current = scroll / totalHeight * pagesCount
+        return Math.ceil(current)
       },
       handleScroll () {
-        let scrollTop = this.$refs.pagebox.scrollTop;
-        let clientHeight = this.$refs.pagebox.clientHeight;
-        let pagesHeight = this.$refs.pages.clientHeight;
-        let pagesCount = this.pagepics.length;
-        let buttomLimit = pagesHeight - clientHeight;
-        let current = this.calcCurrent(scrollTop, pagesHeight, pagesCount);
-        if (this.currentPage !== current) this.currentPage = current;
+        let scrollTop = this.$refs.pagebox.scrollTop
+        let clientHeight = this.$refs.pagebox.clientHeight
+        let pagesHeight = this.$refs.pages.clientHeight
+        let pagesCount = this.pagepics.length
+        let buttomLimit = pagesHeight - clientHeight
+        let current = this.calcCurrent(scrollTop, pagesHeight, pagesCount)
+        if (this.currentPage !== current) this.currentPage = current
         if (scrollTop >= buttomLimit && !this.loadEnd) {
-          let next = pagesCount + 1;
-          this.getpic(next);
+          let next = pagesCount + 1
+          this.getpic(next)
         }
       },
       loadimg () {
-        this.loading = false;
-        if (!this.$refs.pagebox) return;
-        let clientHeight = this.$refs.pagebox.clientHeight;
-        let scrollHeight = this.$refs.pagebox.scrollHeight;
+        this.loading = false
+        if (!this.$refs.pagebox) return
+        let clientHeight = this.$refs.pagebox.clientHeight
+        let scrollHeight = this.$refs.pagebox.scrollHeight
         if (scrollHeight <= clientHeight) {
-          let pagesCount = this.pagepics.length;
-          this.getpic(pagesCount + 1);
+          let pagesCount = this.pagepics.length
+          this.getpic(pagesCount + 1)
         }
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

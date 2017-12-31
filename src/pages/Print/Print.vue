@@ -34,18 +34,18 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex';
-  import _ from 'lodash';
-  import boxCard from '$@/Stateless/BoxCard';
-  import linkageSelect from '$@/UI/LinkageSelect';
-  import ShopPointList from '$@/UI/ShopPointList';
-  import uploadBox from '$@/Business/UploadBox';
-  import printFileList from '$@/UI/PrintFileList';
-  import settleBill from '$@/Business/SettleBill';
-  import { POPUP_PREVIEW } from '$@/Popups';
-  import { getAddresses, getPoints } from '@/api';
-  import * as types from '@/store/mutation-types';
-  import { mapModel } from '@/utils/tools';
+  import { mapState, mapMutations } from 'vuex'
+  import _ from 'lodash'
+  import boxCard from '$@/Stateless/BoxCard'
+  import linkageSelect from '$@/UI/LinkageSelect'
+  import ShopPointList from '$@/UI/ShopPointList'
+  import uploadBox from '$@/Business/UploadBox'
+  import printFileList from '$@/UI/PrintFileList'
+  import settleBill from '$@/Business/SettleBill'
+  import { POPUP_PREVIEW } from '$@/Popups'
+  import { getAddresses, getPoints } from '@/api'
+  import * as types from '@/store/mutation-types'
+  import { mapModel } from '@/utils/tools'
 
   export default {
     name: 'print',
@@ -61,7 +61,7 @@
       return {
         addresses: {},
         points: []
-      };
+      }
     },
     computed: {
       ...mapState('print', ['fileList']),
@@ -71,7 +71,7 @@
       })
     },
     mounted () {
-      this.initData();
+      this.initData()
     },
     methods: {
       ...mapMutations('print', {
@@ -79,48 +79,48 @@
         commitFiles: types.UPDATE_FILES
       }),
       async initData () {
-        this.addresses = await getAddresses();
+        this.addresses = await getAddresses()
       },
       async setPoints (focusID) {
-        const points = await getPoints(focusID);
+        const points = await getPoints(focusID)
         if (!points.length) {
           this.$notify.warning({
             title: '打印点为空',
             message: '该处地址下暂时没有打印点哟，敬请期待~'
-          });
+          })
         }
         const holidays = {
           'RUNNING': '正在运营',
           'SUMMER_HOLIDAY': '暑假休息',
           'WINTER_HOLIDAY': '寒假休息',
           'CLOSE_DOWN': '关门停业'
-        };
+        }
         for (let point of points) {
-          point.running = point.status === 'RUNNING';
-          point.rest_message = holidays[point.status];
+          point.running = point.status === 'RUNNING'
+          point.rest_message = holidays[point.status]
           point.colorType = {
             mono: false,
             colorful: false
-          };
+          }
           for (let { money } of point.price) {
-            if ('mono' in money) point.colorType.mono = true;
-            if ('colorful' in money) point.colorType.colorful = true;
+            if ('mono' in money) point.colorType.mono = true
+            if ('colorful' in money) point.colorType.colorful = true
           }
         }
-        this.points = points;
+        this.points = points
       },
       removeFile (file) {
-        this.$refs.uploader.transmitRemove(file);
+        this.$refs.uploader.transmitRemove(file)
       },
       handlePreview (file) {
         this[POPUP_PREVIEW]({
           price: _.get(this.focusPoint, 'price'),
           file,
           updateSetting: this.updateSetting
-        });
+        })
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

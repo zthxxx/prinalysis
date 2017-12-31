@@ -1,1 +1,1 @@
-export { default } from './BoxCard';
+export { default } from './BoxCard'

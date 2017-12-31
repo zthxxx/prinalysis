@@ -44,9 +44,9 @@
 </template>
 
 <script>
-  import _ from 'lodash';
-  import linkageSelect from '$@/UI/LinkageSelect';
-  import { getFirstKey } from '@/utils/tools';
+  import _ from 'lodash'
+  import linkageSelect from '$@/UI/LinkageSelect'
+  import { getFirstKey } from '@/utils/tools'
 
   export default {
     name: 'profession-search',
@@ -73,74 +73,74 @@
         subjects: [],
         subject: '',
         order: 'COLLECTED'
-      };
+      }
     },
     computed: {},
     watch: {
       defaultSearchs: {
         handler () {
-          this.setDefault();
+          this.setDefault()
         },
         deep: true
       }
     },
     created () {
-      this.setDefault();
+      this.setDefault()
     },
     methods: {
       async setDefault () {
-        if (_.isEmpty(this.defaultSearchs)) return;
-        let { institute, major, semester, subject, order } = this.defaultSearchs;
-        this.institute = institute;
-        await this.$nextTick();
-        this.major = major;
-        await this.$nextTick();
-        this.semester = semester;
-        await this.$nextTick();
-        this.subject = subject;
-        this.order = order;
+        if (_.isEmpty(this.defaultSearchs)) return
+        let { institute, major, semester, subject, order } = this.defaultSearchs
+        this.institute = institute
+        await this.$nextTick()
+        this.major = major
+        await this.$nextTick()
+        this.semester = semester
+        await this.$nextTick()
+        this.subject = subject
+        this.order = order
       },
       async onSetInstitute (institute) {
-        this.instituteID = institute.id;
-        this.majors = institute.majors;
-        await this.$nextTick();
-        let major = getFirstKey(this.majors, this.major);
-        this.setMajor(major);
+        this.instituteID = institute.id
+        this.majors = institute.majors
+        await this.$nextTick()
+        let major = getFirstKey(this.majors, this.major)
+        this.setMajor(major)
       },
       async setMajor (major) {
-        this.major = major;
-        this.semesters = this.majors[major];
-        await this.$nextTick();
-        let semester = getFirstKey(this.semesters, this.semester);
-        this.setSemester(semester);
+        this.major = major
+        this.semesters = this.majors[major]
+        await this.$nextTick()
+        let semester = getFirstKey(this.semesters, this.semester)
+        this.setSemester(semester)
       },
       async setSemester (semester) {
-        this.semester = semester;
-        this.subjects = this.semesters[semester];
-        await this.$nextTick();
-        let subject = getFirstKey(this.subjects, this.subject);
-        this.setSubject(subject);
+        this.semester = semester
+        this.subjects = this.semesters[semester]
+        await this.$nextTick()
+        let subject = getFirstKey(this.subjects, this.subject)
+        this.setSubject(subject)
       },
       setSubject (subject) {
-        this.subject = subject;
-        this.search();
+        this.subject = subject
+        this.search()
       },
       setOrder (order) {
-        this.order = order;
-        this.search();
+        this.order = order
+        this.search()
       },
       search () {
-        let { instituteID: institute, major, semester, subject, order } = this;
+        let { instituteID: institute, major, semester, subject, order } = this
         this.$emit('search', {
           institute,
           major,
           semester,
           subject,
           order
-        });
+        })
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

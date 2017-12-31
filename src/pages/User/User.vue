@@ -11,20 +11,20 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import userLeftBar from '$@/Business/UserLeftBar';
-  import manageBoard from '$@/Business/ManageBoard';
+  import { mapState } from 'vuex'
+  import userLeftBar from '$@/Business/UserLeftBar'
+  import manageBoard from '$@/Business/ManageBoard'
 
   export default {
     name: 'user',
     components: { userLeftBar, manageBoard },
     data () {
-      return {};
+      return {}
     },
     computed: {
       ...mapState('user', ['user'])
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

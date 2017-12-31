@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import previewMask from './PreviewMask.vue';
+  import previewMask from './PreviewMask.vue'
 
   export default {
     name: 'file-preview',
@@ -33,17 +33,17 @@
     data () {
       return {
         preview: false
-      };
+      }
     },
     methods: {
       open () {
-        this.preview = true;
+        this.preview = true
       },
       close () {
-        this.preview = false;
-        this.$nextTick(this.$destroy);
+        this.preview = false
+        this.$nextTick(this.$destroy)
       }
     }
-  };
+  }
 </script>
 

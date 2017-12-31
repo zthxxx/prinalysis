@@ -60,6 +60,7 @@ module.exports = {
         objectsInObjects: true
       }
     ],
+    'semi': ['error', 'never'],
     // https://eslint.org/docs/rules/space-before-function-paren
     'space-before-function-paren': [
       'error',

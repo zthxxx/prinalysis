@@ -14,14 +14,14 @@
       }
     },
     data () {
-      return {};
+      return {}
     },
     computed: {
       sizePx () {
-        return `${this.size}px`;
+        return `${this.size}px`
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

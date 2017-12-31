@@ -43,13 +43,13 @@
       }
     },
     data () {
-      return {};
+      return {}
     },
     computed: {},
     watch: {},
     mounted () {},
     methods: {}
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

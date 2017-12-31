@@ -81,18 +81,18 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex';
-  import * as types from '@/store/mutation-types';
-  import { login, isRegisterable } from '@/api';
-  import modalBackdrop from '$@/Stateless/ModalBackdrop';
-  import captchaCard from './CaptchaCard';
+  import { mapMutations } from 'vuex'
+  import * as types from '@/store/mutation-types'
+  import { login, isRegisterable } from '@/api'
+  import modalBackdrop from '$@/Stateless/ModalBackdrop'
+  import captchaCard from './CaptchaCard'
 
   const countries = [
     { code: '+86', name: '中国', abbr: 'CN' },
     { code: '+1', name: '美国', abbr: 'US' },
     { code: '+81', name: '日本', abbr: 'JP' },
     { code: '+886', name: '中国台湾', abbr: 'TW' }
-  ];
+  ]
   const header = {
     login: {
       title: '登录知书',
@@ -106,7 +106,7 @@
       title: '验证手机',
       subtitle: '请输入你收到的 6 位数验证码'
     }
-  };
+  }
   export default {
     name: 'login-card',
     components: { modalBackdrop, captchaCard },
@@ -144,85 +144,85 @@
           reject () {
           }
         }
-      };
+      }
     },
     computed: {
       prefix: {
         get () {
-          return JSON.stringify(this.country);
+          return JSON.stringify(this.country)
         },
         set (value) {
-          this.country = JSON.parse(value);
+          this.country = JSON.parse(value)
         }
       },
       prefixWidth () {
-        const wordWidth = 16;
-        let { name, code } = this.country;
-        return name.length * wordWidth + code.length * wordWidth / 2 + 16;
+        const wordWidth = 16
+        let { name, code } = this.country
+        return name.length * wordWidth + code.length * wordWidth / 2 + 16
       },
       fullaccount () {
-        return `${this.country.code}${this.form.username}`;
+        return `${this.country.code}${this.form.username}`
       },
       requestForm () {
         return {
           ...this.form,
           code: this.country.code
-        };
+        }
       }
     },
     methods: {
       ...mapMutations('user', [types.SET_USER]),
       open () {
-        this.visible = true;
+        this.visible = true
         return new Promise((resolve, reject) => {
-          this.result = { resolve, reject };
-        });
+          this.result = { resolve, reject }
+        })
       },
       close () {
-        this.result.reject();
-        this.visible = false;
-        this.$nextTick(this.$destroy);
+        this.result.reject()
+        this.visible = false
+        this.$nextTick(this.$destroy)
       },
       loginMode () {
-        this.mode = 'login';
+        this.mode = 'login'
       },
       signupMode () {
-        this.mode = 'signup';
+        this.mode = 'signup'
       },
       backLogin () {
-        this.acceptCaptcha = false;
+        this.acceptCaptcha = false
       },
       async login () {
         this.$refs.loginForm.validate(valid => {
-          if (!valid) throw new Error('login form not validated');
-        });
-        let user = await login(this.requestForm);
-        this[types.SET_USER](user);
-        this.result.resolve('logined');
-        this.close();
+          if (!valid) throw new Error('login form not validated')
+        })
+        let user = await login(this.requestForm)
+        this[types.SET_USER](user)
+        this.result.resolve('logined')
+        this.close()
       },
       async isRegisted () {
         try {
-          await isRegisterable(this.requestForm);
+          await isRegisterable(this.requestForm)
         } catch (e) {
-          this.registerable = false;
-          throw e;
+          this.registerable = false
+          throw e
         }
       },
       async accept () {
         this.$refs.loginForm.validate(valid => {
-          if (!valid) throw new Error('captcha form not validated');
-        });
-        await this.isRegisted();
-        this.acceptCaptcha = true;
+          if (!valid) throw new Error('captcha form not validated')
+        })
+        await this.isRegisted()
+        this.acceptCaptcha = true
       },
       onSigned (user) {
-        this[types.SET_USER](user);
-        this.result.resolve('logined');
-        this.close();
+        this[types.SET_USER](user)
+        this.result.resolve('logined')
+        this.close()
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

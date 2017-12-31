@@ -1,5 +1,5 @@
-import { get, post, put } from '@/utils/axios';
-import * as API from './url';
+import { get, post, put } from '@/utils/axios'
+import * as API from './url'
 
 /**
  * 确认打印订单信息
@@ -17,20 +17,20 @@ import * as API from './url';
  */
 export const verifyOrder = ({ pointID, files, money, ...dispatching }) => post(
   API.ORDER_VERIFY, { pointID, files, money, ...dispatching }
-);
+)
 
 /**
  * 取消订单
  * @param {string} orderID - 订单号
  */
-export const cancelOrder = ({ orderID }) => put(API.ORDER_CANCEL, { orderID });
+export const cancelOrder = ({ orderID }) => put(API.ORDER_CANCEL, { orderID })
 
 /**
  * 获取订单详细信息
  * @param {string} orderID - 订单号
  * @return {OrderDetail} - 返回订单对象
  */
-export const getOrder = ({ orderID }) => get(API.ORDER_DETAIL, { orderID });
+export const getOrder = ({ orderID }) => get(API.ORDER_DETAIL, { orderID })
 
 /**
  * 获取订单基本信息列表
@@ -45,7 +45,7 @@ export const getOrder = ({ orderID }) => get(API.ORDER_DETAIL, { orderID });
  * "REFUND"  退款中或已退款
  * @return {OrderBase[]} - 返回订单基本信息对象数组
  */
-export const getOrders = ({ limits, page, type }) => get(API.ORDERS, { limits, page, type });
+export const getOrders = ({ limits, page, type }) => get(API.ORDERS, { limits, page, type })
 
 /**
  * 用于获取不同状态所有订单数量的统计
@@ -57,4 +57,4 @@ export const getOrders = ({ limits, page, type }) => get(API.ORDERS, { limits, p
  * @property {number} FINISH
  * @property {number} REFUND
  */
-export const amountOrders = () => get(API.ORDERS_AMOUNT);
+export const amountOrders = () => get(API.ORDERS_AMOUNT)

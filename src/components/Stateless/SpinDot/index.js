@@ -1,1 +1,1 @@
-export { default } from './SpinDot';
+export { default } from './SpinDot'

@@ -1,14 +1,14 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
-const home = () => import('@/pages/Home');
-const print = () => import('@/pages/Print');
-const library = () => import('@/pages/Library');
-const user = () => import('@/pages/User');
-import order from '$@/Business/ManageBoard/Order';
-import personal from '$@/Business/ManageBoard/Personal';
+const home = () => import('@/pages/Home')
+const print = () => import('@/pages/Print')
+const library = () => import('@/pages/Library')
+const user = () => import('@/pages/User')
+import order from '$@/Business/ManageBoard/Order'
+import personal from '$@/Business/ManageBoard/Personal'
 
-Vue.use(Router);
+Vue.use(Router)
 
 const routes = [
   {
@@ -55,10 +55,10 @@ const routes = [
     path: '*',
     redirect: { name: 'index' }
   }
-];
+]
 
 export default new Router({
   mode: 'history',
   routes,
   strict: process.env.NODE_ENV !== 'production'
-});
+})

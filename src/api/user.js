@@ -1,5 +1,5 @@
-import { get, post } from '@/utils/axios';
-import * as API from './url';
+import { get, post } from '@/utils/axios'
+import * as API from './url'
 
 /**
  * 用户基本信息对象
@@ -45,12 +45,12 @@ import * as API from './url';
 export const login = ({ code, username, password }) => post(
   API.LOGIN,
   { code, username, password }
-);
+)
 
 /**
  * 用户注销
  */
-export const signout = () => post(API.SIGNOUT);
+export const signout = () => post(API.SIGNOUT)
 
 /**
  * 检测登录状态
@@ -58,27 +58,27 @@ export const signout = () => post(API.SIGNOUT);
  * 已登录时返回用户基本信息对象
  * @return {(string | UserBase)}
  */
-export const checkLogin = () => get(API.LOGIN_STATE);
+export const checkLogin = () => get(API.LOGIN_STATE)
 
 /**
  * 获取登录二维码图片地址
  * @return {{url: string}} - 用于获取二维码图片的 url
  */
-export const getLoginQR = () => get(API.QR_CODE);
+export const getLoginQR = () => get(API.QR_CODE)
 
 /**
  * 判断账户名是否可注册
  * @param {string} code - 手机号国际区号
  * @param {string} username - 用户账户名
  */
-export const isRegisterable = ({ code, username }) => get(API.REGISTERABLE, { code, username });
+export const isRegisterable = ({ code, username }) => get(API.REGISTERABLE, { code, username })
 
 /**
  * 请求发送用户(注册 | 登录)短信验证码
  * @param {string} code - 手机号国际区号
  * @param {string} username - 用户名（必须为手机号）
  */
-export const requireSMS = ({ code, username }) => post(API.SMS_CAPTCHA, { code, username });
+export const requireSMS = ({ code, username }) => post(API.SMS_CAPTCHA, { code, username })
 
 /**
  * 完成用户注册
@@ -92,10 +92,10 @@ export const requireSMS = ({ code, username }) => post(API.SMS_CAPTCHA, { code, 
 export const signup = ({ code, username, password, nickname, captcha }) => post(
   API.SIGNUP,
   { code, username, password, nickname, captcha }
-);
+)
 
 /**
  * 获取用户详细信息
  * @return {UserInfo} - 返回用户信息对象
  */
-export const getUserInfo = () => get(API.USER_INFO);
+export const getUserInfo = () => get(API.USER_INFO)

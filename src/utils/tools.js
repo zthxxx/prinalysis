@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import _ from 'lodash';
-import moment from 'moment';
-import { mapState, mapMutations } from 'vuex';
-import { POPUP_LOGIN } from '$@/Popups';
+import Vue from 'vue'
+import _ from 'lodash'
+import moment from 'moment'
+import { mapState, mapMutations } from 'vuex'
+import { POPUP_LOGIN } from '$@/Popups'
 
 /**
  * 把人名币分值格式化到元
@@ -14,32 +14,32 @@ export const formatCNY = cents => new Intl.NumberFormat(
   {
     style: 'currency',
     currency: 'CNY'
-  }).format(cents / 100);
+  }).format(cents / 100)
 
 /**
  * 格式化 UNXI 时间戳
  * @param {string | number} timestamp - UNXI 时间戳，毫秒
  * @return {string} - '年-月-日 时:分' 方式显示的时间
  */
-export const formatTime = timestamp => moment(Number(timestamp)).format('YYYY-MM-DD HH:MM');
+export const formatTime = timestamp => moment(Number(timestamp)).format('YYYY-MM-DD HH:MM')
 /**
  * 格式化 UNXI 时间戳到日期
  * @param {string | number} timestamp - UNXI 时间戳，毫秒
  * @return {string} - '年-月-日' 方式显示的日期
  */
-export const formatDate = timestamp => moment(Number(timestamp)).format('YYYY-MM-DD');
+export const formatDate = timestamp => moment(Number(timestamp)).format('YYYY-MM-DD')
 
 export const sideMap = {
   oneside: 1,
   duplex: 2
-};
+}
 
 export const printTypeMap = {
   mono: '黑白',
   colorful: '彩色',
   '1': '单面',
   '2': '双面'
-};
+}
 
 /**
  * 获取打印计费项目名称
@@ -50,7 +50,7 @@ export const printTypeMap = {
  * @return {string} - 计费项目名
  */
 export const getBillingItem = ({ size, caliper, color, side }) =>
-  `${size} ${caliper}纸${printTypeMap[color]}${printTypeMap[side]}`;
+  `${size} ${caliper}纸${printTypeMap[color]}${printTypeMap[side]}`
 
 export const orderStateMap = {
   PAYING: '待支付',
@@ -60,7 +60,7 @@ export const orderStateMap = {
   CANCEL: '已取消',
   REFUNDING: '待退款',
   REFUNDED: '已退款'
-};
+}
 
 /**
  * 获取对象或列表的第一个键（值）
@@ -72,43 +72,43 @@ export const orderStateMap = {
  */
 export const getFirstKey = (map, current, defaultAll = true) => {
   if (map instanceof Array) {
-    if (map.includes(current)) return current;
-    return defaultAll ? 'ALL' : _.find(map);
+    if (map.includes(current)) return current
+    return defaultAll ? 'ALL' : _.find(map)
   }
-  if (_.has(map, current)) return current;
-  return _.findKey(map);
-};
+  if (_.has(map, current)) return current
+  return _.findKey(map)
+}
 
 export const checkset = (price, setting) => {
-  if (!price) return setting;
-  let reset = {};
-  let types = null;
+  if (!price) return setting
+  let reset = {}
+  let types = null
   price.map(({ size, caliper, money }) => {
     if (setting['size'] === size && setting['caliper'] === caliper) {
-      types = money;
+      types = money
     }
-  });
+  })
   if (!types) {
-    let { size, caliper, money } = price[0];
-    reset = { size, caliper };
-    types = money;
+    let { size, caliper, money } = price[0]
+    reset = { size, caliper }
+    types = money
   }
-  let color  = setting.color;
+  let color  = setting.color
   if (!_.has(types, color)) {
-    color = _.keys(types).sort().shift();
-    reset.color = color;
+    color = _.keys(types).sort().shift()
+    reset.color = color
   }
-  types = types[color];
+  types = types[color]
 
   if (!_.has(types, _.invert(sideMap)[setting.side])) {
-    reset.side = _.get(sideMap, _.keys(types).shift());
+    reset.side = _.get(sideMap, _.keys(types).shift())
   }
 
   return {
     ...setting,
     ...reset
-  };
-};
+  }
+}
 
 export const presetPrint = (pageInfo, point) => {
   let defaults = {
@@ -121,9 +121,9 @@ export const presetPrint = (pageInfo, point) => {
     col: 1,
     startPage: 1,
     endPage: _.get(pageInfo, ['pageCount'], 1)
-  };
-  return checkset(_.get(point, 'price'), defaults);
-};
+  }
+  return checkset(_.get(point, 'price'), defaults)
+}
 
 /**
  * 去抖动函数，等多次频繁调用的函数在全部调用完后才执行
@@ -132,12 +132,12 @@ export const presetPrint = (pageInfo, point) => {
  * @returns {Function}
  */
 export const debounce = (func, wait) => {
-  let timeout = null;
+  let timeout = null
   return function (...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
-};
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func(...args), wait)
+  }
+}
 
 /**
  * 节流函数，多次频繁调用的函数按固定时间间隔执行
@@ -146,19 +146,19 @@ export const debounce = (func, wait) => {
  * @returns {Function}
  */
 export const throttle = (func, rate) => {
-  let timeout = null;
-  let start = new Date();
+  let timeout = null
+  let start = new Date()
   return function (...args) {
-    let current = new Date();
-    clearTimeout(timeout);
+    let current = new Date()
+    clearTimeout(timeout)
     if (current - start >= rate) {
-      func(...args);
-      start = current;
+      func(...args)
+      start = current
     } else {
-      timeout = setTimeout(() => func(...args), rate);
+      timeout = setTimeout(() => func(...args), rate)
     }
-  };
-};
+  }
+}
 
 /**
  * 映射双向绑定的 state 属性， get 获取，set 提交 mutation
@@ -168,35 +168,35 @@ export const throttle = (func, rate) => {
  * @return {{get, set}}
  */
 export const mapModel = (namespace, states = namespace) => {
-  let maps = {};
+  let maps = {}
   if (_.isArray(states)) {
-    let statemaps = {};
-    states.forEach(x => { statemaps[x] = x });
-    states = statemaps;
+    let statemaps = {}
+    states.forEach(x => { statemaps[x] = x })
+    states = statemaps
   }
   for (let state in states) {
-    let mutation = states[state];
-    let gets = [{ get: state }];
-    let sets = [{ set: mutation }];
+    let mutation = states[state]
+    let gets = [{ get: state }]
+    let sets = [{ set: mutation }]
     if (_.isString(namespace)) {
-      gets.unshift(namespace);
-      sets.unshift(namespace);
+      gets.unshift(namespace)
+      sets.unshift(namespace)
     }
     maps[state] = {
       ...mapState(...gets),
       ...mapMutations(...sets)
-    };
+    }
   }
-  return maps;
-};
+  return maps
+}
 
 
 const globalMount = (Vue, component, propsData) => {
-  let constructor = Vue.extend(component);
-  let instance = new constructor({ propsData });
-  document.body.append(instance.$mount().$el);
-  return instance.open();
-};
+  let constructor = Vue.extend(component)
+  let instance = new constructor({ propsData })
+  document.body.append(instance.$mount().$el)
+  return instance.open()
+}
 
 /**
  * 生成全局挂载组件的 install 方法
@@ -206,36 +206,36 @@ const globalMount = (Vue, component, propsData) => {
  * @return {function} - 返回一个组件的 install 方法，此方法中将在 Vue 原型上注入一个可以接收 props 的调用该组件的方法
  */
 export const globalMountInstaller = (component, handle) => Vue => {
-  Vue.prototype[handle] = (propsData = {}) => globalMount(Vue, component, propsData);
-};
+  Vue.prototype[handle] = (propsData = {}) => globalMount(Vue, component, propsData)
+}
 
 /**
  * 同步懒加载组件，生成全局挂载组件的 install 方法
  */
 export const asyncGlobalMountInstaller = (loader, handle) => Vue => {
   Vue.prototype[handle] = async (propsData = {}) => {
-    let { default: component } = await loader();
-    return globalMount(Vue, component, propsData);
-  };
-};
+    let { default: component } = await loader()
+    return globalMount(Vue, component, propsData)
+  }
+}
 
 export const routeIdentify = (matches, user) => {
   const permission = (access) => {
-    if (!access) return true;
-    if (!user) return false;
-    return access.includes(user.access);
-  };
+    if (!access) return true
+    if (!user) return false
+    return access.includes(user.access)
+  }
   for (let matched of matches) {
-    let { access } = matched.meta;
+    let { access } = matched.meta
     if (!permission(access)) {
-      let login = new Vue()[POPUP_LOGIN];
+      let login = new Vue()[POPUP_LOGIN]
       return login()
         .then(() => {
           if (!permission(access)) {
-            throw Error('User logged in now, but also not permission');
+            throw Error('User logged in now, but also not permission')
           }
-        });
+        })
     }
   }
-  return new Promise(resolve => resolve());
-};
+  return new Promise(resolve => resolve())
+}

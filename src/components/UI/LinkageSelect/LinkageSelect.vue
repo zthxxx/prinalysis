@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import _ from 'lodash';
+  import _ from 'lodash'
 
   export default {
     name: 'linkage-select',
@@ -45,59 +45,59 @@
       return {
         currents: [...this.focused],
         firstMount: this.firstMountEmit
-      };
+      }
     },
     computed: {
       layerData: function () {
-        let layers = [];
-        let layer = this.linkageDatas;
-        let currents = this.currents;
+        let layers = []
+        let layer = this.linkageDatas
+        let currents = this.currents
         if (_.isEmpty(layer)) {
-          layers = [[]];
-          return layers;
+          layers = [[]]
+          return layers
         }
-        let index = 0;
+        let index = 0
         while (layer instanceof Array) {
-          let current = currents[index];
-          let nextLayer = layer;
+          let current = currents[index]
+          let nextLayer = layer
           layers.push(layer.map((item) => {
-            if (current in item) nextLayer = item[current];
-            return _.findKey(item);
-          }));
+            if (current in item) nextLayer = item[current]
+            return _.findKey(item)
+          }))
           if (nextLayer === layer) {
-            let key = _.findKey(layer[0]);
-            currents.splice(index, currents.length);
-            layer = layer[0][key];
+            let key = _.findKey(layer[0])
+            currents.splice(index, currents.length)
+            layer = layer[0][key]
             if (!this.defaultSelected) {
               while (layer instanceof Array) {
-                layers.push([]);
-                layer = _.find(layer[0]);
+                layers.push([])
+                layer = _.find(layer[0])
               }
-              return layers;
+              return layers
             }
-            currents.push(key);
+            currents.push(key)
           } else {
-            layer = nextLayer;
+            layer = nextLayer
           }
-          index++;
+          index++
         }
         if (!_.isEqual(currents, this.focused) || this.firstMount) {
-          this.firstMount = false;
-          this.$emit('currents', [...currents]);
-          this.$emit('track', layer);
+          this.firstMount = false
+          this.$emit('currents', [...currents])
+          this.$emit('track', layer)
         }
-        return layers;
+        return layers
       }
     },
     watch: {
       focused: {
         handler (focused) {
-          if (!_.isEqual(this.currents, focused)) this.currents = [...focused];
+          if (!_.isEqual(this.currents, focused)) this.currents = [...focused]
         }
       },
       deep: true
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

@@ -14,9 +14,9 @@
 </template>
 
 <script>
-  import { icons } from '@/assets/img/print';
-  import docItemCard from './DocItemCard';
-  import { formatDate } from '@/utils/tools';
+  import { icons } from '@/assets/img/print'
+  import docItemCard from './DocItemCard'
+  import { formatDate } from '@/utils/tools'
 
   export default {
     name: 'file-card',
@@ -33,8 +33,8 @@
         created, pages, format,
         collected, printed,
         uid, user
-      } = this.docItem;
-      let { doc, ppt, xls, pdf } = icons;
+      } = this.docItem
+      let { doc, ppt, xls, pdf } = icons
       return {
         id,
         name,
@@ -51,11 +51,11 @@
           xls, xlsx: xls,
           pdf
         }
-      };
+      }
     },
     computed: {},
     watch: {},
     mounted () {},
     methods: {}
-  };
+  }
 </script>

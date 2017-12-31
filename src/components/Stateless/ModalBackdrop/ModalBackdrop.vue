@@ -13,9 +13,9 @@
   export default {
     name: 'modal-backdrop',
     data () {
-      return {};
+      return {}
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

@@ -56,8 +56,8 @@
 </template>
 
 <script>
-  import { ATM, printPoint } from '@/assets/img/print';
-  import { formatCNY } from '@/utils/tools';
+  import { ATM, printPoint } from '@/assets/img/print'
+  import { formatCNY } from '@/utils/tools'
 
   export default {
     name: 'shop-point-card',
@@ -82,46 +82,46 @@
           oneside: '单面',
           duplex: '双面'
         }
-      };
+      }
     },
     methods: {
       isColorful (printItem) {
-        let type = [];
-        if (printItem.mono) type.push('黑白打印');
-        if (printItem.colorful) type.push('彩色打印');
-        return type;
+        let type = []
+        if (printItem.mono) type.push('黑白打印')
+        if (printItem.colorful) type.push('彩色打印')
+        return type
       },
       getFormatTakeTime (takeTime) {
         let momentFormat = new Intl.NumberFormat('en-US', {
           useGrouping: false,
           minimumIntegerDigits: 2
-        });
-        let momnets = takeTime.map((item) => momentFormat.format(item));
-        return `${momnets.slice(0, 2).join(':')}-${momnets.slice(2, 4).join(':')}`;
+        })
+        let momnets = takeTime.map((item) => momentFormat.format(item))
+        return `${momnets.slice(0, 2).join(':')}-${momnets.slice(2, 4).join(':')}`
       },
       selected () {
-        this.$emit('select', this.point);
+        this.$emit('select', this.point)
       },
       getPriceList (price) {
-        let unitPrice = (value) => (value > 0 ? `${formatCNY(value)} / 张` : null);
-        let typeMap = this.typeMap;
-        let tariff = [];
+        let unitPrice = (value) => (value > 0 ? `${formatCNY(value)} / 张` : null)
+        let typeMap = this.typeMap
+        let tariff = []
         for (let { size, caliper, money } of price) {
-          let prefix = `${size} ${caliper}纸`;
+          let prefix = `${size} ${caliper}纸`
           for (let color in money) {
             for (let side in money[color]) {
-              let unit = money[color][side];
+              let unit = money[color][side]
               tariff.push({
                 type: `${prefix}${typeMap[color]}${typeMap[side]}`,
                 price: unitPrice(unit)
-              });
+              })
             }
           }
         }
-        return tariff;
+        return tariff
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

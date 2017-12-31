@@ -31,11 +31,11 @@
 </template>
 
 <script>
-  import { weixinPayIcon, aliPayIcon, QRCodeIcon } from '@/assets/img/pay';
-  import { getPayment, getTrade } from '@/api';
+  import { weixinPayIcon, aliPayIcon, QRCodeIcon } from '@/assets/img/pay'
+  import { getPayment, getTrade } from '@/api'
 
-  const WXPAY = 'WXPAY';
-  const ALIPAY = 'ALIPAY';
+  const WXPAY = 'WXPAY'
+  const ALIPAY = 'ALIPAY'
   export default {
     name: 'pay-dialog',
     props: {
@@ -63,47 +63,47 @@
         QRCode: '',
         payform: '',
         polling: null
-      };
+      }
     },
     beforeDestroy () {
-      clearTimeout(this.polling);
+      clearTimeout(this.polling)
     },
     methods: {
       close () {
-        this.$emit('close');
+        this.$emit('close')
       },
       async getWeixinpay () {
-        this.payway = WXPAY;
-        let { orderID, payway } = this;
-        let { QRCode } = await getPayment({ orderID, payway });
-        this.QRCode = QRCode;
-        this.queryTrade();
+        this.payway = WXPAY
+        let { orderID, payway } = this
+        let { QRCode } = await getPayment({ orderID, payway })
+        this.QRCode = QRCode
+        this.queryTrade()
       },
       async getAlipay () {
-        this.payway = ALIPAY;
-        let { orderID, payway } = this;
-        let { payform } = await getPayment({ orderID, payway });
-        this.payform = payform;
-        this.queryTrade();
+        this.payway = ALIPAY
+        let { orderID, payway } = this
+        let { payform } = await getPayment({ orderID, payway })
+        this.payform = payform
+        this.queryTrade()
       },
       changePayWay () {
-        this.payway = null;
-        clearTimeout(this.polling);
+        this.payway = null
+        clearTimeout(this.polling)
       },
       async queryTrade () {
-        let { orderID, payway } = this;
-        this.polling = setTimeout(this.queryTrade, 1000);
-        let { state } = await getTrade({ orderID, payway });
+        let { orderID, payway } = this
+        this.polling = setTimeout(this.queryTrade, 1000)
+        let { state } = await getTrade({ orderID, payway })
         if (state === 'PAID') {
           this.$notify.success({
             title: '您的订单支付成功！',
             message: '您可前往打印点自行领取，或是等候支持的商家配送打印文件。'
-          });
-          this.$emit('paid');
+          })
+          this.$emit('paid')
         }
       }
     }
-  };
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
