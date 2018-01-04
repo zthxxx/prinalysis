@@ -1,0 +1,44 @@
+@import "~@/style/import"
+
+.user-header
+  display: flex
+  justify-content: center
+  padding: 0 0 20px 0
+  .avatar
+    display: flex
+    align-items: center
+    cursor: pointer
+    img
+      width: 50px
+      height: 50px
+      border-radius: 25px
+      background-color: #eee
+    .tips
+      display: inline-block
+      margin: 0 16px
+      font-size: 14px
+      color: #000
+
+.user-info
+  font-size: 14px
+  color: shallow-text-gray
+  .row
+    display: flex
+    margin: 12px auto
+    width: 380px
+    .item-tips
+      width: 130px
+      text-align: left
+    .item-input
+      width: 240px
+
+.footer
+  margin: 40px 0
+  .footer-button
+    margin: 0 20px
+    padding: 0
+    width: 80px
+    height: 32px
+    transition: all .2s ease-out
+    &:hover
+      box-shadow: 0 0 6px 0 #999

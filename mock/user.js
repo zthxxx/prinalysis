@@ -1,7 +1,7 @@
-import { Random } from 'mockjs';
-import { md5 } from './tools';
+import { Random } from 'mockjs'
+import { md5 } from './tools'
 
-const randomAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`;
+const randomAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`
 
 const userBase = {
   'code': '+86',
@@ -13,7 +13,7 @@ const userBase = {
   'address|1': ['', '@county(true) @csentence'],
   'lastPointAddress': ['@province', '@city', '@county()校区'],
   'lastPoint|+1': 1
-};
+}
 
 export default {
   '/user/logining': {
@@ -71,4 +71,4 @@ export default {
       }
     }
   }
-};
+}

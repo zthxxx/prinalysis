@@ -1,8 +1,8 @@
-import { Random } from 'mockjs';
+import { Random } from 'mockjs'
 
 let county = () => ({
   [Random.county()]: Random.id()
-});
+})
 
 export default {
   '/point/address': {
@@ -92,4 +92,4 @@ export default {
       }
     ]
   }
-};
+}

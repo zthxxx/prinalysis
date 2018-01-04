@@ -2,3 +2,5 @@ node_modules/
 dist/
 build/*.js
 config/*.js
+test/unit/coverage/
+test/e2e/reports/

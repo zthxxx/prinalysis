@@ -132,7 +132,27 @@ Response:
 }
 ```
 
-## 4. 用户账户登录注册流程
+## 4. 更新部分用户信息
+
+PUT: /API/user/info
+
+Parameters:
+
+```js
+{
+  "nickname": string,	// 用户昵称
+  "avatar": string,		// 头像 url 或 base64 data url，为空时表示不更新头像
+  "address": string		// 配送地址
+}
+```
+
+描述：用于更新用户的部分个人信息
+
+Response:
+
+> 登录成功返回用户基本信息 （同[第 1 点](#1-检测登录状态) 或 [第 3 点](#3-获取用户详细信息)）
+
+## 5. 用户账户登录注册流程
 
 ```
                          +---------------------+
@@ -180,7 +200,7 @@ Response:
          +-------------------+
 ```
 
-## 5. 用户账号登录
+## 6. 用户账号登录
 
 POST: /API/user/logining
 
@@ -200,7 +220,7 @@ Response:
 
 > 登录成功返回用户基本信息 （[同第 1 点](#1-检测登录状态)）
 
-## 6. 用户登出注销
+## 7. 用户登出注销
 
 POST: /API/user/logout
 
@@ -218,7 +238,7 @@ Response:
 }
 ```
 
-## 7. 账户是否可注册
+## 8. 账户是否可注册
 
 GET: /API/user/registerable
 
@@ -241,7 +261,7 @@ Response:
 }
 ```
 
-## 8. 发送用户(注册 | 登录)短信验证码
+## 9. 发送用户(注册 | 登录)短信验证码
 
 POST: /API/user/SMS/captcha
 
@@ -268,7 +288,7 @@ Response:
 }
 ```
 
-## 9. 完成用户注册
+## 10. 完成用户注册
 
 POST: /API/user/signing
 

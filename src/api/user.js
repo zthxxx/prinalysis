@@ -1,4 +1,4 @@
-import { get, post } from '@/utils/axios'
+import { get, post, put } from '@/utils/axios'
 import * as API from './url'
 
 /**
@@ -99,3 +99,14 @@ export const signup = ({ code, username, password, nickname, captcha }) => post(
  * @return {UserInfo} - 返回用户信息对象
  */
 export const getUserInfo = () => get(API.USER_INFO)
+
+/**
+ * 更新用户部分信息
+ * @param {string} nickname - 昵称
+ * @param {string} avatar - 头像 url
+ * @param {string} address - 配送地址
+ */
+export const updateUserInfo = ({ nickname, avatar, address }) => put(
+  API.USER_INFO,
+  { nickname, avatar, address }
+)

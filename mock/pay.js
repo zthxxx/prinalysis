@@ -12,4 +12,4 @@ export default {
       'state|+1': ['PAYING', 'PAYING', 'PAYING', 'PAYING', 'PAID', 'CANCEL', 'REFUNDING', 'REFUNDED']
     }
   }
-};
+}

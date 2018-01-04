@@ -6,7 +6,7 @@ const print = () => import('@/pages/Print')
 const library = () => import('@/pages/Library')
 const user = () => import('@/pages/User')
 import order from '$@/Business/ManageBoard/Order'
-import personal from '$@/Business/ManageBoard/Personal'
+import { displayPerson, changePerson } from '$@/Business/ManageBoard/Personal'
 
 Vue.use(Router)
 
@@ -46,8 +46,21 @@ const routes = [
       },
       {
         path: 'info',
-        component: personal,
-        meta: { header: personal.header }
+        component: { template: `<router-view/>` },
+        children: [
+          {
+            path: '',
+            name: 'person-info',
+            component: displayPerson,
+            meta: { header: displayPerson.header },
+          },
+          {
+            path: 'change',
+            name: 'person-update',
+            component: changePerson,
+            meta: { header: changePerson.header },
+          }
+        ]
       }
     ]
   },

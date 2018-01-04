@@ -20,4 +20,4 @@ export default {
       'img': '@image(910x1287, @hex, Mock Image Preview)'
     }
   }
-};
+}

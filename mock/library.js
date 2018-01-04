@@ -76,4 +76,4 @@ export default {
       'user|1': ['', '@name', '@cname']
     }]
   }
-};
+}

@@ -20,7 +20,7 @@
         </div>
       </div>
       <footer class="footer">
-        <el-button class="footer-button" type="primary">修改信息</el-button>
+        <el-button class="footer-button" type="primary" @click="change">修改信息</el-button>
         <el-button class="footer-button" type="primary" @click="signout">退出登录</el-button>
       </footer>
     </div>
@@ -33,7 +33,7 @@
   import { mapModel } from '@/utils/tools'
 
   export default {
-    name: 'personal',
+    name: 'display-info',
     header: '我的信息',
     props: {},
     data () {
@@ -47,11 +47,14 @@
         await signout()
         this.$router.push({ name: 'home' })
         this.user = null
+      },
+      change () {
+        this.$router.push({ name: 'person-update' })
       }
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import './personal'
+  @import './display-info'
 </style>

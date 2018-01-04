@@ -1,6 +1,6 @@
-require('babel-register');
-const chromedriver = require('chromedriver');
-const config = require('../../config');
+require('babel-register')
+const chromedriver = require('chromedriver')
+const config = require('../../config')
 
 // http://nightwatchjs.org/gettingstarted#settings-file
 module.exports = {
@@ -25,12 +25,12 @@ module.exports = {
       },
       globals: {
         before (done) {
-          chromedriver.start();
-          done();
+          chromedriver.start()
+          done()
         },
         after (done) {
-          chromedriver.stop();
-          done();
+          chromedriver.stop()
+          done()
         },
         devServerURL: 'http://localhost:' + (process.env.PORT || config.dev.port)
       }
@@ -44,4 +44,4 @@ module.exports = {
       }
     },
   }
-};
+}

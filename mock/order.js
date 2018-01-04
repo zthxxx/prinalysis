@@ -1,7 +1,7 @@
-import { Random } from 'mockjs';
-import { md5 } from './tools';
+import { Random } from 'mockjs'
+import { md5 } from './tools'
 
-const randomMD5 = () => md5(Random.ctitle());
+const randomMD5 = () => md5(Random.ctitle())
 
 export default {
   '/order/verify': {
@@ -85,5 +85,5 @@ export default {
       'REFUND': '@natural(1, 5)'
     }
   }
-};
+}
 
