@@ -2,15 +2,22 @@
 selector-area-height = 26px
 selector-font-size = 13px
 selector-dropdown-font-size = 12px
+input-radius = 6px
+
 
 .el-input
   font-size: selector-font-size
   .el-input__inner,
   &.is-without-controls .el-input__inner
-    border-radius: 6px
+    border-radius: input-radius
     padding: 10px
     height: selector-area-height
     text-align: center
+  &.el-input-group--append
+    .el-input__inner
+      border-radius: input-radius 0 0 input-radius
+    .el-input-group__append
+      border-radius: 0 input-radius input-radius 0
 
 .el-select
   margin: 0
@@ -21,7 +28,7 @@ selector-dropdown-font-size = 12px
     .el-input__inner
       border-color: blue-light
   .el-input__inner
-    border-radius: 6px
+    border-radius: input-radius
     padding-right: 24px
     height: selector-area-height
     text-align: center

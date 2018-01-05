@@ -19,21 +19,44 @@
       font-size: 14px
       color: #000
 
-.user-info
+.user-info, .pass-form
   font-size: 14px
   color: shallow-text-gray
   .row
-    display: flex
-    margin: 12px auto
+    margin: 10px auto
     width: 380px
-    .item-tips
-      width: 130px
-      text-align: left
     .item-input
       width: 240px
+    & >>> .el-form-item__error
+      padding: 0
+
+
+
+.pass-form
+  margin-bottom: 30px
+  .row
+    margin: 6px auto
+  .plain-button
+    padding: 10px 4px
+  .footer-button
+    margin: 15px 0 25px 25px
+    padding: 0
+    width: 280px
+    height: 26px
+
+.division
+  display: block
+  margin: 20px auto
+  font-size: 14px
+  &::before, &::after
+    content: ''
+    display: inline-block
+    margin: auto 10px
+    width: 20%
+    border-top: dashed 1px
 
 .footer
-  margin: 40px 0
+  margin: 30px 0
   .footer-button
     margin: 0 20px
     padding: 0

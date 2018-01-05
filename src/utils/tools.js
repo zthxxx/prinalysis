@@ -239,3 +239,22 @@ export const routeIdentify = (matches, user) => {
   }
   return new Promise(resolve => resolve())
 }
+
+export const userCheckRules = {
+  username: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { pattern: /^[0-9]{11}$/, message: '请输入正确长度的手机号', trigger: 'blur' }
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 8, max: 20, message: '请输入8-20位密码', trigger: 'blur' }
+  ],
+  nickname: [
+    { required: true, message: '请输入姓名', trigger: 'blur' },
+    { max: 20, message: '名字不能超过20位哦', trigger: 'blur' }
+  ],
+  captcha: [
+    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { min: 6, max: 6, message: '请输入 6 位验证码', trigger: 'blur' }
+  ]
+}

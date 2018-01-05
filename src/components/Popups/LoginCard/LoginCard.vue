@@ -84,6 +84,7 @@
   import { mapMutations } from 'vuex'
   import * as types from '@/store/mutation-types'
   import { login, isRegisterable } from '@/api'
+  import { userCheckRules } from '@/utils/tools'
   import modalBackdrop from '$@/Stateless/ModalBackdrop'
   import captchaCard from './CaptchaCard'
 
@@ -124,20 +125,7 @@
         acceptCaptcha: false,
         country: { code: '+86', name: '中国' },
         countries,
-        rules: {
-          username: [
-            { required: true, message: '请输入手机号', trigger: 'blur' },
-            { pattern: /^[0-9]{11}$/, message: '请输入正确长度的手机号', trigger: 'blur' }
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
-            { min: 8, max: 20, message: '请输入8-20位密码', trigger: 'blur' }
-          ],
-          nickname: [
-            { required: true, message: '请输入姓名', trigger: 'blur' },
-            { max: 20, message: '名字不能超过20位哦', trigger: 'blur' }
-          ]
-        },
+        rules: userCheckRules,
         result: {
           resolve () {
           },

@@ -29,6 +29,7 @@
 
 <script>
   import { requireSMS, signup } from '@/api'
+  import { userCheckRules } from '@/utils/tools'
 
   export default {
     name: 'captcha-card',
@@ -44,12 +45,7 @@
         },
         form: { ...this.userform },
         awaitCaptcha: 0,
-        rules: {
-          captcha: [
-            { required: true, message: '请输入验证码', trigger: 'blur' },
-            { min: 6, max: 6, message: '请输入 6 位验证码', trigger: 'blur' }
-          ]
-        }
+        rules: userCheckRules
       }
     },
     mounted () {
