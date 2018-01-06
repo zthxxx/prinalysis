@@ -30,6 +30,8 @@ export const SIGNUP = '/user/signing'
 
 export const USER_INFO = '/user/info'
 
+export const USER_PASSWD = '/user/passwd'
+
 
 export const ORDER_VERIFY = '/order/verify'
 

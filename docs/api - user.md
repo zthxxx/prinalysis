@@ -292,6 +292,10 @@ Response:
 
 POST: /API/user/signing
 
+描述：根据用户信息注册账户
+
+注：密码安全性应有检验，如长度、安全强度等；目前前端只做了八位最低长度校验
+
 Parameters:
 
 ```js
@@ -307,4 +311,27 @@ Parameters:
 Response:
 
 > 注册成功返回用户基本信息 （[同第 1 点](#1-检测登录状态)）
+
+
+
+## 11. 修改用户密码
+
+PUT: /API/user/passwd
+
+描述：用户请求修改密码，先确认原始密码正确，才能修改新密码
+
+Parameters:
+
+```js
+{
+  "origin": string,    // 原始密码
+  "news": string       // 新密码
+}
+```
+
+Response:
+
+> 注册成功返回 OK
+>
+> 失败时，如原密码不正确，则返回 ERROR 且，message 为错误信息描述
 

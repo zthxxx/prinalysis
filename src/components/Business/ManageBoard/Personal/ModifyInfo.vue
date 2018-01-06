@@ -46,7 +46,7 @@
 
 <script>
   import avatarCrop from 'vue-image-crop-upload'
-  import { updateUserInfo } from '@/api'
+  import { updateUserInfo, accountPasswd } from '@/api'
   import * as types from '@/store/mutation-types'
   import { mapModel, userCheckRules } from '@/utils/tools'
 
@@ -102,7 +102,22 @@
           if (!valid) throw new Error('user info form not validated')
         })
         let { origin, news } = this.passwords
-        console.log({ origin, news })
+        if (origin === news) {
+          this.$notify({
+            type: 'warning',
+            message: '新密码不应该与原密码相同！'
+          })
+          this.passwords.news = ''
+          return
+        }
+        await accountPasswd({ origin, news })
+        this.$notify({
+          title: '提示',
+          type: 'success',
+          message: '修改密码成功~'
+        })
+        this.passwords.origin = ''
+        this.passwords.news = ''
       },
       back () {
         this.$router.push({ name: 'person-info' })

@@ -70,5 +70,9 @@ export default {
         'campus': '@city()大学'
       }
     }
+  },
+  '/user/passwd': {
+    'result|1': ['OK', 'ERROR'],
+    'message|1': ['修改失败，请重试', '原密码不符合，请仔细确认']
   }
 }

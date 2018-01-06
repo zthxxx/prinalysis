@@ -110,3 +110,11 @@ export const updateUserInfo = ({ nickname, avatar, address }) => put(
   API.USER_INFO,
   { nickname, avatar, address }
 )
+
+
+/**
+ * 更改账户密码
+ * @param {string} origin - 原密码
+ * @param {string} news - 新密码
+ */
+export const accountPasswd = ({ origin, news }) => put(API.USER_PASSWD, { origin, news })
