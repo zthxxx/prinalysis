@@ -83,7 +83,7 @@ export const checkset = (price, setting) => {
   if (!price) return setting
   let reset = {}
   let types = null
-  price.map(({ size, caliper, money }) => {
+  price.forEach(({ size, caliper, money }) => {
     if (setting['size'] === size && setting['caliper'] === caliper) {
       types = money
     }

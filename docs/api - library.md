@@ -163,7 +163,7 @@ Response:
 ```js
 /**
  * @typedef {object} DocFile - 搜索到的文档文件对象
- * @property {string} id - 文档 ID
+ * @property {string} id - 文档 ID（应对应文件接口中的 md5）
  * @property {string} name - 文档名
  * @property {date} created - 文档创建时间戳
  * @property {number} pages - 文档页数
