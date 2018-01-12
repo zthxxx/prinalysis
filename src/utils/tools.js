@@ -200,19 +200,19 @@ const globalMount = (Vue, component, propsData) => {
 
 /**
  * 生成全局挂载组件的 install 方法
+ * @param {string} handle - 要注入到 Vue 原型上的方法调用名，以 `$` 开头
  * @param {ComponentOptions<Vue>} component - 作为全局挂载的 Vue 组件，组件必须包含 `open` 和 `close` 方法，
  * `close` 方法中应显式调用 $nextTick($destroy) 销毁自身示例
- * @param {string} handle - 要注入到 Vue 原型上的方法调用名，以 `$` 开头
  * @return {function} - 返回一个组件的 install 方法，此方法中将在 Vue 原型上注入一个可以接收 props 的调用该组件的方法
  */
-export const globalMountInstaller = (component, handle) => Vue => {
+export const globalMountInstaller = (handle, component) => Vue => {
   Vue.prototype[handle] = (propsData = {}) => globalMount(Vue, component, propsData)
 }
 
 /**
  * 同步懒加载组件，生成全局挂载组件的 install 方法
  */
-export const asyncGlobalMountInstaller = (loader, handle) => Vue => {
+export const asyncGlobalMountInstaller = (handle, loader) => Vue => {
   Vue.prototype[handle] = async (propsData = {}) => {
     let { default: component } = await loader()
     return globalMount(Vue, component, propsData)
