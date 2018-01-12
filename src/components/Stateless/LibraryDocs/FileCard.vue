@@ -14,9 +14,12 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex'
   import { icons } from '@/assets/img/print'
   import docItemCard from './DocItemCard'
   import { formatDate } from '@/utils/tools'
+  import * as types from '@/store/mutation-types'
+  import { getPage } from '@/api'
 
   export default {
     name: 'file-card',
@@ -53,9 +56,30 @@
         }
       }
     },
-    computed: {},
+    computed: {
+      ...mapState('print', ['fileList']),
+    },
     watch: {},
     mounted () {},
-    methods: {}
+    methods: {
+      ...mapMutations('print', {
+        commitFiles: types.UPDATE_FILES
+      }),
+      async creatFile () {
+        let file = {
+          name: this.name,
+          raw: { md5: this.id },
+          pageInfo: await getPage({ md5: this.id, name: this.name }),
+          uid: Date.now() + this.id + this.fileList.length,
+          status: 'success'
+        }
+        return file
+      },
+      async pushFile () {
+        let file = await this.creatFile()
+        this.fileList.push(file)
+        this.commitFiles(this.fileList)
+      }
+    }
   }
 </script>

@@ -187,6 +187,10 @@
         let { orderID } = this.order
         await cancelOrder({ orderID })
         this.$emit('update', orderID)
+        this.$notify({
+          type: 'success',
+          message: '订单取消成功！'
+        })
       }
     }
   }

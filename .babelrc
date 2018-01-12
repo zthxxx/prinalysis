@@ -3,14 +3,12 @@
     ["env", { "targets": { "node": "current" } } ],
     "stage-2"
   ],
-  "plugins": [
-    "transform-runtime"
-  ],
   "comments": false,
+  "plugins": ["transform-vue-jsx", "transform-runtime"],
   "env": {
     "test": {
       "presets": ["env", "stage-2"],
-      "plugins": [ "istanbul" ]
+      "plugins": ["transform-vue-jsx", "istanbul"]
     }
   }
 }
