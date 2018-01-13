@@ -29,7 +29,8 @@
         <template v-if="docs.length">
           <component :is="docsType"
                      v-for="docItem of docs" :key="docItem.id"
-                     :docItem="docItem">
+                     :docItem="docItem"
+                     @click.native="view(docsType, docItem.id)">
           </component>
         </template>
         <div class="empty-tip" v-else>暂时搜索不到相关文档</div>
@@ -104,6 +105,21 @@
       async searchFloders (payload) {
         let docsFolders = await seekLibFolders(payload)
         this.docs = docsFolders
+      },
+      viewFile (fileID) {
+        console.log('view file click')
+        console.warn(fileID)
+      },
+      viewFolder (folderID) {
+        console.log('view folder click')
+        console.warn(folderID)
+      },
+      view (type, id) {
+        const types = {
+          files: this.viewFile,
+          folders: this.viewFolder
+        }
+        types[type](id)
       }
     }
   }

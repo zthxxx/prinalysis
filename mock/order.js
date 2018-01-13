@@ -1,7 +1,4 @@
-import { Random } from 'mockjs'
-import { md5 } from './tools'
-
-const randomMD5 = () => md5(Random.ctitle())
+import { randomMD5 } from './tools'
 
 export default {
   '/order/verify': {

@@ -1,3 +1,5 @@
+import { randomMD5 } from './tools'
+
 export default {
   '/library/profession': {
     result: 'OK',
@@ -51,17 +53,19 @@ export default {
   },
   '/library/search/files': {
     'result': 'OK',
-    'info|0-10': [{
-      id: '@id',
-      name: '@csentence().docx',
-      created: '@now(T)',
-      pages: '@natural(1, 10)',
-      'format|1': ['docx', 'pptx', 'xlsx', 'pdf'],
-      collected: '@natural(0, 5)',
-      printed: '@natural(0, 15)',
-      uid: '@id',
-      'user|1': ['', '@name', '@cname']
-    }]
+    'info|0-10': [
+      {
+        'id|1': [randomMD5, '@id'],
+        name: '@csentence().docx',
+        created: '@now(T)',
+        pages: '@natural(1, 10)',
+        'format|1': ['docx', 'pptx', 'xlsx', 'pdf'],
+        collected: '@natural(0, 5)',
+        printed: '@natural(0, 15)',
+        uid: '@id',
+        'user|1': ['', '@name', '@cname']
+      }
+    ]
   },
   '/library/search/floders': {
     'result': 'OK',

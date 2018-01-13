@@ -6,8 +6,10 @@
     <template slot="created">{{created}}</template>
     <template slot="collected">{{collected}}</template>
     <template slot="reviews">
-      <i class="el-icon-fa-print"></i>
-      打印 {{printed}}
+      <div @click="pushFile">
+        <i class="el-icon-fa-print"></i>
+        打印 {{printed}}
+      </div>
     </template>
     <template slot="tips">点击查看详情</template>
   </doc-item-card>
@@ -68,7 +70,11 @@
       async creatFile () {
         let file = {
           name: this.name,
-          raw: { md5: this.id },
+          raw: {
+            md5: this.id,
+            extension: this.format,
+            origin: '校园文库'
+          },
           pageInfo: await getPage({ md5: this.id, name: this.name }),
           uid: Date.now() + this.id + this.fileList.length,
           status: 'success'
@@ -79,6 +85,9 @@
         let file = await this.creatFile()
         this.fileList.push(file)
         this.commitFiles(this.fileList)
+        this.$notify.success({
+          message: '已加入到打印队列'
+        })
       }
     }
   }
