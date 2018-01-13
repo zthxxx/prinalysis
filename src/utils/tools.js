@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import moment from 'moment'
-import { mapState, mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import { POPUP_LOGIN } from '$@/Popups'
 
 /**
@@ -93,7 +93,7 @@ export const checkset = (price, setting) => {
     reset = { size, caliper }
     types = money
   }
-  let color  = setting.color
+  let color = setting.color
   if (!_.has(types, color)) {
     color = _.keys(types).sort().shift()
     reset.color = color
@@ -211,12 +211,13 @@ export const globalMountInstaller = (handle, component) => Vue => {
 
 /**
  * 同步懒加载组件，生成全局挂载组件的 install 方法
+ * @param {string} handle - 要注入到 Vue 原型上的方法调用名，以 `$` 开头
+ * @param {function} loader - 使用 import() 异步加载的 vue component 的方法
+ * @return {function} - 返回一个组件的 install 方法，此方法中将在 Vue 原型上注入一个可以接收 props 的调用该组件的方法
  */
 export const asyncGlobalMountInstaller = (handle, loader) => Vue => {
-  Vue.prototype[handle] = async (propsData = {}) => {
-    let { default: component } = await loader()
-    return globalMount(Vue, component, propsData)
-  }
+  Vue.prototype[handle] = (propsData = {}) => loader()
+    .then(({ default: component }) => globalMount(Vue, component, propsData))
 }
 
 export const routeIdentify = (matches, user) => {
