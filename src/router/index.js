@@ -4,6 +4,8 @@ import Router from 'vue-router'
 const home = () => import('@/pages/Home')
 const print = () => import('@/pages/Print')
 const library = () => import('@/pages/Library')
+const fileView = () => import('@/pages/Library/FileView')
+const folderView = () => import('@/pages/Library/FolderView')
 const user = () => import('@/pages/User')
 import order from '$@/Business/ManageBoard/Order'
 import { displayPerson, changePerson } from '$@/Business/ManageBoard/Personal'
@@ -30,6 +32,16 @@ const routes = [
     path: '/library',
     component: library,
     name: 'library'
+  },
+  {
+    path: '/file/:fileID',
+    component: fileView,
+    name: 'file-view'
+  },
+  {
+    path: '/folder/:folderID',
+    component: folderView,
+    name: 'folder-view'
   },
   {
     path: '/user',

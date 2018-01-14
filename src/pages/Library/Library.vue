@@ -107,12 +107,10 @@
         this.docs = docsFolders
       },
       viewFile (fileID) {
-        console.log('view file click')
-        console.warn(fileID)
+        this.$router.push({ name: 'file-view', params: { fileID } })
       },
       viewFolder (folderID) {
-        console.log('view folder click')
-        console.warn(folderID)
+        this.$router.push({ name: 'folder-view', params: { folderID } })
       },
       view (type, id) {
         const types = {

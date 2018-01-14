@@ -6,7 +6,7 @@
     <template slot="created">{{created}}</template>
     <template slot="collected">{{collected}}</template>
     <template slot="reviews">
-      <div @click="pushFile">
+      <div @click.stop="pushFile">
         <i class="el-icon-fa-print"></i>
         打印 {{printed}}
       </div>
