@@ -64,11 +64,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       inject: true,
       favicon: 'static/favicon.ico'
     }),
-    // copy custom static assets
     new CopyWebpackPlugin([
+      // copy custom static assets
       {
         from: path.resolve(__dirname, '../static'),
-        to: config.dev.assetsRoot
+        to: './'
+      },
+      // copy docs static for docsify
+      {
+        from: path.resolve(__dirname, '../docs'),
+        to: 'docs/'
       }
     ])
   ]

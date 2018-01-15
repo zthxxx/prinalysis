@@ -79,5 +79,18 @@ export default {
       uid: '@id',
       'user|1': ['', '@name', '@cname']
     }]
+  },
+  '/library/contain/floders': {
+    'result': 'OK',
+    'info|0-10': [{
+      id: '@id',
+      name: '@cname()老师的精选',
+      updated: '@now(T)',
+      count: '@natural(1, 10)',
+      collected: '@natural(0, 5)',
+      view: '@natural(0, 15)',
+      'uid|1': [null, '@id'],
+      'user|1': ['', '@name', '@cname']
+    }]
   }
 }

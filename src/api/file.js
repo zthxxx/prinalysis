@@ -33,3 +33,25 @@ export const getPreview = ({ md5, page, size, row, col }) => get(
   API.PREVIEW,
   { md5, page, size, row, col }
 )
+
+/**
+ * @typedef {object} FileInfo - 文件详细信息对象
+ * @property {string} name - 文件名
+ * @property {string} format - 文件格式
+ * @property {string} institute - 本集合的最后修改时间
+ * @property {string} subject - 包含文件数
+ * @property {number} collected - 收藏数
+ * @property {number} view - 浏览次数
+ * @property {date} upTime - 文件上传时间
+ * @property {object} uploader - 上传者
+ * @property {string} uploader.id - 上传者用户 ID
+ * @property {string} uploader.avatar - 上传者头像 url
+ * @property {string} uploader.nickname - 上传者昵称
+ */
+
+/**
+ * 获取文件详细信息
+ * @param {string} md5 - 文件 MD5 值，全大写
+ * @return {FileInfo} - 文件详细信息
+ */
+export const getFileInfo = md5 => get(API.FILE_DETAIL, { md5 })

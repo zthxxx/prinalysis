@@ -106,3 +106,10 @@ export const seekLibFiles = seekTarget(API.FILES_SEARCH)
  * @return {DocsFloder[]} - 返回精选集列表
  */
 export const seekLibFolders = seekTarget(API.FOLDERS_SEARCH)
+
+/**
+ * 获取包含指定文件的精选集
+ * @param {string} fileID
+ * @return {DocsFloder[]} - 返回精选集列表
+ */
+export const containedFolders = fileID => get(API.FOLDERS_CONTAIN, { fileID })

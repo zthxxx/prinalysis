@@ -119,3 +119,63 @@ Response:
 }
 ```
 
+## 4. 获取文件详细信息
+
+GET:  /API/file/detail
+
+Parameters:
+
+```js
+md5: String 文件的MD5值
+```
+
+描述：获取文件用于文库展示的一些信息
+
+Response:
+
+> 获取预览成功时返回文件信息
+
+```js
+/**
+ * @typedef {object} FileInfo - 文件详细信息对象
+ * @property {string} name - 文件名
+ * @property {string} format - 文件格式
+ * @property {string} institute - 本集合的最后修改时间
+ * @property {string} subject - 包含文件数
+ * @property {number} collected - 收藏数
+ * @property {number} view - 浏览次数
+ * @property {date} upTime - 文件上传时间
+ * @property {object} uploader - 上传者
+ * @property {string} uploader.id - 上传者用户 ID
+ * @property {string} uploader.avatar - 上传者头像 url
+ * @property {string} uploader.nickname - 上传者昵称
+ */
+```
+
+```js
+{
+  "result": "OK",
+  "info": FileInfo // 文件详细信息
+}
+```
+
+```js
+// file details info example
+{
+  "result": "OK",
+  "info": {
+    "name": "社會主義の体制改♂革.pdf",
+    "format": "doc",
+    "institute": "政治管理学院",
+    "subject": "毛泽东思想和中国特色社会主义理论体系概论",
+    "viewed": 3,
+    "upTime": "1516120811007",
+    "uploader": {
+      "uid": "", 
+      "avatar": "", 
+      "nickname": ""
+    }
+  }
+}
+```
+

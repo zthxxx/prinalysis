@@ -122,8 +122,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       minChunks: 3
     }),
 
-    // copy custom static assets
     new CopyWebpackPlugin([
+      // copy custom static assets
       {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsRoot

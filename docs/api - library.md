@@ -209,7 +209,32 @@ Response:
 ```js
 {
   "result": "OK",
-  "info": Array<DocsFloder> // 文档列表
+  "info": Array<DocsFloder> // 精选集列表
+}
+```
+
+## 4. 含有指定文件的精选集
+
+GET:  /API/library/contain/floders
+
+描述：通过搜索获得文库中包含指定文件的精选集列表
+
+Parameters: 
+
+```js
+fileID: 要搜索的文件 ID（即对应文件 API 中的 md5 值）
+```
+
+Response:
+
+> 搜索到后返回精选集列表
+>
+> 没有搜索结果时返回空数组 `[]`
+
+```js
+{
+  "result": "OK",
+  "info": Array<DocsFloder> // 精选集列表
 }
 ```
 

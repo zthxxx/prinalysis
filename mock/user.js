@@ -1,7 +1,4 @@
-import { Random } from 'mockjs'
-import { md5 } from './tools'
-
-const randomAvatar = () => `https://www.gravatar.com/avatar/${md5(Random.email())}?d=retro&s=96`
+import { randomAvatar } from './tools'
 
 const userBase = {
   'code': '+86',

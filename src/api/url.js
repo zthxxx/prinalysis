@@ -13,6 +13,8 @@ export const UPLOAD = '/file/upload'
 
 export const PREVIEW = '/file/pic/preview'
 
+export const FILE_DETAIL = '/file/detail'
+
 
 export const LOGIN = '/user/logining'
 
@@ -56,3 +58,5 @@ export const THEMATIC_SEARCH = '/library/thematic'
 export const FILES_SEARCH = '/library/search/files'
 
 export const FOLDERS_SEARCH = '/library/search/floders'
+
+export const FOLDERS_CONTAIN = '/library/contain/floders'
