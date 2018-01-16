@@ -1,21 +1,37 @@
 <template>
   <div>
-    file-view
+    <fileViewHeader :file="file || undefined"></fileViewHeader>
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import fileViewHeader from '$@/UI/FileViewHeader'
+  import { getFileInfo } from '@/api'
+
   export default {
     name: 'file-view',
-    components: {},
+    components: { fileViewHeader },
     props: {},
     data () {
-      return {}
+      return {
+        fileID: this.$route.params.fileID,
+        file: null
+      }
     },
-    computed: {},
+    computed: {
+      ...mapState('user', ['user']),
+    },
     watch: {},
-    mounted () {},
-    methods: {}
+    async mounted () {
+      this.file = await getFileInfo(this.fileID)
+    },
+    methods: {
+      back () {
+        console.log('back')
+        this.$router.push({ name: 'library' })
+      }
+    }
   }
 </script>
 

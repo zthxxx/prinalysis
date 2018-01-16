@@ -34,12 +34,12 @@ const routes = [
     name: 'library'
   },
   {
-    path: '/file/:fileID',
+    path: '/library/file/:fileID',
     component: fileView,
     name: 'file-view'
   },
   {
-    path: '/folder/:folderID',
+    path: '/library/folder/:folderID',
     component: folderView,
     name: 'folder-view'
   },

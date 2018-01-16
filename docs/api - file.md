@@ -145,6 +145,9 @@ Response:
  * @property {number} collected - 收藏数
  * @property {number} view - 浏览次数
  * @property {date} upTime - 文件上传时间
+ * @property {object} download - 下载信息
+ * @property {boolean} download.enable - 是否可以下载
+ * @property {string} [download.url] - 文件下载地址
  * @property {object} uploader - 上传者
  * @property {string} uploader.id - 上传者用户 ID
  * @property {string} uploader.avatar - 上传者头像 url
@@ -170,6 +173,10 @@ Response:
     "subject": "毛泽东思想和中国特色社会主义理论体系概论",
     "viewed": 3,
     "upTime": "1516120811007",
+    "download": {
+      "enable": false,
+      "url": null
+    }
     "uploader": {
       "uid": "", 
       "avatar": "", 

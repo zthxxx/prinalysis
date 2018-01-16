@@ -39,7 +39,6 @@
         collected, printed,
         uid, user
       } = this.docItem
-      let { doc, ppt, xls, pdf } = icons
       return {
         id,
         name,
@@ -50,12 +49,7 @@
         printed,
         uid,
         user: user || '匿名用户',
-        fileIcon: {
-          doc, docx: doc,
-          ppt, pptx: ppt,
-          xls, xlsx: xls,
-          pdf
-        }
+        fileIcon: icons
       }
     },
     computed: {

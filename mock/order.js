@@ -41,8 +41,10 @@ export default {
           'side': '@natural(1, 2)',
           'startPage': '@natural(1, 2)',
           'endPage': '@natural(4, 6)',
-          'downloadable': '@boolean',
-          'downloadUrl': '@url'
+          'download': {
+            enable: '@boolean',
+            url: '@url'
+          }
         }
       ],
       'settle|1-3': [

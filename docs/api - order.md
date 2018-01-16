@@ -151,8 +151,10 @@ Response:
     "startPage": Number, // 同第 0 点中相同字段
     "side": Number, // 同第 0 点中相同字段
     "endPage": Number, // 同第 0 点中相同字段
-    "downloadable": Boolean, // 是否可下载文件  true 表示可下载
-    "downloadUrl": String // 【可选】文件下载地址URL
+    "download": {
+      "enable": Boolean, // 是否可下载文件  true 表示可下载
+      "url": String // 【可选】文件下载地址 URL
+    }
   }],
   "dispatching": { // 【可选】配送信息，无此项则表示自取不配送
     "nickname": String, // 同第 0 点中相同字段
@@ -211,7 +213,10 @@ Response:
       "side": 2,
       "startPage": 2,
       "endPage": 4,
-      "downloadable": false
+      "download": {
+        "enable": false,
+        "url": null
+      }
     }],
     "settle": [
       {

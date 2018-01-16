@@ -176,7 +176,6 @@
       }
     },
     data () {
-      let { doc, ppt, xls, pdf } = icons
       return {
         setting: {
           ...checkset(
@@ -193,12 +192,7 @@
           9: { row: 3, col: 3 }
         },
         sideMap: sideMap,
-        fileIcon: {
-          doc, docx: doc,
-          ppt, pptx: ppt,
-          xls, xlsx: xls,
-          pdf
-        }
+        fileIcon: icons
       }
     },
     computed: {
