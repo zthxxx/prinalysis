@@ -4,6 +4,8 @@ export const printPoint = require('./print-point.jpg')
 
 export const collectionFolder = require('./collection-folder.png')
 
+export const collectionFolder_at_0_dot_3x = require('./collection-folder@0.3x.png')
+
 const doc = require('./icon-word.png')
 const xls = require('./icon-xls.png')
 const ppt = require('./icon-ppt.png')

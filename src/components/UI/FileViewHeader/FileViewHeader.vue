@@ -42,8 +42,8 @@
         default: () => ({
           name: '（加载中 ...）',
           format: 'doc',
-          institute: '',
-          subject: '',
+          institute: '-',
+          subject: '-',
           viewed: 0
         })
       }
