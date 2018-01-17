@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="right-part">
-      <figure class="user" v-if="file.uploader">
+      <figure class="user" v-if="file.uploader" @click="uploader">
         <img :src="file.uploader.avatar" alt="avatar"/>
         <figcaption class="description">
           <div class="name">{{file.uploader.nickname}}</div>
@@ -63,6 +63,10 @@
     methods: {
       back () {
         this.$router.push({ name: 'library' })
+      },
+      uploader () {
+        let { uid } = this.file.uploader
+        console.log(uid)
       }
     }
   }

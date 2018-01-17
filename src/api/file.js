@@ -8,7 +8,7 @@ import * as API from './url'
  * @return {object} - 页面信息对象
  * @property {string} state - ("EXISTED" | "NO_EXIST") 表示文件是否存在
  * @property {number} pageCount - 文件单页总数
- * @property {boolean} direction - 排版方向是否为竖版, true 表示竖版
+ * @property {boolean} vertical - 排版方向是否为竖版, true 表示竖版
  */
 export const getPage = ({ md5, name }) => get(API.PAGE, { md5, name })
 
@@ -37,7 +37,9 @@ export const getPreview = ({ md5, page, size, row, col }) => get(
 /**
  * @typedef {object} FileInfo - 文件详细信息对象
  * @property {string} name - 文件名
- * @property {string} format - 文件格式
+ * @property {string} [format] - 【可选】文件格式(扩展名)，无此项则会尝试从文件名解析扩展名
+ * @property {number} pageCount - 文件单页总数
+ * @property {boolean} vertical - 排版方向是否为竖版
  * @property {string} institute - 本集合的最后修改时间
  * @property {string} subject - 包含文件数
  * @property {number} collected - 收藏数

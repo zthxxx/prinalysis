@@ -74,8 +74,8 @@
       },
       async setPageInfo (file) {
         if (file.status === 'success' && !_.has(file, 'pageInfo')) {
-          let { pageCount, direction } = await getPage({ md5: file.raw.md5, name: file.name })
-          this.$set(file, 'pageInfo', { pageCount, direction })
+          let { pageCount, vertical } = await getPage({ md5: file.raw.md5, name: file.name })
+          this.$set(file, 'pageInfo', { pageCount, vertical })
         }
       },
       fileSizeLimit (rawFile, sizeKb) {
@@ -110,8 +110,8 @@
       async fileExistCheck (rawFile) {
         let check = await getPage(rawFile)
         if (check.state === 'EXISTED') {
-          let { pageCount, direction } = check
-          rawFile.pageInfo = { pageCount, direction }
+          let { pageCount, vertical } = check
+          rawFile.pageInfo = { pageCount, vertical }
           this.$refs.uploader.handleStart(rawFile)
           throw new Error('stop-upload File existed')
         }

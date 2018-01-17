@@ -78,7 +78,7 @@
                   <el-select class="layouts" v-model="layout">
                     <el-option label="1合1" :value="1"></el-option>
                     <el-option label="2合1" :value="2"></el-option>
-                    <template v-if="!file.pageInfo.direction">
+                    <template v-if="!file.pageInfo.vertical">
                       <el-option label="4合1" :value="4"></el-option>
                       <el-option label="6合1" :value="6"></el-option>
                       <el-option label="8合1" :value="8"></el-option>
@@ -239,7 +239,7 @@
         },
         set (value) {
           let { row, col } = this.layouts[value]
-          if (this.file.pageInfo.direction) {
+          if (this.file.pageInfo.vertical) {
             [row, col] = [col, row]
           }
           Object.assign(this.setting, { row, col })
