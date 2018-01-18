@@ -21,7 +21,7 @@ export const formatCNY = cents => new Intl.NumberFormat(
  * @param {string | number} timestamp - UNXI 时间戳，毫秒
  * @return {string} - '年-月-日 时:分' 方式显示的时间
  */
-export const formatTime = timestamp => moment(Number(timestamp)).format('YYYY-MM-DD HH:MM')
+export const formatTime = timestamp => moment(Number(timestamp)).format('YYYY-MM-DD HH:mm')
 /**
  * 格式化 UNXI 时间戳到日期
  * @param {string | number} timestamp - UNXI 时间戳，毫秒

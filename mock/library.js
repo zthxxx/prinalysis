@@ -1,4 +1,4 @@
-import { randomMD5 } from './tools'
+import { randomMD5, randomAvatar } from './tools'
 
 export default {
   '/library/profession': {
@@ -82,15 +82,26 @@ export default {
   },
   '/library/contain/floders': {
     'result': 'OK',
-    'info|0-10': [{
+    'info|0-4': [{
       id: '@id',
       name: '@cname()老师的精选',
       updated: '@now(T)',
       count: '@natural(1, 10)',
       collected: '@natural(0, 5)',
       view: '@natural(0, 15)',
-      'uid|1': [null, '@id'],
-      'user|1': ['', '@name', '@cname']
+      uid: '@id',
+      'user|1': ['@name', '@cname']
+    }]
+  },
+  '/library/comment/file': {
+    result: 'OK',
+    'info|0-4': [{
+      uid: '@id',
+      avatar: randomAvatar,
+      nickname: '@cname()',
+      commentID: '@id',
+      content: '@csentence()',
+      created: '@now(T)'
     }]
   }
 }

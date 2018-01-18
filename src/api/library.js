@@ -1,4 +1,4 @@
-import { get } from '@/utils/axios'
+import { get, post } from '@/utils/axios'
 import * as API from './url'
 
 /**
@@ -113,3 +113,30 @@ export const seekLibFolders = seekTarget(API.FOLDERS_SEARCH)
  * @return {DocsFloder[]} - 返回精选集列表
  */
 export const containedFolders = fileID => get(API.FOLDERS_CONTAIN, { fileID })
+
+/**
+ * 提交用户评论
+ * @param {string} fileID - 文件 ID
+ * @param {string} uid - 用户 ID
+ * @param {string} content - 用户评论内容
+ */
+export const submitFileComment = ({ fileID, uid, content }) => post(API.FILE_COMMENT, { fileID, uid, content })
+
+
+/**
+ * @typedef {object} Comment - 单条评论内容
+ * @property {string} uid - 评论用户 ID
+ * @property {string} avatar - 评论用户头像
+ * @property {string} nickname - 用户昵称
+ * @property {string} commentID - 本条评论 ID 值
+ * @property {string} content - 评论内容
+ * @property {date} created - 评论提交时间
+ */
+
+/**
+ * 加载用户评论
+ * @param {string} fileID - 文件 ID
+ * @return {Comment[]} - 评论列表
+ */
+export const loadFileComment = fileID => get(API.FILE_COMMENT, { fileID })
+

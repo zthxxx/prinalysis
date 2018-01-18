@@ -238,3 +238,62 @@ Response:
 }
 ```
 
+## 5. 提交用户对文件的评论
+
+POST:  /API/library/comment/file
+
+描述：提交一条评论内容
+
+?> 权限：需要权限
+
+Parameters: 
+
+```js
+{ 
+  "fileID": String, // 文件 ID
+  "uid": String,    // 用户 ID
+  "content": String // 用户评论内容
+}
+```
+
+Response:
+
+> 评论成功返回 OK
+
+## 6. 加载用户对文件的评论
+
+GET:  /API/library/comment/file
+
+描述：通过搜索获得文库中包含指定文件的精选集列表
+
+Parameters: 
+
+```js
+fileID: 文件 ID
+```
+
+Response:
+
+> 获得评论后返回评论列表，列表元素应以时间倒序
+>
+> 没有评论时返回空数组 `[]`
+
+```js
+/**
+ * @typedef {object} Comment - 单条评论内容
+ * @property {string} uid - 评论用户 ID
+ * @property {string} avatar - 评论用户头像
+ * @property {string} nickname - 用户昵称
+ * @property {string} commentID - 本条评论 ID 值
+ * @property {string} content - 评论内容
+ * @property {date} created - 评论提交时间
+ */
+```
+
+```js
+{
+  "result": "OK",
+  "info": Array<Comment> // 评论列表
+}
+```
+

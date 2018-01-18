@@ -60,3 +60,5 @@ export const FILES_SEARCH = '/library/search/files'
 export const FOLDERS_SEARCH = '/library/search/floders'
 
 export const FOLDERS_CONTAIN = '/library/contain/floders'
+
+export const FILE_COMMENT = '/library/comment/file'
