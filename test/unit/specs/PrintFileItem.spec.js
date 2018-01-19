@@ -20,7 +20,7 @@ const file = {
   size: '2048',
   name: 'mock test file',
   raw: { extension: 'doc', origin: '本地' },
-  pageInfo: { pageCount: 5, direction: true }
+  pageInfo: { pageCount: 5, vertical: true }
 }
 
 const expectSetting = {
@@ -84,7 +84,7 @@ describe('PrintFileItem', () => {
     let vm = creatVM(printFileItem, { price, file })
     for (let layout of Object.keys(vm.layouts)) {
       vm.layout = layout
-      // row and col will be exchange while the direction is true
+      // row and col will be exchange while the vertical is true
       expect(vm.setting.row).to.equal(vm.layouts[layout].col)
       expect(vm.setting.col).to.equal(vm.layouts[layout].row)
     }
