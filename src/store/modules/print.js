@@ -18,6 +18,9 @@ export const mutations = {
   [types.SELECT_POINT] (state, value) {
     state.focusPoint = value
   },
+  [types.ADD_FILE] (state, file) {
+    state.fileList.push(file)
+  },
   [types.UPDATE_FILES] (state, fileList) {
     for (let file of fileList) {
       if (!_.has(file, 'pageInfo') && _.has(file, ['raw', 'pageInfo'])) {

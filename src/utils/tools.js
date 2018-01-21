@@ -2,7 +2,11 @@ import Vue from 'vue'
 import _ from 'lodash'
 import moment from 'moment'
 import { mapMutations, mapState } from 'vuex'
+import * as types from '@/store/mutation-types'
+import store from '@/store'
 import { POPUP_LOGIN } from '$@/Popups'
+import { getPage } from '@/api'
+import { Notification } from 'element-ui'
 
 /**
  * 把人名币分值格式化到元
@@ -258,4 +262,27 @@ export const userCheckRules = {
     { required: true, message: '请输入验证码', trigger: 'blur' },
     { min: 6, max: 6, message: '请输入 6 位验证码', trigger: 'blur' }
   ]
+}
+
+export const creatFileFormLibrary = async ({ name, id, format, index = null }) => {
+  let file = {
+    name,
+    raw: {
+      md5: id,
+      extension: format,
+      origin: '校园文库'
+    },
+    pageInfo: await getPage({ name, md5: id }),
+    uid: Date.now() + id + index || store.state.print.fileList,
+    status: 'success'
+  }
+  return file
+}
+
+export const pushFileFormLibrary = async (fileInfo, notify = true) => {
+  let file = await creatFileFormLibrary(fileInfo)
+  store.commit('print/' + types.ADD_FILE, file)
+  notify && Notification.success({
+    message: '已加入到打印队列'
+  })
 }

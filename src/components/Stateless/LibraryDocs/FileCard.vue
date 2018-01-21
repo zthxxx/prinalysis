@@ -16,12 +16,9 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex'
   import { icons } from '@/assets/img/print'
   import docItemCard from './DocItemCard'
-  import { formatDate } from '@/utils/tools'
-  import * as types from '@/store/mutation-types'
-  import { getPage } from '@/api'
+  import { formatDate, pushFileFormLibrary } from '@/utils/tools'
 
   export default {
     name: 'file-card',
@@ -52,36 +49,13 @@
         fileIcon: icons
       }
     },
-    computed: {
-      ...mapState('print', ['fileList']),
-    },
+    computed: {},
     watch: {},
     mounted () {},
     methods: {
-      ...mapMutations('print', {
-        commitFiles: types.UPDATE_FILES
-      }),
-      async creatFile () {
-        let file = {
-          name: this.name,
-          raw: {
-            md5: this.id,
-            extension: this.format,
-            origin: '校园文库'
-          },
-          pageInfo: await getPage({ md5: this.id, name: this.name }),
-          uid: Date.now() + this.id + this.fileList.length,
-          status: 'success'
-        }
-        return file
-      },
       async pushFile () {
-        let file = await this.creatFile()
-        this.fileList.push(file)
-        this.commitFiles(this.fileList)
-        this.$notify.success({
-          message: '已加入到打印队列'
-        })
+        let { name, id, format } = this
+        await pushFileFormLibrary({ name, id, format })
       }
     }
   }
