@@ -1,4 +1,4 @@
-import  displayPerson  from './DisplayInfo'
-import  changePerson  from './ModifyInfo'
+import  display  from './DisplayInfo'
+import  change  from './ModifyInfo'
 
-export { changePerson, displayPerson }
+export default { change, display }

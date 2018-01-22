@@ -35,7 +35,7 @@
 <script>
   import _ from 'lodash'
   import uploadDragBox from './UploadDragBox'
-  import getFileMD5 from '@/utils/getFileMD5'
+  import { getFileMD5 } from '@/utils/fileHelper'
   import { getPage, getFileURL } from '@/api'
 
   export default {

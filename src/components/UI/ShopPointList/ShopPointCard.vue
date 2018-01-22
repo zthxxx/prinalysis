@@ -57,7 +57,7 @@
 
 <script>
   import { ATM, printPoint } from '@/assets/img/print'
-  import { formatCNY } from '@/utils/tools'
+  import { formatCNY } from '@/utils/format'
 
   export default {
     name: 'shop-point-card',

@@ -71,7 +71,8 @@
   import _ from 'lodash'
   import { POPUP_LOGIN, POPUP_PAY } from '$@/Popups'
   import { verifyOrder } from '@/api'
-  import { formatCNY, getBillingItem } from '@/utils/tools'
+  import { getBillingItem } from '@/utils/print'
+  import { formatCNY } from '@/utils/format'
 
   export default {
     name: 'settle-bill',

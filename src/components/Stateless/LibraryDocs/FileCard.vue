@@ -18,7 +18,8 @@
 <script>
   import { icons } from '@/assets/img/print'
   import docItemCard from './DocItemCard'
-  import { formatDate, pushFileFormLibrary } from '@/utils/tools'
+  import { formatDate } from '@/utils/format'
+  import { pushFileFormLibrary } from '@/utils/fileHelper'
 
   export default {
     name: 'file-card',

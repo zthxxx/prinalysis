@@ -8,7 +8,7 @@ const fileView = () => import('@/pages/Library/FileView')
 const folderView = () => import('@/pages/Library/FolderView')
 const user = () => import('@/pages/User')
 import order from '$@/Business/ManageBoard/Order'
-import { displayPerson, changePerson } from '$@/Business/ManageBoard/Personal'
+import Personal from '$@/Business/ManageBoard/Personal'
 
 Vue.use(Router)
 
@@ -63,14 +63,14 @@ const routes = [
           {
             path: '',
             name: 'person-info',
-            component: displayPerson,
-            meta: { header: displayPerson.header },
+            component: Personal.display,
+            meta: { header: Personal.display.header },
           },
           {
             path: 'change',
             name: 'person-update',
-            component: changePerson,
-            meta: { header: changePerson.header },
+            component: Personal.change,
+            meta: { header: Personal.change.header },
           }
         ]
       }

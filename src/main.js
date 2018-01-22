@@ -6,7 +6,7 @@ import 'element-ui/lib/theme-default/index.css'
 import './style/fontawesome-prefix.less'
 import App from './App.vue'
 import popups from '$@/Popups'
-import { routeIdentify } from './utils/tools'
+import { routeIdentify } from './utils/validate'
 
 Vue.use(ElementUI)
 Vue.use(popups)

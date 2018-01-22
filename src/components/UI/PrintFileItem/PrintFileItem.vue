@@ -137,7 +137,7 @@
   import _ from 'lodash'
   import { icons } from '@/assets/img/print'
   import spinDot from '$@/Stateless/SpinDot'
-  import { sideMap, checkset } from '@/utils/tools'
+  import { sideMap, checkset } from '@/utils/print'
 
   export default {
     name: 'print-file-item',

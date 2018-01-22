@@ -30,7 +30,7 @@
 
 <script>
   import { icons } from '@/assets/img/print'
-  import { formatDate } from '@/utils/tools'
+  import { formatDate } from '@/utils/format'
 
 
   export default {

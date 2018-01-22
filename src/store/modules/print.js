@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import _ from 'lodash'
-import { presetPrint } from '@/utils/tools'
+import { presetPrint } from '@/utils/print'
 import * as types from '../mutation-types'
 
 // initial state

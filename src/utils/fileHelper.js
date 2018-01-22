@@ -1,6 +1,10 @@
 const SparkMD5 = require('spark-md5')
+import { getPage } from '@/api'
+import { Notification } from 'element-ui'
+import * as types from '@/store/mutation-types'
+import store from '@/store'
 
-let getFileMD5 = function (file) {
+export const getFileMD5 = function (file) {
   return new Promise(function (resolve, reject) {
     // Read in chunks of 2MB
     let chunkSize = 2 * 1024 * 1024
@@ -38,5 +42,25 @@ let getFileMD5 = function (file) {
   })
 }
 
+export const creatFileFormLibrary = async ({ name, id, format, index = null }) => {
+  let file = {
+    name,
+    raw: {
+      md5: id,
+      extension: format,
+      origin: '校园文库'
+    },
+    pageInfo: await getPage({ name, md5: id }),
+    uid: Date.now() + id + index || store.state.print.fileList,
+    status: 'success'
+  }
+  return file
+}
 
-export default getFileMD5
+export const pushFileFormLibrary = async (fileInfo, notify = true) => {
+  let file = await creatFileFormLibrary(fileInfo)
+  store.commit('print/' + types.ADD_FILE, file)
+  notify && Notification.success({
+    message: '已加入到打印队列'
+  })
+}

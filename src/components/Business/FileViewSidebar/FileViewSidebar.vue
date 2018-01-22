@@ -77,7 +77,8 @@
   import { mapState } from 'vuex'
   import { POPUP_LOGIN } from '$@/Popups'
   import { collectionFolder_at_0_dot_3x } from '@/assets/img/print'
-  import { formatTime, pushFileFormLibrary } from '@/utils/tools'
+  import { formatTime } from '@/utils/format'
+  import { pushFileFormLibrary } from '@/utils/fileHelper'
   import { containedFolders, submitFileComment, loadFileComment } from '@/api'
 
   export default {

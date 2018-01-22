@@ -45,7 +45,7 @@
   import { POPUP_PREVIEW } from '$@/Popups'
   import { getAddresses, getPoints } from '@/api'
   import * as types from '@/store/mutation-types'
-  import { mapModel } from '@/utils/tools'
+  import { mapModel } from '@/utils/vueHelper'
 
   export default {
     name: 'print',

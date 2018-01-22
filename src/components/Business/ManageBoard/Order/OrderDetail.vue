@@ -112,7 +112,8 @@
   import _ from 'lodash'
   import { POPUP_PAY } from '$@/Popups'
   import { cancelOrder } from '@/api'
-  import { formatCNY, formatTime, orderStateMap, printTypeMap, getBillingItem } from '@/utils/tools'
+  import { orderStateMap, printTypeMap, getBillingItem } from '@/utils/print'
+  import { formatCNY, formatTime } from '@/utils/format'
 
   export default {
     name: 'order-detail',

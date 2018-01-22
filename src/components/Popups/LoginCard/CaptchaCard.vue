@@ -29,7 +29,7 @@
 
 <script>
   import { requireSMS, signup } from '@/api'
-  import { userCheckRules } from '@/utils/tools'
+  import { userCheckRules } from '@/utils/validate'
 
   export default {
     name: 'captcha-card',

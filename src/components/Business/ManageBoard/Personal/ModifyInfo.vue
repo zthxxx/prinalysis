@@ -48,7 +48,8 @@
   import avatarCrop from 'vue-image-crop-upload'
   import { updateUserInfo, accountPasswd } from '@/api'
   import * as types from '@/store/mutation-types'
-  import { mapModel, userCheckRules } from '@/utils/tools'
+  import { mapModel } from '@/utils/vueHelper'
+  import { userCheckRules } from '@/utils/validate'
 
   export default {
     name: 'modify-info',

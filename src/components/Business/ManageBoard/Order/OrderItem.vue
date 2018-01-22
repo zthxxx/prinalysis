@@ -17,7 +17,8 @@
 </template>
 
 <script>
-  import { formatCNY, formatTime, orderStateMap } from '@/utils/tools'
+  import { orderStateMap } from '@/utils/print'
+  import { formatCNY, formatTime } from '@/utils/format'
 
   export default {
     name: 'order-item',

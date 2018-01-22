@@ -9,7 +9,7 @@
   import * as types from '@/store/mutation-types'
   import { checkLogin } from '@/api'
   import headerTop from '$@/Business/HeaderTop'
-  import { mapModel } from '@/utils/tools'
+  import { mapModel } from '@/utils/vueHelper'
 
   export default {
     name: 'app',

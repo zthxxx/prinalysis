@@ -84,7 +84,7 @@
   import { mapMutations } from 'vuex'
   import * as types from '@/store/mutation-types'
   import { login, isRegisterable } from '@/api'
-  import { userCheckRules } from '@/utils/tools'
+  import { userCheckRules } from '@/utils/validate'
   import modalBackdrop from '$@/Stateless/ModalBackdrop'
   import captchaCard from './CaptchaCard'
 

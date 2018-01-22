@@ -1,4 +1,4 @@
-import { asyncGlobalMountInstaller } from '@/utils/tools'
+import { asyncGlobalMountInstaller } from '@/utils/vueHelper'
 
 export const POPUP_LOGIN = '$handleLogin'
 export const POPUP_PREVIEW = '$preview'

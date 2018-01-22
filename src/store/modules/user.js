@@ -1,6 +1,6 @@
 import router from '@/router'
 import * as types from '../mutation-types'
-import { routeIdentify } from '@/utils/tools'
+import { routeIdentify } from '@/utils/validate'
 
 const USER_BASE = 'USER_BASE'
 

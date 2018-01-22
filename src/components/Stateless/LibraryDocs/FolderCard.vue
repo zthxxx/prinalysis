@@ -16,7 +16,7 @@
 <script>
   import { collectionFolder } from '@/assets/img/print'
   import docItemCard from './DocItemCard'
-  import { formatDate } from '@/utils/tools'
+  import { formatDate } from '@/utils/format'
 
   export default {
     name: 'folder-card',
