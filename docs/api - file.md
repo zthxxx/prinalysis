@@ -23,7 +23,7 @@ Response:
   "info": {
     "state": "EXISTED",
     "pageCount": Number,    // 文件总页数
-    "vertical": Boolean  // 排版方向是否为竖版, true 表示竖版
+    "isVertical": Boolean  // 排版方向是否为竖版, true 表示竖版
   }
 }
 ```
@@ -141,7 +141,7 @@ Response:
  * @property {string} name - 文件名
  * @property {string} [format] - 【可选】文件格式(扩展名)，无此项则会尝试从文件名解析扩展名
  * @property {number} pageCount - 文件单页总数
- * @property {boolean} vertical - 排版方向是否为竖版
+ * @property {boolean} isVertical - 排版方向是否为竖版
  * @property {string} institute - 本集合的最后修改时间
  * @property {string} subject - 包含文件数
  * @property {number} collected - 收藏数
@@ -172,7 +172,7 @@ Response:
     "name": "社會主義の体制改♂革.pdf",
     "format": "doc",
     "pageCount": 5,
-    "vertical": false 
+    "isVertical": false
     "institute": "政治管理学院",
     "subject": "毛泽东思想和中国特色社会主义理论体系概论",
     "viewed": 3,
@@ -182,8 +182,8 @@ Response:
       "url": null
     }
     "uploader": {
-      "uid": "", 
-      "avatar": "", 
+      "uid": "",
+      "avatar": "",
       "nickname": ""
     }
   }

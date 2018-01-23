@@ -6,7 +6,7 @@ export default {
     info: {
       'state|1': ['EXISTED', 'NO_EXIST'],
       'pageCount': '@natural(1, 10)',
-      'vertical': '@boolean'
+      'isVertical': '@boolean'
     }
   },
   '/file/url': {

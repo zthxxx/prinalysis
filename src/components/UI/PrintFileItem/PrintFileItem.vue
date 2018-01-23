@@ -78,7 +78,7 @@
                   <el-select class="layouts" v-model="layout">
                     <el-option label="1合1" :value="1"></el-option>
                     <el-option label="2合1" :value="2"></el-option>
-                    <template v-if="!file.pageInfo.vertical">
+                    <template v-if="!file.pageInfo.isVertical">
                       <el-option label="4合1" :value="4"></el-option>
                       <el-option label="6合1" :value="6"></el-option>
                       <el-option label="8合1" :value="8"></el-option>
@@ -95,7 +95,7 @@
               </li>
             </ul>
           </div>
-          <div id="heightSetContent" class="setting">
+          <div class="setting">
             <div class="print-area">
               <span class="area-tip">打印范围 </span>
               <span class="lingkage-are">
@@ -239,7 +239,7 @@
         },
         set (value) {
           let { row, col } = this.layouts[value]
-          if (this.file.pageInfo.vertical) {
+          if (this.file.pageInfo.isVertical) {
             [row, col] = [col, row]
           }
           Object.assign(this.setting, { row, col })

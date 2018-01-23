@@ -20,7 +20,7 @@ const file = {
   size: '2048',
   name: 'mock test file',
   raw: { extension: 'doc', origin: '本地' },
-  pageInfo: { pageCount: 5, vertical: true }
+  pageInfo: { pageCount: 5, isVertical: true }
 }
 
 const expectSetting = {

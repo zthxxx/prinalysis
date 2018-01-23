@@ -1,55 +1,42 @@
 <template>
   <modal-backdrop>
-    <article class="center">
-      <div class="page" ref="pagebox" @scroll="onscroll">
-        <div class="page-list" ref="pages">
-          <figure v-for="(img, index) in pagepics" :key="index + img">
-            <img :src="img" :class="{gray: isMono}" @load="loadimg">
-          </figure>
-          <footer class="last-tip">
-            <template v-if="loadEnd && !loading">已到达最后一面，每份需打印{{copies * total}}面</template>
-            <div class="loading" v-else>
-              <spinDot :size="36"></spinDot>
-              <div class="text">拼命加载中...</div>
-            </div>
-          </footer>
-        </div>
-      </div>
-      <div class="file">
-        <aside class="close">
-          <div class="content">
+    <filePageBox :fetchPage="fetchPage"
+                 :isMono="isMono" :total="total"
+                 @current="setCurrent"></filePageBox>
+    <div class="control">
+      <print-file-item class="print-file-item"
+                       :price="price"
+                       :file="file"
+                       :preSetting="file.print"
+                       @update="update">
+        <div slot="control">
+            <span>
+              <span class="page-panel">第<span class="count">{{current}}</span>面</span>
+              <div class="tip">每份{{papers}}张纸</div>
+              <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
+            </span>
+          <aside class="close">
             <i class="el-icon-fa-compress close-btn" @click="close"></i>
-          </div>
-        </aside>
-        <print-file-item class="print-file-item"
-                         :price="price"
-                         :file="file"
-                         :preSetting="file.print"
-                         @update="update">
-          <div slot="control">
-            <div class="page-panel">第<span class="count">{{currentPage}}</span>面</div>
-            <div class="tip">每份{{papers}}张纸</div>
-            <div class="tip">{{copies}}份共{{copies * papers}}张纸</div>
-          </div>
-        </print-file-item>
-        <footer class="pagination">
-          <div class="panel">{{currentPage}} / {{total}}</div>
-        </footer>
-      </div>
-    </article>
+          </aside>
+        </div>
+      </print-file-item>
+    </div>
+    <footer class="pagination">
+      <div class="panel">{{current}} / {{total}}</div>
+    </footer>
   </modal-backdrop>
 </template>
 
 <script>
+  import _ from 'lodash'
   import modalBackdrop from '$@/Stateless/ModalBackdrop'
   import printFileItem from '$@/UI/PrintFileItem'
-  import spinDot from '$@/Stateless/SpinDot'
+  import filePageBox from '$@/UI/FilePageBox'
   import { getPreview } from '@/api'
-  import { throttle } from '@/utils/tools'
 
   export default {
     name: 'preview-mask',
-    components: { modalBackdrop, printFileItem, spinDot },
+    components: { modalBackdrop, printFileItem, filePageBox },
     props: {
       price: {
         type: null,
@@ -57,6 +44,7 @@
       },
       file: {
         type: null,
+        required: true,
         default: null
       },
       update: {
@@ -66,14 +54,14 @@
       }
     },
     data () {
+      let md5 = this.file.raw.md5
+      let { size, row, col } = this.file.print
       return {
-        pagepics: [],
-        onscroll: throttle(this.handleScroll, 300),
-        currentPage: 1,
-        loading: false,
-        precolor: this.file.print.color,
-        precopies: this.file.print.copies,
-        preside: this.file.print.side
+        current: 1,
+        preset: {
+          md5,
+          size, row, col
+        }
       }
     },
     computed: {
@@ -85,78 +73,36 @@
         let layouts = row * col
         return Math.ceil((endPage - startPage + 1) / layouts)
       },
-      loadEnd () {
-        return this.pagepics.length >= this.total
-      },
       papers () {
         let { side } = this.file.print
         return Math.ceil(this.total / side)
       },
       copies () {
         return this.file.print.copies
-      }
+      },
+      fetchPage () {
+        let preset = this.preset
+        return page => getPreview({ page, ...preset, })
+      },
     },
     watch: {
       file: {
-        handler ({ print: { color, copies, side } }) {
-          if (color === this.precolor && copies === this.precopies && side === this.preside) {
-            this.pagepics = []
-            this.getpic(1)
-            return
+        handler ({ raw: { md5 }, print: { size, row, col } }) {
+          let fileSet = { md5, size, row, col }
+          if (!_.isEqual(fileSet, this.preset)) {
+            this.preset = fileSet
           }
-          this.precolor = color
-          this.precopies = copies
-          this.preside = side
         },
         deep: true
       }
     },
-    mounted () {
-      this.getpic(1)
-    },
+    mounted () {},
     methods: {
       close () {
         this.$emit('close')
       },
-      async getpic (page) {
-        if (this.loading || this.loadEnd) return
-        this.loading = true
-        let { size, row, col } = this.file.print
-        let { img } = await getPreview({
-          md5: this.file.raw.md5,
-          page, size,
-          row, col
-        })
-        this.pagepics.push(img)
-      },
-      calcCurrent (scroll, totalHeight, pagesCount) {
-        pagesCount = this.loading ? pagesCount - 1 : pagesCount
-        scroll = scroll || 1
-        let current = scroll / totalHeight * pagesCount
-        return Math.ceil(current)
-      },
-      handleScroll () {
-        let scrollTop = this.$refs.pagebox.scrollTop
-        let clientHeight = this.$refs.pagebox.clientHeight
-        let pagesHeight = this.$refs.pages.clientHeight
-        let pagesCount = this.pagepics.length
-        let buttomLimit = pagesHeight - clientHeight
-        let current = this.calcCurrent(scrollTop, pagesHeight, pagesCount)
-        if (this.currentPage !== current) this.currentPage = current
-        if (scrollTop >= buttomLimit && !this.loadEnd) {
-          let next = pagesCount + 1
-          this.getpic(next)
-        }
-      },
-      loadimg () {
-        this.loading = false
-        if (!this.$refs.pagebox) return
-        let clientHeight = this.$refs.pagebox.clientHeight
-        let scrollHeight = this.$refs.pagebox.scrollHeight
-        if (scrollHeight <= clientHeight) {
-          let pagesCount = this.pagepics.length
-          this.getpic(pagesCount + 1)
-        }
+      setCurrent (page) {
+        this.current = page
       }
     }
   }
