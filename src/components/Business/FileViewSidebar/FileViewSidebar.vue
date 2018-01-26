@@ -59,8 +59,8 @@
         <span>按 Ctrl + Enter 键发送</span>
       </footer>
       <div class="comment-tip" v-if="!comments.length">欢迎发表评论</div>
-      <div v-for="comment of comments" :key="comment.commentID">
-        <figure class="comment-item">
+        <figure class="comment-item"
+                v-for="comment of comments" :key="comment.commentID">
           <img :src="comment.avatar" alt="avatar">
           <figcaption class="comment-content">
             <span class="discussant">{{comment.nickname}}:</span>
@@ -68,7 +68,6 @@
           </figcaption>
           <footer><span class="time">{{formatTime(comment.created)}}</span></footer>
         </figure>
-      </div>
     </div>
   </aside>
 </template>

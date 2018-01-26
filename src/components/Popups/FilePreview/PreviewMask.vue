@@ -1,8 +1,11 @@
 <template>
   <modal-backdrop>
-    <filePageBox :fetchPage="fetchPage"
-                 :isMono="isMono" :total="total"
-                 @current="setCurrent"></filePageBox>
+    <article class="page-content">
+      <filePageBox :fetchPage="fetchPage"
+                   :isMono="isMono" :total="total"
+                   @current="setCurrent">
+      </filePageBox>
+    </article>
     <div class="control">
       <print-file-item class="print-file-item"
                        :price="price"
@@ -83,7 +86,7 @@
       fetchPage () {
         let preset = this.preset
         return page => getPreview({ page, ...preset, })
-      },
+      }
     },
     watch: {
       file: {

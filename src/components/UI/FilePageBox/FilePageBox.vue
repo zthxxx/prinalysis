@@ -1,20 +1,18 @@
 <template>
-  <article class="page-content">
-    <div class="page" ref="pagebox" @scroll="onScroll">
-      <div class="page-list" ref="pages">
-        <figure v-for="(img, index) in pagepics" :key="index + img">
-          <img :src="img" :class="{gray: isMono}" @load="onLoadimg">
-        </figure>
-        <footer class="last-tip">
-          <template v-if="loadEnd && !loading">已到达最后一面</template>
-          <div class="loading" v-else>
-            <spinDot :size="36"></spinDot>
-            <div class="text">拼命加载中...</div>
-          </div>
-        </footer>
-      </div>
+  <div class="page-box" ref="pagebox" @scroll="onScroll">
+    <div class="page-list" ref="pages">
+      <figure v-for="(img, index) in pagepics" :key="index + img">
+        <img :src="img" :class="{gray: isMono}" @load="onLoadimg">
+      </figure>
     </div>
-  </article>
+    <footer class="last-tip" ref="footer">
+      <template v-if="loadEnd && !loading">已到达最后一面</template>
+      <div class="loading" v-else>
+        <spinDot :size="36"></spinDot>
+        <div class="text">拼命加载中...</div>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script>
@@ -91,6 +89,7 @@
         let pagesCount = this.pagepics.length
         let buttomLimit = pagesHeight - clientHeight
         let current = this.calcCurrent(scrollTop, pagesHeight, pagesCount) || 1
+        console.log('buttomLimit', buttomLimit)
         if (this.currentPage !== current) {
           this.currentPage = current
           this.$emit('current', this.currentPage)
@@ -105,6 +104,7 @@
         if (!this.$refs.pagebox) return
         let clientHeight = this.$refs.pagebox.clientHeight
         let scrollHeight = this.$refs.pagebox.scrollHeight
+        console.log('client, scroll', clientHeight, scrollHeight)
         if (scrollHeight <= clientHeight) {
           let pagesCount = this.pagepics.length
           this.setPagePic(pagesCount + 1)
