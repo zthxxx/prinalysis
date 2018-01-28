@@ -89,7 +89,6 @@
         let pagesCount = this.pagepics.length
         let buttomLimit = pagesHeight - clientHeight
         let current = this.calcCurrent(scrollTop, pagesHeight, pagesCount) || 1
-        console.log('buttomLimit', buttomLimit)
         if (this.currentPage !== current) {
           this.currentPage = current
           this.$emit('current', this.currentPage)
@@ -104,7 +103,6 @@
         if (!this.$refs.pagebox) return
         let clientHeight = this.$refs.pagebox.clientHeight
         let scrollHeight = this.$refs.pagebox.scrollHeight
-        console.log('client, scroll', clientHeight, scrollHeight)
         if (scrollHeight <= clientHeight) {
           let pagesCount = this.pagepics.length
           this.setPagePic(pagesCount + 1)

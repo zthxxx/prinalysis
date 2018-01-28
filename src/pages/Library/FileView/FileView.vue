@@ -1,6 +1,8 @@
 <template>
   <div class="library">
-    <fileViewHeader :file="file || undefined"></fileViewHeader>
+    <affix>
+      <fileViewHeader :file="file || undefined"></fileViewHeader>
+    </affix>
     <article class="page-content">
       <filePageBox v-if="preset"
                    :fetchPage="fetchPage"
@@ -8,15 +10,18 @@
                    @current="setCurrent">
       </filePageBox>
     </article>
-    <fileViewSidebar class="sidebar"
-                     :fileID="fileID"
-                     :file="file || undefined"
-                     :page="page">
-    </fileViewSidebar>
+    <affix class="affix-sidebar" :offset-top="70">
+      <fileViewSidebar class="sidebar"
+                       :fileID="fileID"
+                       :file="file || undefined"
+                       :page="page">
+      </fileViewSidebar>
+    </affix>
   </div>
 </template>
 
 <script>
+  import affix from '$@/Stateless/Affix'
   import filePageBox from '$@/UI/FilePageBox'
   import fileViewHeader from '$@/UI/FileViewHeader'
   import fileViewSidebar from '$@/Business/FileViewSidebar'
@@ -24,7 +29,7 @@
 
   export default {
     name: 'file-view',
-    components: { fileViewHeader, filePageBox, fileViewSidebar },
+    components: { affix, fileViewHeader, filePageBox, fileViewSidebar },
     props: {},
     data () {
       return {
