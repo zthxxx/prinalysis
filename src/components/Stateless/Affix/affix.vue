@@ -160,7 +160,7 @@
 
         let offsetMode = {
           top: scrollTop > elemOffset.top - offsetTop,
-          bottom: scrollTop - targetInnerHeight < elemOffset.top + elemSize.height + (offsetBottom || 0)
+          bottom: scrollTop + targetInnerHeight < elemOffset.top + elemSize.height + (offsetBottom || 0)
         }
 
         offsetMode.top = offsetMode.top && !_.isNumber(offsetBottom)

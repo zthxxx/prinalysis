@@ -5,6 +5,7 @@
   width: 226px
   .operate, .folder, .comment
     margin-bottom: 10px
+    border-radius: 4px
     padding: 14px
     color: gray-text
     background-color: #fff
@@ -68,7 +69,8 @@
         .folder-name
           color: blue-text
   .comment
-    min-height: 300px
+    padding-bottom: 30px
+    min-height: 320px
     .expand
       position: absolute
       margin-left: 10px
@@ -115,5 +117,23 @@
         .time
           color: #bbb
 
+.strut-enter-active
+  animation: strut-in .3s ease reverse
+
+.strut-leave-active
+  animation: strut-in .3s ease
+
+@keyframes strut-in
+  0%
+    opacity: 1
+    overflow: hidden
+  to
+    opacity: 0
+    height: 0
+    margin-top: 0
+    margin-bottom: 0
+    padding-top: 0
+    padding-bottom: 0
+    overflow: hidden
 
 

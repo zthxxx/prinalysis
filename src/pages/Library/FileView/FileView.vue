@@ -12,6 +12,7 @@
     </article>
     <affix class="affix-sidebar" :offset-top="70">
       <fileViewSidebar class="sidebar"
+                       :affix-top="70"
                        :fileID="fileID"
                        :file="file || undefined"
                        :page="page">

@@ -1,49 +1,53 @@
 <template>
   <aside class="sidebar">
-    <div class="operate" v-if="!commentExpanded">
-      <header class="title">第 &nbsp;<span>{{page}}/{{file.pageCount}}</span>&nbsp; 页</header>
-      <div class="controller">
-        <button class="control" @click="printFile">
-          <div class="icon"><i class="el-icon-fa-print"></i></div>
-          <div class="description">打印 {{file.printed}}</div>
-        </button>
-        <button class="control" @click="pushFile">
-          <div class="icon"><i class="el-icon-fa-shopping-cart"></i></div>
-          <div class="description">加入打印队列</div>
-        </button>
-        <button class="control">
-          <div class="icon"><i class="el-icon-fa-bookmark-o"></i></div>
-          <div class="description">收藏 {{file.collected}}</div>
-        </button>
-        <a class="control" v-if="file.download.enable" :href="file.download.url" target="_blank">
-          <div class="icon"><i class="el-icon-fa-cloud-download"></i></div>
-          <div class="description">下载</div>
-        </a>
-        <button class="control disable" v-else>
-          <div class="icon"><i class="el-icon-fa-cloud-download"></i></div>
-          <div class="description">下载</div>
-        </button>
+    <transition name="strut">
+      <div class="operate" v-show="!commentExpanded">
+        <header class="title">第 &nbsp;<span>{{page}}/{{file.pageCount}}</span>&nbsp; 页</header>
+        <div class="controller">
+          <button class="control" @click="printFile">
+            <div class="icon"><i class="el-icon-fa-print"></i></div>
+            <div class="description">打印 {{file.printed}}</div>
+          </button>
+          <button class="control" @click="pushFile">
+            <div class="icon"><i class="el-icon-fa-shopping-cart"></i></div>
+            <div class="description">加入打印队列</div>
+          </button>
+          <button class="control">
+            <div class="icon"><i class="el-icon-fa-bookmark-o"></i></div>
+            <div class="description">收藏 {{file.collected}}</div>
+          </button>
+          <a class="control" v-if="file.download.enable" :href="file.download.url" target="_blank">
+            <div class="icon"><i class="el-icon-fa-cloud-download"></i></div>
+            <div class="description">下载</div>
+          </a>
+          <button class="control disable" v-else>
+            <div class="icon"><i class="el-icon-fa-cloud-download"></i></div>
+            <div class="description">下载</div>
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="folder" v-if="!commentExpanded">
-      <header class="title">包含该文章的精选集</header>
-      <div class="folder-list">
-        <figure class="folder-item" v-for="folder of folders" :key="folder.id"
-                @click="viewFolder(folder.id)">
-          <img :src="folderIcon" alt="folder"/>
-          <figcaption class="description">
-            <div class="folder-name">{{folder.name}}</div>
-            <div class="user">
-              <i class="el-icon-fa-user"></i>
-              <span class="nickname">{{folder.user}}</span>
-            </div>
-          </figcaption>
-        </figure>
-        <span class="empty-tip" v-if="!folders.length"> 无 </span>
+    </transition>
+    <transition name="strut">
+      <div class="folder" v-show="!commentExpanded">
+        <header class="title">包含该文章的精选集</header>
+        <div class="folder-list">
+          <figure class="folder-item" v-for="folder of folders" :key="folder.id"
+                  @click="viewFolder(folder.id)">
+            <img :src="folderIcon" alt="folder"/>
+            <figcaption class="description">
+              <div class="folder-name">{{folder.name}}</div>
+              <div class="user">
+                <i class="el-icon-fa-user"></i>
+                <span class="nickname">{{folder.user}}</span>
+              </div>
+            </figcaption>
+          </figure>
+          <span class="empty-tip" v-if="!folders.length"> 无 </span>
+        </div>
       </div>
-    </div>
-    <div class="comment">
-      <header class="title" @click="commentExpanded = !commentExpanded">
+    </transition>
+    <div class="comment" :style="commentStyle">
+      <header class="title" @click="expandComments">
         <span>文档讨论</span>
         <span class="expand" v-if="commentExpanded"><i class="el-icon-fa-arrow-down"></i>收起</span>
         <span class="expand" v-else><i class="el-icon-fa-arrow-up"></i>展开</span>
@@ -59,15 +63,15 @@
         <span>按 Ctrl + Enter 键发送</span>
       </footer>
       <div class="comment-tip" v-if="!comments.length">欢迎发表评论</div>
-        <figure class="comment-item"
-                v-for="comment of comments" :key="comment.commentID">
-          <img :src="comment.avatar" alt="avatar">
-          <figcaption class="comment-content">
-            <span class="discussant">{{comment.nickname}}:</span>
-            <span class="content">{{comment.content}}</span>
-          </figcaption>
-          <footer><span class="time">{{formatTime(comment.created)}}</span></footer>
-        </figure>
+      <figure class="comment-item"
+              v-for="comment of comments" :key="comment.commentID">
+        <img :src="comment.avatar" alt="avatar">
+        <figcaption class="comment-content">
+          <span class="discussant">{{comment.nickname}}:</span>
+          <span class="content">{{comment.content}}</span>
+        </figcaption>
+        <footer><span class="time">{{formatTime(comment.created)}}</span></footer>
+      </figure>
     </div>
   </aside>
 </template>
@@ -102,7 +106,11 @@
       page: {
         type: Number,
         default: 1
-      }
+      },
+      affixTop: {
+        type: Number,
+        default: 0
+      },
     },
     data () {
       return {
@@ -111,7 +119,8 @@
         comments: [],
         limitLen: 40,
         commentExpanded: false,
-        folders: []
+        folders: [],
+        commentStyle: null
       }
     },
     computed: {
@@ -119,6 +128,7 @@
     },
     watch: {},
     async mounted () {
+      this.setCommentStlye()
       this.folders = await containedFolders(this.fileID)
       this.comments = await loadFileComment(this.fileID)
     },
@@ -152,6 +162,20 @@
       async printFile () {
         await this.pushFile(false)
         this.$router.push({ name: 'print' })
+      },
+      setCommentStlye () {
+        const marginBottom = 10
+        let affixTop = this.affixTop
+        let { top } = this.$el.getBoundingClientRect()
+        let clientHeight = window.innerHeight
+        let topToClientBottom = clientHeight - affixTop || top
+        this.commentStyle = {
+          height: topToClientBottom - marginBottom + 'px'
+        }
+      },
+      expandComments () {
+        this.commentExpanded = !this.commentExpanded
+        this.setCommentStlye()
       }
     }
   }
