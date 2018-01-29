@@ -7,6 +7,7 @@
 </template>
 <script>
   import _ from 'lodash'
+  import { throttle } from '@/utils/tools'
 
   const className = 'affix'
 
@@ -20,8 +21,7 @@
     const prop = top ? 'pageYOffset' : 'pageXOffset'
     const method = top ? 'scrollTop' : 'scrollLeft'
     const isWindow = target === window
-    let ret = isWindow ? target[prop] : target[method]
-    return ret
+    return isWindow ? target[prop] : target[method]
   }
 
   function getOffset (element, target) {
@@ -34,13 +34,21 @@
     const docElem = window.document.body
     const clientTop = docElem.clientTop || 0
     const clientLeft = docElem.clientLeft || 0
-
     return {
       top: elemRect.top - targetRect.top + scrollTop - clientTop,
-      left: elemRect.top - targetRect.left + scrollLeft - clientLeft,
+      left: elemRect.left - targetRect.left + scrollLeft - clientLeft,
       width: elemRect.width,
       height: elemRect.height
     }
+  }
+
+  function pixelate (obj) {
+    if (!obj) return null
+    let pixelWise = {}
+    for (let key in obj) {
+      pixelWise[key] = obj[key] + 'px'
+    }
+    return pixelWise
   }
 
   export default {
@@ -82,7 +90,8 @@
           'touchend',
           'pageshow',
           'load'
-        ]
+        ],
+        onUpdatePosition: throttle(this.updatePosition, 50)
       }
     },
     computed: {
@@ -94,7 +103,6 @@
     },
     watch: {
       target (nextTarget, prevTarget) {
-        console.log('target next = prev', nextTarget === prevTarget)
         if (nextTarget !== prevTarget) {
           this.clearEventListeners(prevTarget)
           this.setTargetEventListeners(nextTarget)
@@ -111,8 +119,9 @@
     },
     methods: {
       setAffixStyle (e, affixStyle) {
+        affixStyle = pixelate(affixStyle)
         const { onChange, target } = this
-        const originalAffixStyle = this.affixStyle
+        const originalAffixStyle = pixelate(this.affixStyle)
         const isWindow = target === window
         if (e.type === 'scroll' && originalAffixStyle && affixStyle && isWindow) return
         if (_.isEqual(affixStyle, originalAffixStyle)) return
@@ -120,19 +129,20 @@
         if (!affixStyle ^ !originalAffixStyle) onChange(!!affixStyle)
       },
       setPlaceholderStyle (placeholderStyle) {
-        const orginalPlaceholderStyle = this.placeholderStyle
-        if (_.isEqual(placeholderStyle, orginalPlaceholderStyle)) return
+        placeholderStyle = pixelate(placeholderStyle)
+        const originalPlaceholderStyle = pixelate(this.placeholderStyle)
+        if (_.isEqual(placeholderStyle, originalPlaceholderStyle)) return
         this.placeholderStyle = placeholderStyle
       },
       setTargetEventListeners (target) {
         this.clearEventListeners(target)
         this.events.forEach(eventName => {
-          target.addEventListener(eventName, this.updatePosition, false)
+          target.addEventListener(eventName, this.onUpdatePosition, false)
         })
       },
       clearEventListeners (target) {
         this.events.forEach(eventName => {
-          target.removeEventListener(eventName, this.updatePosition, false)
+          target.removeEventListener(eventName, this.onUpdatePosition, false)
         })
       },
       updatePosition (e) {
@@ -150,47 +160,43 @@
 
         let offsetMode = {
           top: scrollTop > elemOffset.top - offsetTop,
-          bottom: scrollTop < elemOffset.top + elemSize.height + (offsetBottom || 0) - targetInnerHeight
+          bottom: scrollTop - targetInnerHeight < elemOffset.top + elemSize.height + (offsetBottom || 0)
         }
 
         offsetMode.top = offsetMode.top && !_.isNumber(offsetBottom)
         offsetMode.bottom = offsetMode.bottom && _.isNumber(offsetBottom)
 
+        let affixStyle = {
+          left: targetRect.left + elemOffset.left,
+          width: elemOffset.width
+        }
 
-        if (offsetMode.top) {
-          const width = elemOffset.width
+        function getTop (enable) {
+          if (!enable) return null
           const top = targetRect.top + offsetTop
+          return { top }
+        }
+
+        function getBottom (enable) {
+          if (!enable) return null
+          const targetBottomOffset = target === window ? 0 : (window.innerHeight - targetRect.bottom)
+          const bottom = targetBottomOffset + offsetBottom
+          return { bottom }
+        }
+
+        if (offsetMode.top || offsetMode.bottom) {
           this.setAffixStyle(e, {
-            position: 'fixed',
-            top,
-            left: targetRect.left + elemOffset.left,
-            width
+            ...affixStyle,
+            ...getTop(offsetMode.top),
+            ...getBottom(offsetMode.bottom),
           })
           this.setPlaceholderStyle({
-            width,
+            width: elemOffset.width,
             height: elemSize.height
           })
-        } else if (offsetMode.bottom) {
-          const targetBottomOffet = target === window ? 0 : (window.innerHeight - targetRect.bottom)
-          const width = elemOffset.width
-          this.setAffixStyle(e, {
-            position: 'fixed',
-            bottom: targetBottomOffet + offsetBottom,
-            left: targetRect.left + elemOffset.left,
-            width
-          })
-          this.setPlaceholderStyle({
-            width,
-            height: elemOffset.height
-          })
         } else {
-          const { affixStyle } = this
-          if (e.type === 'resize' && affixStyle && affixStyle.position === 'fixed' && affixNode.offsetWidth) {
-            this.setAffixStyle(e, { ...affixStyle, width: affixNode.offsetWidth })
-          } else {
-            this.setAffixStyle(e, null)
-          }
-          this.setPlaceholderStyle({})
+          this.setAffixStyle(e, null)
+          this.setPlaceholderStyle(null)
         }
       }
     }
