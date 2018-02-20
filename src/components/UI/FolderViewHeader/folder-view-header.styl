@@ -4,8 +4,8 @@ header
   display: flex
   align-items: center
   justify-content: space-between
-  margin: 0 auto 10px
-  border-radius: 4px
+  margin: 0 auto
+  border-radius: 4px 4px 0 0
   padding: 8px
   width: 1080px
   height: 60px
@@ -19,6 +19,7 @@ header
       border-right: solid 1px #bbb
       padding: 8px
       width: 80px
+      font-size: 14px
       text-align: center
       vertical-align: middle
       color: gray-text
@@ -61,11 +62,34 @@ header
         .time
           font-size: 12px
           color: gray-text
+
+.brief
+  margin: 0 auto 10px
+  box-shadow: 0 1px 4px 1px #ddd
+  border-radius: 0 0 4px 4px
+  padding: 10px 20px
+  height: 38px
+  font-size: 12px
+  color: shallow-text-gray
+  background-color: #fff
+  i
+    margin-right: 8px
+    color: blue-text
+  .category
+    overflow: hidden
+    max-width: 600px
+    white-space: nowrap
+    text-overflow: ellipsis
+  .reading
+    margin: 0 10px
+    border-left: solid 1px gray-text
+    padding: 0 15px
+
 .title
   display: inline-block
   margin-left: 8px
   vertical-align: middle
-  .file
+  .folder
     img
       max-width: 38px
       vertical-align: middle
@@ -80,18 +104,33 @@ header
         white-space: nowrap
         text-overflow: ellipsis
         color: deep-black
+        .type
+          display: inline-block
+          margin-right: 4px
+          border-radius: 4px
+          width: 48px
+          font-size: 12px
+          text-align: center
+          vertical-align: middle
+          color: #fff
+          background: green
+        .text
+          display: inline-block
+          vertical-align: middle
       .attribute
         font-size: 12px
-        color: shallow-text-gray
+        color: gray-text
         i
           margin-right: 8px
           color: blue-text
-        .category
+        .intro
+          display: inline-block
           overflow: hidden
           max-width: 500px
+          vertical-align: bottom
           white-space: nowrap
           text-overflow: ellipsis
-        .reading
+        .files
           margin: 0 8px
           border-left: solid 1px gray-text
           padding: 0 15px

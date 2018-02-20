@@ -171,7 +171,7 @@ Response:
  * @property {number} collected - 收藏数
  * @property {number} printed - 打印次数
  * @property {string} uid - 上传用户 ID
- * @property {string} user - 上传用户昵称
+ * @property {string} nickname - 上传用户昵称
  */
 ```
 
@@ -202,7 +202,7 @@ Response:
  * @property {number} collected - 收藏数
  * @property {number} view - 浏览次数
  * @property {string} uid - 创建用户 ID
- * @property {string} user - 创建用户昵称
+ * @property {string} nickname - 创建用户昵称
  */
 ```
 
@@ -219,7 +219,7 @@ GET:  /API/library/contain/floders
 
 描述：通过搜索获得文库中包含指定文件的精选集列表
 
-Parameters: 
+Parameters:
 
 ```js
 fileID: 要搜索的文件 ID（即对应文件 API 中的 md5 值）
@@ -246,10 +246,10 @@ POST:  /API/library/comment/file
 
 ?> 权限：需要权限
 
-Parameters: 
+Parameters:
 
 ```js
-{ 
+{
   "fileID": String, // 文件 ID
   "uid": String,    // 用户 ID
   "content": String // 用户评论内容
@@ -264,9 +264,9 @@ Response:
 
 GET:  /API/library/comment/file
 
-描述：通过搜索获得文库中包含指定文件的精选集列表
+描述：获取用户对该文件最近提交的评论
 
-Parameters: 
+Parameters:
 
 ```js
 fileID: 文件 ID
@@ -294,6 +294,67 @@ Response:
 {
   "result": "OK",
   "info": Array<Comment> // 评论列表
+}
+```
+
+## 7. 获取精选集的详细信息
+
+GET:  /API/library/folder/detail
+
+描述：获取精选集的详细信息和包含的文件
+
+Parameters:
+
+```js
+folderID: 精选集 ID
+```
+
+Response:
+
+> 获取成功返回信息对象
+
+```js
+/**
+ * @typedef {object} FolderInfo - 精选集信息
+ * @property {string} name - 精选集名
+ * @property {string} description - 精选集描述简介
+ * @property {string[]} tags - 精选集标签
+ * @property {date} created - 精选集创建时间
+ * @property {number} viewed - 浏览次数
+ * @property {number} collected - 收藏数
+ * @property {object} uploader - 创建者用户
+ * @property {string} uploader.id - 用户 ID
+ * @property {string} uploader.avatar - 用户头像 url
+ * @property {string} uploader.nickname - 用户昵称
+ * @property {DocFile[]} files - 精选集包含的文件集合，同第 2 点中 DocFile
+ */
+```
+
+```js
+{
+  "result": "OK",
+  "info": FolderInfo // 精选集信息对象
+}
+```
+
+```js
+// response example
+{
+    "result": "OK",
+    "info": {
+      "name": "射惠主义的白色相簿",
+      "description": "ass ♂ we ♂ can",
+      "tags": ["boy ♂ next ♂ door", "my ♂ follow ♂ brother"],
+      "created": "1516120811007",
+      "viewed": "5",
+      "collected": "2",
+      "uploader": {
+        "uid": "190df22g4f4sery321",
+        "avatar": "xxxx",
+        "nickname": "xxxx"
+      },
+      "files": []
+    }
 }
 ```
 

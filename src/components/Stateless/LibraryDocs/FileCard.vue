@@ -2,7 +2,7 @@
   <doc-item-card :iconURL="fileIcon[format]">
     <template slot="count">{{pages}} 页</template>
     <template slot="doc-name">{{name}}</template>
-    <template slot="user">{{user}}</template>
+    <template slot="user">{{nickname}}</template>
     <template slot="created">{{created}}</template>
     <template slot="collected">{{collected}}</template>
     <template slot="reviews">
@@ -35,7 +35,7 @@
         id, name,
         created, pages, format,
         collected, printed,
-        uid, user
+        uid, nickname
       } = this.docItem
       return {
         id,
@@ -46,7 +46,7 @@
         collected,
         printed,
         uid,
-        user: user || '匿名用户',
+        nickname: nickname || '匿名用户',
         fileIcon: icons
       }
     },

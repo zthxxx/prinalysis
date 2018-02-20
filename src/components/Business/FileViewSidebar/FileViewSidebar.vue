@@ -38,7 +38,7 @@
               <div class="folder-name">{{folder.name}}</div>
               <div class="user">
                 <i class="el-icon-fa-user"></i>
-                <span class="nickname">{{folder.user}}</span>
+                <span class="nickname">{{folder.nickname}}</span>
               </div>
             </figcaption>
           </figure>

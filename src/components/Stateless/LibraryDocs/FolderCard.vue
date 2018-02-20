@@ -2,7 +2,7 @@
   <doc-item-card :iconURL="folderIcon">
     <template slot="count">{{count}} 个文件</template>
     <template slot="doc-name">{{name}}</template>
-    <template slot="user">{{user}}</template>
+    <template slot="user">{{nickname}}</template>
     <template slot="created">{{updated}}</template>
     <template slot="collected">{{collected}}</template>
     <template slot="reviews">
@@ -32,7 +32,7 @@
         id, name,
         updated, count,
         collected, view,
-        uid, user
+        uid, nickname
       } = this.docItem
       return {
         id,
@@ -42,7 +42,7 @@
         collected,
         view,
         uid,
-        user: user || '匿名用户',
+        nickname: nickname || '匿名用户',
         folderIcon: collectionFolder
       }
     },

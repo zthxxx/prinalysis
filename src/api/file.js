@@ -43,8 +43,8 @@ export const getPreview = ({ md5, page, size, row, col }) => get(
  * @property {string} institute - 本集合的最后修改时间
  * @property {string} subject - 包含文件数
  * @property {number} collected - 收藏数
- * @property {number} view - 浏览次数
- * @property {date} upTime - 文件上传时间
+ * @property {number} viewed - 浏览次数
+ * @property {date} created - 文件上传时间
  * @property {object} download - 下载信息
  * @property {boolean} download.enable - 是否可以下载
  * @property {string} [download.url] - 文件下载地址

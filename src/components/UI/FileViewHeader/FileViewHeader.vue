@@ -1,7 +1,9 @@
 <template>
   <header>
     <div class="left-part">
-      <div class="back" @click="back"><i class="el-icon-fa-chevron-left"></i> 返回</div>
+      <div class="back" @click="back">
+        <i class="el-icon-fa-angle-left"></i><span>返回</span>
+      </div>
       <div class="title">
         <figure class="file">
           <img :src="fileIcon[file.format]" alt="format"/>
@@ -55,7 +57,7 @@
     },
     computed: {
       upDate () {
-        return this.file && formatDate(this.file.upTime)
+        return this.file && formatDate(this.file.created)
       }
     },
     watch: {},

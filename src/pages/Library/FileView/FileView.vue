@@ -1,22 +1,22 @@
 <template>
   <div class="library">
     <affix>
-      <fileViewHeader :file="file || undefined"></fileViewHeader>
+      <file-view-header :file="file || undefined"></file-view-header>
     </affix>
     <article class="page-content">
-      <filePageBox v-if="preset"
+      <file-page-box v-if="preset"
                    :fetchPage="fetchPage"
                    :total="file.pageCount"
                    @current="setCurrent">
-      </filePageBox>
+      </file-page-box>
     </article>
     <affix class="affix-sidebar" :offset-top="70">
-      <fileViewSidebar class="sidebar"
+      <file-view-sidebar class="sidebar"
                        :affix-top="70"
                        :fileID="fileID"
                        :file="file || undefined"
                        :page="page">
-      </fileViewSidebar>
+      </file-view-sidebar>
     </affix>
   </div>
 </template>

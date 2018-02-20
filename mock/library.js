@@ -1,4 +1,27 @@
-import { randomMD5, randomAvatar } from './tools'
+import { randomMD5, randomAvatar, extract } from './tools'
+
+const File = {
+  'id|1': [randomMD5, '@id'],
+  name: '@csentence().docx',
+  created: '@now(T)',
+  pages: '@natural(1, 10)',
+  'format|1': ['docx', 'pptx', 'xlsx', 'pdf'],
+  collected: '@natural(0, 5)',
+  printed: '@natural(0, 15)',
+  uid: '@id',
+  'nickname|1': ['@name', '@cname']
+}
+
+const Folder = {
+  id: '@id',
+  name: '@cname()老师的精选',
+  updated: '@now(T)',
+  count: '@natural(1, 10)',
+  collected: '@natural(0, 5)',
+  view: '@natural(0, 15)',
+  uid: '@id',
+  'nickname|1': ['@name', '@cname']
+}
 
 export default {
   '/library/profession': {
@@ -53,45 +76,15 @@ export default {
   },
   '/library/search/files': {
     'result': 'OK',
-    'info|0-10': [
-      {
-        'id|1': [randomMD5, '@id'],
-        name: '@csentence().docx',
-        created: '@now(T)',
-        pages: '@natural(1, 10)',
-        'format|1': ['docx', 'pptx', 'xlsx', 'pdf'],
-        collected: '@natural(0, 5)',
-        printed: '@natural(0, 15)',
-        uid: '@id',
-        'user|1': ['', '@name', '@cname']
-      }
-    ]
+    'info|0-10': [{ ...File }]
   },
   '/library/search/floders': {
     'result': 'OK',
-    'info|0-10': [{
-      id: '@id',
-      name: '@cname()老师的精选',
-      updated: '@now(T)',
-      count: '@natural(1, 10)',
-      collected: '@natural(0, 5)',
-      view: '@natural(0, 15)',
-      uid: '@id',
-      'user|1': ['', '@name', '@cname']
-    }]
+    'info|0-10': [{ ...Folder }]
   },
   '/library/contain/floders': {
     'result': 'OK',
-    'info|0-4': [{
-      id: '@id',
-      name: '@cname()老师的精选',
-      updated: '@now(T)',
-      count: '@natural(1, 10)',
-      collected: '@natural(0, 5)',
-      view: '@natural(0, 15)',
-      uid: '@id',
-      'user|1': ['@name', '@cname']
-    }]
+    'info|0-4': [{ ...Folder }]
   },
   '/library/comment/file': {
     result: 'OK',
@@ -103,5 +96,32 @@ export default {
       content: '@csentence()',
       created: '@now(T)'
     }]
-  }
+  },
+  '/library/folder/detail': {
+    result: 'OK',
+    info: {
+      'name|1': ['@csentence()', '射惠主义的白色相簿'],
+      'description|1': ['', '@csentence()', 'ass ♂ we ♂ can'],
+      tags: extract(['射惠射惠', '白色的季节', 'boy ♂ next ♂ door', 'my ♂ follow ♂ brother'], 0, 3),
+      created: '@now(T)',
+      viewed: '@natural(0, 15)',
+      collected: '@natural(0, 5)',
+      uploader: {
+        uid: '@id',
+        avatar: randomAvatar,
+        nickname: '@cname()',
+      },
+      'files|0-10': [{ ...File }]
+    }
+  },
+  '/library/create/folder': {
+  },
+  '/library/collect/files': {
+  },
+  '/library/collect/folder': {
+  },
+  '/library/personal/folders': {
+  },
+  '/library/personal/files': {
+  },
 }

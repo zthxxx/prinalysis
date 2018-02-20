@@ -49,7 +49,7 @@ export const getLibOptional = type => searchMap[type]()
  * @property {number} collected - 收藏数
  * @property {number} printed - 打印次数
  * @property {string} uid - 上传用户 ID
- * @property {string} user - 上传用户昵称
+ * @property {string} nickname - 上传用户昵称
  */
 
 /**
@@ -61,7 +61,7 @@ export const getLibOptional = type => searchMap[type]()
  * @property {number} collected - 收藏数
  * @property {number} view - 浏览次数
  * @property {string} uid - 创建用户 ID
- * @property {string} user - 创建用户昵称
+ * @property {string} nickname - 创建用户昵称
  */
 
 /**
@@ -140,3 +140,25 @@ export const submitFileComment = ({ fileID, uid, content }) => post(API.FILE_COM
  */
 export const loadFileComment = fileID => get(API.FILE_COMMENT, { fileID })
 
+
+/**
+ * @typedef {object} FolderInfo - 精选集信息
+ * @property {string} name - 精选集名
+ * @property {string} description - 精选集描述简介
+ * @property {string[]} tags - 精选集标签
+ * @property {date} created - 精选集创建时间
+ * @property {number} viewed - 浏览次数
+ * @property {number} collected - 收藏数
+ * @property {object} uploader - 创建者用户
+ * @property {string} uploader.id - 用户 ID
+ * @property {string} uploader.avatar - 用户头像 url
+ * @property {string} uploader.nickname - 用户昵称
+ * @property {DocFile[]} files - 精选集包含的文件集合
+ */
+
+/**
+ * 获取精选集的详细信息
+ * @param {string} folderID - 精选集 ID
+ * @return {FolderInfo} - 精选集详细信息
+ */
+export const getFolderInfo = folderID => get(API.FOLDER_DETAIL, { folderID })
