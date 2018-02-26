@@ -96,6 +96,8 @@
           'CLOSE_DOWN': '关门停业'
         }
         for (let point of points) {
+          if (!point.status) point.status = 'RUNNING'
+          if (!point.pointType) point.pointType = 'ATM'
           point.running = point.status === 'RUNNING'
           point.rest_message = holidays[point.status]
           point.colorType = {
