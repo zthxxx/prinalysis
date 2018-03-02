@@ -75,7 +75,7 @@
           <span class="item-color">{{printTypeMap[file.color]}}</span>
           <span class="item-side">{{printTypeMap[file.side]}}</span>
           <span class="item-copies">{{file.copies}}</span>
-          <span class="item-operation" v-if="file.download.enable">
+          <span class="item-operation" v-if="file.download && file.download.enable">
             <a :href="file.download.url" class="download">下载文件</a>
           </span>
           <span class="item-operation over-none" v-else>不可下载</span>
