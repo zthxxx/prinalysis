@@ -6,6 +6,7 @@ const print = () => import('@/pages/Print')
 const library = () => import('@/pages/Library')
 const fileView = () => import('@/pages/Library/FileView')
 const folderView = () => import('@/pages/Library/FolderView')
+const personView = () => import('@/pages/Library/PersonView')
 const user = () => import('@/pages/User')
 import order from '$@/Business/ManageBoard/Order'
 import Personal from '$@/Business/ManageBoard/Personal'
@@ -42,6 +43,11 @@ const routes = [
     path: '/library/folder/:folderID',
     component: folderView,
     name: 'folder-view'
+  },
+  {
+    path: '/library/personal/:uid',
+    component: personView,
+    name: 'person-view'
   },
   {
     path: '/user',

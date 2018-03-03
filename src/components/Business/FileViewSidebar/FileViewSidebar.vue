@@ -36,9 +36,9 @@
             <img :src="folderIcon" alt="folder"/>
             <figcaption class="description">
               <div class="folder-name">{{folder.name}}</div>
-              <div class="user">
+              <div class="user" @click.stop="viewPerson(folder.uploader.uid)">
                 <i class="el-icon-fa-user"></i>
-                <span class="nickname">{{folder.nickname}}</span>
+                <span class="nickname">{{folder.uploader.nickname}}</span>
               </div>
             </figcaption>
           </figure>
@@ -176,6 +176,9 @@
       expandComments () {
         this.commentExpanded = !this.commentExpanded
         this.setCommentStlye()
+      },
+      viewPerson (uid) {
+        this.$router.push({ name: 'person-view', params: { uid } })
       }
     }
   }

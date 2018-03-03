@@ -64,11 +64,11 @@
     mounted () {},
     methods: {
       back () {
-        this.$router.push({ name: 'library' })
+        this.$router.back()
       },
       uploader () {
         let { uid } = this.file.uploader
-        console.log(uid)
+        this.$router.push({ name: 'person-view', params: { uid } })
       }
     }
   }

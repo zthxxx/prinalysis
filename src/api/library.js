@@ -162,3 +162,11 @@ export const loadFileComment = fileID => get(API.FILE_COMMENT, { fileID })
  * @return {FolderInfo} - 精选集详细信息
  */
 export const getFolderInfo = folderID => get(API.FOLDER_DETAIL, { folderID })
+
+
+/**
+ * 获取用户个人的收藏夹列表
+ * @param {string} uid - 用户 ID
+ */
+export const getPersonCollect = uid => get(API.PERSON_COLLECT, { uid })
+

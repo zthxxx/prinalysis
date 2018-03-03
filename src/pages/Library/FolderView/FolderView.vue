@@ -24,7 +24,10 @@
     data () {
       return {
         folderID: this.$route.params.folderID,
-        folder: null
+        folder: {
+          tags: [],
+          files: []
+        }
       }
     },
     computed: {},

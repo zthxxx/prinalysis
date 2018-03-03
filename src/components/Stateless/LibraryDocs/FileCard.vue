@@ -1,5 +1,5 @@
 <template>
-  <doc-item-card :iconURL="fileIcon[format]">
+  <doc-item-card :iconURL="fileIcon[format]" :uid="uid">
     <template slot="count">{{pages}} 页</template>
     <template slot="doc-name">{{name}}</template>
     <template slot="user">{{nickname}}</template>
@@ -11,7 +11,6 @@
         打印 {{printed}}
       </div>
     </template>
-    <template slot="tips">点击查看详情</template>
   </doc-item-card>
 </template>
 
@@ -35,7 +34,7 @@
         id, name,
         created, pages, format,
         collected, printed,
-        uid, nickname
+        uploader: { uid, nickname }
       } = this.docItem
       return {
         id,

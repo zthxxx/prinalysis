@@ -8,19 +8,26 @@ const File = {
   'format|1': ['docx', 'pptx', 'xlsx', 'pdf'],
   collected: '@natural(0, 5)',
   printed: '@natural(0, 15)',
-  uid: '@id',
-  'nickname|1': ['@name', '@cname']
+  uploader: {
+    uid: '@id',
+    avatar: randomAvatar,
+    'nickname|1': ['@name', '@cname'],
+  }
 }
 
 const Folder = {
   id: '@id',
   name: '@cname()老师的精选',
+  tags: extract(['射惠射惠', '白色的季节', 'boy ♂ next ♂ door', 'my ♂ follow ♂ brother']),
   updated: '@now(T)',
   count: '@natural(1, 10)',
-  collected: '@natural(0, 5)',
   view: '@natural(0, 15)',
-  uid: '@id',
-  'nickname|1': ['@name', '@cname']
+  collected: '@natural(0, 5)',
+  uploader: {
+    uid: '@id',
+    avatar: randomAvatar,
+    'nickname|1': ['@name', '@cname'],
+  }
 }
 
 export default {
@@ -103,7 +110,7 @@ export default {
       'name|1': ['@csentence()', '射惠主义的白色相簿'],
       'description|1': ['', '@csentence()', 'ass ♂ we ♂ can'],
       tags: extract(['射惠射惠', '白色的季节', 'boy ♂ next ♂ door', 'my ♂ follow ♂ brother'], 0, 3),
-      created: '@now(T)',
+      updated: '@now(T)',
       viewed: '@natural(0, 15)',
       collected: '@natural(0, 5)',
       uploader: {
@@ -120,8 +127,11 @@ export default {
   },
   '/library/collect/folder': {
   },
-  '/library/personal/folders': {
-  },
-  '/library/personal/files': {
-  },
+  '/library/collect/personal': {
+    result: 'OK',
+    info: {
+      'created|0-8': [{ ...Folder }],
+      'collected|0-4': [{ ...Folder }]
+    }
+  }
 }

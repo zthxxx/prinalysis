@@ -170,8 +170,10 @@ Response:
  * @property {string} format - 文档格式（或扩展名）
  * @property {number} collected - 收藏数
  * @property {number} printed - 打印次数
- * @property {string} uid - 上传用户 ID
- * @property {string} nickname - 上传用户昵称
+ * @property {object} uploader - 文件上传者
+ * @property {string} uploader.uid - 上传者用户 ID
+ * @property {string} uploader.avatar - 上传者用户头像 url 地址
+ * @property {string} uploader.nickname - 上传者用户昵称
  */
 ```
 
@@ -197,12 +199,15 @@ Response:
  * @typedef {object} DocsFloder - 搜索到的精选集对象
  * @property {string} id - 精选集 ID
  * @property {string} name - 精选集名
+ * @property {string[]} tags - 精选集标签
  * @property {date} updated - 本集合的最后修改时间
  * @property {number} count - 包含文件数
- * @property {number} collected - 收藏数
  * @property {number} view - 浏览次数
- * @property {string} uid - 创建用户 ID
- * @property {string} nickname - 创建用户昵称
+ * @property {number} collected - 收藏数
+ * @property {object} uploader - 精选集创建者
+ * @property {string} uploader.uid - 创建者用户 ID
+ * @property {string} uploader.avatar - 创建者用户头像 url 地址
+ * @property {string} uploader.nickname - 创建者用户昵称
  */
 ```
 
@@ -319,7 +324,7 @@ Response:
  * @property {string} name - 精选集名
  * @property {string} description - 精选集描述简介
  * @property {string[]} tags - 精选集标签
- * @property {date} created - 精选集创建时间
+ * @property {date} updated - 精选集最后更新时间
  * @property {number} viewed - 浏览次数
  * @property {number} collected - 收藏数
  * @property {object} uploader - 创建者用户
@@ -358,3 +363,33 @@ Response:
 }
 ```
 
+## 7. 获取某用户的个人收藏夹
+
+GET:  /API/library/collect/personal
+
+描述：获取用户个人创建的精选集和收藏的精选集
+
+Parameters:
+
+```js
+uid: 要获取的指定的用户 ID
+```
+
+Response:
+
+> 获取成功返回收藏情况
+
+```js
+{
+  "result": "OK",
+  "info": {
+    "created": Array<DocsFloder>,  // 用户自己创建的精选集列表
+    "collected": Array<DocsFloder> // 用户收藏的精选集列表
+}
+```
+
+> 没有收藏或创建时，两个字段返回空数组
+>
+> 收藏具有唯一性，不能含有两个相同 ID 的精选集
+>
+> 收藏自己的创建的精选集并不冲突

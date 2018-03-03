@@ -5,7 +5,8 @@
         <div class="library-header">
           <header><i class="el-icon-fa-wpforms"></i>知书文库</header>
           <nav>
-            <el-button class="nav-button" type="text" icon="fa-bookmark-o">我的收藏</el-button>
+            <el-button class="nav-button" @click="viewPerson"
+                       type="text" icon="fa-bookmark-o">我的收藏</el-button>
             <el-button class="nav-button" type="text" icon="fa-cloud-upload">分享中心</el-button>
           </nav>
         </div>
@@ -40,11 +41,13 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import boxCard from '$@/Stateless/BoxCard'
   import professionSearch from '$@/UI/DocumentSearch/ProfessionSearch'
   import thematicSearch from '$@/UI/DocumentSearch/ThematicSearch'
   import fileCard from '$@/Stateless/LibraryDocs/FileCard'
   import folderCard from '$@/Stateless/LibraryDocs/FolderCard'
+  import { POPUP_LOGIN } from '$@/Popups'
   import { getLibOptional, seekLibFiles, seekLibFolders } from '@/api'
 
   export default {
@@ -67,7 +70,9 @@
         docs: []
       }
     },
-    computed: {},
+    computed: {
+      ...mapState('user', ['user']),
+    },
     watch: {},
     created () {
       this.changeSeachMethod('profession')
@@ -115,9 +120,16 @@
       view (type, id) {
         const types = {
           files: this.viewFile,
-          folders: this.viewFolder
+          folders: this.viewFolder,
         }
         types[type](id)
+      },
+      async viewPerson () {
+        if (!this.user) {
+          await this[POPUP_LOGIN]()
+        }
+        let uid = this.user.uid
+        this.$router.push({ name: 'person-view', params: { uid } })
       }
     }
   }

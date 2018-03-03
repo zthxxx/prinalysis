@@ -98,7 +98,7 @@ export const signup = ({ code, username, password, nickname, captcha }) => post(
  * 获取用户详细信息
  * @return {UserInfo} - 返回用户信息对象
  */
-export const getUserInfo = () => get(API.USER_INFO)
+export const getUserInfo = uid => get(API.USER_INFO, { uid })
 
 /**
  * 更新用户部分信息

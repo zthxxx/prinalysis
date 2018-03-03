@@ -64,3 +64,5 @@ export const FOLDERS_CONTAIN = '/library/contain/floders'
 export const FILE_COMMENT = '/library/comment/file'
 
 export const FOLDER_DETAIL = '/library/folder/detail'
+
+export const PERSON_COLLECT = '/library/collect/personal'

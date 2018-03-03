@@ -1,5 +1,5 @@
 <template>
-  <doc-item-card :iconURL="folderIcon">
+  <doc-item-card :iconURL="folderIcon" :uid="uid">
     <template slot="count">{{count}} 个文件</template>
     <template slot="doc-name">{{name}}</template>
     <template slot="user">{{nickname}}</template>
@@ -9,7 +9,10 @@
       <i class="el-icon-fa-folder-open-o"></i>
       浏览 {{view}}
     </template>
-    <template slot="tips">点击查看详情</template>
+    <template slot="tips" v-if="tags && tags.length">
+      <i class="el-icon-fa-tag"></i>
+      {{tags.join(' - ')}}
+    </template>
   </doc-item-card>
 </template>
 
@@ -29,14 +32,15 @@
     },
     data () {
       let {
-        id, name,
+        id, name, tags,
         updated, count,
         collected, view,
-        uid, nickname
+        uploader: { uid, nickname }
       } = this.docItem
       return {
         id,
         name,
+        tags,
         updated: formatDate(updated),
         count,
         collected,

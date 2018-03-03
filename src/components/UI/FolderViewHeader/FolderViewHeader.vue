@@ -14,7 +14,7 @@
                 <span class="text">{{folder.name}}</span>
               </div>
               <div class="attribute">
-                <i class="el-icon-fa-angle-left"></i>
+                <i class="el-icon-fa-bars"></i>
                 <span class="intro">简介：{{folder.description || '无'}}</span>
                 <span class="files">共 {{folder.files.length}} 个文件</span>
               </div>
@@ -57,6 +57,7 @@
           name: '（加载中 ...）',
           description: '',
           tags: [],
+          files: [],
           viewed: 0
         })
       }
@@ -68,18 +69,18 @@
     },
     computed: {
       upDate () {
-        return this.folder && formatDate(this.folder.created)
+        return this.folder && formatDate(this.folder.updated)
       }
     },
     watch: {},
     mounted () {},
     methods: {
       back () {
-        this.$router.push({ name: 'library' })
+        this.$router.back()
       },
       uploader () {
-        let { uid } = this.file.uploader
-        console.log(uid)
+        let { uid } = this.folder.uploader
+        this.$router.push({ name: 'person-view', params: { uid } })
       }
     }
   }

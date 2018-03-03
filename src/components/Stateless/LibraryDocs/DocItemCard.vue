@@ -8,7 +8,7 @@
       <div class="descripte">
         <header class="doc-name"><slot name="doc-name"></slot></header>
         <div>
-          <span class="user">
+          <span class="user" @click.stop="viewPerson">
             <i class="el-icon-fa-user"></i>
             <slot name="user"></slot>
           </span>
@@ -25,8 +25,10 @@
     </div>
     <footer>
       <span>
-        <i class="el-icon-fa-list-ul"></i>&nbsp;
-        <slot name="tips"></slot>
+        <slot name="tips">
+          <i class="el-icon-fa-list-ul"></i>
+          点击查看详情
+        </slot>
       </span>
     </footer>
   </section>
@@ -40,6 +42,10 @@
       iconURL: {
         type: String,
         required: false
+      },
+      uid: {
+        type: String,
+        required: true
       }
     },
     data () {
@@ -48,7 +54,12 @@
     computed: {},
     watch: {},
     mounted () {},
-    methods: {}
+    methods: {
+      viewPerson () {
+        let uid = this.uid
+        this.$router.push({ name: 'person-view', params: { uid } })
+      }
+    }
   }
 </script>
 

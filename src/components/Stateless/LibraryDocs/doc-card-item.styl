@@ -60,6 +60,8 @@
       color: blue-induce-text
       i
         font-size: 14px
+      &:hover
+        color: blue-pure
     .collected, .reviews
       display: inline-block
       margin: 4px 10px 0 -8px
@@ -77,6 +79,12 @@
   footer
     border-top: 1px dashed #ddd
     padding-left: 10px
-    font-size: 12px
-    line-height: 24px
     color: shallow-text-gray
+    span
+      display: inline-block
+      overflow: hidden
+      max-width: 100%
+      font-size: 12px
+      line-height: 24px
+      white-space: nowrap
+      text-overflow: ellipsis

@@ -1,0 +1,69 @@
+@import "~@/style/import"
+
+.library
+  margin: 10px auto 20px
+  width: 1080px
+  height: 100%
+  header
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    margin: 0 auto 10px
+    border-radius: 4px
+    padding: 8px
+    width: 1080px
+    height: 56px
+    font-size: 16px
+    background-color: #fff
+    box-shadow: 0 0 4px 1px #ddd
+    .back
+      display: inline-block
+      border-radius: 6px 0 0 6px
+      border-right: solid 1px #bbb
+      padding: 8px
+      width: 80px
+      text-align: center
+      vertical-align: middle
+      color: gray-text
+      transition: border .2s ease, background-color .2s ease
+      i
+        font-size: 20px
+        vertical-align: middle
+        color: #bbb
+      span
+        margin-left: 4px
+        vertical-align: middle
+      &:hover
+        cursor: pointer
+        border-color: #eee
+        background-color: #eee
+
+.title
+  display: inline-block
+  margin-left: 12px
+  vertical-align: middle
+  .person
+    img
+      border-radius: 50%
+      max-width: 38px
+      vertical-align: middle
+    .description
+      display: inline-block
+      margin-left: 4px
+      vertical-align: middle
+      .nickname
+        overflow: hidden
+        max-width: 700px
+        font-size: 18px
+        white-space: nowrap
+        text-overflow: ellipsis
+        color: deep-black
+
+.folder-list
+  .empty-tip
+    padding: 48px 0
+    font-size: 24px
+    text-align: center
+    color: gray-text
+  & >>> .card-title
+    color: deep-black
