@@ -46,7 +46,10 @@
           format: 'doc',
           institute: '-',
           subject: '-',
-          viewed: 0
+          viewed: 0,
+          uploader: {
+            uid: '000'
+          }
         })
       }
     },

@@ -64,7 +64,7 @@
       },
       target: {
         type: [Window, HTMLElement],
-        default () { return window }
+        default: () => window
       },
       onChange: {
         type: Function,
@@ -78,9 +78,6 @@
         fixedNode: null,
         placeholderStyle: null,
         affixStyle: null,
-
-        offsetTop: 0,
-        offsetBottom: 0,
 
         events: [
           'resize',

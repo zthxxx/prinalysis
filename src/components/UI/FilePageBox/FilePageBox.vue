@@ -100,7 +100,6 @@
       },
       onLoadimg () {
         this.loading = false
-        if (!this.$refs.pagebox) return
         let clientHeight = this.$refs.pagebox.clientHeight
         let scrollHeight = this.$refs.pagebox.scrollHeight
         if (scrollHeight <= clientHeight) {

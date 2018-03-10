@@ -58,7 +58,10 @@
           description: '',
           tags: [],
           files: [],
-          viewed: 0
+          viewed: 0,
+          uploader: {
+            uid: '000'
+          }
         })
       }
     },

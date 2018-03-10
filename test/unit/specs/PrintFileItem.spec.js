@@ -104,33 +104,29 @@ describe('PrintFileItem', () => {
     vm.setting.color = 'colorful'
   })
 
-  it('print-file-item update price will rewrite setting', done => {
+  it('print-file-item update price will rewrite setting', async () => {
     let vm = creatVM(printFileItem, { price, file })
     vm.$set(price[0].money, 'mono', { oneside: 30 })
     vm.$delete(price[0].money, 'colorful')
-    vm.$nextTick(() => {
-      expect(vm.setting).to.deep.equal({
-        ...expectSetting,
-        color: 'mono',
-        side: 1
-      })
-      done()
+    await vm.$nextTick()
+    expect(vm.setting).to.deep.equal({
+      ...expectSetting,
+      color: 'mono',
+      side: 1
     })
   })
 
-  it('print-file-item update preSetting will rewrite setting', done => {
+  it('print-file-item update preSetting will rewrite setting', async () => {
     let price = getPrices()
     let _preSetting = JSON.parse(JSON.stringify(expectSetting))
     let vm = creatVM(printFileItem, { price, file, preSetting: _preSetting })
     _preSetting.color = 'notcolor'
     _preSetting.side = Infinity
-    vm.$nextTick(() => {
-      expect(vm.setting).to.deep.equal({
-        ...expectSetting,
-        color: 'notcolor',
-        side: 1
-      })
-      done()
+    await vm.$nextTick()
+    expect(vm.setting).to.deep.equal({
+      ...expectSetting,
+      color: 'notcolor',
+      side: 1
     })
   })
 })
