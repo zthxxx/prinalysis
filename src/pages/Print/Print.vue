@@ -13,6 +13,16 @@
         </shop-point-list>
       </box-card>
       <box-card :title="`文件列表 (${fileList.length})`" :noPadding="true">
+        <span class="file-tips">
+          <transition name="float-fade">
+            <header v-if="!fileList.length">
+              请从本地上传文件 或
+              <router-link :to="{name: 'library'}">
+                <span class="to-library">从校园文库添加文件</span>
+              </router-link>
+            </header>
+          </transition>
+        </span>
         <upload-box ref="uploader"
                     :fileList="fileList"
                     :updateFiles="commitFiles">

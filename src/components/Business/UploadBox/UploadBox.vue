@@ -2,14 +2,6 @@
   <div class="upload-box-out">
     <upload-drag-box @file="transmitFiles">
       <slot></slot>
-      <transition name="float-fade">
-        <header class="tip" v-if="!fileList.length">
-          请从本地上传文件 或
-          <router-link :to="{name: 'library'}">
-            <span class="to-library">从校园文库添加文件</span>
-          </router-link>
-        </header>
-      </transition>
       <el-upload class="upload" ref="uploader" multiple
                  :action="action"
                  :data="payload"
@@ -26,7 +18,10 @@
           <br>
           <span class="upload-text">点击按钮或者把文件拖放到这里</span>
         </div>
-        <footer class="el-upload__tip" slot="tip">已支持的格式：{{supportFormat.join(',')}}</footer>
+        <footer class="el-upload__tip" slot="tip">
+          <p>已支持的格式：{{supportFormat.join(',')}}</p>
+          <p>请勿上传包含侵权、色情、暴恐、反动等违法内容的文档</p>
+        </footer>
       </el-upload>
     </upload-drag-box>
   </div>

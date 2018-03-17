@@ -7,6 +7,7 @@ const library = () => import('@/pages/Library')
 const fileView = () => import('@/pages/Library/FileView')
 const folderView = () => import('@/pages/Library/FolderView')
 const personView = () => import('@/pages/Library/PersonView')
+const shareView = () => import('@/pages/Library/ShareView')
 const user = () => import('@/pages/User')
 import order from '$@/Business/ManageBoard/Order'
 import Personal from '$@/Business/ManageBoard/Personal'
@@ -48,6 +49,12 @@ const routes = [
     path: '/library/personal/:uid',
     component: personView,
     name: 'person-view'
+  },
+  {
+    path: '/library/share',
+    component: shareView,
+    name: 'share-view',
+    meta: { access: ['user', 'vendor', 'manager'] },
   },
   {
     path: '/user',

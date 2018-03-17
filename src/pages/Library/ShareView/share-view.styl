@@ -1,0 +1,136 @@
+@import "~@/style/import"
+
+.library
+  margin: 10px auto 20px
+  width: 1080px
+  height: 100%
+  header
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    margin: 0 auto 10px
+    border-radius: 4px
+    padding: 8px
+    width: 1080px
+    height: 56px
+    font-size: 16px
+    background-color: #fff
+    box-shadow: 0 0 4px 1px #ddd
+    .back
+      display: inline-block
+      border-radius: 6px 0 0 6px
+      border-right: solid 1px #bbb
+      padding: 8px
+      width: 80px
+      text-align: center
+      vertical-align: middle
+      color: gray-text
+      transition: border .2s ease, background-color .2s ease
+      i
+        font-size: 20px
+        vertical-align: middle
+        color: #bbb
+      span
+        margin-left: 4px
+        vertical-align: middle
+      &:hover
+        cursor: pointer
+        border-color: #eee
+        background-color: #eee
+
+.title
+  display: inline-block
+  margin-left: 12px
+  vertical-align: middle
+  i
+    border-radius: 50%
+    padding: 0 6px
+    width: 32px
+    line-height: 32px
+    font-size: 18px
+    color: #fff
+    vertical-align: middle
+    background-color: blue-dark
+  span
+    display: inline-block
+    margin-left: 4px
+    font-size: 18px
+    color: deep-black
+    vertical-align: middle
+
+.documents
+  selector-tabs()
+  .selector-tabs
+    margin: 6px auto 20px
+  .empty-tip
+    padding: 40px 0
+    font-size: 24px
+    text-align: center
+    color: shallow-text-gray
+
+
+.file-list .file-item
+  padding: 10px 20px
+  .file-info, .file-tags
+    display: inline-block
+    vertical-align: top
+  .file-info
+    margin: 10px 0 0 15px
+    width: 460px
+    .file
+      img
+        max-width: 72px
+        vertical-align: middle
+      .description
+        display: inline-block
+        margin-left: 10px
+        vertical-align: middle
+        .name
+          overflow: hidden
+          max-width: 360px
+          font-size: 15px
+          white-space: nowrap
+          text-overflow: ellipsis
+          color: deep-black
+        .attribute
+          margin-top: 20px
+          font-size: 14px
+          color: shallow-text-gray
+    .share-name
+      margin: 15px 0 0 10px
+  .file-tags
+    margin: 4px 0 0 20px
+    .tag-tip
+      color: blue-dark
+      display: block
+      margin-bottom: 6px
+      font-size: 14px
+    & > div
+      margin-bottom: 6px
+  .input-tip
+    display: inline-block
+    border-left: 3px solid blue-dark
+    padding-left: 8px
+    width: 80px
+    line-height: 28px
+    font-size: 16px
+    color: blue-dark
+  .input
+    display: inline-block
+    width: 320px
+
+  .footer
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 0
+    width: 100%
+    height: 60px
+    text-align: center
+    .footer-button
+      margin: 0 20px
+      padding: 0
+      width: 120px
+      height: 32px
+      transition: all .2s ease-out
+

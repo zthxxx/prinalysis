@@ -7,7 +7,8 @@
           <nav>
             <el-button class="nav-button" @click="viewPerson"
                        type="text" icon="fa-bookmark-o">我的收藏</el-button>
-            <el-button class="nav-button" type="text" icon="fa-cloud-upload">分享中心</el-button>
+            <el-button class="nav-button" @click="viewShare"
+                       type="text" icon="fa-cloud-upload">分享中心</el-button>
           </nav>
         </div>
       </box-card>
@@ -130,6 +131,12 @@
         }
         let uid = this.user.uid
         this.$router.push({ name: 'person-view', params: { uid } })
+      },
+      async viewShare () {
+        if (!this.user) {
+          await this[POPUP_LOGIN]()
+        }
+        this.$router.push({ name: 'share-view' })
       }
     }
   }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
 import print from './modules/print'
+import share from './modules/share'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
   mutations,
   modules: {
     user,
-    print
+    print,
+    share
   }
 })
 
